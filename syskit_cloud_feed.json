@@ -1,7 +1,7 @@
 {
-  "versiyon": "3.0.0",
+  "versiyon": "3.1.0",
   "guncelleme_tarihi": "2026-11-03",
-  "toplam_kayit": 600,
+  "toplam_kayit": 612,
   "kayitlar": [
     {
       "id": "net_pppoe_vlan_fiber_setup",
@@ -22625,6 +22625,460 @@
         "chkdsk",
         "disk arizasi",
         "mavi ekran"
+      ]
+    },
+    {
+      "id": "print_usb_lan_pc_sharing_setup",
+      "kategori": "Yazıcı",
+      "alt_kategori": "USB Ağ Paylaşımı & Yan PC",
+      "baslik": "Yan PC'ye USB Bağlı Yazıcıyı Ağda Paylaşma",
+      "hizli_adimlar": [
+        "Yazıcının USB ile bağlı olduğu bilgisayarda (Ana PC): Denetim Masası > Aygıtlar ve Yazıcılar'ı açın.",
+        "Yazıcıya sağ tıklayıp 'Yazıcı Özellikleri' > 'Paylaşım' sekmesine gelin, 'Bu yazıcıyı paylaştır'ı işaretleyip bir Paylaşım Adı (Örn: OfisYazici) verin.",
+        "Gelişmiş Paylaşım Ayarları'ndan 'Ağ bulma' ve 'Dosya ve yazıcı paylaşımı'nı açın.",
+        "Hedef bilgisayarda (İstemci PC): Win+R tuşlarına basıp '\\\\AnaPC_IP_Adresi' (Örn: \\\\192.168.1.50) yazıp Enter'a basın.",
+        "Açılan pencerede paylaşılan yazıcıya sağ tıklayıp 'Bağlan' (Connect) deyin."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Ana Bilgisayarın Yerel IP Adresini Öğrenme",
+          "komut": "ipconfig | findstr /i \"IPv4\"",
+          "aciklama": "Yazıcının bağlı olduğu bilgisayarın yerel IP adresini tespit eder."
+        },
+        {
+          "etiket": "Paylaşılan Yazıcıları Listeleme",
+          "komut": "net view \\\\192.168.1.50",
+          "aciklama": "Hedef bilgisayarda paylaşıma açık tüm yazıcı ve klasörleri döker."
+        }
+      ],
+      "temel_anlatim": "Yazıcının kendi Ethernet veya Wi-Fi kartı olmadığında, USB kablosuyla ofisteki bir bilgisayara bağlanır ve o bilgisayar Windows'un dosya/yazıcı paylaşım servisi (SMB) üzerinden yazıcıyı yerel ağdaki diğer makinelerin kullanımına sunar.",
+      "derin_teknik_analiz": "Windows Spooler servisi (spoolsv.exe), paylaşılan yazıcı için SMB protokolü (TCP 445 ve NetBIOS 139) üzerinden bir RPC uç noktası oluşturur. İstemci bilgisayar yazdırma işi gönderdiğinde EMF veya RAW veri akışı SMB üzerinden ana bilgisayarın '\\Windows\\System32\\spool\\PRINTERS' klasörüne yazılır ve ana bilgisayarın USB portuna iletilir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Ana bilgisayar yeniden başlatılınca veya IP değişince istemciler yazdıramıyor",
+          "neden": "Ana bilgisayar modemin DHCP havuzundan dinamik IP alıyordur.",
+          "cozum": "Ana bilgisayarın ağ kartına kalıcı statik yerel IP (Örn: 192.168.1.200) tanımlayın."
+        }
+      ],
+      "etiketler": [
+        "usb yazici paylasimi",
+        "yan pc",
+        "agda yazici",
+        "paylasim",
+        "smb",
+        "spooler"
+      ]
+    },
+    {
+      "id": "print_0x0000011b_printnightmare_fix",
+      "kategori": "Yazıcı",
+      "alt_kategori": "USB Ağ Paylaşımı & Yan PC",
+      "baslik": "0x0000011b Paylaşımlı Yazıcı Bağlantı Hatası",
+      "hizli_adimlar": [
+        "İstemci bilgisayarda paylaşılan yazıcıya bağlanırken '0x0000011b' hatası alınıyorsa:",
+        "Yazıcının FİZİKSEL OLARAK BAĞLI OLDUĞU (Ana PC) bilgisayarda Yönetici CMD açın.",
+        "Kayıt defterine RPC gizlilik korumasını esneten DWORD anahtarını ekleyin.",
+        "Komut: reg add \"HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\Print\" /v RpcAuthnLevelPrivacyEnabled /t REG_DWORD /d 0 /f",
+        "Yazdırma Biriktiricisi servisini yeniden başlatın: net stop spooler && net start spooler"
+      ],
+      "komutlar": [
+        {
+          "etiket": "PrintNightmare RPC Kaydını Düzelt (Ana PC)",
+          "komut": "reg add \"HKLM\\System\\CurrentControlSet\\Control\\Print\" /v RpcAuthnLevelPrivacyEnabled /t REG_DWORD /d 0 /f",
+          "aciklama": "0x0000011b hatasına yol açan RPC paket şifreleme zorunluluğunu kaldırır."
+        },
+        {
+          "etiket": "Spooler Servisini Sıfırla",
+          "komut": "net stop spooler && net start spooler",
+          "aciklama": "Kayıt defteri değişikliğinin anında devreye girmesini sağlar."
+        }
+      ],
+      "temel_anlatim": "Microsoft'un PrintNightmare güvenlik açığını yamamak için yayınladığı güncelleme (KB5005565 vb.), ağ üzerinden paylaşılan yazıcılarda RPC kimlik doğrulama seviyesini yükseltmiştir. Çalışma grubu (Workgroup) ortamlarında istemci ve sunucu aynı etki alanında olmadığından bağlantı 0x0000011b koduyla engellenir.",
+      "derin_teknik_analiz": "CVE-2021-1678 güvenlik yaması, Spooler RPC arayüzünde 'Packet Privacy' (RPC_C_AUTHN_LEVEL_PKT_PRIVACY) zorunluluğu getirmiştir. İstemci bu seviyede el sıkışamazsa STATUS_ACCESS_DENIED döner. Kayıt defterindeki 'RpcAuthnLevelPrivacyEnabled=0' değeri bu zorunluluğu devre dışı bırakarak yerel ağda iletişime izin verir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Kayıt defteri anahtarı eklenmesine rağmen hata devam ediyor",
+          "neden": "Kayıt defteri istemciye eklenmiş olabilir; anahtar yazıcının takılı olduğu ANA BİLGİSAYARDA olmalıdır.",
+          "cozum": "Komutu yazıcının USB ile bağlı olduğu bilgisayarda çalıştırın."
+        }
+      ],
+      "etiketler": [
+        "0x0000011b",
+        "printnightmare",
+        "rpcauthnlevelprivacyenabled",
+        "paylasimli yazici",
+        "hata"
+      ]
+    },
+    {
+      "id": "print_0x00000709_cname_rpc_fix",
+      "kategori": "Yazıcı",
+      "alt_kategori": "USB Ağ Paylaşımı & Yan PC",
+      "baslik": "0x00000709 Yazıcı Bağlantı Hatası (RPC İsim Çözme)",
+      "hizli_adimlar": [
+        "İstemci bilgisayarda '0x00000709 İşlem tamamlanamadı' hatası alındığında:",
+        "İstemci bilgisayarda Yönetici CMD açın.",
+        "Yazıcı RPC bağlantısının isim yerine doğrudan IP üzerinden zorlanmasını sağlayan anahtarı girin.",
+        "Komut: reg add \"HKEY_CURRENT_USER\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Windows\" /v LegacyDefaultPrinterMode /t REG_DWORD /d 1 /f",
+        "Yazıcıya isim (\\\\AnaPC\\Yazici) yerine IP ile bağlanmayı deneyin: \\\\192.168.1.50\\Yazici"
+      ],
+      "komutlar": [
+        {
+          "etiket": "Varsayılan Yazıcı Modu Kaydı",
+          "komut": "reg add \"HKCU\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Windows\" /v LegacyDefaultPrinterMode /t REG_DWORD /d 1 /f",
+          "aciklama": "Windows'un son kullanılan yazıcıyı yönetme davranışını kapatıp statik atamaya izin verir."
+        }
+      ],
+      "temel_anlatim": "0x00000709 hatası, Windows'un ağdaki yazıcıyı kayıt defterinde bulamaması veya hedef bilgisayarın adını DNS/NetBIOS üzerinden çözememesi durumunda ortaya çıkar.",
+      "derin_teknik_analiz": "Print Spooler, sunucunun CNAME veya NetBIOS adı ile bağlandığında Kerberos SPN (Service Principal Name) doğrulamasını geçemeyebilir. IP üzerinden doğrudan bağlantı kurulması ve Spooler RPC protokolünün Named Pipes yerine TCP portuna yönlendirilmesi sorunu çözer.",
+      "kenar_durumlar": [
+        {
+          "durum": "Yazıcıyı varsayılan yaparken 0x00000709 veriyor",
+          "neden": "Kayıt defterindeki 'Device' anahtarının yetkileri bozulmuştur.",
+          "cozum": "regedit'ten 'HKCU\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Windows' iznini Administrators grubuna Full Control yapın."
+        }
+      ],
+      "etiketler": [
+        "0x00000709",
+        "yazici baglanamadi",
+        "varsayilan yazici",
+        "rpc",
+        "cname"
+      ]
+    },
+    {
+      "id": "print_guest_auth_insecure_sharing",
+      "kategori": "Yazıcı",
+      "alt_kategori": "USB Ağ Paylaşımı & Yan PC",
+      "baslik": "Şifresiz Paylaşımlı Yazıcıya Bağlanma (Guest Auth)",
+      "hizli_adimlar": [
+        "Ana PC'de şifresiz paylaşım açık olmasına rağmen istemcide 'Kullanıcı adı ve parola' isteniyorsa:",
+        "İstemci bilgisayarda Yönetici PowerShell açın.",
+        "Güvensiz misafir (Guest) oturumuna izin veren ilkeyi aktifleştirin.",
+        "Komut: reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\" /v AllowInsecureGuestAuth /t REG_DWORD /d 1 /f",
+        "İstemciyi yeniden başlatın ve paylaşıma tekrar bağlanın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Güvensiz Konuk Oturumunu Aç",
+          "komut": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\" /v AllowInsecureGuestAuth /t REG_DWORD /d 1 /f",
+          "aciklama": "Windows 10/11'de şifresiz SMB paylaşımlarına erişim engelini kaldırır."
+        }
+      ],
+      "temel_anlatim": "Windows 10 ve 11, güvenlik gereği parolasız paylaşılan ağ kaynaklarına (yazıcı veya klasör) bağlanmayı varsayılan olarak engeller. Bu ayar, şifre sormadan doğrudan yan bilgisayara bağlanabilmeyi sağlar.",
+      "derin_teknik_analiz": "LanmanWorkstation istemcisi, SMB 2.x ve 3.x protokollerinde kimlik doğrulanmamış misafir (unauthenticated guest) erişimini varsayılan olarak reddeder (STATUS_ACCESS_DENIED). 'AllowInsecureGuestAuth=1' anahtarı, SMB sunucusu NULL oturum talep ettiğinde istemcinin bu talebi kabul etmesini sağlar.",
+      "kenar_durumlar": [
+        {
+          "durum": "Yine de parola penceresi açılıyor ve kabul etmiyor",
+          "neden": "Kullanıcı adı boş geçiliyordur.",
+          "cozum": "Kullanıcı adına 'Guest' veya 'Misafir' yazıp şifreyi boş bırakarak Enter'a basın."
+        }
+      ],
+      "etiketler": [
+        "allowinsecureguestauth",
+        "misafir oturumu",
+        "sifresiz paylasim",
+        "lanmanworkstation",
+        "smb"
+      ]
+    },
+    {
+      "id": "print_credential_manager_cmdkey",
+      "kategori": "Yazıcı",
+      "alt_kategori": "USB Ağ Paylaşımı & Yan PC",
+      "baslik": "Kimlik Bilgisi Kaydetme ile Kalıcı Yazıcı Erişimi",
+      "hizli_adimlar": [
+        "Bilgisayar her açıldığında paylaşımlı yazıcı çevrimdışı kalıyor ve parola soruyorsa:",
+        "İstemci bilgisayarda CMD açın.",
+        "Ana bilgisayarın IP'sini ve oturum açma şifresini Windows Kimlik Bilgileri'ne kalıcı yazın.",
+        "Komut: cmdkey /add:192.168.1.50 /user:AnaPC_KullaniciAdi /pass:AnaPC_Sifre",
+        "Artık istemci açıldığında arka planda otomatik kimlik doğrular ve yazıcı asla çevrimdışına düşmez."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Ağ Kimlik Bilgisini Kalıcı Kaydet",
+          "komut": "cmdkey /add:192.168.1.50 /user:KullaniciAdi /pass:Parola",
+          "aciklama": "Hedef IP'ye bağlanırken kullanılacak kullanıcı adı ve şifreyi kasaya kilitler."
+        },
+        {
+          "etiket": "Kayıtlı Kimlik Bilgilerini Listele",
+          "komut": "cmdkey /list",
+          "aciklama": "Sistemde depolanan ağ kimlik bilgilerini görüntüler."
+        }
+      ],
+      "temel_anlatim": "Paylaşılan yazıcıya bağlanırken 'Beni hatırla' seçeneği bazen Windows yeniden başladığında unutulur. 'cmdkey' komutu kimlik bilgilerini doğrudan Windows Kimlik Bilgisi Kasası'na (Credential Manager) kalıcı olarak yazar.",
+      "derin_teknik_analiz": "Windows Credential Manager, LSASS korumalı belleğinde hedef IP (TargetName) için DPAPI (Data Protection API) ile şifrelenmiş kimlik kartı saklar. SMB istemcisi hedef IP'ye TCP 445 isteği attığında otomatik NTLMSSP paketine bu kimlik verilerini gömer.",
+      "kenar_durumlar": [
+        {
+          "durum": "Ana bilgisayarın şifresi değiştiğinde istemci yazdıramıyor",
+          "neden": "Kasadaki eski parola geçersiz kalmıştır.",
+          "cozum": "'cmdkey /delete:192.168.1.50' yapıp yeni şifreyle tekrar ekleyin."
+        }
+      ],
+      "etiketler": [
+        "cmdkey",
+        "credential manager",
+        "kimlik bilgileri",
+        "otomatik giris",
+        "paylasim"
+      ]
+    },
+    {
+      "id": "print_lpt_to_usb_virtual_mapping",
+      "kategori": "Yazıcı",
+      "alt_kategori": "USB Ağ Paylaşımı & Yan PC",
+      "baslik": "DOS / Muhasebe Programları İçin LPT1'i USB'ye Eşleme",
+      "hizli_adimlar": [
+        "Eski DOS, ETA veya mikro muhasebe programları sadece LPT1 portuna çıktı veriyor fakat yazıcı USB ise:",
+        "Yazıcıyı yerel bilgisayarda paylaşıma açın (Paylaşım adı: 'Yazici').",
+        "Yönetici CMD açın ve sanal döngü (loopback) ile LPT1 portunu USB paylaşımına bağlayın.",
+        "Komut: net use LPT1 \\\\localhost\\Yazici /persistent:yes",
+        "Muhasebe programından LPT1'e yazdırdığınızda çıktı doğrudan USB yazıcıdan basılır."
+      ],
+      "komutlar": [
+        {
+          "etiket": "LPT1 Portunu USB Paylaşımına Eşle",
+          "komut": "net use LPT1 \\\\127.0.0.1\\Yazici /persistent:yes",
+          "aciklama": "Paralel port çıktılarını USB paylaşımlı yazıcıya yönlendirir."
+        },
+        {
+          "etiket": "LPT Port Durumunu Kontrol Et",
+          "komut": "net use",
+          "aciklama": "Aktif port ve sürücü eşlemelerini listeler."
+        }
+      ],
+      "temel_anlatim": "Eski ticari yazılımlar USB portlarını tanımaz ve doğrudan LPT1 (paralel port) donanım adresine bayt basar. Windows'un 'net use' komutu sayesinde bilgisayar kendi içindeki USB yazıcıyı bir ağ yazıcısı gibi LPT1'e yönlendirir.",
+      "derin_teknik_analiz": "Komut satırı dosya yönlendirme alt sistemi (PRN, LPT1, COM1), MS-DOS cihaz adlarını SMB Named Pipe (`\\PIPE\\spoolss`) akışına aktarır. '/persistent:yes' parametresi bu sanal bağlantıyı Registry'de 'HKCU\\Network' altına yazarak sistem yeniden başlasa da canlı tutar.",
+      "kenar_durumlar": [
+        {
+          "durum": "Bilgisayar internete veya yerel ağa bağlı değilken LPT1 yönlendirmesi çalışmıyor",
+          "neden": "Ağ kartı takılı değilse 'localhost' SMB çözümlemesi başarısız olur.",
+          "cozum": "Microsoft KM-TEST Geri Döngü Bağdaştırıcısı (Loopback Adapter) yükleyin."
+        }
+      ],
+      "etiketler": [
+        "lpt1 to usb",
+        "dos yazdirma",
+        "muhasebe",
+        "net use lpt1",
+        "loopback"
+      ]
+    },
+    {
+      "id": "print_hp_error_49_formatter_lock",
+      "kategori": "Yazıcı",
+      "alt_kategori": "Marka Hata Kodları: HP",
+      "baslik": "HP Error 49.XXXX Service Error (Formatter Donması)",
+      "hizli_adimlar": [
+        "HP LaserJet ekranında '49.XXXX Service Error - Turn off then on' yazıyorsa:",
+        "Yazıcının ağ (Ethernet) veya USB kablosunu DERHAL ÇEKİN ve yazıcıyı kapatıp açın.",
+        "Kablo takılı değilken yazıcı hazır (Ready) duruma geçiyorsa sorun ağdan gelen bozuk yazdırma işidir.",
+        "Ağdaki tüm bilgisayarların Yazdırma Kuyruğunu kontrol edin ve bekleyen bozuk PDF/PostScript işini silin.",
+        "Yazıcının ağ kablosunu geri takın; sorunsuz çalışacaktır."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Yerel Yazdırma Kuyruğunu Zorla Temizle",
+          "komut": "net stop spooler && del /q /f %systemroot%\\System32\\spool\\PRINTERS\\* && net start spooler",
+          "aciklama": "Kilitlenen bozuk yazdırma dosyalarını spool klasöründen süpürür."
+        }
+      ],
+      "temel_anlatim": "HP yazıcılarda 49 hatası genellikle donanımsal bir arıza değildir. Yazıcıya gönderilen bozuk bir PDF, uyumsuz font veya hatalı PostScript kodu yazıcının ana kartındaki işlemcinin kilitlenmesine sebep olur. Kablo çekilerek bozuk iş kuyruktan silinmelidir.",
+      "derin_teknik_analiz": "HP Formatter kartı üzerindeki gömülü Linux/VxWorks işletim sistemi, gelen PJL (Printer Job Language) veya PCL/PostScript akışını yorumlarken (parser) bellek taşması (buffer overflow) veya işlenmeyen istisna (unhandled exception) yaşar. Ağ bağlantısı açık kaldığı sürece yazıcı yeniden başlasa da aynı bozuk paketi tekrar alıp sonsuz döngüye girer.",
+      "kenar_durumlar": [
+        {
+          "durum": "Kablo çekilmesine rağmen yazıcı açılışta 49 hatası veriyor",
+          "neden": "Formatter kartındaki RAM veya Flash Firmware çipi arızalanmıştır.",
+          "cozum": "Yazıcı Firmware'ini Pre-boot menüsünden USB bellek ile yeniden yükleyin."
+        }
+      ],
+      "etiketler": [
+        "hp 49 error",
+        "service error",
+        "hp laserjet",
+        "formatter",
+        "spool temizleme"
+      ]
+    },
+    {
+      "id": "print_canon_b200_5100_encoder",
+      "kategori": "Yazıcı",
+      "alt_kategori": "Marka Hata Kodları: Canon",
+      "baslik": "Canon Error B200 / 5100 (Kafa & Enkoder Arızası)",
+      "hizli_adimlar": [
+        "Canon yazıcıda B200 veya 5100 hatası alındığında:",
+        "Yazıcının kapağını açın ve kartuş taşıyıcısının arkasında boylu boyunca uzanan şeffaf plastik şeridi (Timing / Encoder Strip) inceleyin.",
+        "Şerit üzerinde mürekkep lekesi veya yağ varsa, kuru bir pamuklu çubukla çok nazikçe temizleyin.",
+        "Kartuşları ve yazıcı kafasını çıkarıp kafa arkasındaki altın kontakları izopropil alkol ile silin.",
+        "Yazıcıyı elektrik fişinden çekip güç tuşuna 10 saniye basılı tutarak statik elektriği boşaltın ve tekrar açın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "WIA Tarayıcı & Yazıcı Teşhisi",
+          "komut": "powershell -Command \"Get-Service stisvc | Restart-Service\"",
+          "aciklama": "Canon çok fonksiyonlu yazıcı servislerini yeniden başlatır."
+        }
+      ],
+      "temel_anlatim": "Canon yazıcılarda B200 hatası termal yazıcı kafasının aşırı ısınması veya voltaj dalgalanmasıdır. 5100 hatası ise taşıyıcının nerede olduğunu okuyamamasıdır; genellikle şeffaf kılavuz şeridinin (enkoder) mürekkeple kirlenmesinden kaynaklanır.",
+      "derin_teknik_analiz": "Optik enkoder sensörü, taşıyıcı hareket ederken şeffaf şerit üzerindeki mikroskobik dikey çizgileri okuyarak konum hesaplar. Mürekkep lekesi çizgileri kapattığında sensör adım atlar ve DC kontrolcü motoru korumaya alarak 5100 hatası üretir. B200 ise kafa nozüllerindeki termal rezistansların kısa devre yapması sonucu anakart voltaj regülatörünün çökmesidir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Temizliğe rağmen B200 gitmiyor",
+          "neden": "Yazıcı kafası kalıcı olarak yanmıştır.",
+          "cozum": "Kafa değişimi yapılmalı veya sarı elektrik bandı ile kafadaki arızalı pin sırası izole edilmelidir."
+        }
+      ],
+      "etiketler": [
+        "canon b200",
+        "canon 5100",
+        "enkoder seridi",
+        "yazici kafasi",
+        "canon hata"
+      ]
+    },
+    {
+      "id": "print_epson_waste_ink_pad_e11",
+      "kategori": "Yazıcı",
+      "alt_kategori": "Marka Hata Kodları: Epson",
+      "baslik": "Epson Atık Mürekkep Pedi (E-11 / Waste Ink Pad Reset)",
+      "hizli_adimlar": [
+        "Epson yazıcıda 'Yazıcının mürekkep pedinin kullanım ömrü dolmuştur (E-11)' uyarısı veriyorsa:",
+        "Bu donanımsal bir arıza değil, EEPROM sayacının güvenlik sınırına ulaşmasıdır.",
+        "Yazıcıyı USB kablosuyla bilgisayara bağlayın (Wi-Fi üzerinden sıfırlanamaz).",
+        "Epson Adjustment Program (WIC Reset) aracını çalıştırın.",
+        "'Waste Ink Pad Counter' menüsünden 'Main pad counter' kutusunu işaretleyip 'Check' ve ardından 'Initialization' butonuna basarak sayacı %0 yapın.",
+        "Yazıcıyı güç tuşundan kapatıp açın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "USB Yazdırma Desteği Denetimi",
+          "komut": "pnputil /enum-devices /class USB",
+          "aciklama": "Yazıcının USB sıfırlama aracıyla iletişim kurabildiğini doğrular."
+        }
+      ],
+      "temel_anlatim": "Epson mürekkep püskürtmeli ve EcoTank yazıcılar her kafa temizliğinde bir miktar mürekkebi yazıcının altındaki emici keçelere atar. Yazıcı keçenin taşmasını engellemek için belirli bir sayfa sayısından sonra kendini kilitler.",
+      "derin_teknik_analiz": "Main Board üzerindeki EEPROM yongasında saklanan temizleme döngüsü sayaç değeri (örneğin 6.500 sayfa) maksimum eşiğe ulaştığında mikrodenetleyici motor sürücülerine giden sinyalleri keser ve çift kırmızı LED flaş durumuna geçer. Yazılımsal sıfırlamadan sonra fiziksel keçenin yıkanması veya arkaya harici atık mürekkep şişesi takılması önerilir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Sayaç sıfırlandıktan bir süre sonra masaya mürekkep akıyor",
+          "neden": "Fiziksel keçe dolmuş ve taşmıştır.",
+          "cozum": "Yazıcının altındaki atık kutusunu söküp keçeleri yıkayıp kurutun veya yenisini takın."
+        }
+      ],
+      "etiketler": [
+        "epson e-11",
+        "waste ink pad",
+        "atik murekkep pedi",
+        "wic reset",
+        "epson ecotank"
+      ]
+    },
+    {
+      "id": "print_brother_drum_counter_reset",
+      "kategori": "Yazıcı",
+      "alt_kategori": "Marka Hata Kodları: Brother",
+      "baslik": "Brother 'Replace Drum' / 'Drum!' Hatası Sıfırlama",
+      "hizli_adimlar": [
+        "Yeni tambur ünitesi (Drum) takılmasına rağmen 'Replace Drum' uyarısı gitmiyorsa:",
+        "Yazıcı açıkken ön kapağı (toner taktığınız kapak) AÇIK BIRAKIN.",
+        "Ekransız modellerde (HL serisi): 'Go' tuşuna tüm ışıklar yanana kadar (yaklaşık 4 saniye) basılı tutun ve bırakın.",
+        "Ekranlı modellerde (DCP/MFC serisi): 'OK' tuşuna 2 saniye basılı tutun, ekranda 'Reset Drum?' çıkınca 'Yukarı Ok (1)' tuşuna basarak sıfırlayın.",
+        "Ön kapağı kapatın; hata kaybolacaktır."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Spooler Servisi Durumu",
+          "komut": "sc query spooler",
+          "aciklama": "Yazdırma servisinin durumunu kontrol eder."
+        }
+      ],
+      "temel_anlatim": "Brother lazer yazıcılarda toner ile drum ünitesi birbirinden bağımsızdır. Yeni bir drum takıldığında yazıcı bunu çip ile otomatik anlamaz; kullanıcının tuş kombinasyonuyla drum sayacını sıfırlaması gerekir.",
+      "derin_teknik_analiz": "Brother OPC tambur ömrü yaklaşık 12.000 sayfadır. Yazıcı tambur şarj voltajını sayfa sayısı arttıkça dengeler. Sayaç sıfırlanmazsa yüksek voltaj uygulamaya devam eder ve baskıda gri arka plan lekelenmesi veya siliklik meydana gelir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Sıfırlama yapıldı fakat baskıda düzenli aralıklarla siyah noktalar var",
+          "neden": "OPC silindiri üzerine toner parçası yapışmıştır.",
+          "cozum": "Tambur ünitesindeki mavi tırnağı birkaç kez sağa sola kaydırarak korona telini temizleyin."
+        }
+      ],
+      "etiketler": [
+        "brother replace drum",
+        "drum reset",
+        "tambur sifirlama",
+        "hl serisi",
+        "brother lazer"
+      ]
+    },
+    {
+      "id": "print_zebra_barcode_gap_calibration",
+      "kategori": "Yazıcı",
+      "alt_kategori": "Barkod & Endüstriyel Yazıcılar",
+      "baslik": "Zebra Barkod Yazıcı Boş Etiket Atlama & Kalibrasyon",
+      "hizli_adimlar": [
+        "Zebra yazıcı tek bir etiket basmak yerine 2-3 boş etiket atıp kırmızı ışık yakıyorsa:",
+        "Yazıcı kapalıyken 'Feed' tuşuna basılı tutarak güç anahtarını açın.",
+        "Durum ışığı sırayla yanıp sönerken 'Flash' modunda (veya 4 flaşta) tuşu bırakarak Otomatik Sensör Kalibrasyonunu tetikleyin.",
+        "Yazıcı etiket aralığını (Gap / Black Mark) ölçmek için birkaç etiket sürüp duracaktır.",
+        "Windows sürücüsünde: Yazdırma Tercihleri > Gelişmiş Ayarlar'dan Etiket Boyutunu (Örn: 100mm x 100mm) ve Ortam Türünü 'Aralıklı Etiket' (Web Sensing) olarak ayarlayın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Zebra ZPL Kalibrasyon Komutu Gönderme",
+          "komut": "powershell -Command \"Set-Content -Path \\\\localhost\\Zebra -Value '~JC'\"",
+          "aciklama": "Yazıcıya doğrudan sensör kalibrasyonu (ZPL ~JC) komutu gönderir."
+        }
+      ],
+      "temel_anlatim": "Barkod yazıcılar etiketin nerede bittiğini anlamak için optik geçirgenlik (transmissive) sensörü kullanır. Yeni rulo takıldığında etiket kalınlığı veya ara boşluğu değiştiği için sensörün kalibre edilmesi gerekir.",
+      "derin_teknik_analiz": "Zebra EPL/ZPL motoru, etiket gövdesi ile taşıyıcı astar (liner) arasındaki ışık geçirgenlik voltaj farkını (Delta V) ölçer. Eşik değeri aşıldığında etiket başı kabul edilir. Sürücüde etiket yüksekliği yanlış girilirse firmware zaman aşımına uğrar ve 'Media Out' hatasıyla kırmızı LED yakar.",
+      "kenar_durumlar": [
+        {
+          "durum": "Kalibrasyona rağmen etiket kayıyor",
+          "neden": "Işık sensörü sağa-sola kayabilen tiptedir ve etiketin boşluk deliğini görmüyordur.",
+          "cozum": "Yazıcı kafasının altındaki yeşil sensör gözünü etiketin orta/boşluk hizasına kaydırın."
+        }
+      ],
+      "etiketler": [
+        "zebra kalibrasyon",
+        "barkod yazici",
+        "bos etiket atlama",
+        "gap sensor",
+        "zpl"
+      ]
+    },
+    {
+      "id": "print_scan_to_smb_windows_11_ntlm",
+      "kategori": "Yazıcı",
+      "alt_kategori": "Tarayıcı & Ağa Tarama (SMB)",
+      "baslik": "Fotokopi Makinelerinden Klasöre Tarama (Scan to SMB)",
+      "hizli_adimlar": [
+        "Kyocera, Konica Minolta veya Canon fotokopiden bilgisayardaki klasöre tarama 'Bağlantı Hatası' veriyorsa:",
+        "Bilgisayarda hedef klasöre (Örn: C:\\Tarama) sağ tıklayıp Paylaşım sekmesinden 'Everyone' ve yerel kullanıcıya 'Tam Yetki' verin.",
+        "Windows 11'de eski SMBv1 kapalı olduğu için fotokopi web arayüzünde protokolü 'SMB v2/v3'e çekin.",
+        "Fotokopi makinesi adres defterinde ana makine adı yerine doğrudan IP (192.168.1.x) yazın.",
+        "Kullanıcı adı kısmına bilgisayar adı ile birlikte yazın: 'BilgisayarAdi\\KullaniciAdi' ve Windows oturum şifresini girin."
+      ],
+      "komutlar": [
+        {
+          "etiket": "SMB Sunucu Güvenlik Ayarlarını Doğrula",
+          "komut": "powershell -Command \"Get-SmbServerConfiguration | Select-Object EnableSMB2Protocol, AutoShareServer\"",
+          "aciklama": "Windows SMBv2/v3 protokolünün açık olduğunu teyit eder."
+        }
+      ],
+      "temel_anlatim": "Büyük ofis tipi fotokopi makineleri taranan belgeleri ağdaki bilgisayarların paylaşılan klasörlerine SMB protokolüyle doğrudan kaydeder. Windows 11 güvenlik sıkılaştırmaları eski fotokopi yazılımlarının klasöre yazmasını engelleyebilir.",
+      "derin_teknik_analiz": "Windows 11 sürüm 22H2/23H2 sonrası SMB sunucusunda NTLMv1 ve şifresiz konuk oturumları tamamen yasaklanmıştır. Ayrıca SMB imzalama (SMB signing) zorunlu kılınmıştır. Eski fotokopi cihazları SMB imzalama desteklemiyorsa 'Gelişmiş Denetim İlkeleri'nden imzalama esnetilmelidir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Kullanıcı adı ve şifre doğru olmasına rağmen 'Auth Error' veriyor",
+          "neden": "Windows hesabı Microsoft e-posta hesabına (Outlook.com) bağlıdır.",
+          "cozum": "Yalnızca tarama için şifreli yerel bir kullanıcı (Örn: 'tarama' / '1234') oluşturup klasöre yetki verin."
+        }
+      ],
+      "etiketler": [
+        "scan to smb",
+        "klasore tarama",
+        "fotokopi tarama",
+        "kyocera tarama",
+        "smb v2"
       ]
     }
   ]
