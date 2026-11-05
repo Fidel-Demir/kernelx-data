@@ -1,0 +1,87 @@
+{
+  "versiyon": "2.5.0",
+  "toplam": 2,
+  "modul": "feed_pdks_gecis_kontrol.json",
+  "kayitlar": [
+    {
+      "id": "pdks_zkteco_network_port_4370",
+      "kategori": "PDKS & Geçiş Kontrol",
+      "alt_kategori": "ZKTeco & Parmak İzi",
+      "baslik": "ZKTeco Parmak İzi / Yüz Tanıma Terminalinin Ağ Bağlantısının Kopması (Port 4370)",
+      "hizli_adimlar": [
+        "Terminal menüsünden Ağ Ayarları -> Ethernet bölümüne girip IP, Ağ Maskesi ve Ağ Geçidini kontrol edin.",
+        "İletişim Ayarları -> 'İletişim Şifresi' (Comm Key) değerine bakın (genellikle 0'dır).",
+        "PDKS sunucu bilgisayarından terminale ping atın: `ping 192.168.1.201`.",
+        "Port 4370 erişimini PowerShell `Test-NetConnection` ile test edin.",
+        "Güvenlik duvarında TCP/UDP 4370 portlarına gelen/giden izin kuralı ekleyin."
+      ],
+      "komutlar": [
+        {
+          "etiket": "ZKTeco Port 4370 Testi",
+          "komut": "Test-NetConnection -ComputerName 192.168.1.201 -Port 4370",
+          "aciklama": "PDKS terminalinin port seviyesinde dinlemede olduğunu teyit eder."
+        },
+        {
+          "etiket": "Arp Tablosundan MAC Doğrula",
+          "komut": "arp -a 192.168.1.201",
+          "aciklama": "IP adresinin başka bir cihazla çakışıp çakışmadığını MAC adresinden anlar."
+        }
+      ],
+      "temel_anlatim": "PDKS personel takip yazılımında 'Cihaza Bağlanılamadı' hatası çıkması ve giriş-çıkış loglarının bilgisayara aktarılamaması.",
+      "derin_teknik_analiz": "ZKTeco cihazları yönetim yazılımıyla UDP ve TCP 4370 portu üzerinden haberleşir. Cihaz üzerinde 'Comm Key' (İletişim Şifresi) varsayılan olarak '0'dır; yazılım tarafında bu şifre uyuşmazsa veya switch'te IP çakışması varsa bağlantı reddedilir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Ping gidiyor ama log çekerken 'Hafıza Dolu / Zaman Aşımı' veriyor",
+          "neden": "Cihazın dahili flaş belleğindeki işlem kayıtları (Attendance Logs) 100.000 sınırına ulaşmıştır.",
+          "cozum": "Yazılımdan tüm logları yedekledikten sonra terminal menüsünden 'İşlem Kayıtlarını Temizle' işlemi yapın."
+        }
+      ],
+      "etiketler": [
+        "pdks",
+        "zkteco",
+        "parmak-izi",
+        "port4370",
+        "turnike",
+        "personel-takip"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "pdks_wiegand_bit_mismatch",
+      "kategori": "PDKS & Geçiş Kontrol",
+      "alt_kategori": "Turnike & Kart Okuyucular",
+      "baslik": "Turnike Kart Okuyucularda Wiegand 26-bit vs 34-bit Uyuşmazlığı ve Hatalı Kart Numarası",
+      "hizli_adimlar": [
+        "Kart okuyucunun arka etiketindeki veya yazılımındaki Wiegand formatını kontrol edin (26-bit / 34-bit).",
+        "Kontrol paneli arayüzünde (ZKTeco C3, Rosslare, Honeywell) ilgili okuyucu portunun Wiegand formatını okuyucuyla eşitleyin.",
+        "Data0 ve Data1 kablolarının ters bağlanmadığını multimetre veya osiloskop ile kontrol edin.",
+        "Farklı bir test kartı okutarak hex ve dec dönüşümünü yazılım log ekranında karşılaştırın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Wiegand Kablolama Standardı",
+          "komut": "Kırmızı: +12V DC | Siyah: GND | Yeşil: Data 0 (D0) | Beyaz: Data 1 (D1) | Mavi: LED Kontrol | Sarı: Buzzer",
+          "aciklama": "Standart Wiegand kart okuyucu renk şeması."
+        }
+      ],
+      "temel_anlatim": "Manyetik personel kartı turnikeye okutulduğunda yeşil ışık yanmaması veya yazılıma kart numarasının tamamen alakasız/eksik basılması.",
+      "derin_teknik_analiz": "Wiegand protokolünde Data0 (yeşil) ve Data1 (beyaz) hatları üzerinden darbe sinyalleri iletilir. Standart Wiegand 26-bit (1 bit parity + 8 bit facility + 16 bit card ID + 1 bit parity) formatıdır. Yeni nesil Mifare okuyucular 34-bit veya 66-bit basarsa kontrol paneli kart kodunu yanlış ayrıştırır.",
+      "kenar_durumlar": [
+        {
+          "durum": "Kart okutulunca bip sesi geliyor ama turnike açılmıyor",
+          "neden": "Panel rölesinin COM-NO kontakları turnike tetik kartına sinyal göndermiyor veya kuru kontak rölesi yapışmıştır.",
+          "cozum": "Multimetreyi kısa devre moduna alıp röle çıkışının kart okutulduğunda 1 saniye kısa devre olduğunu teyit edin."
+        }
+      ],
+      "etiketler": [
+        "pdks",
+        "wiegand",
+        "wiegand-26",
+        "turnike",
+        "kartli-gecis",
+        "mifare"
+      ],
+      "oncelik": 2
+    }
+  ]
+}

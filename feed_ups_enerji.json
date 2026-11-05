@@ -1,0 +1,83 @@
+{
+  "versiyon": "2.5.0",
+  "toplam": 2,
+  "modul": "feed_ups_enerji.json",
+  "kayitlar": [
+    {
+      "id": "ups_neutral_ground_voltage_high",
+      "kategori": "UPS & Enerji",
+      "alt_kategori": "Topraklama & Voltaj Arızaları",
+      "baslik": "Nötr-Toprak Geriliminin 1V Üzerine Çıkması ve Hassas Sunucu PSU Arızaları",
+      "hizli_adimlar": [
+        "Kalibre edilmiş True-RMS multimetreyi AC Volt moduna alın.",
+        "PDU veya prizde Nötr (mavi) ile Toprak (sarı-yeşil) arasına probları dokundurun.",
+        "Değer 1.5V üzerindeyse pano girişinde 3 fazın akımlarını (Ampermetre ile) ölçüp yükü fazlara eşit dağıtın.",
+        "Topraklama barasının direncini (Megger toprak megeri ile) ölçün; direnç < 2 Ohm olmalıdır.",
+        "Gerekiyorsa sunucu odası için panoya İzole Trafo (Galvanik İzolasyon Trafosu) ekleyin."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Gerilim Tolerans Standardı",
+          "komut": "Nötr-Toprak: < 1.0V AC | Faz-Nötr: 220V - 235V AC | Faz-Toprak: 220V - 235V AC",
+          "aciklama": "Sunucu odası için IEEE 1100 standart enerji sınırları."
+        }
+      ],
+      "temel_anlatim": "Sunucu odasında nötr ile toprak hattı arasında 3V-10V gerilim okunması, sunucuların rastgele yeniden başlaması veya switch portlarının yanması.",
+      "derin_teknik_analiz": "Hassas IT donanımlarında nötr-toprak (N-G) voltajı maksimum 1.0V AC (idealde <0.5V) olmalıdır. 3-fazlı sistemde faz dengesizliği (unbalanced load) nötr hattı üzerinde dönüş akımı yaratarak nötr potansiyelini yükseltir veya bina topraklama çubuğu korozyona uğramıştır.",
+      "kenar_durumlar": [
+        {
+          "durum": "Lazer yazıcı açıldığında nötr-toprak voltajı anlık 20V'a fırlıyor",
+          "neden": "Lazer yazıcının fuser ısıtıcısı anlık 1000-1500W çeker ve nötr hattına harmonik darbe basar.",
+          "cozum": "Lazer yazıcıları ASLA sunucularla aynı online UPS hattına bağlamayın; ayrı bina şebeke hattına takın."
+        }
+      ],
+      "etiketler": [
+        "ups",
+        "notr-toprak",
+        "topraklama",
+        "voltaj",
+        "pano",
+        "server-odasi"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "ups_apc_battery_constant_alarm",
+      "kategori": "UPS & Enerji",
+      "alt_kategori": "APC Smart-UPS",
+      "baslik": "APC Smart-UPS 'Replace Battery' Kırmızı Işığı ve Yeni Akü Kalibrasyon Hatası",
+      "hizli_adimlar": [
+        "Yeni takılan akülerin tam şarj olabilmesi için UPS'i en az 8-12 saat şebekede şarjda bırakın (%100 doluluk).",
+        "UPS arkasına en az %30-35 rezistif yük (örneğin 300-500W ısıtıcı veya halojen lamba, ASLA PC değil) bağlayın.",
+        "Ön paneldeki 'I / Test' düğmesine 3 saniye basılı tutarak dahili Self-Test'i tetikleyin.",
+        "Veya Network Management Card (NMC) web arayüzünden UPS -> Control -> Self-Test -> 'Start Runtime Calibration' yapın.",
+        "Kalibrasyon tamamlandığında kırmızı LED söner ve kalan yedekleme süresi normale döner."
+      ],
+      "komutlar": [
+        {
+          "etiket": "APC Telnet ile Akü Kalibrasyonu",
+          "komut": "upsdiag\n1 (Test)\n4 (Runtime Calibration)",
+          "aciklama": "NMC seri/telnet portundan akü çalışma süresi kalibrasyonu başlatır."
+        }
+      ],
+      "temel_anlatim": "APC UPS'e sıfır akü takılmasına rağmen kırmızı akü değiştir LED'inin sönmemesi ve kesintisiz bip sesi vermeye devam etmesi.",
+      "derin_teknik_analiz": "APC Smart-UPS mikrodenetleyicisi akü iç direncini ve çalışma süresini EEPROM'daki dahili sayaç üzerinden takip eder. Aküler fiziksel olarak değiştirilse bile UPS manuel 'Manual Calibration' (Self-Test) döngüsüne sokulmazsa eski arıza bayrağını temizlemez.",
+      "kenar_durumlar": [
+        {
+          "durum": "Kalibrasyon sırasında UPS aniden kapanıyor",
+          "neden": "Takılan yeni akülerden birinin hücresi ölüdür veya kutup başı vidası gevşektir.",
+          "cozum": "Her bir 12V aküyü ayrı ayrı voltmetreyle ölçün; yüksüz 12.6V - 13.2V arasında olmalıdır."
+        }
+      ],
+      "etiketler": [
+        "ups",
+        "apc",
+        "smart-ups",
+        "replace-battery",
+        "aku-kalibrasyonu",
+        "runtime"
+      ],
+      "oncelik": 1
+    }
+  ]
+}

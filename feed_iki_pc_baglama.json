@@ -1,0 +1,283 @@
+{
+  "versiyon": "2.5.0",
+  "toplam": 6,
+  "modul": "feed_iki_pc_baglama.json",
+  "kayitlar": [
+    {
+      "id": "twopc_direct_cross_gigabit",
+      "kategori": "İki PC Bağlama",
+      "alt_kategori": "Doğrudan Kablo",
+      "baslik": "İki Bilgisayarı Doğrudan Ethernet Kablosuyla Gigabit Hızda Bağlama",
+      "hizli_adimlar": [
+        "CAT6 kabloyu iki bilgisayarın ethernet portlarına takın (Port LED'lerinin yandığını teyit edin).",
+        "1. PC'ye IP: 192.168.99.1, Alt Ağ Maskesi: 255.255.255.0 verin (Ağ geçidini BOŞ bırakın).",
+        "2. PC'ye IP: 192.168.99.2, Alt Ağ Maskesi: 255.255.255.0 verin (Ağ geçidini BOŞ bırakın).",
+        "Ağ profilini 'Özel Ağ' (Private) yapın ve SMB dosya paylaşımını açın.",
+        "2. PC'den Çalıştır'a (Win+R) `\\\\192.168.99.1` yazarak paylaşıma girin."
+      ],
+      "komutlar": [
+        {
+          "etiket": "PC 1 Statik IP Ayarı (PowerShell)",
+          "komut": "New-NetIPAddress -InterfaceAlias 'Ethernet' -IPAddress 192.168.99.1 -PrefixLength 24; Set-NetConnectionProfile -InterfaceAlias 'Ethernet' -NetworkCategory Private",
+          "aciklama": "PC 1'e 192.168.99.1 IP atar ve profili Özel yapar."
+        },
+        {
+          "etiket": "PC 2 Statik IP Ayarı (PowerShell)",
+          "komut": "New-NetIPAddress -InterfaceAlias 'Ethernet' -IPAddress 192.168.99.2 -PrefixLength 24; Set-NetConnectionProfile -InterfaceAlias 'Ethernet' -NetworkCategory Private",
+          "aciklama": "PC 2'ye 192.168.99.2 IP atar ve profili Özel yapar."
+        },
+        {
+          "etiket": "Bağlantı & Ping Testi",
+          "komut": "ping 192.168.99.1 -n 4",
+          "aciklama": "PC 2'den PC 1'e gecikme ve erişim testi yapar."
+        }
+      ],
+      "temel_anlatim": "Ağ anahtarı (switch) veya modem olmadan, iki bilgisayarı doğrudan CAT6 ethernet kablosu ile bağlayıp 1000 Mbps hızında dosya aktarımı sağlama.",
+      "derin_teknik_analiz": "Modern Gigabit Ethernet (1000BASE-T) kartlarında Auto-MDIX (Automatic Medium-Dependent Interface Crossover) donanımsal olarak bulunur. Bu nedenle klasik çapraz (crossover) kablo yerine standart düz T568B CAT6 kablo yeterlidir. Her iki bilgisayara aynı alt ağdan (subnet) ağ geçitsiz statik IP verilmelidir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Tanımlanamayan Ağ (Unidentified Network) uyarısı çıkıyor",
+          "neden": "Ağ geçidi boş bırakıldığı için Windows ağı varsayılan olarak 'Public' (Ortak) kilitler ve ping/SMB'yi engeller.",
+          "cozum": "PowerShell ile `Set-NetConnectionProfile -NetworkCategory Private` çalıştırarak güvenlik duvarını açın."
+        }
+      ],
+      "etiketler": [
+        "iki-pc",
+        "dogrudan-baglanti",
+        "cat6",
+        "auto-mdix",
+        "gigabit",
+        "ethernet"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "twopc_lan_smb_sharing",
+      "kategori": "İki PC Bağlama",
+      "alt_kategori": "Ortak Yerel Ağ (LAN/Wi-Fi)",
+      "baslik": "Aynı Yerel Ağ / Wi-Fi Üzerindeki İki PC Arasında Klasör Paylaşımı (SMBv3)",
+      "hizli_adimlar": [
+        "Paylaşılacak klasöre sağ tıklayın -> Özellikler -> Paylaşım -> Gelişmiş Paylaşım -> 'Bu klasörü paylaş' kutusunu işaretleyin.",
+        "İzinler butonuna basıp 'Everyone' (Herkes) grubuna 'Tam Denetim' veya 'Okuma' verin.",
+        "Güvenlik sekmesinden de 'Everyone' kullanıcısını ekleyip NTFS okuma/yazma izinlerini tanımlayın.",
+        "Diğer PC'den `\\\\HedefPC_IP\\KlasorAdi` yazarak bağlanın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Klasörü Paylaşıma Aç (PowerShell)",
+          "komut": "New-SmbShare -Name 'Depo' -Path 'C:\\Paylasim' -FullAccess 'Everyone'",
+          "aciklama": "C:\\Paylasim klasörünü 'Depo' adıyla paylaşıma açar."
+        },
+        {
+          "etiket": "SMB Konuk Erişim İznini Aç (Win11)",
+          "komut": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\" /v \"AllowInsecureGuestAuth\" /t REG_DWORD /d 1 /f",
+          "aciklama": "Windows 11'de parolasız paylaşıma erişim engelini kaldırır."
+        },
+        {
+          "etiket": "Güvenlik Duvarı SMB İzni",
+          "komut": "netsh advfirewall firewall set rule group=\"Dosya ve Yazıcı Paylaşımı\" new enable=Yes",
+          "aciklama": "Windows Güvenlik Duvarında dosya paylaşım portlarını açar."
+        }
+      ],
+      "temel_anlatim": "Aynı ofis modemi veya Wi-Fi ağına bağlı iki bilgisayar arasında parola korumalı veya parolasız güvenli dosya paylaşımı açma.",
+      "derin_teknik_analiz": "Windows SMB (Server Message Block v3.1.1) protokolü TCP 445 portunu kullanır. Windows 11 22H2 ve sonrası güncellemelerde güvenlik gerekçesiyle şifresiz konuk (guest) oturumları varsayılan olarak engellenmiştir.",
+      "kenar_durumlar": [
+        {
+          "durum": "0x80070035 'Ağ yolu bulunamadı' hatası",
+          "neden": "Ağ Bulma (Network Discovery) veya TCP 445 portu güvenlik duvarında kapalıdır.",
+          "cozum": "services.msc altından 'İşlev Bulma Kaynak Dağıtımı' (Function Discovery) servisini 'Otomatik' yapıp başlatın."
+        }
+      ],
+      "etiketler": [
+        "iki-pc",
+        "smb",
+        "dosya-paylasimi",
+        "yerel-ag",
+        "wifi",
+        "win11-guest"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "twopc_different_subnet_vlan",
+      "kategori": "İki PC Bağlama",
+      "alt_kategori": "Farklı Alt Ağlar & VLAN",
+      "baslik": "Farklı Alt Ağlarda (VLAN / Subnet) Bulunan İki PC Arasında Rotalama ve Erişim",
+      "hizli_adimlar": [
+        "Her iki PC'nin kendi ağ geçidine (Gateway) sorunsuz ping attığını teyit edin.",
+        "Router/L3 Switch üzerinde VLAN'lar arası yönlendirmenin (Inter-VLAN Routing) açık olduğunu doğrulayın.",
+        "Hedef PC'de Windows Güvenlik Duvarını açın -> Gelişmiş Güvenlik -> Gelen Kurallar -> 'Dosya ve Yazıcı Paylaşımı (SMB-Gelen)'.",
+        "Özellikler -> Kapsam (Scope) sekmesine gelin; Uzak IP Adresi kısmını 'Herhangi bir IP adresi' veya diğer alt ağın IP bloğu (192.168.20.0/24) yapın.",
+        "Kaynak PC'den IP üzerinden erişimi test edin: `ping 192.168.20.50`."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Statik Rota Ekle (Windows)",
+          "komut": "route add 192.168.20.0 mask 255.255.255.0 192.168.1.1 -p",
+          "aciklama": "192.168.20.x ağına gidiş için statik kalıcı rota tanımlar."
+        },
+        {
+          "etiket": "Güvenlik Duvarı Subnet Sınırını Kaldır",
+          "komut": "netsh advfirewall firewall set rule name=\"Dosya ve Yazıcı Paylaşımı (SMB-Gelen)\" new remoteip=any",
+          "aciklama": "Tüm alt ağlardan gelen SMB isteklerine izin verir."
+        },
+        {
+          "etiket": "Yol İzleme (Traceroute)",
+          "komut": "tracert -d 192.168.20.50",
+          "aciklama": "Paketlerin hangi router geçidinden geçtiğini gösterir."
+        }
+      ],
+      "temel_anlatim": "Biri 192.168.1.x (Ofis), diğeri 192.168.20.x (Fabrika/Sunucu) alt ağında olan iki bilgisayarın Layer 3 Switch veya Router üzerinden haberleşmesi.",
+      "derin_teknik_analiz": "Farklı alt ağlar arasındaki paketler doğrudan Layer 2 anahtarlanamaz; varsayılan ağ geçidi (Default Gateway) üzerinden Layer 3 yönlendirilir. Windows Güvenlik Duvarı varsayılan olarak SMB dosya paylaşımını ve ICMP ping'i 'LocalSubnet' (Sadece Yerel Alt Ağ) ile sınırlar. Farklı subnetten gelen istekler Windows tarafından sessizce düşürülür.",
+      "kenar_durumlar": [
+        {
+          "durum": "Ping gidiyor ama dosya paylaşımı açılmıyor",
+          "neden": "Ağ geçidindeki firewall cihazı (FortiGate/Sophos vb.) TCP 445 portunu zone'lar arasında filtrelemektedir.",
+          "cozum": "Firewall üzerinde VLAN1'den VLAN20'ye TCP 445 ve 139 servislerine izin veren Security Policy yazın."
+        }
+      ],
+      "etiketler": [
+        "iki-pc",
+        "vlan",
+        "farkli-subnet",
+        "inter-vlan",
+        "routing",
+        "firewall-scope"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "twopc_remote_vpn_tailscale",
+      "kategori": "İki PC Bağlama",
+      "alt_kategori": "Uzak İnternet Üzerinden (VPN Mesh)",
+      "baslik": "Farklı Şehir/İnternetteki İki PC'yi Port Açmadan Bağlama (Tailscale Mesh VPN)",
+      "hizli_adimlar": [
+        "Her iki bilgisayara da Tailscale istemcisini kurun (tailscale.com).",
+        "Aynı e-posta veya GitHub/Google hesabı ile her iki bilgisayarda oturum açın.",
+        "Tailscale arayüzünde her iki cihazın 'Connected' ve yeşil yandığını teyit edin.",
+        "1. PC'nin Tailscale IP'sini (örn: 100.85.12.34) kopyalayın.",
+        "2. PC'den `\\\\100.85.12.34\\Paylasim` yazarak bağlanın veya Uzak Masaüstü (RDP) yapın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Tailscale Durumunu Sorgula",
+          "komut": "tailscale status",
+          "aciklama": "Bağlı cihazları, Tailscale IP'lerini ve doğrudan/aktarmalı durumunu listeler."
+        },
+        {
+          "etiket": "Tailscale Ping Testi",
+          "komut": "tailscale ping 100.85.12.34",
+          "aciklama": "Doğrudan P2P WireGuard gecikmesini ölçer."
+        },
+        {
+          "etiket": "Tünel Arayüz IP'sini Doğrula",
+          "komut": "ipconfig | findstr /i \"100.\"",
+          "aciklama": "Windows'taki sanal Tailscale adaptör IP'sini döküm eder."
+        }
+      ],
+      "temel_anlatim": "Statik IP ve modem port yönlendirmesi olmadan, evdeki ve işteki iki bilgisayarı güvenli WireGuard protokolüyle aynı sanal yerel ağdaymış gibi bağlama.",
+      "derin_teknik_analiz": "Tailscale, DERP röle sunucuları ve NAT Traversal (STUN/ICE) tekniklerini kullanarak CGNAT arkasında dahi uçtan uca doğrudan (P2P WireGuard) tünel açar. Her cihaza 100.x.x.x bloğundan sabit sanal IP tahsis edilir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Hız 1 Mbps seviyesine düşüyor (Relayed via DERP)",
+          "neden": "Her iki tarafın kurumsal güvenlik duvarı UDP trafiğini engellediği için P2P kurulamamış ve aktarma sunucusuna düşmüştür.",
+          "cozum": "Firewall'da UDP 41641 portuna dışa doğru çıkış izni verin."
+        }
+      ],
+      "etiketler": [
+        "iki-pc",
+        "tailscale",
+        "mesh-vpn",
+        "wireguard",
+        "cgnat",
+        "uzak-baglanti"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "twopc_robocopy_fast_transfer",
+      "kategori": "İki PC Bağlama",
+      "alt_kategori": "Yüksek Hızlı Veri Taşıma",
+      "baslik": "İki PC Arasında Robocopy Çoklu İş Parçacığı (/MT:16) ile Terabaytlarca Veri Aktarımı",
+      "hizli_adimlar": [
+        "Kaynak bilgisayardaki klasörü paylaşıma açın veya hedef PC'den kaynak PC'ye ağ sürücüsü (Z:) olarak bağlayın.",
+        "Yönetici olarak Komut İstemi (CMD) açın.",
+        "Robocopy komutunu `/E /ZB /MT:16 /R:2 /W:3` parametreleriyle çalıştırın.",
+        "Aktarım bittiğinde özet rapor tablosundan aktarılan, atlanan ve hatalı dosyaları inceleyin."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Çoklu Thread ile Ağdan Veri Çek",
+          "komut": "robocopy \"\\\\192.168.1.50\\C$\\Data\" \"D:\\YedekData\" /E /ZB /MT:16 /R:2 /W:2 /NP /LOG:C:\\transfer.log",
+          "aciklama": "16 kanaldan kopyalar, takılan dosyada 2 saniye bekler, log dosyası tutar."
+        },
+        {
+          "etiket": "İzinlerle (NTFS ACL) Birlikte Taşı",
+          "komut": "robocopy \"\\\\192.168.1.50\\Paylasim\" \"D:\\Paylasim\" /MIR /COPYALL /ZB /MT:16",
+          "aciklama": "Klasör yapısını, dosya izinlerini ve sahipliklerini birebir kopyalar."
+        }
+      ],
+      "temel_anlatim": "Windows Gezgini'nin kopyalama penceresi yerine çoklu thread kullanarak iki bilgisayar arasında ağ hattını sonuna kadar zorlayıp veri taşıma.",
+      "derin_teknik_analiz": "Windows Gezgini tek thread çalışır ve binlerce küçük dosyada her dosya için SMB Create/Close el sıkışması yaparak aktarım hızını 1-2 MB/sn'ye düşürür. Robocopy `/MT:16` veya `/MT:32` aynı anda 16/32 dosya transfer ederek Gigabit hattı tam 112 MB/sn kapasiteyle doyurur.",
+      "kenar_durumlar": [
+        {
+          "durum": "Yönetici paylaşımına (C$) erişimde 'Erişim Engellendi' uyarısı",
+          "neden": "Windows'ta LocalAccountTokenFilterPolicy kısıtlaması nedeniyle yerel yönetici hesabı ağdan tam yetki alamaz.",
+          "cozum": "reg add HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v LocalAccountTokenFilterPolicy /t REG_DWORD /d 1 /f komutunu çalıştırın."
+        }
+      ],
+      "etiketler": [
+        "iki-pc",
+        "robocopy",
+        "hizli-kopyalama",
+        "smb",
+        "mt16",
+        "veri-aktarimi"
+      ],
+      "oncelik": 2
+    },
+    {
+      "id": "twopc_jumbo_frames_10gbe",
+      "kategori": "İki PC Bağlama",
+      "alt_kategori": "Yüksek Hızlı Veri Taşıma",
+      "baslik": "İki PC Arasında Jumbo Frames (9000 MTU) ile 2.5G / 10G Doğrudan Hat Yapılandırması",
+      "hizli_adimlar": [
+        "Her iki PC'de Aygıt Yöneticisi -> Ağ Bağdaştırıcıları -> 10G/2.5G karta sağ tıklayıp Özellikler'e girin.",
+        "Gelişmiş sekmesine gelin -> 'Jumbo Packet' veya 'Jumbo Frame' ayarını bulun.",
+        "Değeri 9KB MTU veya 9014 Bytes olarak seçin.",
+        "Aynı işlemi 2. PC'deki ağ kartında da birebir aynı değerle yapın.",
+        "CMD'den `ping -f -l 8972 <Hedef_IP>` ile paket parçalanmadan geçtiğini doğrulayın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Jumbo Frame Ping Testi",
+          "komut": "ping 192.168.10.2 -f -l 8972",
+          "aciklama": "9000 MTU'luk paketlerin parçalanmadan ulaştığını test eder (8972 + 28 = 9000)."
+        },
+        {
+          "etiket": "Ağ Kartı MTU Kontrolü",
+          "komut": "netsh interface ipv4 show subinterfaces",
+          "aciklama": "Ağ kartlarının geçerli MTU değerlerini döker."
+        }
+      ],
+      "temel_anlatim": "İki bilgisayar arasına takılan 2.5 Gbps veya 10 Gbps ağ kartlarında MTU'yu 9000 bayta çıkararak CPU yükünü düşürme ve 1000 MB/sn transfer hızına ulaşma.",
+      "derin_teknik_analiz": "Standart MTU 1500 bayttır. 10 Gbps hat tam kapasite çalıştığında saniyede yaklaşık 800.000 paket CPU kesmesi (interrupt) üretir. Jumbo Frame (9014 bayt) kullanıldığında paket sayısı saniyede 130.000'e düşer; CPU üzerindeki DPC/ISR yükü %80 azalır.",
+      "kenar_durumlar": [
+        {
+          "durum": "Jumbo Frame açılınca ping tamamen kesiliyor",
+          "neden": "Araya takılan switch Jumbo Frame desteklemiyor veya karşı PC'deki MTU 1500'de unutulmuştur.",
+          "cozum": "İki tarafın ve aradaki switch'in MTU değerlerinin birebir 9000 bayta eşit olduğundan emin olun."
+        }
+      ],
+      "etiketler": [
+        "iki-pc",
+        "jumbo-frames",
+        "10gbe",
+        "2.5gbe",
+        "mtu9000",
+        "performans"
+      ],
+      "oncelik": 2
+    }
+  ]
+}

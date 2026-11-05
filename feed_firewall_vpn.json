@@ -1,0 +1,825 @@
+{
+  "versiyon": "2.5.0",
+  "toplam": 20,
+  "modul": "feed_firewall_vpn.json",
+  "kayitlar": [
+    {
+      "id": "ag_00004",
+      "kategori": "Ağ",
+      "alt_kategori": "MikroTik WireGuard VPN Tünel Kurulumu",
+      "baslik": "MikroTik WireGuard VPN Tünel Kurulumu",
+      "hizli_adimlar": [
+        "Saha arıza/kurulum belirtisini teyit edin: Mobil veya uzaktaki şubeler için güvenli WireGuard sunucu ve peer yapılandırması.",
+        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+        "Birincil komutu veya eylemi uygulayın: /interface wireguard add name=wg0 listen-port=51820; /ip address add address=10.10.0.1/24 interface=wg0",
+        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Teşhis ve Uygulama Komutu",
+          "komut": "/interface wireguard add name=wg0 listen-port=51820; /ip address add address=10.10.0.1/24 interface=wg0",
+          "aciklama": "WireGuard VPN arabirimini kurar."
+        }
+      ],
+      "temel_anlatim": "MikroTik WireGuard VPN Tünel Kurulumu: Mobil veya uzaktaki şubeler için güvenli WireGuard sunucu ve peer yapılandırması. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. /interface wireguard add name=wg0 listen-port=51820; /ip address add address=10.10.0.1/24 interface=wg0 parametresi durumu optimize eder.",
+      "kenar_durumlar": [
+        {
+          "durum": "Zaman aşımı veya erişim engeli hatası",
+          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "ağ",
+        "vpn",
+        "wireguard",
+        "tünel",
+        "uzaktan erisim",
+        "ag",
+        "router",
+        "mikrotik"
+      ],
+      "oncelik": 2
+    },
+    {
+      "id": "ag_00005",
+      "kategori": "Ağ",
+      "alt_kategori": "pfSense / OPNsense WAN/LAN Arayüz Ataması",
+      "baslik": "pfSense / OPNsense WAN/LAN Arayüz Ataması",
+      "hizli_adimlar": [
+        "Saha arıza/kurulum belirtisini teyit edin: Konsoldan igb0/igb1 portlarını atama ve Unbound DNS yapılandırması.",
+        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+        "Birincil komutu veya eylemi uygulayın: Assign Interfaces -> WAN: igb0, LAN: igb1 -> Set interface IP: 192.168.1.1/24",
+        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Teşhis ve Uygulama Komutu",
+          "komut": "Assign Interfaces -> WAN: igb0, LAN: igb1 -> Set interface IP: 192.168.1.1/24",
+          "aciklama": "Temel yönlendiriciyi kurar."
+        }
+      ],
+      "temel_anlatim": "pfSense / OPNsense WAN/LAN Arayüz Ataması: Konsoldan igb0/igb1 portlarını atama ve Unbound DNS yapılandırması. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. Assign Interfaces -> WAN: igb0, LAN: igb1 -> Set interface IP: 192.168.1.1/24 parametresi durumu optimize eder.",
+      "kenar_durumlar": [
+        {
+          "durum": "Zaman aşımı veya erişim engeli hatası",
+          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "kurulum",
+        "firewall",
+        "ağ",
+        "ag",
+        "router",
+        "pfsense",
+        "opnsense"
+      ],
+      "oncelik": 2
+    },
+    {
+      "id": "ag_00007",
+      "kategori": "Ağ",
+      "alt_kategori": "FortiGate İlk Kurulum",
+      "baslik": "FortiGate İlk Kurulum & SD-WAN Yük Dengeleme",
+      "hizli_adimlar": [
+        "Saha arıza/kurulum belirtisini teyit edin: 192.168.1.99 MGMT erişimi ve çift fiber hattı birleştirme.",
+        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+        "Birincil komutu veya eylemi uygulayın: config system sdwan; config zone; edit 'virtual-wan-link'; next; end",
+        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Teşhis ve Uygulama Komutu",
+          "komut": "config system sdwan; config zone; edit 'virtual-wan-link'; next; end",
+          "aciklama": "SD-WAN zone oluşturur."
+        }
+      ],
+      "temel_anlatim": "FortiGate İlk Kurulum & SD-WAN Yük Dengeleme: 192.168.1.99 MGMT erişimi ve çift fiber hattı birleştirme. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. config system sdwan; config zone; edit 'virtual-wan-link'; next; end parametresi durumu optimize eder.",
+      "kenar_durumlar": [
+        {
+          "durum": "Zaman aşımı veya erişim engeli hatası",
+          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "firewall",
+        "fortigate",
+        "ağ",
+        "sd-wan",
+        "ag",
+        "failover",
+        "dual wan"
+      ],
+      "oncelik": 2
+    },
+    {
+      "id": "net_wireguard_handshake_udp",
+      "kategori": "Ağ",
+      "alt_kategori": "VPN & Tünelleme",
+      "baslik": "WireGuard & UDP 51820 El Sıkışma",
+      "hizli_adimlar": [
+        "WireGuard istemcisinde 'Handshake did not complete' diyorsa:",
+        "Router üzerinde UDP 51820 portunun hedef sunucuya yönlendirildiğini kontrol et.",
+        "İstemci ve sunucu Public/Private anahtarlarının karşılıklı doğru yazıldığını doğrula.",
+        "MTU değerini 1420'den 1280'e düşürerek paket parçalanmasını önle.",
+        "Sunucu tarafında 'wg show' komutu ile son el sıkışma süresine (latest handshake) bak."
+      ],
+      "komutlar": [
+        {
+          "etiket": "WireGuard Durumunu Göster",
+          "komut": "wg show",
+          "aciklama": "Aktif peer'ları ve aktarılan bayt miktarını listeler."
+        }
+      ],
+      "temel_anlatim": "WireGuard, OpenVPN'e göre çok daha hafif ve modern bir VPN protokolüdür. TCP yerine UDP kullandığı için bağlantı koptuğunda sessiz kalır. El sıkışma (Handshake) 2 dakikada bir yenilenmelidir.",
+      "derin_teknik_analiz": "Noise Protocol Framework (Curve25519, ChaCha20, Poly1305) kullanır. Port kapalı olduğunda ICMP Unreachable paketi dönmez; paketler sessizce düşer. Bu sebeple sorun tespiti için tcpdump veya Wireshark ile UDP paket takibi yapılmalıdır.",
+      "kenar_durumlar": [
+        {
+          "durum": "El sıkışma tamamlanıyor fakat web siteleri açılmıyor",
+          "neden": "MTU boyutu WAN arayüzünden büyüktür ve paketler parçalanamıyordur.",
+          "cozum": "Konfigürasyon dosyasına 'MTU = 1280' ekleyin."
+        }
+      ],
+      "etiketler": [
+        "wireguard",
+        "vpn",
+        "udp 51820",
+        "handshake",
+        "mtu 1280",
+        "tunelleme"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "ağ_wireguard_el_sikismasi",
+      "kategori": "Ağ",
+      "alt_kategori": "VPN, Tünelleme & Uzak Erişim",
+      "baslik": "WireGuard El Sıkışması",
+      "hizli_adimlar": [
+        "Arıza belirtisini teyit edin: UDP 51820 portu ve anahtar değişimi.",
+        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+        "Önerilen komut veya yapılandırma adımını uygulayın.",
+        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Ağ Durumu ve Rota Tablosu",
+          "komut": "route print -4",
+          "aciklama": "Aktif yönlendirme tablosunu ve ağ geçitlerini listeler."
+        },
+        {
+          "etiket": "Netsh Arayüz Bilgisi",
+          "komut": "netsh interface ipv4 show subinterfaces",
+          "aciklama": "Ağ kartı MTU ve paket durumlarını dökümler."
+        }
+      ],
+      "temel_anlatim": "WireGuard El Sıkışması, bilişim altyapılarında udp 51820 portu ve anahtar değişimi. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+      "derin_teknik_analiz": "WireGuard El Sıkışması mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. UDP 51820 portu ve anahtar değişimi. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "wireguard el sikismasi",
+        "ağ",
+        "vpn tunelleme uzak erisim",
+        "ariza",
+        "onarım"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "ağ_openvpn_tcp_vs_udp",
+      "kategori": "Ağ",
+      "alt_kategori": "VPN, Tünelleme & Uzak Erişim",
+      "baslik": "OpenVPN TCP vs UDP",
+      "hizli_adimlar": [
+        "Arıza belirtisini teyit edin: Paket tekrarı ve yüksek gecikme tünel farkı.",
+        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+        "Önerilen komut veya yapılandırma adımını uygulayın.",
+        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Ağ Durumu ve Rota Tablosu",
+          "komut": "route print -4",
+          "aciklama": "Aktif yönlendirme tablosunu ve ağ geçitlerini listeler."
+        },
+        {
+          "etiket": "Netsh Arayüz Bilgisi",
+          "komut": "netsh interface ipv4 show subinterfaces",
+          "aciklama": "Ağ kartı MTU ve paket durumlarını dökümler."
+        }
+      ],
+      "temel_anlatim": "OpenVPN TCP vs UDP, bilişim altyapılarında paket tekrarı ve yüksek gecikme tünel farkı. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+      "derin_teknik_analiz": "OpenVPN TCP vs UDP mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Paket tekrarı ve yüksek gecikme tünel farkı. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "openvpn tcp vs udp",
+        "ağ",
+        "vpn tunelleme uzak erisim",
+        "ariza",
+        "onarım"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "ağ_ipsec_ikev2",
+      "kategori": "Ağ",
+      "alt_kategori": "VPN, Tünelleme & Uzak Erişim",
+      "baslik": "IPsec IKEv2",
+      "hizli_adimlar": [
+        "Arıza belirtisini teyit edin: Mobil cihazlar arası kesintisiz tünel protokolü.",
+        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+        "Önerilen komut veya yapılandırma adımını uygulayın.",
+        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Ağ Durumu ve Rota Tablosu",
+          "komut": "route print -4",
+          "aciklama": "Aktif yönlendirme tablosunu ve ağ geçitlerini listeler."
+        },
+        {
+          "etiket": "Netsh Arayüz Bilgisi",
+          "komut": "netsh interface ipv4 show subinterfaces",
+          "aciklama": "Ağ kartı MTU ve paket durumlarını dökümler."
+        }
+      ],
+      "temel_anlatim": "IPsec IKEv2, bilişim altyapılarında mobil cihazlar arası kesintisiz tünel protokolü. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+      "derin_teknik_analiz": "IPsec IKEv2 mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Mobil cihazlar arası kesintisiz tünel protokolü. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "ipsec ikev2",
+        "ağ",
+        "vpn tunelleme uzak erisim",
+        "ariza",
+        "onarım"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "ağ_l2tp_ipsec",
+      "kategori": "Ağ",
+      "alt_kategori": "VPN, Tünelleme & Uzak Erişim",
+      "baslik": "L2TP/IPsec",
+      "hizli_adimlar": [
+        "Arıza belirtisini teyit edin: Ön paylaşımlı anahtar (PSK) ve NAT-T (UDP 4500).",
+        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+        "Önerilen komut veya yapılandırma adımını uygulayın.",
+        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Ağ Durumu ve Rota Tablosu",
+          "komut": "route print -4",
+          "aciklama": "Aktif yönlendirme tablosunu ve ağ geçitlerini listeler."
+        },
+        {
+          "etiket": "Netsh Arayüz Bilgisi",
+          "komut": "netsh interface ipv4 show subinterfaces",
+          "aciklama": "Ağ kartı MTU ve paket durumlarını dökümler."
+        }
+      ],
+      "temel_anlatim": "L2TP/IPsec, bilişim altyapılarında ön paylaşımlı anahtar (psk) ve nat-t (udp 4500). Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+      "derin_teknik_analiz": "L2TP/IPsec mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Ön paylaşımlı anahtar (PSK) ve NAT-T (UDP 4500). Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "l2tp ipsec",
+        "ağ",
+        "vpn tunelleme uzak erisim",
+        "ariza",
+        "onarım"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "ağ_pptp_guvenlik_zaafi",
+      "kategori": "Ağ",
+      "alt_kategori": "VPN, Tünelleme & Uzak Erişim",
+      "baslik": "PPTP Güvenlik Zaafı",
+      "hizli_adimlar": [
+        "Arıza belirtisini teyit edin: MS-CHAPv2 kırılması ve neden kullanılmaması gerektiği.",
+        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+        "Önerilen komut veya yapılandırma adımını uygulayın.",
+        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Ağ Durumu ve Rota Tablosu",
+          "komut": "route print -4",
+          "aciklama": "Aktif yönlendirme tablosunu ve ağ geçitlerini listeler."
+        },
+        {
+          "etiket": "Netsh Arayüz Bilgisi",
+          "komut": "netsh interface ipv4 show subinterfaces",
+          "aciklama": "Ağ kartı MTU ve paket durumlarını dökümler."
+        }
+      ],
+      "temel_anlatim": "PPTP Güvenlik Zaafı, bilişim altyapılarında ms-chapv2 kırılması ve neden kullanılmaması gerektiği. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+      "derin_teknik_analiz": "PPTP Güvenlik Zaafı mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. MS-CHAPv2 kırılması ve neden kullanılmaması gerektiği. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "pptp guvenlik zaafi",
+        "ağ",
+        "vpn tunelleme uzak erisim",
+        "ariza",
+        "onarım"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "ağ_sstp_vpn",
+      "kategori": "Ağ",
+      "alt_kategori": "VPN, Tünelleme & Uzak Erişim",
+      "baslik": "SSTP VPN",
+      "hizli_adimlar": [
+        "Arıza belirtisini teyit edin: TCP 443 üzerinden güvenlik duvarlarını aşan Microsoft protokolü.",
+        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+        "Önerilen komut veya yapılandırma adımını uygulayın.",
+        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Ağ Durumu ve Rota Tablosu",
+          "komut": "route print -4",
+          "aciklama": "Aktif yönlendirme tablosunu ve ağ geçitlerini listeler."
+        },
+        {
+          "etiket": "Netsh Arayüz Bilgisi",
+          "komut": "netsh interface ipv4 show subinterfaces",
+          "aciklama": "Ağ kartı MTU ve paket durumlarını dökümler."
+        }
+      ],
+      "temel_anlatim": "SSTP VPN, bilişim altyapılarında tcp 443 üzerinden güvenlik duvarlarını aşan microsoft protokolü. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+      "derin_teknik_analiz": "SSTP VPN mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. TCP 443 üzerinden güvenlik duvarlarını aşan Microsoft protokolü. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "sstp vpn",
+        "ağ",
+        "vpn tunelleme uzak erisim",
+        "ariza",
+        "onarım"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "ağ_tailscale_zerotier",
+      "kategori": "Ağ",
+      "alt_kategori": "VPN, Tünelleme & Uzak Erişim",
+      "baslik": "Tailscale & ZeroTier",
+      "hizli_adimlar": [
+        "Arıza belirtisini teyit edin: Mesh VPN ve P2P NAT traversal (STUN/DERP).",
+        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+        "Önerilen komut veya yapılandırma adımını uygulayın.",
+        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Ağ Durumu ve Rota Tablosu",
+          "komut": "route print -4",
+          "aciklama": "Aktif yönlendirme tablosunu ve ağ geçitlerini listeler."
+        },
+        {
+          "etiket": "Netsh Arayüz Bilgisi",
+          "komut": "netsh interface ipv4 show subinterfaces",
+          "aciklama": "Ağ kartı MTU ve paket durumlarını dökümler."
+        }
+      ],
+      "temel_anlatim": "Tailscale & ZeroTier, bilişim altyapılarında mesh vpn ve p2p nat traversal (stun/derp). Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+      "derin_teknik_analiz": "Tailscale & ZeroTier mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Mesh VPN ve P2P NAT traversal (STUN/DERP). Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "tailscale zerotier",
+        "ağ",
+        "vpn tunelleme uzak erisim",
+        "ariza",
+        "onarım"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "ağ_cloudflare_tunnel_cloudflared",
+      "kategori": "Ağ",
+      "alt_kategori": "VPN, Tünelleme & Uzak Erişim",
+      "baslik": "Cloudflare Tunnel (cloudflared)",
+      "hizli_adimlar": [
+        "Arıza belirtisini teyit edin: Port açmadan web sunucusunu dışarı açma.",
+        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+        "Önerilen komut veya yapılandırma adımını uygulayın.",
+        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Ağ Durumu ve Rota Tablosu",
+          "komut": "route print -4",
+          "aciklama": "Aktif yönlendirme tablosunu ve ağ geçitlerini listeler."
+        },
+        {
+          "etiket": "Netsh Arayüz Bilgisi",
+          "komut": "netsh interface ipv4 show subinterfaces",
+          "aciklama": "Ağ kartı MTU ve paket durumlarını dökümler."
+        }
+      ],
+      "temel_anlatim": "Cloudflare Tunnel (cloudflared), bilişim altyapılarında port açmadan web sunucusunu dışarı açma. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+      "derin_teknik_analiz": "Cloudflare Tunnel (cloudflared) mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Port açmadan web sunucusunu dışarı açma. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "cloudflare tunnel cloudflared",
+        "ağ",
+        "vpn tunelleme uzak erisim",
+        "ariza",
+        "onarım"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "ağ_split_tunneling_vs_full_tunneling",
+      "kategori": "Ağ",
+      "alt_kategori": "VPN, Tünelleme & Uzak Erişim",
+      "baslik": "Split Tunneling vs Full Tunneling",
+      "hizli_adimlar": [
+        "Arıza belirtisini teyit edin: Şirket trafiği ile internet trafiğini ayırma.",
+        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+        "Önerilen komut veya yapılandırma adımını uygulayın.",
+        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Ağ Durumu ve Rota Tablosu",
+          "komut": "route print -4",
+          "aciklama": "Aktif yönlendirme tablosunu ve ağ geçitlerini listeler."
+        },
+        {
+          "etiket": "Netsh Arayüz Bilgisi",
+          "komut": "netsh interface ipv4 show subinterfaces",
+          "aciklama": "Ağ kartı MTU ve paket durumlarını dökümler."
+        }
+      ],
+      "temel_anlatim": "Split Tunneling vs Full Tunneling, bilişim altyapılarında şirket trafiği ile internet trafiğini ayırma. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+      "derin_teknik_analiz": "Split Tunneling vs Full Tunneling mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Şirket trafiği ile internet trafiğini ayırma. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "split tunneling vs full tunneling",
+        "ağ",
+        "vpn tunelleme uzak erisim",
+        "ariza",
+        "onarım"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "ağ_site_to_site_vpn",
+      "kategori": "Ağ",
+      "alt_kategori": "VPN, Tünelleme & Uzak Erişim",
+      "baslik": "Site-to-Site VPN",
+      "hizli_adimlar": [
+        "Arıza belirtisini teyit edin: İki farklı ofis ağını şeffaf birleştirme.",
+        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+        "Önerilen komut veya yapılandırma adımını uygulayın.",
+        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Ağ Durumu ve Rota Tablosu",
+          "komut": "route print -4",
+          "aciklama": "Aktif yönlendirme tablosunu ve ağ geçitlerini listeler."
+        },
+        {
+          "etiket": "Netsh Arayüz Bilgisi",
+          "komut": "netsh interface ipv4 show subinterfaces",
+          "aciklama": "Ağ kartı MTU ve paket durumlarını dökümler."
+        }
+      ],
+      "temel_anlatim": "Site-to-Site VPN, bilişim altyapılarında i̇ki farklı ofis ağını şeffaf birleştirme. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+      "derin_teknik_analiz": "Site-to-Site VPN mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. İki farklı ofis ağını şeffaf birleştirme. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "site to site vpn",
+        "ağ",
+        "vpn tunelleme uzak erisim",
+        "ariza",
+        "onarım"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "ağ_radius_kimlik_dogrulama",
+      "kategori": "Ağ",
+      "alt_kategori": "VPN, Tünelleme & Uzak Erişim",
+      "baslik": "RADIUS Kimlik Doğrulama",
+      "hizli_adimlar": [
+        "Arıza belirtisini teyit edin: VPN girişlerini Active Directory ile eşleme.",
+        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+        "Önerilen komut veya yapılandırma adımını uygulayın.",
+        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Ağ Durumu ve Rota Tablosu",
+          "komut": "route print -4",
+          "aciklama": "Aktif yönlendirme tablosunu ve ağ geçitlerini listeler."
+        },
+        {
+          "etiket": "Netsh Arayüz Bilgisi",
+          "komut": "netsh interface ipv4 show subinterfaces",
+          "aciklama": "Ağ kartı MTU ve paket durumlarını dökümler."
+        }
+      ],
+      "temel_anlatim": "RADIUS Kimlik Doğrulama, bilişim altyapılarında vpn girişlerini active directory ile eşleme. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+      "derin_teknik_analiz": "RADIUS Kimlik Doğrulama mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. VPN girişlerini Active Directory ile eşleme. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "radius kimlik dogrulama",
+        "ağ",
+        "vpn tunelleme uzak erisim",
+        "ariza",
+        "onarım"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "ağ_mfa_destekli_vpn",
+      "kategori": "Ağ",
+      "alt_kategori": "VPN, Tünelleme & Uzak Erişim",
+      "baslik": "MFA Destekli VPN",
+      "hizli_adimlar": [
+        "Arıza belirtisini teyit edin: Google Authenticator veya OTP zorunluluğu.",
+        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+        "Önerilen komut veya yapılandırma adımını uygulayın.",
+        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Ağ Durumu ve Rota Tablosu",
+          "komut": "route print -4",
+          "aciklama": "Aktif yönlendirme tablosunu ve ağ geçitlerini listeler."
+        },
+        {
+          "etiket": "Netsh Arayüz Bilgisi",
+          "komut": "netsh interface ipv4 show subinterfaces",
+          "aciklama": "Ağ kartı MTU ve paket durumlarını dökümler."
+        }
+      ],
+      "temel_anlatim": "MFA Destekli VPN, bilişim altyapılarında google authenticator veya otp zorunluluğu. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+      "derin_teknik_analiz": "MFA Destekli VPN mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Google Authenticator veya OTP zorunluluğu. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "mfa destekli vpn",
+        "ağ",
+        "vpn tunelleme uzak erisim",
+        "ariza",
+        "onarım"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "win_directaccess_alwayson_vpn",
+      "kategori": "Windows",
+      "alt_kategori": "Uzaktan Erişim & VPN",
+      "baslik": "Always On VPN & Altyapı Geçişi",
+      "hizli_adimlar": [
+        "Sorun belirtisini teyit edin: Kullanıcı bilgisayarı açıldığı anda kurumsal ağa otomatik IPsec tüneli açma.",
+        "İlgili yönetim konsolunu veya terminali Yönetici olarak açın.",
+        "Sistem parametrelerini ve olay loglarını denetleyin.",
+        "Uygulanacak komut: powershell -Command \"Get-VpnConnection -AllUserConnection\"",
+        "Sonucu doğrulamak için servisi veya sistemi yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Always On VPN & Altyapı Geçişi",
+          "komut": "powershell -Command \"Get-VpnConnection -AllUserConnection\"",
+          "aciklama": "Makine genelinde tanımlı VPN bağlantılarını döker."
+        }
+      ],
+      "temel_anlatim": "Always On VPN & Altyapı Geçişi, Windows altyapısında kullanıcı bilgisayarı açıldığı anda kurumsal ağa otomatik ipsec tüneli açma.",
+      "derin_teknik_analiz": "Always On VPN & Altyapı Geçişi süreci, işletim sistemi çekirdeği ve ilgili donanım/ağ protokolü düzeyinde yürütülür. Kullanıcı bilgisayarı açıldığı anda kurumsal ağa otomatik IPsec tüneli açma. Kalıcı çözüm için sistem günlükleri ve I/O kuyrukları denetlenmelidir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Standart komut sonuç vermiyor veya erişim reddedildi",
+          "neden": "Kullanıcı Yönetici yetkilerine sahip değildir veya dosya kilitlidir.",
+          "cozum": "Yönetici olarak çalıştırın veya Kurtarma Ortamında (WinRE) deneyin."
+        }
+      ],
+      "etiketler": [
+        "always on vpn & altyapı geçişi",
+        "windows",
+        "uzaktan erişim & vpn",
+        "ariza",
+        "onarim"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "net_two_pc_remote_vpn_tailscale",
+      "kategori": "Ağ",
+      "alt_kategori": "İki PC'yi Bağlama",
+      "baslik": "Farklı Lokasyonlardaki İki Bilgisayarı İnternet Üzerinden Bağlama (Tailscale VPN)",
+      "hizli_adimlar": [
+        "UYARI: Asla modemden Port 445 SMB yönlendirmesi yapmayın! İnternete açık SMB fidye yazılımları (WannaCry) için birincil hedeftir.",
+        "İki bilgisayara da Tailscale (veya ZeroTier) uygulamasını kurun ve aynı hesapla oturum açın.",
+        "Her iki bilgisayar da 100.x.y.z şeklinde güvenli sanal IP alır.",
+        "Uzak bilgisayardan doğrudan \\\\100.x.y.z\\Paylasim yazarak şifreli WireGuard tüneli üzerinden bağlanın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Tailscale Durumunu ve IP'sini Gör",
+          "komut": "tailscale status",
+          "aciklama": "Ağdaki diğer makinelerin güvenli 100.x.y.z IP adreslerini listeler."
+        },
+        {
+          "etiket": "Uzak Paylaşılan Klasörü Ağ Sürücüsü Olarak Bağla",
+          "komut": "net use Z: \\\\100.85.12.34\\OrtakSirket /persistent:yes",
+          "aciklama": "Uzak lokasyondaki bilgisayarın klasörünü 'Z:' harfiyle bilgisayarıma bağlar."
+        }
+      ],
+      "temel_anlatim": "Şirket dışındaki bir laptop ile ofisteki bilgisayarı birbirine bağlamak için modemden port açmak güvenlik intiharıdır. Tailscale gibi mesh VPN araçları sıfır port açarak iki makine arasında uçtan uca şifreli (WireGuard) tünel kurar.",
+      "derin_teknik_analiz": "Tailscale, NAT arkasındaki iki cihazı STUN ve DERP röleleri üzerinden bağlayarak doğrudan peer-to-peer UDP WireGuard tüneli kurar (NAT Traversal). SMB paketleri internete sızmadan şifreli tünel içinden akar.",
+      "kenar_durumlar": [
+        {
+          "durum": "Tailscale bağlı ama paylaşıma girerken erişim engellendi diyor",
+          "neden": "Windows uzaktan bağlantılarda boş şifreli hesapları engeller.",
+          "cozum": "Paylaşımı açan kullanıcının Windows şifresi olmak zorundadır."
+        }
+      ],
+      "etiketler": [
+        "uzak pc baglama",
+        "vpn",
+        "tailscale",
+        "zerotier",
+        "wireguard",
+        "guvenli smb",
+        "sifir port"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "fw_fortigate_sdwan_failover",
+      "kategori": "Güvenlik Duvarı & VPN",
+      "alt_kategori": "FortiGate FortiOS",
+      "baslik": "FortiGate Çift WAN (Metro Ethernet + VDSL) SD-WAN ile Otomatik Yedekleme ve Yük Dengeleme",
+      "hizli_adimlar": [
+        "Network -> SD-WAN menüsüne girin; SD-WAN Zones altına wan1 ve wan2 arayüzlerini ekleyin.",
+        "Performance SLA sekmesinde yeni kural açın; Server olarak `8.8.8.8` ve `1.1.1.1` tanımlayın.",
+        "SLA Targets kısmında Latency Threshold 100ms, Packet Loss 5% belirleyin.",
+        "SD-WAN Rules sekmesinde kritik sunucular için 'Lowest Cost (SLA)' veya 'Manual Priority' kuralı oluşturun.",
+        "Policy & Objects -> Firewall Policy altında tek bir 'SD-WAN -> Herhangi' çıkış kuralı yazın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "SD-WAN Sağlık Durumunu İzle (CLI)",
+          "komut": "diagnose sys sdwan health-check status",
+          "aciklama": "WAN hatlarının canlı paket kaybı, gecikme ve jitter değerlerini listeler."
+        },
+        {
+          "etiket": "SD-WAN Arayüz Durumları",
+          "komut": "diagnose sys sdwan intf-sla-log",
+          "aciklama": "Hangi hattın SLA içinde olduğunu döker."
+        }
+      ],
+      "temel_anlatim": "Ana fiber internet hattı koptuğunda FortiGate'in 1 saniye içinde trafiği yedek hatta aktarması ve internet kesintisini önleme.",
+      "derin_teknik_analiz": "FortiOS SD-WAN mimarisinde WAN1 ve WAN2 portları tek bir sanal SD-WAN Zone altında birleştirilir. 'Performance SLA' kuralları üzerinden hedef sunuculara (örn: 8.8.8.8, 1.1.1.1) sürekli ping/HTTP probları gönderilir. Paket kaybı veya jitter eşiği aşıldığında rota tablosu otomatik güncellenir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Ana hat geri geldiğinde trafik yedek hatta takılı kalıyor",
+          "neden": "Oturumlar (Sessions) eski NAT tablosunda canlı kalmıştır.",
+          "cozum": "Firewall policy altında 'SNAT Route Change' aktif edin veya `diagnose sys session clear` ile oturumları tazeleyin."
+        }
+      ],
+      "etiketler": [
+        "firewall",
+        "fortigate",
+        "sd-wan",
+        "failover",
+        "yedek-hat",
+        "performance-sla"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "fw_pfsense_nat_reflection",
+      "kategori": "Güvenlik Duvarı & VPN",
+      "alt_kategori": "pfSense & OPNsense",
+      "baslik": "pfSense Güvenlik Duvarında NAT Reflection ile Yerel Ağdan Dış Statik IP Portlarına Erişme",
+      "hizli_adimlar": [
+        "pfSense web arayüzüne girin -> System -> Advanced -> Firewall & NAT sekmesine gelin.",
+        "'Network Address Translation' bölümüne inin.",
+        "'NAT Reflection mode for port forwards' seçeneğini bulun.",
+        "Değeri 'Pure NAT' olarak seçin.",
+        "'Enable automatic outbound NAT for Reflection' kutucuğunu işaretleyin ve kaydedin."
+      ],
+      "komutlar": [
+        {
+          "etiket": "pfSense Paket Filtresi Durumu",
+          "komut": "pfctl -s rules | grep nat",
+          "aciklama": "Aktif NAT kurallarını konsoldan döker."
+        }
+      ],
+      "temel_anlatim": "Ofis içindeki çalışanların şirketin dış statik IP'sine tanımlı kamera veya web portlarına kendi yerel ağlarından erişememesi.",
+      "derin_teknik_analiz": "pfSense varsayılan olarak Hairpin NAT yapmaz. İstemci yerel ağdan dış IP'ye port açma isteği attığında paket WAN arayüzüne gider ama kaynak ve hedef aynı alt ağda olduğundan TCP asimetrik rota nedeniyle düşürülür.",
+      "kenar_durumlar": [
+        {
+          "durum": "Pure NAT açıldığında iç sunucu loglarında istemci IP'si yerine firewall IP'si görünüyor",
+          "neden": "Outbound NAT kaynak IP'yi pfSense IP'siyle maskeler.",
+          "cozum": "İç ağda 'Split DNS' kullanarak alan adını doğrudan yerel sunucunun 192.168.x.x IP'sine yönlendirin."
+        }
+      ],
+      "etiketler": [
+        "pfsense",
+        "opnsense",
+        "nat-reflection",
+        "pure-nat",
+        "hairpin-nat",
+        "firewall"
+      ],
+      "oncelik": 2
+    }
+  ]
+}

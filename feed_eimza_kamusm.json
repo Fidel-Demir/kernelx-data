@@ -1,0 +1,131 @@
+{
+  "versiyon": "2.5.0",
+  "toplam": 3,
+  "modul": "feed_eimza_kamusm.json",
+  "kayitlar": [
+    {
+      "id": "eimza_kamusm_akis_taninmama",
+      "kategori": "E-İmza & KamuSM",
+      "alt_kategori": "AKİS & Kart Okuyucu",
+      "baslik": "KamuSM AKİS Akıllı Kart Okuyucunun Windows 11'de Tanınmaması ve Sürücü Kurulumu",
+      "hizli_adimlar": [
+        "KamuSM resmi sitesinden (kamusm.bilgem.tubitak.gov.tr) güncel 'AKİS Kart İzleme Aracı' (64-bit) indirin.",
+        "Kart okuyucu donanım modelini (ACS ACR38/39, Omnikey, Gemalto vb.) dongle üzerindeki etiketten belirleyin ve CCID sürücüsünü kurun.",
+        "`services.msc` altından 'Smart Card' (Akıllı Kart) servisinin 'Çalışıyor' ve 'Otomatik' olduğunu doğrulayın.",
+        "AKİS Kart İzleme Aracı'nı açın; kart tipinin, sertifika sahibinin adının ve kalan PIN hakkının başarıyla listelendiğini görün."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Akıllı Kart Servisini Başlat (PowerShell)",
+          "komut": "Set-Service -Name SCardSvr -StartupType Automatic; Start-Service -Name SCardSvr",
+          "aciklama": "Windows Smart Card çekirdek servisini açar."
+        },
+        {
+          "etiket": "Takılı Kart Okuyucuları Listele",
+          "komut": "certutil -scinfo",
+          "aciklama": "Windows sertifika altyapısının kart okuyucuyu ve çipi görüp görmediğini tam teşhis eder."
+        }
+      ],
+      "temel_anlatim": "E-İmza USB dongle bilgisayara takıldığında aygıt yöneticisinde sarı ünlem çıkması, AKİS Kart İzleme Aracı'nın kartı görmemesi.",
+      "derin_teknik_analiz": "KamuSM e-imzaları TÜBİTAK UEKAE tarafından geliştirilen AKİS (Akıllı Kart İşletim Sistemi) tabanlıdır. Windows 11 sürücü imzalama zorunluluğu ve ACS/Omnikey kart okuyucu sürücülerinin CCID standartlarıyla çakışması kartın takıldığını sistem seviyesinde bildirmez.",
+      "kenar_durumlar": [
+        {
+          "durum": "Certutil 'Akıllı kart servisi yanıt vermiyor' hatası veriyor",
+          "neden": "Kayıt defterinde Smart Card Resource Manager servisi bozulmuştur.",
+          "cozum": "`sc config SCardSvr start= auto` çalıştırıp bilgisayarı yeniden başlatın."
+        }
+      ],
+      "etiketler": [
+        "e-imza",
+        "kamusm",
+        "akis",
+        "scardsvr",
+        "certutil",
+        "smart-card"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "eimza_uyap_java_conflict",
+      "kategori": "E-İmza & KamuSM",
+      "alt_kategori": "UYAP & Java Çakışmaları",
+      "baslik": "UYAP Editör ve Kamu Portallarında 'Kart Takılı Değil / Sertifika Bulunamadı' Hatası",
+      "hizli_adimlar": [
+        "UYAP Editör'ü tamamen kapatın.",
+        "C:\\Windows\\System32 ve C:\\Windows\\SysWOW64 klasörlerinde `akisp11.dll` dosyasının var olduğunu teyit edin.",
+        "UYAP Editör -> Araçlar -> Seçenekler -> 'İmza Kütüphanesi' bölümüne gelin.",
+        "Kart tipi olarak 'AKİS' seçin veya kütüphane yolu olarak manuel `C:\\Windows\\System32\\akisp11.dll` dosyasını gösterin.",
+        "İmzalama yaparken USB 2.0 portuna takılı olduğundan emin olun (Bazı USB 3.0/3.1 portları kartla kesintili haberleşir)."
+      ],
+      "komutlar": [
+        {
+          "etiket": "AKİS DLL Varlığını Doğrula",
+          "komut": "Test-Path C:\\Windows\\System32\\akisp11.dll",
+          "aciklama": "64-bit PKCS11 kütüphanesinin kurulu olduğunu teyit eder."
+        },
+        {
+          "etiket": "Java Sürümünü Kontrol Et",
+          "komut": "java -version",
+          "aciklama": "Sistem varsayılan Java çalışma zamanını döker."
+        }
+      ],
+      "temel_anlatim": "Adalet Bakanlığı UYAP Doküman Editörü, EBYS veya EKAP üzerinde evrak imzalarken akıllı kartın takılı olmasına rağmen bulunamaması.",
+      "derin_teknik_analiz": "UYAP editörü Java tabanlıdır. Bilgisayarda 32-bit ve 64-bit Java sürümlerinin aynı anda bulunması veya UYAP'ın sistemdeki PKCS#11 kütüphanesini (`akisp11.dll`) bulamaması imzalama modülünü kilitler.",
+      "kenar_durumlar": [
+        {
+          "durum": "PIN kodu doğru girilmesine rağmen 'PIN Hatalı' uyarısı verip kilitleniyor",
+          "neden": "Klavyede NumLock kapalıdır veya CapsLock açıkken Türkçe karakter farkı oluşmuştur.",
+          "cozum": "PIN'i önce Not Defteri'ne yazarak görünür şekilde kontrol edin."
+        }
+      ],
+      "etiketler": [
+        "e-imza",
+        "uyap",
+        "ebys",
+        "ekap",
+        "akisp11",
+        "java",
+        "pkcs11"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "eimza_puk_unblocking",
+      "kategori": "E-İmza & KamuSM",
+      "alt_kategori": "PIN & PUK Yönetimi",
+      "baslik": "E-İmza PIN Kodunun Bloke Olması ve PUK Kodu ile Yeni PIN Tanımlama",
+      "hizli_adimlar": [
+        "AKİS Kart İzleme Aracı programını yönetici olarak açın.",
+        "Soldaki menüden akıllı kartınızı seçin.",
+        "'PIN Kilidi Aç' (PUK) sekmesine tıklayın.",
+        "Zarf içinde veya e-posta ile gelen orijinal PUK kodunu girin.",
+        "Kendinize yeni bir 6 haneli numerik PIN belirleyin ve onaylayın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Kart Durumunu Sorgula",
+          "komut": "certutil -scinfo",
+          "aciklama": "Kartın kilitli olup olmadığını doğrular."
+        }
+      ],
+      "temel_anlatim": "E-İmza PIN kodunun 3 defa art arda yanlış girilmesi sonucu kartın kilitlenmesi ve imzalama yapamaz hale gelmesi.",
+      "derin_teknik_analiz": "ISO 7816 akıllı kart standartlarına göre PIN sayacı 3 denemeden sonra donanımsal olarak kilitlenir. Bu kilidi yalnızca kart sahibine KamuSM veya sağlayıcı (E-Tuğra, Türktrust vb.) tarafından verilen PUK (PIN Unblocking Key) kodu çözebilir.",
+      "kenar_durumlar": [
+        {
+          "durum": "PUK kodu da 3 defa yanlış girildi",
+          "neden": "PUK deneme hakkı tükenmiştir; kart donanımsal olarak geri dönülemez biçimde kilitlenir (Çöp/Dead Card).",
+          "cozum": "Sertifika sağlayıcısından ücretli kart yenileme (yeni çip) başvurusu yapılmalıdır."
+        }
+      ],
+      "etiketler": [
+        "e-imza",
+        "puk-kodu",
+        "pin-bloke",
+        "akis",
+        "kamusm",
+        "guvenlik"
+      ],
+      "oncelik": 2
+    }
+  ]
+}

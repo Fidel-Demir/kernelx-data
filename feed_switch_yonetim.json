@@ -1,0 +1,595 @@
+{
+  "versiyon": "2.5.0",
+  "toplam": 14,
+  "modul": "feed_switch_yonetim.json",
+  "kayitlar": [
+    {
+      "id": "ag_00002",
+      "kategori": "Ağ",
+      "alt_kategori": "MikroTik GPON Fiber PPPoE",
+      "baslik": "MikroTik GPON Fiber PPPoE & VLAN 35",
+      "hizli_adimlar": [
+        "Saha arıza/kurulum belirtisini teyit edin: Türk Telekom/Superonline fiber ONT hattını ether1 portunda VLAN 35 ile sonlandırma.",
+        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+        "Birincil komutu veya eylemi uygulayın: /interface vlan add name=vlan35 vlan-id=35 interface=ether1; /interface pppoe-client add name=pppoe-out1 interface=vlan35 user='abone@ttnet'",
+        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Teşhis ve Uygulama Komutu",
+          "komut": "/interface vlan add name=vlan35 vlan-id=35 interface=ether1; /interface pppoe-client add name=pppoe-out1 interface=vlan35 user='abone@ttnet'",
+          "aciklama": "Fiber internet oturumunu kurar."
+        }
+      ],
+      "temel_anlatim": "MikroTik GPON Fiber PPPoE & VLAN 35: Türk Telekom/Superonline fiber ONT hattını ether1 portunda VLAN 35 ile sonlandırma. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. /interface vlan add name=vlan35 vlan-id=35 interface=ether1; /interface pppoe-client add name=pppoe-out1 interface=vlan35 user='abone@ttnet' parametresi durumu optimize eder.",
+      "kenar_durumlar": [
+        {
+          "durum": "Zaman aşımı veya erişim engeli hatası",
+          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "pppoe",
+        "fiber",
+        "gpon",
+        "ağ",
+        "ag",
+        "router",
+        "mikrotik",
+        "vlan35"
+      ],
+      "oncelik": 2
+    },
+    {
+      "id": "ag_00006",
+      "kategori": "Ağ",
+      "alt_kategori": "pfSense 802.1Q VLAN",
+      "baslik": "pfSense 802.1Q VLAN & Alt Ağ İzolasyonu",
+      "hizli_adimlar": [
+        "Saha arıza/kurulum belirtisini teyit edin: Tek kablodan Yönetim, Personel ve Misafir ağlarını ayırma kuralı.",
+        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+        "Birincil komutu veya eylemi uygulayın: Interfaces -> VLANs -> Parent: igb1, Tag: 10, 20 -> Firewall Rules: Block GUEST to LAN",
+        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Teşhis ve Uygulama Komutu",
+          "komut": "Interfaces -> VLANs -> Parent: igb1, Tag: 10, 20 -> Firewall Rules: Block GUEST to LAN",
+          "aciklama": "VLAN izolasyonunu sağlar."
+        }
+      ],
+      "temel_anlatim": "pfSense 802.1Q VLAN & Alt Ağ İzolasyonu: Tek kablodan Yönetim, Personel ve Misafir ağlarını ayırma kuralı. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. Interfaces -> VLANs -> Parent: igb1, Tag: 10, 20 -> Firewall Rules: Block GUEST to LAN parametresi durumu optimize eder.",
+      "kenar_durumlar": [
+        {
+          "durum": "Zaman aşımı veya erişim engeli hatası",
+          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "vlan",
+        "firewall",
+        "ağ",
+        "izolasyon",
+        "802.1q",
+        "ag",
+        "pfsense"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "ag_00009",
+      "kategori": "Ağ",
+      "alt_kategori": "Cisco LACP Port Birleştirme",
+      "baslik": "Cisco LACP Port Birleştirme (EtherChannel)",
+      "hizli_adimlar": [
+        "Saha arıza/kurulum belirtisini teyit edin: İki fiziksel switch portunu 2 Gbps tek hat altında birleştirme.",
+        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+        "Birincil komutu veya eylemi uygulayın: interface range gig 1/0/23 - 24; channel-group 1 mode active; channel-protocol lacp",
+        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Teşhis ve Uygulama Komutu",
+          "komut": "interface range gig 1/0/23 - 24; channel-group 1 mode active; channel-protocol lacp",
+          "aciklama": "LACP port kanalını kurar."
+        }
+      ],
+      "temel_anlatim": "Cisco LACP Port Birleştirme (EtherChannel): İki fiziksel switch portunu 2 Gbps tek hat altında birleştirme. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. interface range gig 1/0/23 - 24; channel-group 1 mode active; channel-protocol lacp parametresi durumu optimize eder.",
+      "kenar_durumlar": [
+        {
+          "durum": "Zaman aşımı veya erişim engeli hatası",
+          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "cisco",
+        "etherchannel",
+        "ağ",
+        "lacp",
+        "port kanali",
+        "switch",
+        "ag"
+      ],
+      "oncelik": 2
+    },
+    {
+      "id": "ag_00010",
+      "kategori": "Ağ",
+      "alt_kategori": "Cisco BPDU Guard",
+      "baslik": "Cisco BPDU Guard & Loop Koruması",
+      "hizli_adimlar": [
+        "Saha arıza/kurulum belirtisini teyit edin: Switch portları arasında yanlışlıkla yapılan döngüleri (Loop) anında kesme.",
+        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+        "Birincil komutu veya eylemi uygulayın: interface range gig 1/0/1 - 22; spanning-tree portfast; spanning-tree bpduguard enable",
+        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Teşhis ve Uygulama Komutu",
+          "komut": "interface range gig 1/0/1 - 22; spanning-tree portfast; spanning-tree bpduguard enable",
+          "aciklama": "Döngü anında portu kapatır."
+        }
+      ],
+      "temel_anlatim": "Cisco BPDU Guard & Loop Koruması: Switch portları arasında yanlışlıkla yapılan döngüleri (Loop) anında kesme. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. interface range gig 1/0/1 - 22; spanning-tree portfast; spanning-tree bpduguard enable parametresi durumu optimize eder.",
+      "kenar_durumlar": [
+        {
+          "durum": "Zaman aşımı veya erişim engeli hatası",
+          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "cisco",
+        "ağ",
+        "loop guard",
+        "dongu",
+        "bpdu guard",
+        "switch",
+        "ag"
+      ],
+      "oncelik": 2
+    },
+    {
+      "id": "cctv_00003",
+      "kategori": "CCTV Kamera",
+      "alt_kategori": "PoE Switch Watt Bütçesi Yetersizliği",
+      "baslik": "PoE Switch Watt Bütçesi Yetersizliği & Gece Kapanması",
+      "hizli_adimlar": [
+        "Saha arıza/kurulum belirtisini teyit edin: Kameraların gece kızılötesi (IR) LED açtığında kapanması sorunu.",
+        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+        "Birincil komutu veya eylemi uygulayın: show power inline; # Her kamera gündüz 4W, gece IR açıkken 12W çeker.",
+        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Teşhis ve Uygulama Komutu",
+          "komut": "show power inline; # Her kamera gündüz 4W, gece IR açıkken 12W çeker.",
+          "aciklama": "PoE güç bütçesi hesabını doğrular."
+        }
+      ],
+      "temel_anlatim": "PoE Switch Watt Bütçesi Yetersizliği & Gece Kapanması: Kameraların gece kızılötesi (IR) LED açtığında kapanması sorunu. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. show power inline; # Her kamera gündüz 4W, gece IR açıkken 12W çeker. parametresi durumu optimize eder.",
+      "kenar_durumlar": [
+        {
+          "durum": "Zaman aşımı veya erişim engeli hatası",
+          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "cctv",
+        "cctv kamera",
+        "watt",
+        "poe switch",
+        "kamera gece kapaniyor",
+        "ir led"
+      ],
+      "oncelik": 2
+    },
+    {
+      "id": "net_pppoe_vlan_fiber_setup",
+      "kategori": "Ağ",
+      "alt_kategori": "Modem & Fiber GPON",
+      "baslik": "PPPoE & VLAN 35 Kurulumu",
+      "hizli_adimlar": [
+        "Router yönetim arayüzüne gir (192.168.1.1).",
+        "WAN / İnternet Ayarlarında Bağlantı Tipini 'PPPoE' olarak seç.",
+        "ISS kullanıcı adını (@ttnet, @superonline vb.) ve şifresini yaz.",
+        "Fiber (GPON) ve VDSL için VLAN 802.1Q etiketini açıp VLAN ID değerini '35' yap.",
+        "MTU değerini '1492' bayt olarak ayarla ve kaydet."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Varsayılan Ağ Geçidi Tespiti",
+          "komut": "ipconfig | findstr /i \"Default Gateway Ağ Geçidi\"",
+          "aciklama": "Router arayüz adresini döker."
+        },
+        {
+          "etiket": "Dış Ağ Çıkış Testi",
+          "komut": "ping -n 4 8.8.8.8",
+          "aciklama": "DNS olmadan doğrudan Google DNS'e ping atar."
+        }
+      ],
+      "temel_anlatim": "Fiber ve VDSL internet bağlantılarında modem doğrudan internete çıkmaz; ISS santraline PPPoE protokolüyle kimlik doğrulaması yapar. Türkiye altyapısında internet trafiği diğer hizmetlerden (IPTV/VoIP) VLAN 35 etiketiyle ayrılır. Bu değer girilmezse router IP alamaz.",
+      "derin_teknik_analiz": "PPPoE, Ethernet üzerinde PADI, PADO, PADR ve PADS keşif paketleriyle oturum kurar. Ethernet MTU 1500 bayt iken PPPoE başlığı 8 bayt ek yük getirir (1500 - 8 = 1492). MTU 1492 yapılmazsa TCP MSS parçalanması (fragmentation) oluşur ve bazı HTTPS siteleri sonsuz döngüye girer.",
+      "kenar_durumlar": [
+        {
+          "durum": "WAN IP 0.0.0.0 kalıyor, Loglarda 'Auth Failed' yazıyor",
+          "neden": "Kullanıcı adındaki servis sağlayıcı domain eki (@ttnet) hatalı veya şifre yanlış.",
+          "cozum": "Sözleşmedeki kullanıcı adı uzantısını kontrol edin."
+        }
+      ],
+      "etiketler": [
+        "pppoe",
+        "vlan35",
+        "fiber",
+        "gpon",
+        "wan",
+        "mtu 1492"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "ağ_vlan_routing_router_on_a_stick",
+      "kategori": "Ağ",
+      "alt_kategori": "Yönlendirme",
+      "baslik": "VLAN Routing (Router-on-a-Stick)",
+      "hizli_adimlar": [
+        "Arıza belirtisini teyit edin: 802.1Q sub-interface yapılandırması.",
+        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+        "Önerilen komut veya yapılandırma adımını uygulayın.",
+        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Ağ Durumu ve Rota Tablosu",
+          "komut": "route print -4",
+          "aciklama": "Aktif yönlendirme tablosunu ve ağ geçitlerini listeler."
+        },
+        {
+          "etiket": "Netsh Arayüz Bilgisi",
+          "komut": "netsh interface ipv4 show subinterfaces",
+          "aciklama": "Ağ kartı MTU ve paket durumlarını dökümler."
+        }
+      ],
+      "temel_anlatim": "VLAN Routing (Router-on-a-Stick), bilişim altyapılarında 802.1q sub-interface yapılandırması. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+      "derin_teknik_analiz": "VLAN Routing (Router-on-a-Stick) mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. 802.1Q sub-interface yapılandırması. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "vlan routing router on a stick",
+        "ağ",
+        "yonlendirme",
+        "ariza",
+        "onarım"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "ağ_vpn_kill_switch",
+      "kategori": "Ağ",
+      "alt_kategori": "VPN, Tünelleme & Uzak Erişim",
+      "baslik": "VPN Kill Switch",
+      "hizli_adimlar": [
+        "Arıza belirtisini teyit edin: VPN koptuğunda interneti keserek IP sızıntısını önleme.",
+        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+        "Önerilen komut veya yapılandırma adımını uygulayın.",
+        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Ağ Durumu ve Rota Tablosu",
+          "komut": "route print -4",
+          "aciklama": "Aktif yönlendirme tablosunu ve ağ geçitlerini listeler."
+        },
+        {
+          "etiket": "Netsh Arayüz Bilgisi",
+          "komut": "netsh interface ipv4 show subinterfaces",
+          "aciklama": "Ağ kartı MTU ve paket durumlarını dökümler."
+        }
+      ],
+      "temel_anlatim": "VPN Kill Switch, bilişim altyapılarında vpn koptuğunda interneti keserek ip sızıntısını önleme. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+      "derin_teknik_analiz": "VPN Kill Switch mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. VPN koptuğunda interneti keserek IP sızıntısını önleme. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "vpn kill switch",
+        "ağ",
+        "vpn tunelleme uzak erisim",
+        "ariza",
+        "onarım"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "yaz_vlan_i_zolasyonunda_yazdirma",
+      "kategori": "Yazıcı",
+      "alt_kategori": "Ağ Yazıcıları & Port Protokolleri",
+      "baslik": "VLAN İzolasyonunda Yazdırma",
+      "hizli_adimlar": [
+        "Arıza belirtisini teyit edin: İstemci VLAN'ından sunucu VLAN'ındaki porta kural yazma.",
+        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+        "Önerilen komut veya yapılandırma adımını uygulayın.",
+        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Spooler Servisini Yeniden Başlat",
+          "komut": "net stop spooler && net start spooler",
+          "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
+        }
+      ],
+      "temel_anlatim": "VLAN İzolasyonunda Yazdırma, bilişim altyapılarında i̇stemci vlan'ından sunucu vlan'ındaki porta kural yazma. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+      "derin_teknik_analiz": "VLAN İzolasyonunda Yazdırma mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. İstemci VLAN'ından sunucu VLAN'ındaki porta kural yazma. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "vlan i zolasyonunda yazdirma",
+        "yazıcı",
+        "ag yazicilari port protokolleri",
+        "ariza",
+        "onarım"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "net_two_pc_direct_ethernet_cable",
+      "kategori": "Ağ",
+      "alt_kategori": "İki PC'yi Bağlama",
+      "baslik": "İki Bilgisayarı Doğrudan Ethernet Kablosuyla Bağlama (Switch'siz)",
+      "hizli_adimlar": [
+        "İki bilgisayarı tek bir Cat5e veya Cat6 kablo ile bağlayın (Modern ethernet kartlarında Auto-MDIX vardır, çapraz kablo gerekmez).",
+        "1. Bilgisayara Statik IP verin: 192.168.10.1 / 255.255.255.0 (Ağ geçidi BOŞ bırakılır).",
+        "2. Bilgisayara Statik IP verin: 192.168.10.2 / 255.255.255.0 (Ağ geçidi BOŞ bırakılır).",
+        "Ağ profilini 'Özel' (Private) yapın ve Windows Güvenlik Duvarı ICMP Echo (Ping) iznini açın.",
+        "Klasörü paylaşıma açın ve diğer bilgisayardan \\\\192.168.10.1\\Paylasim yazarak bağlanın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "PC1 Statik IP ve Özel Ağ Ayarı (PowerShell)",
+          "komut": "New-NetIPAddress -InterfaceAlias 'Ethernet' -IPAddress 192.168.10.1 -PrefixLength 24; Set-NetConnectionProfile -InterfaceAlias 'Ethernet' -NetworkCategory Private",
+          "aciklama": "1. Bilgisayara 192.168.10.1 IP'sini atar ve ağı Özel yapar."
+        },
+        {
+          "etiket": "Ping (ICMP) ve Dosya Paylaşımı İznini Aç",
+          "komut": "netsh advfirewall firewall set rule name=\"File and Printer Sharing (Echo Request - ICMPv4-In)\" new enable=Yes",
+          "aciklama": "İki bilgisayarın birbirini pingleyebilmesini sağlar."
+        },
+        {
+          "etiket": "Klasörü Paylaşıma Aç (CMD)",
+          "komut": "net share OrtakKlasor=C:\\Ortak /grant:everyone,FULL",
+          "aciklama": "C:\\Ortak klasörünü tüm kullanıcılara tam yetkiyle paylaşıma açar."
+        }
+      ],
+      "temel_anlatim": "İki bilgisayar arasında modem veya switch olmadan doğrudan kablo bağlandığında DHCP sunucusu olmadığı için Windows 169.254.x.x (APIPA) adresine düşer. İki tarafa da aynı bloktan (192.168.10.x) statik IP atanmalı ve Ağ Geçidi boş bırakılmalıdır.",
+      "derin_teknik_analiz": "Ağ geçidi (Default Gateway) girilirse Windows internet bağlantısını bu porta yönlendirmeye çalışır ve varsa Wi-Fi interneti kesilir; bu yüzden Gateway mutlaka boş kalmalıdır. Auto-MDIX (IEEE 802.3ab) standardı sayesinde pin 1-2 ve 3-6 çaprazlaması NIC PHY yongası tarafından otomatik yapılır.",
+      "kenar_durumlar": [
+        {
+          "durum": "Karşı bilgisayara erişimde şifre soruyor",
+          "neden": "Windows Parola Korumalı Paylaşım açıktır.",
+          "cozum": "Gelişmiş Paylaşım Ayarlarından 'Parola korumalı paylaşımı kapat' seçin veya karşı PC'deki yerel kullanıcı adı/şifresini girin."
+        },
+        {
+          "durum": "Ping gitmiyor ama kablo takılı",
+          "neden": "Ağ profili 'Public' (Ortak) kalmıştır.",
+          "cozum": "Set-NetConnectionProfile ile profili 'Private' yapın."
+        }
+      ],
+      "etiketler": [
+        "iki pc baglama",
+        "dogrudan kablo",
+        "switchsiz baglanti",
+        "crossover",
+        "auto-mdix",
+        "dosya aktarimi",
+        "statik ip"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "net_two_pc_same_lan_smb_sharing",
+      "kategori": "Ağ",
+      "alt_kategori": "İki PC'yi Bağlama",
+      "baslik": "Aynı Yerel Ağda (Switch/Modem/Wi-Fi) İki Bilgisayarı Bağlama & SMB Paylaşımı",
+      "hizli_adimlar": [
+        "İki bilgisayarın da aynı modeme veya switch'e bağlı olduğunu teyit edin (ipconfig ile aynı 192.168.1.x bloğunda olmalıdırlar).",
+        "Ağ Bulma servislerini (fdPHost ve FDResPub) otomatik başlatmaya ayarlayın.",
+        "Windows Güvenlik Duvarında 'Dosya ve Yazıcı Paylaşımı' kurallarını aktif edin.",
+        "Dosya Gezgininden \\\\BILGISAYAR_ADI veya \\\\IP_ADRESI yazarak paylaşıma girin."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Ağ Bulma Servislerini Başlat",
+          "komut": "sc config fdPHost start= auto && sc config FDResPub start= auto && net start fdPHost && net start FDResPub",
+          "aciklama": "Ağ komşuları ekranında diğer bilgisayarların görünmesini sağlar."
+        },
+        {
+          "etiket": "Konuk (Guest) Giriş İznini Aç (Regedit)",
+          "komut": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\" /v AllowInsecureGuestAuth /t REG_DWORD /d 1 /f",
+          "aciklama": "Windows 10/11'de şifresiz paylaşımlara erişimde oluşan 0x80070035 hatasını çözer."
+        },
+        {
+          "etiket": "Windows 11 SMB İmza Zorlamasını Kapat",
+          "komut": "Set-SmbClientConfiguration -RequireSecuritySignature $false -Force",
+          "aciklama": "Windows 11 22H2/24H2 sürümlerinde eski paylaşımlara erişim bloklanmasını engeller."
+        }
+      ],
+      "temel_anlatim": "Aynı modem veya switch'e bağlı bilgisayarlar normal şartlarda birbirini otomatik görür. Ancak Windows 10 ve 11 güvenlik güncellemeleri 'Konuk (Guest) erişimini' ve şifresiz paylaşımları engellediği için 'Ağ yolu bulunamadı' (0x80070035) hatası verir.",
+      "derin_teknik_analiz": "SMBv2 ve SMBv3 istemcileri 'AllowInsecureGuestAuth=0' olduğunda kimlik doğrulaması yapılmayan NTLM oturumlarını güvenlik gereği sonlandırır. Ayrıca Function Discovery Provider Host (fdPHost) servisi kapalıysa NetBIOS ve WSD anonsları yayınlanmaz.",
+      "kenar_durumlar": [
+        {
+          "durum": "Hata: 'Kuruluşunuzun güvenlik ilkeleri kimliği doğrulanmamış konuk erişimini engelliyor'",
+          "neden": "Windows 11 varsayılan kısıtlaması.",
+          "cozum": "AllowInsecureGuestAuth=1 regedit kaydını girip bilgisayarı yeniden başlatın."
+        }
+      ],
+      "etiketler": [
+        "ayni agda dosya paylasimi",
+        "smb",
+        "ag yolu bulunamadi",
+        "0x80070035",
+        "fdphost",
+        "konuk paylasimi"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "net_two_pc_different_subnets_vlans",
+      "kategori": "Ağ",
+      "alt_kategori": "İki PC'yi Bağlama",
+      "baslik": "Farklı Ağlardaki (Subnet / VLAN) İki Bilgisayarı Bağlama & Yönlendirme",
+      "hizli_adimlar": [
+        "PC 1 (192.168.1.50) ile PC 2 (192.168.2.100) farklı subnet'tedir; aralarında bir L3 Router veya Switch bulunmalıdır.",
+        "Broadcast (NetBIOS/mDNS) paketleri router'dan geçmeyeceği için \\\\BILGISAYAR_ADI yerine MUTLAKA \\\\192.168.2.100 şeklinde IP ile bağlanın.",
+        "Gerekirse Windows'a karşı subnet için statik rota ekleyin.",
+        "Hedef bilgisayarın Güvenlik Duvarında SMB Port 445 kuralını 'LocalSubnet' yerine tüm IP aralığına açın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Statik Rota Ekle (CMD Yönetici)",
+          "komut": "route add 192.168.2.0 mask 255.255.255.0 192.168.1.1 -p",
+          "aciklama": "192.168.2.x ağına gidecek paketleri ağ geçidine kalıcı olarak yönlendirir."
+        },
+        {
+          "etiket": "SMB Port 445 Güvenlik Duvarı Kuralını Genişlet",
+          "komut": "netsh advfirewall firewall set rule name=\"File and Printer Sharing (SMB-In)\" new remoteip=192.168.0.0/16",
+          "aciklama": "Yalnızca aynı alt ağdan değil, diğer VLAN ve subnet'lerden gelen SMB isteklerine de izin verir."
+        },
+        {
+          "etiket": "Hosts Dosyasına IP-İsim Eşleşmesi Ekle",
+          "komut": "Add-Content -Path \"$env:windir\\System32\\drivers\\etc\\hosts\" -Value \"192.168.2.100`tMUHASEBE-PC\"",
+          "aciklama": "DNS olmadan farklı subnet'teki bilgisayar adına isimle erişilmesini sağlar."
+        }
+      ],
+      "temel_anlatim": "Farklı IP bloklarındaki (örneğin muhasebe 192.168.1.x, üretim 192.168.2.x) bilgisayarlar doğrudan birbirinin ağ komşusu listesinde görünmez. Çünkü Windows ağ bulma yayınları (broadcast) router sınırını geçemez. Doğrudan IP ile bağlanılmalı ve firewall kuralları genişletilmelidir.",
+      "derin_teknik_analiz": "Inter-VLAN routing aktif bir L3 omurga üzerinde paketler IP katmanında yönlendirilir. Ancak Windows Firewall varsayılan olarak 'File and Printer Sharing' kurallarında 'RemoteIP=LocalSubnet' filtresi uygular; bu filtre farklı subnet'ten gelen SYN paketlerini sessizce DROP eder.",
+      "kenar_durumlar": [
+        {
+          "durum": "Ping gidiyor ama dosya paylaşımına bağlanmıyor",
+          "neden": "Port 445 SMB Güvenlik Duvarında LocalSubnet kısıtlamasına takılıyordur.",
+          "cozum": "remoteip=192.168.0.0/16 kuralını uygulayın."
+        }
+      ],
+      "etiketler": [
+        "farkli subnet",
+        "vlan routing",
+        "inter vlan",
+        "statik rota",
+        "route add",
+        "port 445 firewall"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "sw_vlan_trunk_8021q_config",
+      "kategori": "Switch Yönetim",
+      "alt_kategori": "VLAN & Trunking",
+      "baslik": "Omurga ve Kenar Switch Arasında 802.1Q Trunk Port Yapılandırması ve İzin Verilen VLAN'lar",
+      "hizli_adimlar": [
+        "Her iki switch'te de taşınacak VLAN'ları oluşturun (`vlan 10, vlan 20, vlan 30`).",
+        "Ara bağlantı portuna girin (`interface gigabitethernet 1/0/24`).",
+        "Port modunu trunk yapın: `switchport mode trunk`.",
+        "Yalnızca gerekli VLAN'ları geçirin: `switchport trunk allowed vlan 10,20,30,99`.",
+        "Her iki uçta da Native VLAN'ın eşleştiğinden emin olun: `switchport trunk native vlan 99`."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Cisco Trunk Yapılandırma",
+          "komut": "interface Gi1/0/24\nswitchport trunk encapsulation dot1q\nswitchport mode trunk\nswitchport trunk allowed vlan 10,20,30,99\nno shutdown",
+          "aciklama": "Portu 802.1Q trunk olarak yapılandırır."
+        },
+        {
+          "etiket": "Aktif Trunk Portları Kontrol Et",
+          "komut": "show interfaces trunk",
+          "aciklama": "Trunk portları ve geçen VLAN listesini doğrular."
+        }
+      ],
+      "temel_anlatim": "İki switch arasındaki tek bir fiber veya bakır uplink kablosundan tüm kurumsal VLAN'ların (Yönetim, Personel, Muhasebe, Kamera) taşınması.",
+      "derin_teknik_analiz": "802.1Q standardı Ethernet çerçevesine (frame) 4 baytlık etiket (Tag) ekler (VLAN ID 1-4094). Trunk portta `switchport trunk allowed vlan` kısıtlaması yapılmazsa gereksiz broadcast trafiği tüm switchlere yayılır.",
+      "kenar_durumlar": [
+        {
+          "durum": "Yeni VLAN eklendiğinde mevcut tüm VLAN'lar koptu",
+          "neden": "`allowed vlan add 40` yerine `allowed vlan 40` yazılmış ve önceki liste ezilmiştir.",
+          "cozum": "VLAN eklerken mutlaka `switchport trunk allowed vlan add <ID>` komutunu kullanın."
+        }
+      ],
+      "etiketler": [
+        "switch",
+        "vlan",
+        "trunk",
+        "802.1q",
+        "cisco",
+        "allowed-vlan"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "sw_spanning_tree_root_bridge_priority",
+      "kategori": "Switch Yönetim",
+      "alt_kategori": "Spanning Tree (RSTP / MSTP)",
+      "baslik": "Spanning-Tree (RSTP) Kök Köprü (Root Bridge) Öncelik Değerinin (Priority 4096) Sabitlenmesi",
+      "hizli_adimlar": [
+        "Merkez omurga switch'e konsol veya SSH ile bağlanın.",
+        "Global konfigürasyon moduna geçin (`configure terminal`).",
+        "Spanning-Tree protokolünün RSTP olduğunu teyit edin (`spanning-tree mode rapid-pvst`).",
+        "Omurga switch'in önceliğini 4096 olarak sabitleyin: `spanning-tree vlan 1-4094 priority 4096`.",
+        "Yedek omurga switch'in önceliğini 8192 yapın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Root Bridge Önceliğini Ayarla",
+          "komut": "spanning-tree vlan 1-4094 priority 4096",
+          "aciklama": "Omurga switch'i kesin olarak Root Bridge yapar."
+        },
+        {
+          "etiket": "Root Bridge Durumunu Doğrula",
+          "komut": "show spanning-tree root",
+          "aciklama": "Hangi switch'in root olduğunu ve köprü maliyetini gösterir."
+        }
+      ],
+      "temel_anlatim": "Ağdaki küçük veya eski bir kenar switch'in beklenmedik şekilde tüm ağın merkez köprüsü (Root Bridge) haline gelmesi ve veri trafiğinde tıkanma.",
+      "derin_teknik_analiz": "Spanning Tree Protocol (STP / Rapid STP 802.1w) en düşük Bridge ID'ye (Bridge Priority + MAC Address) sahip switch'i Root Bridge seçer. Varsayılan priority 32768'dir. Eğer omurga switch'in önceliği düşürülmezse, MAC adresi tesadüfen daha küçük olan kenar switch Root seçilir ve tüm trafik zayıf switch üzerinden akmaya başlar.",
+      "kenar_durumlar": [
+        {
+          "durum": "Switch konsolunda 'Topology Change Notification (TCN)' fırtınası basılıyor",
+          "neden": "Kullanıcı bilgisayarlarının takılı olduğu erişim portlarında 'PortFast' açık değildir.",
+          "cozum": "Tüm uç kullanıcı portlarına `spanning-tree portfast` komutu verin."
+        }
+      ],
+      "etiketler": [
+        "switch",
+        "spanning-tree",
+        "rstp",
+        "root-bridge",
+        "priority-4096",
+        "tcn"
+      ],
+      "oncelik": 1
+    }
+  ]
+}

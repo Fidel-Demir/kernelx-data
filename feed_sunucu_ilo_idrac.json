@@ -1,0 +1,220 @@
+{
+  "versiyon": "2.5.0",
+  "toplam": 5,
+  "modul": "feed_sunucu_ilo_idrac.json",
+  "kayitlar": [
+    {
+      "id": "ağ_4g_5g_wan_yedekleme_failover",
+      "kategori": "Ağ",
+      "alt_kategori": "Modem, Fiber GPON & DSL Teknolojileri",
+      "baslik": "4G/5G WAN Yedekleme (Failover)",
+      "hizli_adimlar": [
+        "Arıza belirtisini teyit edin: Dual-WAN router üzerinde otomatik geçiş kuralı.",
+        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+        "Önerilen komut veya yapılandırma adımını uygulayın.",
+        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Ağ Durumu ve Rota Tablosu",
+          "komut": "route print -4",
+          "aciklama": "Aktif yönlendirme tablosunu ve ağ geçitlerini listeler."
+        },
+        {
+          "etiket": "Netsh Arayüz Bilgisi",
+          "komut": "netsh interface ipv4 show subinterfaces",
+          "aciklama": "Ağ kartı MTU ve paket durumlarını dökümler."
+        }
+      ],
+      "temel_anlatim": "4G/5G WAN Yedekleme (Failover), bilişim altyapılarında dual-wan router üzerinde otomatik geçiş kuralı. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+      "derin_teknik_analiz": "4G/5G WAN Yedekleme (Failover) mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Dual-WAN router üzerinde otomatik geçiş kuralı. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "4g 5g wan yedekleme failover",
+        "ağ",
+        "modem fiber gpon dsl teknolojileri",
+        "ariza",
+        "onarım"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "ağ_dhcp_failover_hot_standby_vs_load_s",
+      "kategori": "Ağ",
+      "alt_kategori": "DHCP & DORA Protokolleri",
+      "baslik": "DHCP Failover (Hot Standby vs Load Sharing)",
+      "hizli_adimlar": [
+        "Arıza belirtisini teyit edin: İki sunucu arası senkronizasyon.",
+        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+        "Önerilen komut veya yapılandırma adımını uygulayın.",
+        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Ağ Durumu ve Rota Tablosu",
+          "komut": "route print -4",
+          "aciklama": "Aktif yönlendirme tablosunu ve ağ geçitlerini listeler."
+        },
+        {
+          "etiket": "Netsh Arayüz Bilgisi",
+          "komut": "netsh interface ipv4 show subinterfaces",
+          "aciklama": "Ağ kartı MTU ve paket durumlarını dökümler."
+        }
+      ],
+      "temel_anlatim": "DHCP Failover (Hot Standby vs Load Sharing), bilişim altyapılarında i̇ki sunucu arası senkronizasyon. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+      "derin_teknik_analiz": "DHCP Failover (Hot Standby vs Load Sharing) mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. İki sunucu arası senkronizasyon. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "dhcp failover hot standby vs load s",
+        "ağ",
+        "dhcp dora protokolleri",
+        "ariza",
+        "onarım"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "srv_dell_idrac_virtual_console_block",
+      "kategori": "Sunucu & iLO/iDRAC",
+      "alt_kategori": "Dell iDRAC (8 / 9)",
+      "baslik": "Dell PowerEdge iDRAC Sanal Konsol (Virtual Console) Bağlantı Reddi ve HTML5 Geçişi",
+      "hizli_adimlar": [
+        "iDRAC web arayüzüne (https://idrac-ip) yönetici (root) ile giriş yapın.",
+        "Configuration -> Virtual Console sekmesine gelin.",
+        "'Plug-in Type' ayarını Java'dan 'HTML5' durumuna getirin.",
+        "'Virtual Console: Enabled' kutucuğunun işaretli olduğunu ve Port değerinin 5900 olduğunu doğrulayın.",
+        "Değişiklikleri kaydedin ve 'Launch Virtual Console' butonuna basarak doğrudan tarayıcı sekmesinde BIOS ekranını açın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "iDRAC SSH ile Konsolu Yeniden Başlat",
+          "komut": "racadm racreset",
+          "aciklama": "iDRAC işletim sistemini sunucuyu kapatmadan soft reset yapar."
+        },
+        {
+          "etiket": "HTML5 Konsolu CLI ile Aktif Et",
+          "komut": "racadm set idrac.virtualconsole.PluginType 2",
+          "aciklama": "1=Java, 2=HTML5 ayarını zorlar."
+        }
+      ],
+      "temel_anlatim": "Dell sunucu iDRAC web arayüzünde 'Virtual Console' butonuna basıldığında siyah ekran kalması, bağlantının zaman aşımına uğraması.",
+      "derin_teknik_analiz": "Eski iDRAC sürümlerinde sanal konsol Java Applet üzerinden TCP 5900 portu ile çalışır. Modern tarayıcılarda NPAPI Java desteği kaldırılmıştır ve TLS 1.0/1.1 engellenmiştir. Çözüm, konsol eklenti türünü HTML5'e çekmek ve port 5900 yönlendirmesini doğrulamaktır.",
+      "kenar_durumlar": [
+        {
+          "durum": "Sanal konsol açılıyor ama klavye ve fare komutları gitmiyor",
+          "neden": "iDRAC Virtual Media (Sanal Medya) servisi devre dışıdır veya USB öykünmesi kilitlenmiştir.",
+          "cozum": "`racadm set idrac.virtualconsole.KeyboardMouseAttach 1` komutunu çalıştırın."
+        }
+      ],
+      "etiketler": [
+        "sunucu",
+        "dell",
+        "idrac",
+        "virtual-console",
+        "html5",
+        "poweredge"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "srv_dell_perc_foreign_config",
+      "kategori": "Sunucu & iLO/iDRAC",
+      "alt_kategori": "PERC RAID Kontrolcüleri",
+      "baslik": "Dell PERC RAID Kartı 'Foreign Configuration Detected' Hatası ve Disk Kurtarma",
+      "hizli_adimlar": [
+        "Sunucuyu yeniden başlatın ve POST ekranında F2 (System Setup) -> Device Settings -> RAID Controller menüsüne girin.",
+        "Configuration Management -> 'Manage Foreign Configuration' sekmesini açın.",
+        "'Preview Foreign Configuration' diyerek diskin hangi RAID dizisine ait olduğunu kontrol edin.",
+        "Eğer disk mevcut dizinizin bir parçasıysa 'Import Foreign Configuration' seçeneğini seçin ve onaylayın.",
+        "Eğer disk sıfır olarak kullanılacaksa 'Clear Foreign Configuration' diyerek diski boşa çıkarın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "MegaCLI / StorCLI ile Foreign Diski İncele",
+          "komut": "storcli /c0 /fall show",
+          "aciklama": "Yabancı yapılandırmaya sahip diskleri ve array bilgilerini listeler."
+        },
+        {
+          "etiket": "Foreign Yapılandırmayı İçe Aktar (Import)",
+          "komut": "storcli /c0 /fall import",
+          "aciklama": "Diskteki mevcut RAID bilgisini canlı sisteme dahil eder."
+        }
+      ],
+      "temel_anlatim": "Sunucuya yeni veya başka bir sunucudan çıkarılmış SAS/SATA disk takıldığında veya ani elektrik kesintisi sonrası RAID dizisinin 'Foreign' (Yabancı) durumuna düşmesi.",
+      "derin_teknik_analiz": "PERC (PowerEdge RAID Controller) kartları RAID meta verisini (DDF - Disk Data Format) her diskin son sektörlerine yazar. Diskteki RAID imzası RAID kontrolcüsünün NVRAM'indeki imza ile uyuşmadığında kontrolcü diziyi korumak için diski kilitler.",
+      "kenar_durumlar": [
+        {
+          "durum": "'Clear Foreign Configuration' yapıldıktan sonra mevcut RAID bozuldu",
+          "neden": "Kritik bir RAID 5 dizisindeki eksik disk 'Clear' edilerek diziden tamamen atılmıştır.",
+          "cozum": "Asla emin olmadan 'Clear' yapmayın; disk sağlam bir dizinin parçasıysa mutlaka 'Import' yapılmalıdır."
+        }
+      ],
+      "etiketler": [
+        "sunucu",
+        "dell",
+        "perc",
+        "foreign-config",
+        "raid-kurtarma",
+        "storcli"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "srv_hpe_ilo_ssl_certificate_error",
+      "kategori": "Sunucu & iLO/iDRAC",
+      "alt_kategori": "HPE iLO (5 / 6)",
+      "baslik": "HPE ProLiant iLO 5 / 6 Arayüzüne SSL Sertifika Hatası ve Kilitlenme Nedeniyle Erişilememe",
+      "hizli_adimlar": [
+        "iLO portuna aynı ağdan SSH (port 22) ile bağlanın (`ssh Administrator@ilo-ip`).",
+        "`reset /map1` komutu ile iLO yönetim işlemcisini (ASIC) yeniden başlatın.",
+        "iLO web arayüzüne girip Administration -> Security -> SSL Certificate bölümüne gelin.",
+        "'Generate Self-Signed Certificate' butonuna basarak modern 2048-bit SHA-256 sertifikası üretin.",
+        "Administration -> Firmware Update menüsünden iLO firmware'ini en güncel sürüme yükseltin."
+      ],
+      "komutlar": [
+        {
+          "etiket": "iLO ASIC Reset (SSH)",
+          "komut": "reset /map1",
+          "aciklama": "iLO yongasını sunucuyu etkilemeden soft-reboot yapar."
+        },
+        {
+          "etiket": "iLO IP ve Ağ Bilgilerini Göster",
+          "komut": "show /map1/Ethernet1",
+          "aciklama": "Aktif IP, Maske ve Ağ geçidi parametrelerini döker."
+        }
+      ],
+      "temel_anlatim": "Tarayıcıdan iLO IP adresine girildiğinde 'ERR_SSL_VERSION_OR_CIPHER_MISMATCH' vermesi veya sayfanın hiç yüklenmemesi.",
+      "derin_teknik_analiz": "Eski iLO firmware sürümlerindeki self-signed SSL sertifikaları modern tarayıcıların kabul etmediği RSA 1024-bit veya zayıf TLS 1.0 şifreleme anahtarları içerir. Ayrıca iLO Security Dashboard 'Production' modunda eski şifreleme paketlerini reddedebilir.",
+      "kenar_durumlar": [
+        {
+          "durum": "iLO web arayüzü sürekli 'iLO is initializing' ekranında takılı kalıyor",
+          "neden": "Dahili iLO NAND flaş belleği bozulmuştur (Embedded Flash/SD-CARD failure).",
+          "cozum": "iLO Diagnostics sekmesinden 'Format Embedded Flash and restart iLO' prosedürünü uygulayın."
+        }
+      ],
+      "etiketler": [
+        "sunucu",
+        "hpe",
+        "ilo",
+        "proliant",
+        "ssl",
+        "firmware"
+      ],
+      "oncelik": 1
+    }
+  ]
+}

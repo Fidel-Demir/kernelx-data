@@ -1,0 +1,173 @@
+{
+  "versiyon": "2.5.0",
+  "toplam": 4,
+  "modul": "feed_el_terminali_barkod.json",
+  "kayitlar": [
+    {
+      "id": "yazici_zebra_00003",
+      "kategori": "Yazıcı",
+      "alt_kategori": "TSC / Honeywell DPL",
+      "baslik": "TSC / Honeywell DPL & TSPL Kalibrasyonu",
+      "hizli_adimlar": [
+        "Saha arıza/kurulum belirtisini teyit edin: Masaüstü etiket yazıcısında kağıt durma noktasını ayarlama.",
+        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+        "Birincil komutu veya eylemi uygulayın: GAP 3 mm, 0 mm; DIRECTION 1; REFERENCE 0,0; AUTODETECT",
+        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Teşhis ve Uygulama Komutu",
+          "komut": "GAP 3 mm, 0 mm; DIRECTION 1; REFERENCE 0,0; AUTODETECT",
+          "aciklama": "Etiket boyutunu otomatik algılar."
+        }
+      ],
+      "temel_anlatim": "TSC / Honeywell DPL & TSPL Kalibrasyonu: Masaüstü etiket yazıcısında kağıt durma noktasını ayarlama. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. GAP 3 mm, 0 mm; DIRECTION 1; REFERENCE 0,0; AUTODETECT parametresi durumu optimize eder.",
+      "kenar_durumlar": [
+        {
+          "durum": "Zaman aşımı veya erişim engeli hatası",
+          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+        }
+      ],
+      "etiketler": [
+        "yazıcı",
+        "tsc",
+        "honeywell",
+        "barkod",
+        "etiket",
+        "yazici_zebra",
+        "tspl"
+      ],
+      "oncelik": 2
+    },
+    {
+      "id": "elterm_zebra_datawedge_keystroke",
+      "kategori": "El Terminali",
+      "alt_kategori": "Zebra Android (TC21 / TC26 / TC52)",
+      "baslik": "Zebra Android El Terminalinde DataWedge ile Barkodu Klavye Tuş Vuruşu Olarak Aktarma",
+      "hizli_adimlar": [
+        "Uygulama menüsünden 'DataWedge' uygulamasını açın.",
+        "Genel kullanım için 'Profile0 (default)' profiline dokunun.",
+        "'Profile enabled' ve 'Barcode input' kutularının işaretli olduğunu teyit edin.",
+        "Aşağı kaydırıp 'Keystroke output' bölümüne gelin; 'Enabled' yapın.",
+        "'Basic data formatting' seçeneğine girin; 'Send ENTER key' kutusunu işaretleyin.",
+        "Not defterinde veya ERP uygulamasında barkod okutarak test edin."
+      ],
+      "komutlar": [
+        {
+          "etiket": "DataWedge Durumunu ADB ile Sorgula",
+          "komut": "adb shell dumpsys activity services com.symbol.datawedge",
+          "aciklama": "DataWedge servisinin aktif profilini ve durumunu döker."
+        },
+        {
+          "etiket": "Cihaz Model ve Seri No Çek",
+          "komut": "adb shell getprop ro.symbol.device",
+          "aciklama": "Zebra donanım modelini teyit eder."
+        }
+      ],
+      "temel_anlatim": "Okutulan barkodun ERP/WMS web ekranında veya Android uygulamasında imlecin bulunduğu kutuya otomatik yazı olarak düşmesi ve arkasından 'Enter' basması.",
+      "derin_teknik_analiz": "Zebra DataWedge servisi donanımsal tarayıcı motoru (SE4710 vb.) ile Android OS arasında köprüdür. Barkod okunduğunda intent yayını (Intent Output) veya tuş vuruşu öykünmesi (Keystroke Output) yapar. Basic Data Formatting (BDF) altında Send ENTER key bayrağı tetiklenmelidir.",
+      "kenar_durumlar": [
+        {
+          "durum": "Barkod okunuyor (bip sesi var) ama ekrana yazı gelmiyor",
+          "neden": "Kullanılan WMS uygulaması arka planda özel bir DataWedge profili tanımlamış ve Keystroke yerine Intent beklemektedir.",
+          "cozum": "Uygulamanın ayarlarından 'Barkod Giriş Modu'nu Klavye (Keyboard/Keystroke) moduna alın."
+        }
+      ],
+      "etiketler": [
+        "el-terminali",
+        "zebra",
+        "datawedge",
+        "keystroke",
+        "barkod",
+        "wms"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "elterm_wifi_roaming_drops",
+      "kategori": "El Terminali",
+      "alt_kategori": "Wi-Fi & Ağ Bağlantısı",
+      "baslik": "Depo İçi El Terminallerinde AP'ler Arasında Dolaşırken (Roaming) Wi-Fi Kopması",
+      "hizli_adimlar": [
+        "Zebra cihazlarda Ayarlar -> Ağ ve İnternet -> Wi-Fi -> Wi-Fi Tercihleri -> Gelişmiş -> 'Roaming' ayarlarına girin.",
+        "Roaming RSSI eşik değerini `-70 dBm` veya `-65 dBm` olarak yükseltin.",
+        "5 GHz bandını önceliklendirin (Band Selection: 5 GHz only veya Prefer 5 GHz).",
+        "Depo AP kontrolcüsünde (UniFi/Aruba/Cisco) 802.11r FT (Fast Roaming) protokolünü aktif edin."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Wi-Fi RSSI Sinyal Gücünü İzle (ADB)",
+          "komut": "adb shell cmd wifi status",
+          "aciklama": "Bağlı olunan BSSID, RSSI dBm değeri ve frekansı gösterir."
+        },
+        {
+          "etiket": "Dolaşım Loglarını Filtrele",
+          "komut": "adb logcat -s wpa_supplicant:V WifiStateMachine:V",
+          "aciklama": "AP el değiştirme (handover) süreçlerini canlı döker."
+        }
+      ],
+      "temel_anlatim": "Çalışan depoda forkliftle veya yürüyerek gezerken el terminalinin önceki zayıf Access Point'i bırakmaması (-85 dBm) ve ERP oturumunun düşmesi.",
+      "derin_teknik_analiz": "802.11k (Neighbor Reports) ve 802.11r (Fast BSS Transition) açık olmadığında veya terminalin Wi-Fi Dolaşım Agresifliği (Roaming Agressiveness) 'Düşük' olduğunda istemci eski AP'ye yapışık kalır (Sticky Client sendromu).",
+      "kenar_durumlar": [
+        {
+          "durum": "802.11r açılınca eski terminaller Wi-Fi'a hiç bağlanamıyor",
+          "neden": "Depodaki bazı eski Windows CE/Android 7 terminaller 802.11r FT kimlik doğrulamasını desteklemez.",
+          "cozum": "AP üzerinde 'Adaptive 802.11r' veya eski cihazlar için ayrı bir 2.4 GHz SSID tanımlayın."
+        }
+      ],
+      "etiketler": [
+        "el-terminali",
+        "wifi-roaming",
+        "802.11r",
+        "sticky-client",
+        "depo-ag"
+      ],
+      "oncelik": 1
+    },
+    {
+      "id": "elterm_honeywell_eda51_scanpal",
+      "kategori": "El Terminali",
+      "alt_kategori": "Honeywell (EDA50 / EDA51 / ScanPal)",
+      "baslik": "Honeywell ScanPal EDA51 Barkod Okuyucu Tetik Çalışmama ve Scanning Ayarları",
+      "hizli_adimlar": [
+        "Ayarlar -> 'Honeywell Settings' -> 'Scanning' menüsüne girin.",
+        "'Internal Scanner' seçeneğinin açık (Enabled) olduğunu doğrulayın.",
+        "'Default Profile' -> 'Data Processing Settings' altında 'Wedge Method' değerinin 'Keyboard' olduğunu teyit edin.",
+        "Ayarlar -> 'Key Remap' menüsüne girip sol ve sağ sarı tuşların 'SCAN' fonksiyonuna atandığını kontrol edin.",
+        "Cihazı yeniden başlatın."
+      ],
+      "komutlar": [
+        {
+          "etiket": "Honeywell Tarayıcı Servisini Kontrol Et",
+          "komut": "adb shell pm list packages | findstr honeywell",
+          "aciklama": "Honeywell donanım servis paketlerini doğrular."
+        },
+        {
+          "etiket": "Pil Sağlığı ve Şarj Döngüsü",
+          "komut": "adb shell dumpsys battery",
+          "aciklama": "Batarya voltajı ve sağlık durumunu listeler."
+        }
+      ],
+      "temel_anlatim": "Honeywell Android terminalde sarı yan tetik tuşlarına basıldığında kırmızı lazer/hedef ışığının yanmaması veya okumaması.",
+      "derin_teknik_analiz": "Honeywell sistemlerinde 'Internal Scanner' servisi devre dışı kalmış veya 'Key Remap' tablosunda SCAN tuşu donanımsal tetikleyici yerine başka bir Android tuşuna (örneğin Camera veya Volume) atanmış olabilir.",
+      "kenar_durumlar": [
+        {
+          "durum": "2D Karekodları okuyor ama uzun 1D barkodları okumuyor",
+          "neden": "Kamera çözünürlük alanında barkod çok uzundur veya Code 128 semboloji ayarlarında minimum/maksimum uzunluk kısıtlanmıştır.",
+          "cozum": "Symbology Settings -> Code 128 -> Length ayarını 0-80 yapın."
+        }
+      ],
+      "etiketler": [
+        "el-terminali",
+        "honeywell",
+        "eda51",
+        "scanpal",
+        "internal-scanner",
+        "key-remap"
+      ],
+      "oncelik": 2
+    }
+  ]
+}
