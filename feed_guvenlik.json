@@ -1,365 +1,2669 @@
-{
-  "versiyon": "2.5.0",
-  "toplam": 9,
-  "modul": "feed_guvenlik.json",
-  "kayitlar": [
-    {
-      "id": "guvenlik_00002",
-      "kategori": "Siber Güvenlik",
-      "alt_kategori": "Event ID 4625 RDP Brute Force Saldırı Tespiti",
-      "baslik": "Event ID 4625 RDP Brute Force Saldırı Tespiti",
-      "hizli_adimlar": [
-        "Saha arıza/kurulum belirtisini teyit edin: Windows Güvenlik günlüğünden başarısız oturum açma IP'lerini süzme.",
-        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
-        "Birincil komutu veya eylemi uygulayın: Get-WinEvent -FilterHashtable @{LogName='Security';Id=4625} -MaxEvents 50",
-        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Teşhis ve Uygulama Komutu",
-          "komut": "Get-WinEvent -FilterHashtable @{LogName='Security';Id=4625} -MaxEvents 50",
-          "aciklama": "Başarısız saldırı IP'lerini listeler."
-        }
-      ],
-      "temel_anlatim": "Event ID 4625 RDP Brute Force Saldırı Tespiti: Windows Güvenlik günlüğünden başarısız oturum açma IP'lerini süzme. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
-      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. Get-WinEvent -FilterHashtable @{LogName='Security';Id=4625} -MaxEvents 50 parametresi durumu optimize eder.",
-      "kenar_durumlar": [
-        {
-          "durum": "Zaman aşımı veya erişim engeli hatası",
-          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
-          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "guvenlik",
-        "guvenlik gunlugu",
-        "siber güvenlik",
-        "event id 4625",
-        "brute force",
-        "rdp saldirisi"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "linux_00004",
-      "kategori": "Linux",
-      "alt_kategori": "Nginx 502 Bad Gateway",
-      "baslik": "Nginx 502 Bad Gateway (PHP-FPM Socket Kilidi)",
-      "hizli_adimlar": [
-        "Saha arıza/kurulum belirtisini teyit edin: PHP-FPM socket dosyasının izinlerini veya havuz sınırını genişletme.",
-        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
-        "Birincil komutu veya eylemi uygulayın: systemctl restart php8.2-fpm; ls -la /run/php/php8.2-fpm.sock",
-        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Teşhis ve Uygulama Komutu",
-          "komut": "systemctl restart php8.2-fpm; ls -la /run/php/php8.2-fpm.sock",
-          "aciklama": "PHP socket bağlantısını yeniler."
-        }
-      ],
-      "temel_anlatim": "Nginx 502 Bad Gateway (PHP-FPM Socket Kilidi): PHP-FPM socket dosyasının izinlerini veya havuz sınırını genişletme. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
-      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. systemctl restart php8.2-fpm; ls -la /run/php/php8.2-fpm.sock parametresi durumu optimize eder.",
-      "kenar_durumlar": [
-        {
-          "durum": "Zaman aşımı veya erişim engeli hatası",
-          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
-          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "nginx",
-        "linux",
-        "502 bad gateway",
-        "php-fpm",
-        "web"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "linux_00005",
-      "kategori": "Linux",
-      "alt_kategori": "UFW",
-      "baslik": "UFW & fail2ban ile Brute-Force SSH Koruması",
-      "hizli_adimlar": [
-        "Saha arıza/kurulum belirtisini teyit edin: SSH portuna yapılan şifre denemelerini otomatik bloklama.",
-        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
-        "Birincil komutu veya eylemi uygulayın: ufw allow 22/tcp; systemctl enable fail2ban; fail2ban-client status sshd",
-        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Teşhis ve Uygulama Komutu",
-          "komut": "ufw allow 22/tcp; systemctl enable fail2ban; fail2ban-client status sshd",
-          "aciklama": "Otomatik IP engellemesini açar."
-        }
-      ],
-      "temel_anlatim": "UFW & fail2ban ile Brute-Force SSH Koruması: SSH portuna yapılan şifre denemelerini otomatik bloklama. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
-      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. ufw allow 22/tcp; systemctl enable fail2ban; fail2ban-client status sshd parametresi durumu optimize eder.",
-      "kenar_durumlar": [
-        {
-          "durum": "Zaman aşımı veya erişim engeli hatası",
-          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
-          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "linux",
-        "fail2ban",
-        "ufw",
-        "ssh",
-        "guvenlik"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "net_netsh_winsock_tcpip_reset",
-      "kategori": "Ağ",
-      "alt_kategori": "Ağ Yığını Onarımı",
-      "baslik": "netsh winsock & IP Stack Sıfırlama",
-      "hizli_adimlar": [
-        "İnternet var göründüğü halde hiçbir tarayıcı site açmıyorsa ağ yığını bozulmuştur.",
-        "Yönetici CMD aç.",
-        "'netsh winsock reset' yaz ve Enter'a bas.",
-        "'netsh int ip reset' yaz ve Enter'a bas.",
-        "Bilgisayarı yeniden başlat."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Winsock Kataloğunu Sıfırla",
-          "komut": "netsh winsock reset",
-          "aciklama": "Bozuk socket LSP filtrelerini kaldırır."
-        },
-        {
-          "etiket": "TCP/IP Yığınını Sıfırla",
-          "komut": "netsh int ip reset",
-          "aciklama": "Kayıt defterindeki IP yapılandırma anahtarlarını sıfırlar."
-        }
-      ],
-      "temel_anlatim": "Antivirüs, VPN veya zararlı yazılımlar Windows'un internete çıkan veri borularına (Winsock) kanca takar. Bu programlar silindiğinde arkalarında bozuk borular bırakabilir. Bu komutlar Windows'un ağ alt yapısını fabrikadan çıktığı ilk güne döndürür.",
-      "derin_teknik_analiz": "Winsock LSP (Layered Service Provider), Windows Socket 2 mimarisinde kullanıcı uygulamaları ile TCP/IP sürücüleri arasına giren DLL zinciridir. Bir antivirüs kaldırıldığında bu DLL zinciri koparsa 'Socket Error 10013' veya internete çıkamama oluşur. 'netsh winsock reset' komutu HKLM\\System\\CurrentControlSet\\Services\\Winsock2\\Parameters altındaki Protocol_Catalog9 ve NameSpace_Catalog5 kovanlarını baştan oluşturur.",
-      "kenar_durumlar": [
-        {
-          "durum": "'netsh int ip reset' komutunda 'Erişim Engellendi' (Access Denied) hatası",
-          "neden": "Kayıt defterindeki 26 nolu arayüz anahtarında yazma izni eksiktir.",
-          "cozum": "regedit açıp 'HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Nsi\\{eb004a03...}\\26' anahtarına Administrators tam yetki verin."
-        }
-      ],
-      "etiketler": [
-        "netsh",
-        "winsock reset",
-        "int ip reset",
-        "internet yok",
-        "ag sifirlama",
-        "socket"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "win_run_mstsc_admin",
-      "kategori": "Windows",
-      "alt_kategori": "Uzak Masaüstü (RDP)",
-      "baslik": "mstsc /admin (Uzak Masaüstü)",
-      "hizli_adimlar": [
-        "Win + R -> 'mstsc /admin' yaz ve Enter'a bas.",
-        "Bağlanılacak sunucu IP adresini gir.",
-        "Bu komut sunucudaki fiziksel konsol oturumuna (Session 0) doğrudan bağlanır.",
-        "RDP lisans limiti dolmuş sunucularda bile sisteme acil erişim sağlar."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Konsol Oturumu ile RDP Aç",
-          "komut": "mstsc /admin",
-          "aciklama": "Yönetici konsol oturumuna bağlanır."
-        },
-        {
-          "etiket": "RDP Bağlantı Noktası Belirterek Bağlan",
-          "komut": "mstsc /v:192.168.1.100:3389",
-          "aciklama": "Özel portlu sunucuya bağlanır."
-        }
-      ],
-      "temel_anlatim": "Windows Server sunucularında bazen kullanıcı limiti dolar ve 'Terminal server bağlantı sınırına ulaşıldı' diyerek sizi içeri almaz. '/admin' parametresi sunucunun fiziksel ekranına oturum açar.",
-      "derin_teknik_analiz": "Eski '/console' bayrağının yerini almıştır. Uzak Masaüstü Hizmetleri (RDS) CAL lisans havuzunu kullanmaz; sunucu konsol oturumu için ayrılmış özel yönetim kanalını tetikler.",
-      "kenar_durumlar": [
-        {
-          "durum": "'Kimlik doğrulama hatası (CredSSP)' uyarısı",
-          "neden": "İstemci veya sunucudan biri CVE-2018-0886 yamasını almamıştır.",
-          "cozum": "gpedit.msc üzerinden 'Şifreleme Kahini Düzeltmesi'ni savunmasız (Vulnerable) yapın."
-        }
-      ],
-      "etiketler": [
-        "mstsc",
-        "rdp",
-        "uzak masaustu",
-        "mstsc /admin",
-        "credssp",
-        "session 0"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "win_rdp_port_degistirme",
-      "kategori": "Windows",
-      "alt_kategori": "Kayıt Defteri",
-      "baslik": "RDP Port Değiştirme",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: `PortNumber` DWORD değerini 3389'dan değiştirme.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Sistem Dosya Doğrulama",
-          "komut": "sfc /scannow",
-          "aciklama": "Bozulmuş Windows sistem DLL dosyalarını onarır."
-        },
-        {
-          "etiket": "DISM İmaj Sağlığı Kontrolü",
-          "komut": "dism /online /cleanup-image /restorehealth",
-          "aciklama": "Bileşen deposu bozulmalarını Windows Update üzerinden giderir."
-        }
-      ],
-      "temel_anlatim": "RDP Port Değiştirme, bilişim altyapılarında `portnumber` dword değerini 3389'dan değiştirme. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "RDP Port Değiştirme mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. `PortNumber` DWORD değerini 3389'dan değiştirme. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "rdp port degistirme",
-        "windows",
-        "kayit defteri",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "don_soc_vddq_voltaji",
-      "kategori": "Donanım",
-      "alt_kategori": "Bellek",
-      "baslik": "SoC / VDDQ Voltajı",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: Yüksek hızlı DDR4/DDR5 bellek kontrolcüsüne voltaj desteği.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "WMI Donanım Bellek Bilgisi",
-          "komut": "wmic memorychip get speed, capacity, partnumber",
-          "aciklama": "Takılı RAM modüllerinin frekans ve parça kodunu verir."
-        }
-      ],
-      "temel_anlatim": "SoC / VDDQ Voltajı, bilişim altyapılarında yüksek hızlı ddr4/ddr5 bellek kontrolcüsüne voltaj desteği. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "SoC / VDDQ Voltajı mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Yüksek hızlı DDR4/DDR5 bellek kontrolcüsüne voltaj desteği. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "soc vddq voltaji",
-        "donanım",
-        "bellek",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "sec_rdp_brute_force_fail2ban",
-      "kategori": "Siber Güvenlik",
-      "alt_kategori": "Windows Güvenlik",
-      "baslik": "RDP Brute Force Saldırılarını IPBan ile Otomatik Engelleme",
-      "hizli_adimlar": [
-        "Olay Günlüğü 4625 (Başarısız Oturum) sayılarını incele.",
-        "IPBan servisini kur.",
-        "5 başarısız denemede IP'yi Windows Güvenlik Duvarında kalıcı blokla."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Başarısız Giriş Yapan IP'leri Tespit Et",
-          "komut": "Get-WinEvent -FilterHashtable @{LogName='Security';Id=4625} -MaxEvents 50 | Select-Object TimeCreated, @{N='IP';E={$_.Properties[19].Value}}",
-          "aciklama": "Son başarısız RDP oturum açma girişimlerini ve saldıran IP'leri listeler."
-        },
-        {
-          "etiket": "Saldıran IP'yi Güvenlik Duvarında Engelle",
-          "komut": "netsh advfirewall firewall add rule name=\"RDP_BLOCK_SALDIRGAN\" dir=in action=block remoteip=195.12.34.56",
-          "aciklama": "Saldırgan IP'yi donanım seviyesinde anında bloklar."
-        }
-      ],
-      "temel_anlatim": "Dışarıya açık port 3389 RDP servisleri dakikada yüzlerce şifre denemesi (brute force) alır. Bu durum işlemciyi kilitler ve admin şifresi kırılırsa fidye yazılımı (ransomware) bulaşır.",
-      "derin_teknik_analiz": "Olay Kimliği 4625 oturum açma başarısızlığını gösterir. SubStatus 0xC000006A yanlış şifre girildiğini, 0xC0000064 ise kullanıcı adının var olmadığını gösterir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Şirket çalışanının hesabı kilitleniyorsa",
-          "neden": "Eski telefondaki kayıtlı Outlook veya VPN şifresi hesabı kilitliyordur.",
-          "cozum": "Active Directory'de 'BadPwdCount' sayacını kontrol edin."
-        }
-      ],
-      "etiketler": [
-        "rdp",
-        "brute force",
-        "4625",
-        "ipban",
-        "firewall",
-        "guvenlik"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "sec_rdp_brute_force_event_4625",
-      "kategori": "Siber Güvenlik",
-      "alt_kategori": "SOC & Tehdit Tespiti",
-      "baslik": "RDP Portuna (3389) Yapılan Brute Force Saldırılarını Olay Günlüklerinde (Event ID 4625) Yakalama",
-      "hizli_adimlar": [
-        "Olay Görüntüleyicisi'ni (eventvwr.msc) açın -> Windows Günlükleri -> Güvenlik sekmesine gelin.",
-        "Sağ taraftan 'Geçerli Günlüğü Filtrele' diyerek Olay Kimliği kutusuna `4625` yazın.",
-        "Olay detaylarında 'Kaynak Ağ Adresi' (Source Network Address) satırından saldırganın IP adresini belirleyin.",
-        "Windows Gelişmiş Güvenlik Duvarı'ndan bu IP adresini veya IP bloğunu engelleyin.",
-        "Kalıcı çözüm için RDP portunu asla doğrudan dış internete açmayın; mutlaka VPN (Tailscale/IPsec) veya port yönlendirmeyi kapatıp RDP Gateway/NLA kullanın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Saldıran IP'leri PowerShell ile Grupla",
-          "komut": "Get-WinEvent -FilterHashtable @{LogName='Security';Id=4625} -MaxEvents 500 | ForEach-Object { $_.Properties[19].Value } | Group-Object | Sort-Object Count -Descending | Select-Object -First 10 Count, Name",
-          "aciklama": "En çok şifre deneyen ilk 10 yabancı IP adresini ve deneme sayısını döker."
-        },
-        {
-          "etiket": "Saldırgan IP'yi Güvenlik Duvarında Engelle",
-          "komut": "netsh advfirewall firewall add rule name=\"RDP-Blok-IP\" dir=in interface=any action=block remoteip=198.51.100.25",
-          "aciklama": "Saldırgan IP'nin bağlantısını donanımsal düzeyde keser."
-        }
-      ],
-      "temel_anlatim": "Windows Server sunucusunda CPU'nun sebepsiz yere %100 olması, hesapların kilitlenmesi ve saniyede yüzlerce başarısız giriş denemesi.",
-      "derin_teknik_analiz": "Dış dünyaya açık TCP 3389 RDP portuna botnet'ler tarafından sözlük saldırısı (Brute Force / Password Spraying) yapılır. Her başarısız oturum Windows Güvenlik günlüğüne `Event ID 4625` (Logon Type 10 - RemoteInteractive) olarak kaydedilir ve LSASS servisini aşırı yorar.",
-      "kenar_durumlar": [
-        {
-          "durum": "RDP varsayılan portu 3389 değiştirildi ama saldırılar hala devam ediyor",
-          "neden": "Port tarayıcı botlar (Nmap/Shodan) sunucunun açık portlarını birkaç dakikada keşfeder.",
-          "cozum": "Port değiştirmek bir güvenlik önlemi değildir (Security through obscurity); RDP'yi VPN arkasına alın."
-        }
-      ],
-      "etiketler": [
-        "guvenlik",
-        "rdp",
-        "brute-force",
-        "event-4625",
-        "soc",
-        "firewall-blok",
-        "lsass"
-      ],
-      "oncelik": 1
-    }
-  ]
-}
+[
+  {
+    "id": "guvenlik_00001",
+    "kategori": "Siber Güvenlik",
+    "alt_kategori": "Fidye Yazılımı",
+    "baslik": "Fidye Yazılımı (Ransomware) İlk Müdahale & İzolasyon",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: Şirket ağına yayılan fidye yazılımında acil ağ kesme ve bellek dökümü.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: wmic process where \"name like '%.exe'\" get processid,commandline; net stop lanmanserver /y",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "wmic process where \"name like '%.exe'\" get processid,commandline; net stop lanmanserver /y",
+        "aciklama": "Ağ paylaşımlarını durdurup şifrelemeyi keser."
+      }
+    ],
+    "temel_anlatim": "Fidye Yazılımı (Ransomware) İlk Müdahale & İzolasyon: Şirket ağına yayılan fidye yazılımında acil ağ kesme ve bellek dökümü. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. wmic process where \"name like '%.exe'\" get processid,commandline; net stop lanmanserver /y parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "ransomware soc fidye yazilimi olay mudahalesi siber güvenlik izolasyon guvenlik"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "win_lsa_runasppl_protect",
+    "kategori": "Windows",
+    "alt_kategori": "LSA Koruması & Mimikatz",
+    "baslik": "LSA Protection & RunAsPPL",
+    "hizli_adimlar": [
+      "Sorun belirtisini teyit edin: LSASS sürecinin kod enjeksiyonuna karşı PPL (Protected Process Light) moduna alınması.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak açın.",
+      "Sistem parametrelerini ve olay loglarını denetleyin.",
+      "Uygulanacak komut: reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Lsa\" /v RunAsPPL /t REG_DWORD /d 1 /f",
+      "Sonucu doğrulamak için servisi veya sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "LSA Protection & RunAsPPL",
+        "komut": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Lsa\" /v RunAsPPL /t REG_DWORD /d 1 /f",
+        "aciklama": "LSA sürecini PPL seviyesinde kilitler."
+      }
+    ],
+    "temel_anlatim": "LSA Protection & RunAsPPL, Windows altyapısında lsass sürecinin kod enjeksiyonuna karşı ppl (protected process light) moduna alınması.",
+    "derin_teknik_analiz": "LSA Protection & RunAsPPL süreci, işletim sistemi çekirdeği ve ilgili donanım/ağ protokolü düzeyinde yürütülür. LSASS sürecinin kod enjeksiyonuna karşı PPL (Protected Process Light) moduna alınması. Kalıcı çözüm için sistem günlükleri ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komut sonuç vermiyor veya erişim reddedildi",
+        "neden": "Kullanıcı Yönetici yetkilerine sahip değildir veya dosya kilitlidir.",
+        "cozum": "Yönetici olarak çalıştırın veya Kurtarma Ortamında (WinRE) deneyin."
+      }
+    ],
+    "etiketler": [
+      "lsa protection & runasppl windows lsa koruması & mimikatz ariza onarim"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "guvenlik_00002",
+    "kategori": "Siber Güvenlik",
+    "alt_kategori": "Event ID 4625 RDP Brute Force Saldırı Tespiti",
+    "baslik": "Event ID 4625 RDP Brute Force Saldırı Tespiti",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: Windows Güvenlik günlüğünden başarısız oturum açma IP'lerini süzme.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: Get-WinEvent -FilterHashtable @{LogName='Security';Id=4625} -MaxEvents 50",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "Get-WinEvent -FilterHashtable @{LogName='Security';Id=4625} -MaxEvents 50",
+        "aciklama": "Başarısız saldırı IP'lerini listeler."
+      }
+    ],
+    "temel_anlatim": "Event ID 4625 RDP Brute Force Saldırı Tespiti: Windows Güvenlik günlüğünden başarısız oturum açma IP'lerini süzme. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. Get-WinEvent -FilterHashtable @{LogName='Security';Id=4625} -MaxEvents 50 parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "guvenlik guvenlik gunlugu siber güvenlik event id 4625 brute force rdp saldirisi"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "linux_00004",
+    "kategori": "Linux",
+    "alt_kategori": "Nginx 502 Bad Gateway",
+    "baslik": "Nginx 502 Bad Gateway (PHP-FPM Socket Kilidi)",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: PHP-FPM socket dosyasının izinlerini veya havuz sınırını genişletme.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: systemctl restart php8.2-fpm; ls -la /run/php/php8.2-fpm.sock",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "systemctl restart php8.2-fpm; ls -la /run/php/php8.2-fpm.sock",
+        "aciklama": "PHP socket bağlantısını yeniler."
+      }
+    ],
+    "temel_anlatim": "Nginx 502 Bad Gateway (PHP-FPM Socket Kilidi): PHP-FPM socket dosyasının izinlerini veya havuz sınırını genişletme. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. systemctl restart php8.2-fpm; ls -la /run/php/php8.2-fpm.sock parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "nginx linux 502 bad gateway php-fpm web"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "linux_00005",
+    "kategori": "Linux",
+    "alt_kategori": "UFW",
+    "baslik": "UFW & fail2ban ile Brute-Force SSH Koruması",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: SSH portuna yapılan şifre denemelerini otomatik bloklama.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: ufw allow 22/tcp; systemctl enable fail2ban; fail2ban-client status sshd",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "ufw allow 22/tcp; systemctl enable fail2ban; fail2ban-client status sshd",
+        "aciklama": "Otomatik IP engellemesini açar."
+      }
+    ],
+    "temel_anlatim": "UFW & fail2ban ile Brute-Force SSH Koruması: SSH portuna yapılan şifre denemelerini otomatik bloklama. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. ufw allow 22/tcp; systemctl enable fail2ban; fail2ban-client status sshd parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "linux fail2ban ufw ssh guvenlik"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "net_netsh_winsock_tcpip_reset",
+    "kategori": "Ağ",
+    "alt_kategori": "Ağ Yığını Onarımı",
+    "baslik": "netsh winsock & IP Stack Sıfırlama",
+    "hizli_adimlar": [
+      "İnternet var göründüğü halde hiçbir tarayıcı site açmıyorsa ağ yığını bozulmuştur.",
+      "Yönetici CMD aç.",
+      "'netsh winsock reset' yaz ve Enter'a bas.",
+      "'netsh int ip reset' yaz ve Enter'a bas.",
+      "Bilgisayarı yeniden başlat."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Winsock Kataloğunu Sıfırla",
+        "komut": "netsh winsock reset",
+        "aciklama": "Bozuk socket LSP filtrelerini kaldırır."
+      },
+      {
+        "etiket": "TCP/IP Yığınını Sıfırla",
+        "komut": "netsh int ip reset",
+        "aciklama": "Kayıt defterindeki IP yapılandırma anahtarlarını sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Antivirüs, VPN veya zararlı yazılımlar Windows'un internete çıkan veri borularına (Winsock) kanca takar. Bu programlar silindiğinde arkalarında bozuk borular bırakabilir. Bu komutlar Windows'un ağ alt yapısını fabrikadan çıktığı ilk güne döndürür.",
+    "derin_teknik_analiz": "Winsock LSP (Layered Service Provider), Windows Socket 2 mimarisinde kullanıcı uygulamaları ile TCP/IP sürücüleri arasına giren DLL zinciridir. Bir antivirüs kaldırıldığında bu DLL zinciri koparsa 'Socket Error 10013' veya internete çıkamama oluşur. 'netsh winsock reset' komutu HKLM\\System\\CurrentControlSet\\Services\\Winsock2\\Parameters altındaki Protocol_Catalog9 ve NameSpace_Catalog5 kovanlarını baştan oluşturur.",
+    "kenar_durumlar": [
+      {
+        "durum": "'netsh int ip reset' komutunda 'Erişim Engellendi' (Access Denied) hatası",
+        "neden": "Kayıt defterindeki 26 nolu arayüz anahtarında yazma izni eksiktir.",
+        "cozum": "regedit açıp 'HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Nsi\\{eb004a03...}\\26' anahtarına Administrators tam yetki verin."
+      }
+    ],
+    "etiketler": [
+      "netsh winsock reset int ip reset internet yok ag sifirlama socket"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "win_run_mstsc_admin",
+    "kategori": "Windows",
+    "alt_kategori": "Uzak Masaüstü (RDP)",
+    "baslik": "mstsc /admin (Uzak Masaüstü)",
+    "hizli_adimlar": [
+      "Win + R -> 'mstsc /admin' yaz ve Enter'a bas.",
+      "Bağlanılacak sunucu IP adresini gir.",
+      "Bu komut sunucudaki fiziksel konsol oturumuna (Session 0) doğrudan bağlanır.",
+      "RDP lisans limiti dolmuş sunucularda bile sisteme acil erişim sağlar."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Konsol Oturumu ile RDP Aç",
+        "komut": "mstsc /admin",
+        "aciklama": "Yönetici konsol oturumuna bağlanır."
+      },
+      {
+        "etiket": "RDP Bağlantı Noktası Belirterek Bağlan",
+        "komut": "mstsc /v:192.168.1.100:3389",
+        "aciklama": "Özel portlu sunucuya bağlanır."
+      }
+    ],
+    "temel_anlatim": "Windows Server sunucularında bazen kullanıcı limiti dolar ve 'Terminal server bağlantı sınırına ulaşıldı' diyerek sizi içeri almaz. '/admin' parametresi sunucunun fiziksel ekranına oturum açar.",
+    "derin_teknik_analiz": "Eski '/console' bayrağının yerini almıştır. Uzak Masaüstü Hizmetleri (RDS) CAL lisans havuzunu kullanmaz; sunucu konsol oturumu için ayrılmış özel yönetim kanalını tetikler.",
+    "kenar_durumlar": [
+      {
+        "durum": "'Kimlik doğrulama hatası (CredSSP)' uyarısı",
+        "neden": "İstemci veya sunucudan biri CVE-2018-0886 yamasını almamıştır.",
+        "cozum": "gpedit.msc üzerinden 'Şifreleme Kahini Düzeltmesi'ni savunmasız (Vulnerable) yapın."
+      }
+    ],
+    "etiketler": [
+      "mstsc rdp uzak masaustu mstsc /admin credssp session 0"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "win_rdp_port_degistirme",
+    "kategori": "Windows",
+    "alt_kategori": "Kayıt Defteri",
+    "baslik": "RDP Port Değiştirme",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: `PortNumber` DWORD değerini 3389'dan değiştirme.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Sistem Dosya Doğrulama",
+        "komut": "sfc /scannow",
+        "aciklama": "Bozulmuş Windows sistem DLL dosyalarını onarır."
+      },
+      {
+        "etiket": "DISM İmaj Sağlığı Kontrolü",
+        "komut": "dism /online /cleanup-image /restorehealth",
+        "aciklama": "Bileşen deposu bozulmalarını Windows Update üzerinden giderir."
+      }
+    ],
+    "temel_anlatim": "RDP Port Değiştirme, bilişim altyapılarında `portnumber` dword değerini 3389'dan değiştirme. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "RDP Port Değiştirme mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. `PortNumber` DWORD değerini 3389'dan değiştirme. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "rdp port degistirme windows kayit defteri ariza onarım"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "don_soc_vddq_voltaji",
+    "kategori": "Donanım",
+    "alt_kategori": "Bellek",
+    "baslik": "SoC / VDDQ Voltajı",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: Yüksek hızlı DDR4/DDR5 bellek kontrolcüsüne voltaj desteği.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "WMI Donanım Bellek Bilgisi",
+        "komut": "wmic memorychip get speed, capacity, partnumber",
+        "aciklama": "Takılı RAM modüllerinin frekans ve parça kodunu verir."
+      }
+    ],
+    "temel_anlatim": "SoC / VDDQ Voltajı, bilişim altyapılarında yüksek hızlı ddr4/ddr5 bellek kontrolcüsüne voltaj desteği. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "SoC / VDDQ Voltajı mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Yüksek hızlı DDR4/DDR5 bellek kontrolcüsüne voltaj desteği. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "soc vddq voltaji donanım bellek ariza onarım"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sec_rdp_brute_force_fail2ban",
+    "kategori": "Siber Güvenlik",
+    "alt_kategori": "Windows Güvenlik",
+    "baslik": "RDP Brute Force Saldırılarını IPBan ile Otomatik Engelleme",
+    "hizli_adimlar": [
+      "Olay Günlüğü 4625 (Başarısız Oturum) sayılarını incele.",
+      "IPBan servisini kur.",
+      "5 başarısız denemede IP'yi Windows Güvenlik Duvarında kalıcı blokla."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Başarısız Giriş Yapan IP'leri Tespit Et",
+        "komut": "Get-WinEvent -FilterHashtable @{LogName='Security';Id=4625} -MaxEvents 50 | Select-Object TimeCreated, @{N='IP';E={$_.Properties[19].Value}}",
+        "aciklama": "Son başarısız RDP oturum açma girişimlerini ve saldıran IP'leri listeler."
+      },
+      {
+        "etiket": "Saldıran IP'yi Güvenlik Duvarında Engelle",
+        "komut": "netsh advfirewall firewall add rule name=\"RDP_BLOCK_SALDIRGAN\" dir=in action=block remoteip=195.12.34.56",
+        "aciklama": "Saldırgan IP'yi donanım seviyesinde anında bloklar."
+      }
+    ],
+    "temel_anlatim": "Dışarıya açık port 3389 RDP servisleri dakikada yüzlerce şifre denemesi (brute force) alır. Bu durum işlemciyi kilitler ve admin şifresi kırılırsa fidye yazılımı (ransomware) bulaşır.",
+    "derin_teknik_analiz": "Olay Kimliği 4625 oturum açma başarısızlığını gösterir. SubStatus 0xC000006A yanlış şifre girildiğini, 0xC0000064 ise kullanıcı adının var olmadığını gösterir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Şirket çalışanının hesabı kilitleniyorsa",
+        "neden": "Eski telefondaki kayıtlı Outlook veya VPN şifresi hesabı kilitliyordur.",
+        "cozum": "Active Directory'de 'BadPwdCount' sayacını kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "rdp brute force 4625 ipban firewall guvenlik"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sec_rdp_brute_force_event_4625",
+    "kategori": "Siber Güvenlik",
+    "alt_kategori": "SOC & Tehdit Tespiti",
+    "baslik": "RDP Portuna (3389) Yapılan Brute Force Saldırılarını Olay Günlüklerinde (Event ID 4625) Yakalama",
+    "hizli_adimlar": [
+      "Olay Görüntüleyicisi'ni (eventvwr.msc) açın -> Windows Günlükleri -> Güvenlik sekmesine gelin.",
+      "Sağ taraftan 'Geçerli Günlüğü Filtrele' diyerek Olay Kimliği kutusuna `4625` yazın.",
+      "Olay detaylarında 'Kaynak Ağ Adresi' (Source Network Address) satırından saldırganın IP adresini belirleyin.",
+      "Windows Gelişmiş Güvenlik Duvarı'ndan bu IP adresini veya IP bloğunu engelleyin.",
+      "Kalıcı çözüm için RDP portunu asla doğrudan dış internete açmayın; mutlaka VPN (Tailscale/IPsec) veya port yönlendirmeyi kapatıp RDP Gateway/NLA kullanın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Saldıran IP'leri PowerShell ile Grupla",
+        "komut": "Get-WinEvent -FilterHashtable @{LogName='Security';Id=4625} -MaxEvents 500 | ForEach-Object { $_.Properties[19].Value } | Group-Object | Sort-Object Count -Descending | Select-Object -First 10 Count, Name",
+        "aciklama": "En çok şifre deneyen ilk 10 yabancı IP adresini ve deneme sayısını döker."
+      },
+      {
+        "etiket": "Saldırgan IP'yi Güvenlik Duvarında Engelle",
+        "komut": "netsh advfirewall firewall add rule name=\"RDP-Blok-IP\" dir=in interface=any action=block remoteip=198.51.100.25",
+        "aciklama": "Saldırgan IP'nin bağlantısını donanımsal düzeyde keser."
+      }
+    ],
+    "temel_anlatim": "Windows Server sunucusunda CPU'nun sebepsiz yere %100 olması, hesapların kilitlenmesi ve saniyede yüzlerce başarısız giriş denemesi.",
+    "derin_teknik_analiz": "Dış dünyaya açık TCP 3389 RDP portuna botnet'ler tarafından sözlük saldırısı (Brute Force / Password Spraying) yapılır. Her başarısız oturum Windows Güvenlik günlüğüne `Event ID 4625` (Logon Type 10 - RemoteInteractive) olarak kaydedilir ve LSASS servisini aşırı yorar.",
+    "kenar_durumlar": [
+      {
+        "durum": "RDP varsayılan portu 3389 değiştirildi ama saldırılar hala devam ediyor",
+        "neden": "Port tarayıcı botlar (Nmap/Shodan) sunucunun açık portlarını birkaç dakikada keşfeder.",
+        "cozum": "Port değiştirmek bir güvenlik önlemi değildir (Security through obscurity); RDP'yi VPN arkasına alın."
+      }
+    ],
+    "etiketler": [
+      "guvenlik rdp brute-force event-4625 soc firewall-blok lsass"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sec_mat_20",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Fidye Yazılımı (Ransomware) VSS Gölge Kopyaları Silme Girişiminin Tespiti",
+    "hizli_adimlar": [
+      "Olay günlüğünde Event ID 4688 (Süreç Oluşturma) veya Sysmon Event ID 1'i filtreleyin.",
+      "İşlem satırında 'delete shadows' veya 'resize shadowstorage' arayın.",
+      "Saldırının geldiği bilgisayarı switch üzerinden port kapatarak ağdan izole edin.",
+      "Adli bilişim analizi için RAM bellek dökümünü (DumpIt / WinPmem) alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Sysmon Komut Filtreleme",
+        "komut": "Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-Sysmon/Operational'; ID=1} | Where-Object {$_.Message -like '*vssadmin*'}",
+        "aciklama": "VSS silme girişimlerini olay kayıtlarından çeker."
+      }
+    ],
+    "temel_anlatim": "Saldırganın şifrelemeye başlamadan önce sistem geri yükleme noktalarını yok etmek için komut çalıştırması.",
+    "derin_teknik_analiz": "Kök Neden: Ransomware yazılımlarının standart olarak 'vssadmin delete shadows /all /quiet' komutunu tetiklemesi. Acil Eylem Planı: Sysmon veya PowerShell betiğiyle vssadmin parametrelerini izleyip anında ana süreci durdurun ve ağı izole edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Dosyalar şifrelenmeye başlamış",
+        "neden": "Süreç arka planda çalışmayı sürdürmektedir.",
+        "cozum": "Makinenin elektrik fişini anında çekin (Düzgün kapatma yapmayın, veriyi koruyun)."
+      }
+    ],
+    "etiketler": [
+      "siber-guvenlik",
+      "ransomware",
+      "vssadmin",
+      "golge-kopya",
+      "soc",
+      "olay-mudahale"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mitre_T1003_001",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Siber Güvenlik Olay Müdahalesi [T1003.001]: LSASS Bellek Dökümü ve Şifre Özeti Hırsızlığı",
+    "hizli_adimlar": [
+      "SOC SIEM panelinde T1003.001 tekniğine ait şüpheli süreç veya ağ aktivitesini izole edin.",
+      "Zararlı sürecin Process ID numarasını ve ana sürecini (Parent Process) tespit edin.",
+      "Sertleştirme ve hafifletme adımlarını uygulayın: RunAsPPL kayıt defteri anahtarını 1 yaparak LSA korumasını açın ve Credential Guard etkinleştirin.",
+      "Etkilenen makineyi ağdan izole edip adli bellek imajını alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "LSA Koruma Anahtarı (Regedit)",
+        "komut": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Lsa\" /v RunAsPPL /t REG_DWORD /d 1 /f",
+        "aciklama": "LSASS sürecine dışarıdan bellek okuma erişimini engeller."
+      }
+    ],
+    "temel_anlatim": "Saldırganın Taskmgr veya Procdump ile lsass.exe belleğini diske dökmesi.",
+    "derin_teknik_analiz": "LSASS sürecinin bellek koruması (LSA Protection) olmadan çalışması. Çözüm: RunAsPPL kayıt defteri anahtarını 1 yaparak LSA korumasını açın ve Credential Guard etkinleştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Saldırgan kalıcılık (Persistence) sağlamış",
+        "neden": "Kayıtlı Görevler (Task Scheduler) veya WMI aboneliği vardır.",
+        "cozum": "Autoruns aracı ile kalıcılık noktalarını tarayın."
+      }
+    ],
+    "etiketler": [
+      "guvenlik",
+      "soc",
+      "t1003.001",
+      "lsass-bellek-dökümü-ve-şifre-özeti-hırsızlığı",
+      "mitre-attack"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mitre_T1059_001",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Siber Güvenlik Olay Müdahalesi [T1059.001]: PowerShell Gizli Kod Yürütme ve Download Cradle Saldırısı",
+    "hizli_adimlar": [
+      "SOC SIEM panelinde T1059.001 tekniğine ait şüpheli süreç veya ağ aktivitesini izole edin.",
+      "Zararlı sürecin Process ID numarasını ve ana sürecini (Parent Process) tespit edin.",
+      "Sertleştirme ve hafifletme adımlarını uygulayın: PowerShell Constrained Language Mode'u açın ve Script Block Logging (Event ID 4104) denetimini aktif edin.",
+      "Etkilenen makineyi ağdan izole edip adli bellek imajını alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "LSA Koruma Anahtarı (Regedit)",
+        "komut": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Lsa\" /v RunAsPPL /t REG_DWORD /d 1 /f",
+        "aciklama": "LSASS sürecine dışarıdan bellek okuma erişimini engeller."
+      }
+    ],
+    "temel_anlatim": "PowerShell'in -enc veya IEX (New-Object Net.WebClient) parametreleriyle çağrılması.",
+    "derin_teknik_analiz": "Kötü niyetli betiklerin PowerShell kısıtlama politikasını bypass etmesi. Çözüm: PowerShell Constrained Language Mode'u açın ve Script Block Logging (Event ID 4104) denetimini aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Saldırgan kalıcılık (Persistence) sağlamış",
+        "neden": "Kayıtlı Görevler (Task Scheduler) veya WMI aboneliği vardır.",
+        "cozum": "Autoruns aracı ile kalıcılık noktalarını tarayın."
+      }
+    ],
+    "etiketler": [
+      "guvenlik",
+      "soc",
+      "t1059.001",
+      "powershell-gizli-kod-yürütme-ve-download-cradle-saldırısı",
+      "mitre-attack"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mitre_T1078_002",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Siber Güvenlik Olay Müdahalesi [T1078.002]: Domain Admin Hesabının Yetkisiz Saatlerde Uzaktan Oturumu",
+    "hizli_adimlar": [
+      "SOC SIEM panelinde T1078.002 tekniğine ait şüpheli süreç veya ağ aktivitesini izole edin.",
+      "Zararlı sürecin Process ID numarasını ve ana sürecini (Parent Process) tespit edin.",
+      "Sertleştirme ve hafifletme adımlarını uygulayın: Yetkili hesaplara çalışma saati kısıtlaması (Logon Hours) koyun ve MFA zorunlu kılın.",
+      "Etkilenen makineyi ağdan izole edip adli bellek imajını alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "LSA Koruma Anahtarı (Regedit)",
+        "komut": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Lsa\" /v RunAsPPL /t REG_DWORD /d 1 /f",
+        "aciklama": "LSASS sürecine dışarıdan bellek okuma erişimini engeller."
+      }
+    ],
+    "temel_anlatim": "Gece 03:00'da Domain Admin hesabı ile RDP veya SMB oturumu açılması.",
+    "derin_teknik_analiz": "Kimlik bilgilerinin kimlik avı veya parola püskürtme (Password Spraying) ile ele geçirilmesi. Çözüm: Yetkili hesaplara çalışma saati kısıtlaması (Logon Hours) koyun ve MFA zorunlu kılın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Saldırgan kalıcılık (Persistence) sağlamış",
+        "neden": "Kayıtlı Görevler (Task Scheduler) veya WMI aboneliği vardır.",
+        "cozum": "Autoruns aracı ile kalıcılık noktalarını tarayın."
+      }
+    ],
+    "etiketler": [
+      "guvenlik",
+      "soc",
+      "t1078.002",
+      "domain-admin-hesabının-yetkisiz-saatlerde-uzaktan-oturumu",
+      "mitre-attack"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mitre_T1021_002",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Siber Güvenlik Olay Müdahalesi [T1021.002]: SMB / PsExec ile Yanal Yayılma (Lateral Movement)",
+    "hizli_adimlar": [
+      "SOC SIEM panelinde T1021.002 tekniğine ait şüpheli süreç veya ağ aktivitesini izole edin.",
+      "Zararlı sürecin Process ID numarasını ve ana sürecini (Parent Process) tespit edin.",
+      "Sertleştirme ve hafifletme adımlarını uygulayın: Microsoft LAPS (Local Administrator Password Solution) kurarak her bilgisayara benzersiz rastgele şifre atayın.",
+      "Etkilenen makineyi ağdan izole edip adli bellek imajını alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "LSA Koruma Anahtarı (Regedit)",
+        "komut": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Lsa\" /v RunAsPPL /t REG_DWORD /d 1 /f",
+        "aciklama": "LSASS sürecine dışarıdan bellek okuma erişimini engeller."
+      }
+    ],
+    "temel_anlatim": "Ağdaki bir bilgisayardan diğer sunuculara C$ ve ADMIN$ üzerinden uzaktan servis enjekte edilmesi.",
+    "derin_teknik_analiz": "Yerel Local Administrator parolalarının tüm bilgisayarlarda aynı olması. Çözüm: Microsoft LAPS (Local Administrator Password Solution) kurarak her bilgisayara benzersiz rastgele şifre atayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Saldırgan kalıcılık (Persistence) sağlamış",
+        "neden": "Kayıtlı Görevler (Task Scheduler) veya WMI aboneliği vardır.",
+        "cozum": "Autoruns aracı ile kalıcılık noktalarını tarayın."
+      }
+    ],
+    "etiketler": [
+      "guvenlik",
+      "soc",
+      "t1021.002",
+      "smb-/-psexec-ile-yanal-yayılma-(lateral-movement)",
+      "mitre-attack"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mitre_T1071_001",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Siber Güvenlik Olay Müdahalesi [T1071.001]: HTTPS Üzerinden Komuta Kontrol (C2) Trafiği ve Beaconing",
+    "hizli_adimlar": [
+      "SOC SIEM panelinde T1071.001 tekniğine ait şüpheli süreç veya ağ aktivitesini izole edin.",
+      "Zararlı sürecin Process ID numarasını ve ana sürecini (Parent Process) tespit edin.",
+      "Sertleştirme ve hafifletme adımlarını uygulayın: Firewall üzerinde SSL İnceleme (DPI) açın ve şüpheli dış IP'yi sınır güvenliğinden bloke edin.",
+      "Etkilenen makineyi ağdan izole edip adli bellek imajını alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "LSA Koruma Anahtarı (Regedit)",
+        "komut": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Lsa\" /v RunAsPPL /t REG_DWORD /d 1 /f",
+        "aciklama": "LSASS sürecine dışarıdan bellek okuma erişimini engeller."
+      }
+    ],
+    "temel_anlatim": "Bir istemcinin belirli saniye aralıklarıyla (Jitter) bilinmeyen bir dış IP'ye şifreli veri göndermesi.",
+    "derin_teknik_analiz": "Sistemde Cobalt Strike veya Sliver ajanı çalışması. Çözüm: Firewall üzerinde SSL İnceleme (DPI) açın ve şüpheli dış IP'yi sınır güvenliğinden bloke edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Saldırgan kalıcılık (Persistence) sağlamış",
+        "neden": "Kayıtlı Görevler (Task Scheduler) veya WMI aboneliği vardır.",
+        "cozum": "Autoruns aracı ile kalıcılık noktalarını tarayın."
+      }
+    ],
+    "etiketler": [
+      "guvenlik",
+      "soc",
+      "t1071.001",
+      "https-üzerinden-komuta-kontrol-(c2)-trafiği-ve-beaconing",
+      "mitre-attack"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sec_surge_24",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "CrowdStrike Falcon / SentinelOne EDR: Zararlı Olmayan İç Yazılımın (In-House App) False Positive Engellenmesi",
+    "hizli_adimlar": [
+      "CrowdStrike Falcon / SentinelOne EDR güvenlik yönetim konsolunu açın.",
+      "Kök neden analizini uygulayın: Uygulamanın kod imzalama (Code Signing) sertifikasının olmaması veya davranışsal sezgisel (Heuristic) kurala takılması.",
+      "Saha mühendisliği acil eylem planını yürütün: EDR konsolundan dosyanın SHA256 özetini (Hash) Beyaz Listeye (Exclusion / Allowlist) ekleyin.",
+      "Sistem bütünlüğünü doğrulayarak zararlı izlerini temizleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Güvenlik Komutu",
+        "komut": "Get-FileHash -Algorithm SHA256 app.exe",
+        "aciklama": "Siber olay müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Şirketin kendi yazdığı muhasebe uygulamasının EDR tarafından anında karantinaya alınması.",
+    "derin_teknik_analiz": "Uygulamanın kod imzalama (Code Signing) sertifikasının olmaması veya davranışsal sezgisel (Heuristic) kurala takılması. Çözüm: EDR konsolundan dosyanın SHA256 özetini (Hash) Beyaz Listeye (Exclusion / Allowlist) ekleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Saldırı sürüyor",
+        "neden": "Ağ geçidinde açık port bırakılmıştır.",
+        "cozum": "Firewall'dan portu kapatın."
+      }
+    ],
+    "etiketler": [
+      "guvenlik",
+      "soc",
+      "siem",
+      "edr",
+      "crowdstrike"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sec_surge_25",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "CrowdStrike Falcon / SentinelOne EDR: Ajan İletişiminin TLS Proxy Nedeniyle Kopması (Sensor Disconnected)",
+    "hizli_adimlar": [
+      "CrowdStrike Falcon / SentinelOne EDR güvenlik yönetim konsolunu açın.",
+      "Kök neden analizini uygulayın: Şirket çıkışındaki SSL İnceleme (DPI) firewall cihazının EDR paketlerini kırmaya çalışması.",
+      "Saha mühendisliği acil eylem planını yürütün: Firewall üzerinde *.crowdstrike.com veya *.sentinelone.net adreslerini SSL incelemeden muaf tutun.",
+      "Sistem bütünlüğünü doğrulayarak zararlı izlerini temizleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Güvenlik Komutu",
+        "komut": "Test-NetConnection -Port 443",
+        "aciklama": "Siber olay müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Uç noktadaki EDR sensörünün bulut yönetim paneline veri gönderememesi.",
+    "derin_teknik_analiz": "Şirket çıkışındaki SSL İnceleme (DPI) firewall cihazının EDR paketlerini kırmaya çalışması. Çözüm: Firewall üzerinde *.crowdstrike.com veya *.sentinelone.net adreslerini SSL incelemeden muaf tutun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Saldırı sürüyor",
+        "neden": "Ağ geçidinde açık port bırakılmıştır.",
+        "cozum": "Firewall'dan portu kapatın."
+      }
+    ],
+    "etiketler": [
+      "guvenlik",
+      "soc",
+      "siem",
+      "edr",
+      "crowdstrike"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sec_surge_26",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "CrowdStrike Falcon / SentinelOne EDR: Ağ İzolasyonu (Network Containment) Uygulanan Bilgisayardan Veri Kurtarma",
+    "hizli_adimlar": [
+      "CrowdStrike Falcon / SentinelOne EDR güvenlik yönetim konsolunu açın.",
+      "Kök neden analizini uygulayın: EDR'ın sadece yönetim konsolu haricindeki tüm TCP/IP paketlerini engellemesi.",
+      "Saha mühendisliği acil eylem planını yürütün: Konsol üzerinden 'Live Response' terminalini başlatarak uzaktan adli bellek ve dosya analizi yapın.",
+      "Sistem bütünlüğünü doğrulayarak zararlı izlerini temizleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Güvenlik Komutu",
+        "komut": "Live Response Shell",
+        "aciklama": "Siber olay müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Fidye yazılımı şüphesiyle EDR tarafından ağ bağlantısı kesilen laptopa erişim.",
+    "derin_teknik_analiz": "EDR'ın sadece yönetim konsolu haricindeki tüm TCP/IP paketlerini engellemesi. Çözüm: Konsol üzerinden 'Live Response' terminalini başlatarak uzaktan adli bellek ve dosya analizi yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Saldırı sürüyor",
+        "neden": "Ağ geçidinde açık port bırakılmıştır.",
+        "cozum": "Firewall'dan portu kapatın."
+      }
+    ],
+    "etiketler": [
+      "guvenlik",
+      "soc",
+      "siem",
+      "edr",
+      "crowdstrike"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sec_surge_27",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "CrowdStrike Falcon / SentinelOne EDR: Geri Alma (Remediation / Rollback) Özelliği ile Şifrelenen Dosyaları Kurtarma",
+    "hizli_adimlar": [
+      "CrowdStrike Falcon / SentinelOne EDR güvenlik yönetim konsolunu açın.",
+      "Kök neden analizini uygulayın: EDR'ın VSS gölge kopyalarını koruyarak yapılan değişiklikleri geriye dönük geri alma mekanizması.",
+      "Saha mühendisliği acil eylem planını yürütün: EDR yönetiminden ilgili tehdit için 'Rollback' komutunu tetikleyerek şifrelenen dosyaları saniyeler içinde kurtarın.",
+      "Sistem bütünlüğünü doğrulayarak zararlı izlerini temizleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Güvenlik Komutu",
+        "komut": "SentinelOne Console -> Incident Actions -> Rollback",
+        "aciklama": "Siber olay müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Kullanıcının tıkladığı zararlı ekin dosyaları şifrelemeye başlaması.",
+    "derin_teknik_analiz": "EDR'ın VSS gölge kopyalarını koruyarak yapılan değişiklikleri geriye dönük geri alma mekanizması. Çözüm: EDR yönetiminden ilgili tehdit için 'Rollback' komutunu tetikleyerek şifrelenen dosyaları saniyeler içinde kurtarın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Saldırı sürüyor",
+        "neden": "Ağ geçidinde açık port bırakılmıştır.",
+        "cozum": "Firewall'dan portu kapatın."
+      }
+    ],
+    "etiketler": [
+      "guvenlik",
+      "soc",
+      "siem",
+      "edr",
+      "crowdstrike"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sec_f350_40",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Snort 3 / Suricata: Ağ Tabanlı NIDS Kuralı ile Log4j (CVE-2021-44228) Tespiti",
+    "hizli_adimlar": [
+      "SOC güvenlik konsolundan olay kayıtlarını ve tehdit aktörünü izole edin.",
+      "Kök neden analizini uygulayın: Saldırganın uzaktan kod yürütmek için Log4j güvenlik açığını istismar etmeye çalışması.",
+      "Saha olay müdahalesi ve sıkılaştırma adımlarını yürütün: Suricata kural setine 'alert http any any -> $HOME_NET any (content:\"${jndi:\"; nocase; sid:1000001;)' kuralını ekleyin.",
+      "Güvenlik duvarı ve EDR üzerinden tehdidi bloke edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Güvenlik Komutu",
+        "komut": "suricata -c /etc/suricata/suricata.yaml -T",
+        "aciklama": "SOC müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Web sunucusuna gelen HTTP isteklerinde '${jndi:ldap://' kod enjeksiyonu görülmesi.",
+    "derin_teknik_analiz": "Saldırganın uzaktan kod yürütmek için Log4j güvenlik açığını istismar etmeye çalışması. Çözüm: Suricata kural setine 'alert http any any -> $HOME_NET any (content:\"${jndi:\"; nocase; sid:1000001;)' kuralını ekleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Saldırı yayılıyor",
+        "neden": "Yanal hareket (Lateral Movement) aktiftir.",
+        "cozum": "Ana omurga switch portunu izole edin."
+      }
+    ],
+    "etiketler": [
+      "guvenlik",
+      "soc",
+      "incident-response",
+      "siber-savunma"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sec_f350_41",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Splunk / Graylog: Başarısız Oturum Açma (Event ID 4625) Eşik Alarmı Yapılandırması",
+    "hizli_adimlar": [
+      "SOC güvenlik konsolundan olay kayıtlarını ve tehdit aktörünü izole edin.",
+      "Kök neden analizini uygulayın: Saldırganın şirket portalına karşı Parola Püskürtme (Password Spraying) saldırısı yapması.",
+      "Saha olay müdahalesi ve sıkılaştırma adımlarını yürütün: SIEM üzerinde 'sourcetype=WinEventLog EventCode=4625 | stats count by TargetUserName, Source_Network_Address | where count > 20' alarmı kurun.",
+      "Güvenlik duvarı ve EDR üzerinden tehdidi bloke edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Güvenlik Komutu",
+        "komut": "grep -i \"failed password\" /var/log/auth.log",
+        "aciklama": "SOC müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Tek bir IP adresinden 5 dakika içinde 100'den fazla hatalı kullanıcı adı denenmesi.",
+    "derin_teknik_analiz": "Saldırganın şirket portalına karşı Parola Püskürtme (Password Spraying) saldırısı yapması. Çözüm: SIEM üzerinde 'sourcetype=WinEventLog EventCode=4625 | stats count by TargetUserName, Source_Network_Address | where count > 20' alarmı kurun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Saldırı yayılıyor",
+        "neden": "Yanal hareket (Lateral Movement) aktiftir.",
+        "cozum": "Ana omurga switch portunu izole edin."
+      }
+    ],
+    "etiketler": [
+      "guvenlik",
+      "soc",
+      "incident-response",
+      "siber-savunma"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sec_f350_42",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Wi-Fi Güvenliği: Evil Twin (Sahte İkiz Erişim Noktası) Tespiti ve Engelleme",
+    "hizli_adimlar": [
+      "SOC güvenlik konsolundan olay kayıtlarını ve tehdit aktörünü izole edin.",
+      "Kök neden analizini uygulayın: Saldırganın personelin şifrelerini çalmak için sahte AP kurup kullanıcıları kendine çekmeye çalışması.",
+      "Saha olay müdahalesi ve sıkılaştırma adımlarını yürütün: WIDS (Kablosuz Saldırı Tespit Sistemi) ile yetkisiz BSSID anonslarını tarayın ve personeli bilgilendirin.",
+      "Güvenlik duvarı ve EDR üzerinden tehdidi bloke edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Güvenlik Komutu",
+        "komut": "airodump-ng --wlan0mon",
+        "aciklama": "SOC müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Şirket binasında aynı SSID isminde ancak farklı BSSID ve MAC adresine sahip açık Wi-Fi yayını görülmesi.",
+    "derin_teknik_analiz": "Saldırganın personelin şifrelerini çalmak için sahte AP kurup kullanıcıları kendine çekmeye çalışması. Çözüm: WIDS (Kablosuz Saldırı Tespit Sistemi) ile yetkisiz BSSID anonslarını tarayın ve personeli bilgilendirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Saldırı yayılıyor",
+        "neden": "Yanal hareket (Lateral Movement) aktiftir.",
+        "cozum": "Ana omurga switch portunu izole edin."
+      }
+    ],
+    "etiketler": [
+      "guvenlik",
+      "soc",
+      "incident-response",
+      "siber-savunma"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sec_f350_43",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "DNS Tünelleme (DNS Tunneling) ve Veri Sızıntısının (Data Exfiltration) Tespiti",
+    "hizli_adimlar": [
+      "SOC güvenlik konsolundan olay kayıtlarını ve tehdit aktörünü izole edin.",
+      "Kök neden analizini uygulayın: DNS protokolünün 53 portu üzerinden güvenlik duvarını aşarak veri sızdırılması.",
+      "Saha olay müdahalesi ve sıkılaştırma adımlarını yürütün: DNS sunucusunda sorgu uzunluğu (Query Length > 50 karakter) filtresi koyun ve TXT/NULL sorgu hacmini kısıtlayın.",
+      "Güvenlik duvarı ve EDR üzerinden tehdidi bloke edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Güvenlik Komutu",
+        "komut": "tshark -f \"udp port 53\" -Y \"dns.qry.name.len > 50\"",
+        "aciklama": "SOC müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Ağdaki bir bilgisayarın rastgele uzunlukta anlamsız alt alan adlarına (Örn: a8f9c2d1.saldirgan.com) sürekli sorgu atması.",
+    "derin_teknik_analiz": "DNS protokolünün 53 portu üzerinden güvenlik duvarını aşarak veri sızdırılması. Çözüm: DNS sunucusunda sorgu uzunluğu (Query Length > 50 karakter) filtresi koyun ve TXT/NULL sorgu hacmini kısıtlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Saldırı yayılıyor",
+        "neden": "Yanal hareket (Lateral Movement) aktiftir.",
+        "cozum": "Ana omurga switch portunu izole edin."
+      }
+    ],
+    "etiketler": [
+      "guvenlik",
+      "soc",
+      "incident-response",
+      "siber-savunma"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sec_f350_44",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Windows Defender ASR (Attack Surface Reduction) Kuralları ile Makro Engelleme",
+    "hizli_adimlar": [
+      "SOC güvenlik konsolundan olay kayıtlarını ve tehdit aktörünü izole edin.",
+      "Kök neden analizini uygulayın: Office belgelerinin arka planda gizlice PowerShell veya CMD çağırması.",
+      "Saha olay müdahalesi ve sıkılaştırma adımlarını yürütün: PowerShell ile 'Win32 API çağrısı yapan Office uygulamalarını engelle' ASR kuralını (ID: 92e63a44-4e0e-42c9-96b6-ec73924c0d02) aktif edin.",
+      "Güvenlik duvarı ve EDR üzerinden tehdidi bloke edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Güvenlik Komutu",
+        "komut": "Set-MpPreference -AttackSurfaceReductionRules_Ids 92e63a44-4e0e-42c9-96b6-ec73924c0d02 -AttackSurfaceReductionRules_Actions Enabled",
+        "aciklama": "SOC müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Kullanıcıların e-postadan indirdiği Word/Excel dosyalarındaki zararlı makroların çalışması.",
+    "derin_teknik_analiz": "Office belgelerinin arka planda gizlice PowerShell veya CMD çağırması. Çözüm: PowerShell ile 'Win32 API çağrısı yapan Office uygulamalarını engelle' ASR kuralını (ID: 92e63a44-4e0e-42c9-96b6-ec73924c0d02) aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Saldırı yayılıyor",
+        "neden": "Yanal hareket (Lateral Movement) aktiftir.",
+        "cozum": "Ana omurga switch portunu izole edin."
+      }
+    ],
+    "etiketler": [
+      "guvenlik",
+      "soc",
+      "incident-response",
+      "siber-savunma"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sec_f350_45",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Cobalt Strike Malleable C2 Profil Trafiğinin Wireshark ile Ayrıştırılması",
+    "hizli_adimlar": [
+      "SOC güvenlik konsolundan olay kayıtlarını ve tehdit aktörünü izole edin.",
+      "Kök neden analizini uygulayın: Zararlı yazılımın komuta kontrol sunucusuyla gizli haberleşme protokolü.",
+      "Saha olay müdahalesi ve sıkılaştırma adımlarını yürütün: Wireshark'ta 'http.request.method == \"GET\" && http.cookie' filtresi uygulayarak periyodik beaconing trafiğini yakalayın.",
+      "Güvenlik duvarı ve EDR üzerinden tehdidi bloke edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Güvenlik Komutu",
+        "komut": "tshark -Y \"http contains \\\"Cookie:\\\"\"",
+        "aciklama": "SOC müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "HTTP GET isteklerinde User-Agent başlığının sahte olması ve Cookie alanında base64 veri taşınması.",
+    "derin_teknik_analiz": "Zararlı yazılımın komuta kontrol sunucusuyla gizli haberleşme protokolü. Çözüm: Wireshark'ta 'http.request.method == \"GET\" && http.cookie' filtresi uygulayarak periyodik beaconing trafiğini yakalayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Saldırı yayılıyor",
+        "neden": "Yanal hareket (Lateral Movement) aktiftir.",
+        "cozum": "Ana omurga switch portunu izole edin."
+      }
+    ],
+    "etiketler": [
+      "guvenlik",
+      "soc",
+      "incident-response",
+      "siber-savunma"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sec_f350_46",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Linux Rootkit Tespiti: Chkrootkit ve Rkhunter ile Çekirdek Kancası Tarama",
+    "hizli_adimlar": [
+      "SOC güvenlik konsolundan olay kayıtlarını ve tehdit aktörünü izole edin.",
+      "Kök neden analizini uygulayın: Saldırganın çekirdeğe LKM (Loadable Kernel Module) rootkit enjekte ederek kendini gizlemesi.",
+      "Saha olay müdahalesi ve sıkılaştırma adımlarını yürütün: Canlı USB üzerinden sistemi başlatıp rkhunter ve chkrootkit araçlarıyla sistem ikili dosyalarını karşılaştırın.",
+      "Güvenlik duvarı ve EDR üzerinden tehdidi bloke edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Güvenlik Komutu",
+        "komut": "sudo rkhunter --check --sk",
+        "aciklama": "SOC müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Sistemde çalışan bazı süreçlerin 'ps' veya 'top' komutlarında görünmemesi.",
+    "derin_teknik_analiz": "Saldırganın çekirdeğe LKM (Loadable Kernel Module) rootkit enjekte ederek kendini gizlemesi. Çözüm: Canlı USB üzerinden sistemi başlatıp rkhunter ve chkrootkit araçlarıyla sistem ikili dosyalarını karşılaştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Saldırı yayılıyor",
+        "neden": "Yanal hareket (Lateral Movement) aktiftir.",
+        "cozum": "Ana omurga switch portunu izole edin."
+      }
+    ],
+    "etiketler": [
+      "guvenlik",
+      "soc",
+      "incident-response",
+      "siber-savunma"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sec_f350_47",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Active Directory: DCSync Saldırısı Tespiti (Replication İzinleri Kötüye Kullanımı)",
+    "hizli_adimlar": [
+      "SOC güvenlik konsolundan olay kayıtlarını ve tehdit aktörünü izole edin.",
+      "Kök neden analizini uygulayın: Yetkisi yükseltilen bir hesabın 'DS-Replication-Get-Changes-All' hakkını kötüye kullanması.",
+      "Saha olay müdahalesi ve sıkılaştırma adımlarını yürütün: Olay Günlüğünde Event ID 4662 (Active Directory Nesne Erişimi) kayıtlarında replikasyon GUID'ini filtreleyin.",
+      "Güvenlik duvarı ve EDR üzerinden tehdidi bloke edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Güvenlik Komutu",
+        "komut": "Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4662}",
+        "aciklama": "SOC müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Saldırganın Domain Controller olmadan diğer DC'den tüm etki alanı şifre özetlerini (NTDS.dit) talep etmesi.",
+    "derin_teknik_analiz": "Yetkisi yükseltilen bir hesabın 'DS-Replication-Get-Changes-All' hakkını kötüye kullanması. Çözüm: Olay Günlüğünde Event ID 4662 (Active Directory Nesne Erişimi) kayıtlarında replikasyon GUID'ini filtreleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Saldırı yayılıyor",
+        "neden": "Yanal hareket (Lateral Movement) aktiftir.",
+        "cozum": "Ana omurga switch portunu izole edin."
+      }
+    ],
+    "etiketler": [
+      "guvenlik",
+      "soc",
+      "incident-response",
+      "siber-savunma"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sec_f350_48",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Web Uygulaması: SQL Injection (SQLi) Saldırısı ve WAF ModSecurity Kuralı",
+    "hizli_adimlar": [
+      "SOC güvenlik konsolundan olay kayıtlarını ve tehdit aktörünü izole edin.",
+      "Kök neden analizini uygulayın: Kullanıcı girdilerinin SQL sorgusuna doğrudan parametresiz (Unparameterized) birleştirilmesi.",
+      "Saha olay müdahalesi ve sıkılaştırma adımlarını yürütün: Uygulama kodunda Prepared Statements (Parametreli Sorgu) kullanın ve Nginx önünde ModSecurity CRS kural setini açın.",
+      "Güvenlik duvarı ve EDR üzerinden tehdidi bloke edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Güvenlik Komutu",
+        "komut": "nginx -t",
+        "aciklama": "SOC müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Web sitesi arama kutusuna ' OR 1=1 -- yazıldığında tüm kullanıcı listesinin dökülmesi.",
+    "derin_teknik_analiz": "Kullanıcı girdilerinin SQL sorgusuna doğrudan parametresiz (Unparameterized) birleştirilmesi. Çözüm: Uygulama kodunda Prepared Statements (Parametreli Sorgu) kullanın ve Nginx önünde ModSecurity CRS kural setini açın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Saldırı yayılıyor",
+        "neden": "Yanal hareket (Lateral Movement) aktiftir.",
+        "cozum": "Ana omurga switch portunu izole edin."
+      }
+    ],
+    "etiketler": [
+      "guvenlik",
+      "soc",
+      "incident-response",
+      "siber-savunma"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sec_f350_49",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Sistemde Gizli Yerel Kullanıcı Hesabı Oluşturulmasının Tespiti",
+    "hizli_adimlar": [
+      "SOC güvenlik konsolundan olay kayıtlarını ve tehdit aktörünü izole edin.",
+      "Kök neden analizini uygulayın: Saldırganın sisteme sızdıktan sonra kalıcılık (Persistence) sağlamak için yerel yönetici oluşturması.",
+      "Saha olay müdahalesi ve sıkılaştırma adımlarını yürütün: Event ID 4720 (Kullanıcı Hesabı Oluşturuldu) alarmı kurun ve 'net localgroup administrators' çıktısını düzenli denetleyin.",
+      "Güvenlik duvarı ve EDR üzerinden tehdidi bloke edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Güvenlik Komutu",
+        "komut": "net localgroup administrators",
+        "aciklama": "SOC müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Windows sisteminde 'HelpAssistant' veya 'DefaultAccount$' gibi sahte isimli yönetici hesabı açılması.",
+    "derin_teknik_analiz": "Saldırganın sisteme sızdıktan sonra kalıcılık (Persistence) sağlamak için yerel yönetici oluşturması. Çözüm: Event ID 4720 (Kullanıcı Hesabı Oluşturuldu) alarmı kurun ve 'net localgroup administrators' çıktısını düzenli denetleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Saldırı yayılıyor",
+        "neden": "Yanal hareket (Lateral Movement) aktiftir.",
+        "cozum": "Ana omurga switch portunu izole edin."
+      }
+    ],
+    "etiketler": [
+      "guvenlik",
+      "soc",
+      "incident-response",
+      "siber-savunma"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_210",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Splunk Enterprise SIEM 9.1: Sysmon Event ID 3 Ağ Bağlantısı ile C2 Beaconing Tespiti",
+    "hizli_adimlar": [
+      "Splunk Enterprise SIEM 9.1 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Zararlı yazılımın komuta kontrol sunucusuyla canlı bağlantı kurması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Sysmon Event ID 3 kayıtlarından hedef IP ve süreci (PID) tespit edip makineyi izole edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Get-WinEvent -FilterHashtable @{LogName=\"Microsoft-Windows-Sysmon/Operational\"; ID=3}",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "İç ağdaki bir istemcinin her 60 saniyede bir aynı dış IP'ye 128 byte paket atması.",
+    "derin_teknik_analiz": "Zararlı yazılımın komuta kontrol sunucusuyla canlı bağlantı kurması. Çözüm: Sysmon Event ID 3 kayıtlarından hedef IP ve süreci (PID) tespit edip makineyi izole edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "splunk enterprise siem 9.1",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_211",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Splunk Enterprise SIEM 9.1: Falco ile Kapsayıcı İçinde Yetkisiz Kabuk (Shell) Açılma Alarmı",
+    "hizli_adimlar": [
+      "Splunk Enterprise SIEM 9.1 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Saldırganın uzaktan kod çalıştırma (RCE) ile konteyner içine sızması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Falco kuralını tetikleyen pod'u anında kubectl delete pod ile yok edin ve güvenlik açığını kapatın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "falco -c /etc/falco/falco.yaml",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Web sunucusu konteynerinde aniden /bin/bash oturumu başlatılması.",
+    "derin_teknik_analiz": "Saldırganın uzaktan kod çalıştırma (RCE) ile konteyner içine sızması. Çözüm: Falco kuralını tetikleyen pod'u anında kubectl delete pod ile yok edin ve güvenlik açığını kapatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "splunk enterprise siem 9.1",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_212",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Splunk Enterprise SIEM 9.1: YARA Kuralı ile Bellekteki Cobalt Strike İmzalarını Tarama",
+    "hizli_adimlar": [
+      "Splunk Enterprise SIEM 9.1 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Belleğe yansıyan kötü niyetli kabuk kodunun (Shellcode) varlığı.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: yara64.exe -r cobalt_strike.yar [PID] komutuyla süreci bellek seviyesinde tarayın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "yara -r rule.yar /tmp/",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Şüpheli bir süreçte bilinen C2 enjeksiyon paterninin bulunması.",
+    "derin_teknik_analiz": "Belleğe yansıyan kötü niyetli kabuk kodunun (Shellcode) varlığı. Çözüm: yara64.exe -r cobalt_strike.yar [PID] komutuyla süreci bellek seviyesinde tarayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "splunk enterprise siem 9.1",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_213",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Graylog Enterprise 5.2: Sysmon Event ID 3 Ağ Bağlantısı ile C2 Beaconing Tespiti",
+    "hizli_adimlar": [
+      "Graylog Enterprise 5.2 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Zararlı yazılımın komuta kontrol sunucusuyla canlı bağlantı kurması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Sysmon Event ID 3 kayıtlarından hedef IP ve süreci (PID) tespit edip makineyi izole edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Get-WinEvent -FilterHashtable @{LogName=\"Microsoft-Windows-Sysmon/Operational\"; ID=3}",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "İç ağdaki bir istemcinin her 60 saniyede bir aynı dış IP'ye 128 byte paket atması.",
+    "derin_teknik_analiz": "Zararlı yazılımın komuta kontrol sunucusuyla canlı bağlantı kurması. Çözüm: Sysmon Event ID 3 kayıtlarından hedef IP ve süreci (PID) tespit edip makineyi izole edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "graylog enterprise 5.2",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_214",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Graylog Enterprise 5.2: Falco ile Kapsayıcı İçinde Yetkisiz Kabuk (Shell) Açılma Alarmı",
+    "hizli_adimlar": [
+      "Graylog Enterprise 5.2 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Saldırganın uzaktan kod çalıştırma (RCE) ile konteyner içine sızması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Falco kuralını tetikleyen pod'u anında kubectl delete pod ile yok edin ve güvenlik açığını kapatın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "falco -c /etc/falco/falco.yaml",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Web sunucusu konteynerinde aniden /bin/bash oturumu başlatılması.",
+    "derin_teknik_analiz": "Saldırganın uzaktan kod çalıştırma (RCE) ile konteyner içine sızması. Çözüm: Falco kuralını tetikleyen pod'u anında kubectl delete pod ile yok edin ve güvenlik açığını kapatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "graylog enterprise 5.2",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_215",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Graylog Enterprise 5.2: YARA Kuralı ile Bellekteki Cobalt Strike İmzalarını Tarama",
+    "hizli_adimlar": [
+      "Graylog Enterprise 5.2 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Belleğe yansıyan kötü niyetli kabuk kodunun (Shellcode) varlığı.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: yara64.exe -r cobalt_strike.yar [PID] komutuyla süreci bellek seviyesinde tarayın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "yara -r rule.yar /tmp/",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Şüpheli bir süreçte bilinen C2 enjeksiyon paterninin bulunması.",
+    "derin_teknik_analiz": "Belleğe yansıyan kötü niyetli kabuk kodunun (Shellcode) varlığı. Çözüm: yara64.exe -r cobalt_strike.yar [PID] komutuyla süreci bellek seviyesinde tarayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "graylog enterprise 5.2",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_216",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Zeek Ağ Güvenlik İzleme: Sysmon Event ID 3 Ağ Bağlantısı ile C2 Beaconing Tespiti",
+    "hizli_adimlar": [
+      "Zeek Ağ Güvenlik İzleme cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Zararlı yazılımın komuta kontrol sunucusuyla canlı bağlantı kurması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Sysmon Event ID 3 kayıtlarından hedef IP ve süreci (PID) tespit edip makineyi izole edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Get-WinEvent -FilterHashtable @{LogName=\"Microsoft-Windows-Sysmon/Operational\"; ID=3}",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "İç ağdaki bir istemcinin her 60 saniyede bir aynı dış IP'ye 128 byte paket atması.",
+    "derin_teknik_analiz": "Zararlı yazılımın komuta kontrol sunucusuyla canlı bağlantı kurması. Çözüm: Sysmon Event ID 3 kayıtlarından hedef IP ve süreci (PID) tespit edip makineyi izole edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "zeek ağ güvenlik i̇zleme",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_217",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Zeek Ağ Güvenlik İzleme: Falco ile Kapsayıcı İçinde Yetkisiz Kabuk (Shell) Açılma Alarmı",
+    "hizli_adimlar": [
+      "Zeek Ağ Güvenlik İzleme cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Saldırganın uzaktan kod çalıştırma (RCE) ile konteyner içine sızması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Falco kuralını tetikleyen pod'u anında kubectl delete pod ile yok edin ve güvenlik açığını kapatın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "falco -c /etc/falco/falco.yaml",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Web sunucusu konteynerinde aniden /bin/bash oturumu başlatılması.",
+    "derin_teknik_analiz": "Saldırganın uzaktan kod çalıştırma (RCE) ile konteyner içine sızması. Çözüm: Falco kuralını tetikleyen pod'u anında kubectl delete pod ile yok edin ve güvenlik açığını kapatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "zeek ağ güvenlik i̇zleme",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_218",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Zeek Ağ Güvenlik İzleme: YARA Kuralı ile Bellekteki Cobalt Strike İmzalarını Tarama",
+    "hizli_adimlar": [
+      "Zeek Ağ Güvenlik İzleme cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Belleğe yansıyan kötü niyetli kabuk kodunun (Shellcode) varlığı.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: yara64.exe -r cobalt_strike.yar [PID] komutuyla süreci bellek seviyesinde tarayın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "yara -r rule.yar /tmp/",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Şüpheli bir süreçte bilinen C2 enjeksiyon paterninin bulunması.",
+    "derin_teknik_analiz": "Belleğe yansıyan kötü niyetli kabuk kodunun (Shellcode) varlığı. Çözüm: yara64.exe -r cobalt_strike.yar [PID] komutuyla süreci bellek seviyesinde tarayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "zeek ağ güvenlik i̇zleme",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_219",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Suricata 7.0 Multithread: Sysmon Event ID 3 Ağ Bağlantısı ile C2 Beaconing Tespiti",
+    "hizli_adimlar": [
+      "Suricata 7.0 Multithread cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Zararlı yazılımın komuta kontrol sunucusuyla canlı bağlantı kurması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Sysmon Event ID 3 kayıtlarından hedef IP ve süreci (PID) tespit edip makineyi izole edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Get-WinEvent -FilterHashtable @{LogName=\"Microsoft-Windows-Sysmon/Operational\"; ID=3}",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "İç ağdaki bir istemcinin her 60 saniyede bir aynı dış IP'ye 128 byte paket atması.",
+    "derin_teknik_analiz": "Zararlı yazılımın komuta kontrol sunucusuyla canlı bağlantı kurması. Çözüm: Sysmon Event ID 3 kayıtlarından hedef IP ve süreci (PID) tespit edip makineyi izole edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "suricata 7.0 multithread",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_220",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Suricata 7.0 Multithread: Falco ile Kapsayıcı İçinde Yetkisiz Kabuk (Shell) Açılma Alarmı",
+    "hizli_adimlar": [
+      "Suricata 7.0 Multithread cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Saldırganın uzaktan kod çalıştırma (RCE) ile konteyner içine sızması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Falco kuralını tetikleyen pod'u anında kubectl delete pod ile yok edin ve güvenlik açığını kapatın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "falco -c /etc/falco/falco.yaml",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Web sunucusu konteynerinde aniden /bin/bash oturumu başlatılması.",
+    "derin_teknik_analiz": "Saldırganın uzaktan kod çalıştırma (RCE) ile konteyner içine sızması. Çözüm: Falco kuralını tetikleyen pod'u anında kubectl delete pod ile yok edin ve güvenlik açığını kapatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "suricata 7.0 multithread",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_221",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Suricata 7.0 Multithread: YARA Kuralı ile Bellekteki Cobalt Strike İmzalarını Tarama",
+    "hizli_adimlar": [
+      "Suricata 7.0 Multithread cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Belleğe yansıyan kötü niyetli kabuk kodunun (Shellcode) varlığı.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: yara64.exe -r cobalt_strike.yar [PID] komutuyla süreci bellek seviyesinde tarayın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "yara -r rule.yar /tmp/",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Şüpheli bir süreçte bilinen C2 enjeksiyon paterninin bulunması.",
+    "derin_teknik_analiz": "Belleğe yansıyan kötü niyetli kabuk kodunun (Shellcode) varlığı. Çözüm: yara64.exe -r cobalt_strike.yar [PID] komutuyla süreci bellek seviyesinde tarayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "suricata 7.0 multithread",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_222",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "OSSEC Host Tabanlı Saldırı: Sysmon Event ID 3 Ağ Bağlantısı ile C2 Beaconing Tespiti",
+    "hizli_adimlar": [
+      "OSSEC Host Tabanlı Saldırı cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Zararlı yazılımın komuta kontrol sunucusuyla canlı bağlantı kurması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Sysmon Event ID 3 kayıtlarından hedef IP ve süreci (PID) tespit edip makineyi izole edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Get-WinEvent -FilterHashtable @{LogName=\"Microsoft-Windows-Sysmon/Operational\"; ID=3}",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "İç ağdaki bir istemcinin her 60 saniyede bir aynı dış IP'ye 128 byte paket atması.",
+    "derin_teknik_analiz": "Zararlı yazılımın komuta kontrol sunucusuyla canlı bağlantı kurması. Çözüm: Sysmon Event ID 3 kayıtlarından hedef IP ve süreci (PID) tespit edip makineyi izole edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "ossec host tabanlı saldırı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_223",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "OSSEC Host Tabanlı Saldırı: Falco ile Kapsayıcı İçinde Yetkisiz Kabuk (Shell) Açılma Alarmı",
+    "hizli_adimlar": [
+      "OSSEC Host Tabanlı Saldırı cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Saldırganın uzaktan kod çalıştırma (RCE) ile konteyner içine sızması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Falco kuralını tetikleyen pod'u anında kubectl delete pod ile yok edin ve güvenlik açığını kapatın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "falco -c /etc/falco/falco.yaml",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Web sunucusu konteynerinde aniden /bin/bash oturumu başlatılması.",
+    "derin_teknik_analiz": "Saldırganın uzaktan kod çalıştırma (RCE) ile konteyner içine sızması. Çözüm: Falco kuralını tetikleyen pod'u anında kubectl delete pod ile yok edin ve güvenlik açığını kapatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "ossec host tabanlı saldırı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_224",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "OSSEC Host Tabanlı Saldırı: YARA Kuralı ile Bellekteki Cobalt Strike İmzalarını Tarama",
+    "hizli_adimlar": [
+      "OSSEC Host Tabanlı Saldırı cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Belleğe yansıyan kötü niyetli kabuk kodunun (Shellcode) varlığı.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: yara64.exe -r cobalt_strike.yar [PID] komutuyla süreci bellek seviyesinde tarayın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "yara -r rule.yar /tmp/",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Şüpheli bir süreçte bilinen C2 enjeksiyon paterninin bulunması.",
+    "derin_teknik_analiz": "Belleğe yansıyan kötü niyetli kabuk kodunun (Shellcode) varlığı. Çözüm: yara64.exe -r cobalt_strike.yar [PID] komutuyla süreci bellek seviyesinde tarayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "ossec host tabanlı saldırı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_225",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Velociraptor Adli Müdahale: Sysmon Event ID 3 Ağ Bağlantısı ile C2 Beaconing Tespiti",
+    "hizli_adimlar": [
+      "Velociraptor Adli Müdahale cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Zararlı yazılımın komuta kontrol sunucusuyla canlı bağlantı kurması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Sysmon Event ID 3 kayıtlarından hedef IP ve süreci (PID) tespit edip makineyi izole edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Get-WinEvent -FilterHashtable @{LogName=\"Microsoft-Windows-Sysmon/Operational\"; ID=3}",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "İç ağdaki bir istemcinin her 60 saniyede bir aynı dış IP'ye 128 byte paket atması.",
+    "derin_teknik_analiz": "Zararlı yazılımın komuta kontrol sunucusuyla canlı bağlantı kurması. Çözüm: Sysmon Event ID 3 kayıtlarından hedef IP ve süreci (PID) tespit edip makineyi izole edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "velociraptor adli müdahale",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_226",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Velociraptor Adli Müdahale: Falco ile Kapsayıcı İçinde Yetkisiz Kabuk (Shell) Açılma Alarmı",
+    "hizli_adimlar": [
+      "Velociraptor Adli Müdahale cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Saldırganın uzaktan kod çalıştırma (RCE) ile konteyner içine sızması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Falco kuralını tetikleyen pod'u anında kubectl delete pod ile yok edin ve güvenlik açığını kapatın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "falco -c /etc/falco/falco.yaml",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Web sunucusu konteynerinde aniden /bin/bash oturumu başlatılması.",
+    "derin_teknik_analiz": "Saldırganın uzaktan kod çalıştırma (RCE) ile konteyner içine sızması. Çözüm: Falco kuralını tetikleyen pod'u anında kubectl delete pod ile yok edin ve güvenlik açığını kapatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "velociraptor adli müdahale",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_227",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Velociraptor Adli Müdahale: YARA Kuralı ile Bellekteki Cobalt Strike İmzalarını Tarama",
+    "hizli_adimlar": [
+      "Velociraptor Adli Müdahale cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Belleğe yansıyan kötü niyetli kabuk kodunun (Shellcode) varlığı.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: yara64.exe -r cobalt_strike.yar [PID] komutuyla süreci bellek seviyesinde tarayın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "yara -r rule.yar /tmp/",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Şüpheli bir süreçte bilinen C2 enjeksiyon paterninin bulunması.",
+    "derin_teknik_analiz": "Belleğe yansıyan kötü niyetli kabuk kodunun (Shellcode) varlığı. Çözüm: yara64.exe -r cobalt_strike.yar [PID] komutuyla süreci bellek seviyesinde tarayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "velociraptor adli müdahale",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_228",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Autopsy Dijital Adli Tıp: Sysmon Event ID 3 Ağ Bağlantısı ile C2 Beaconing Tespiti",
+    "hizli_adimlar": [
+      "Autopsy Dijital Adli Tıp cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Zararlı yazılımın komuta kontrol sunucusuyla canlı bağlantı kurması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Sysmon Event ID 3 kayıtlarından hedef IP ve süreci (PID) tespit edip makineyi izole edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Get-WinEvent -FilterHashtable @{LogName=\"Microsoft-Windows-Sysmon/Operational\"; ID=3}",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "İç ağdaki bir istemcinin her 60 saniyede bir aynı dış IP'ye 128 byte paket atması.",
+    "derin_teknik_analiz": "Zararlı yazılımın komuta kontrol sunucusuyla canlı bağlantı kurması. Çözüm: Sysmon Event ID 3 kayıtlarından hedef IP ve süreci (PID) tespit edip makineyi izole edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "autopsy dijital adli tıp",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_229",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Autopsy Dijital Adli Tıp: Falco ile Kapsayıcı İçinde Yetkisiz Kabuk (Shell) Açılma Alarmı",
+    "hizli_adimlar": [
+      "Autopsy Dijital Adli Tıp cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Saldırganın uzaktan kod çalıştırma (RCE) ile konteyner içine sızması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Falco kuralını tetikleyen pod'u anında kubectl delete pod ile yok edin ve güvenlik açığını kapatın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "falco -c /etc/falco/falco.yaml",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Web sunucusu konteynerinde aniden /bin/bash oturumu başlatılması.",
+    "derin_teknik_analiz": "Saldırganın uzaktan kod çalıştırma (RCE) ile konteyner içine sızması. Çözüm: Falco kuralını tetikleyen pod'u anında kubectl delete pod ile yok edin ve güvenlik açığını kapatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "autopsy dijital adli tıp",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_230",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Autopsy Dijital Adli Tıp: YARA Kuralı ile Bellekteki Cobalt Strike İmzalarını Tarama",
+    "hizli_adimlar": [
+      "Autopsy Dijital Adli Tıp cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Belleğe yansıyan kötü niyetli kabuk kodunun (Shellcode) varlığı.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: yara64.exe -r cobalt_strike.yar [PID] komutuyla süreci bellek seviyesinde tarayın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "yara -r rule.yar /tmp/",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Şüpheli bir süreçte bilinen C2 enjeksiyon paterninin bulunması.",
+    "derin_teknik_analiz": "Belleğe yansıyan kötü niyetli kabuk kodunun (Shellcode) varlığı. Çözüm: yara64.exe -r cobalt_strike.yar [PID] komutuyla süreci bellek seviyesinde tarayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "autopsy dijital adli tıp",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_231",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "YARA Zararlı Yazılım Kuralı: Sysmon Event ID 3 Ağ Bağlantısı ile C2 Beaconing Tespiti",
+    "hizli_adimlar": [
+      "YARA Zararlı Yazılım Kuralı cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Zararlı yazılımın komuta kontrol sunucusuyla canlı bağlantı kurması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Sysmon Event ID 3 kayıtlarından hedef IP ve süreci (PID) tespit edip makineyi izole edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Get-WinEvent -FilterHashtable @{LogName=\"Microsoft-Windows-Sysmon/Operational\"; ID=3}",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "İç ağdaki bir istemcinin her 60 saniyede bir aynı dış IP'ye 128 byte paket atması.",
+    "derin_teknik_analiz": "Zararlı yazılımın komuta kontrol sunucusuyla canlı bağlantı kurması. Çözüm: Sysmon Event ID 3 kayıtlarından hedef IP ve süreci (PID) tespit edip makineyi izole edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "yara zararlı yazılım kuralı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_232",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "YARA Zararlı Yazılım Kuralı: Falco ile Kapsayıcı İçinde Yetkisiz Kabuk (Shell) Açılma Alarmı",
+    "hizli_adimlar": [
+      "YARA Zararlı Yazılım Kuralı cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Saldırganın uzaktan kod çalıştırma (RCE) ile konteyner içine sızması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Falco kuralını tetikleyen pod'u anında kubectl delete pod ile yok edin ve güvenlik açığını kapatın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "falco -c /etc/falco/falco.yaml",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Web sunucusu konteynerinde aniden /bin/bash oturumu başlatılması.",
+    "derin_teknik_analiz": "Saldırganın uzaktan kod çalıştırma (RCE) ile konteyner içine sızması. Çözüm: Falco kuralını tetikleyen pod'u anında kubectl delete pod ile yok edin ve güvenlik açığını kapatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "yara zararlı yazılım kuralı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_233",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "YARA Zararlı Yazılım Kuralı: YARA Kuralı ile Bellekteki Cobalt Strike İmzalarını Tarama",
+    "hizli_adimlar": [
+      "YARA Zararlı Yazılım Kuralı cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Belleğe yansıyan kötü niyetli kabuk kodunun (Shellcode) varlığı.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: yara64.exe -r cobalt_strike.yar [PID] komutuyla süreci bellek seviyesinde tarayın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "yara -r rule.yar /tmp/",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Şüpheli bir süreçte bilinen C2 enjeksiyon paterninin bulunması.",
+    "derin_teknik_analiz": "Belleğe yansıyan kötü niyetli kabuk kodunun (Shellcode) varlığı. Çözüm: yara64.exe -r cobalt_strike.yar [PID] komutuyla süreci bellek seviyesinde tarayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "yara zararlı yazılım kuralı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_234",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Falco Kapsayıcı Güvenliği: Sysmon Event ID 3 Ağ Bağlantısı ile C2 Beaconing Tespiti",
+    "hizli_adimlar": [
+      "Falco Kapsayıcı Güvenliği cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Zararlı yazılımın komuta kontrol sunucusuyla canlı bağlantı kurması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Sysmon Event ID 3 kayıtlarından hedef IP ve süreci (PID) tespit edip makineyi izole edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Get-WinEvent -FilterHashtable @{LogName=\"Microsoft-Windows-Sysmon/Operational\"; ID=3}",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "İç ağdaki bir istemcinin her 60 saniyede bir aynı dış IP'ye 128 byte paket atması.",
+    "derin_teknik_analiz": "Zararlı yazılımın komuta kontrol sunucusuyla canlı bağlantı kurması. Çözüm: Sysmon Event ID 3 kayıtlarından hedef IP ve süreci (PID) tespit edip makineyi izole edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "falco kapsayıcı güvenliği",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_235",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Falco Kapsayıcı Güvenliği: Falco ile Kapsayıcı İçinde Yetkisiz Kabuk (Shell) Açılma Alarmı",
+    "hizli_adimlar": [
+      "Falco Kapsayıcı Güvenliği cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Saldırganın uzaktan kod çalıştırma (RCE) ile konteyner içine sızması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Falco kuralını tetikleyen pod'u anında kubectl delete pod ile yok edin ve güvenlik açığını kapatın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "falco -c /etc/falco/falco.yaml",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Web sunucusu konteynerinde aniden /bin/bash oturumu başlatılması.",
+    "derin_teknik_analiz": "Saldırganın uzaktan kod çalıştırma (RCE) ile konteyner içine sızması. Çözüm: Falco kuralını tetikleyen pod'u anında kubectl delete pod ile yok edin ve güvenlik açığını kapatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "falco kapsayıcı güvenliği",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_236",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Falco Kapsayıcı Güvenliği: YARA Kuralı ile Bellekteki Cobalt Strike İmzalarını Tarama",
+    "hizli_adimlar": [
+      "Falco Kapsayıcı Güvenliği cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Belleğe yansıyan kötü niyetli kabuk kodunun (Shellcode) varlığı.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: yara64.exe -r cobalt_strike.yar [PID] komutuyla süreci bellek seviyesinde tarayın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "yara -r rule.yar /tmp/",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Şüpheli bir süreçte bilinen C2 enjeksiyon paterninin bulunması.",
+    "derin_teknik_analiz": "Belleğe yansıyan kötü niyetli kabuk kodunun (Shellcode) varlığı. Çözüm: yara64.exe -r cobalt_strike.yar [PID] komutuyla süreci bellek seviyesinde tarayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "falco kapsayıcı güvenliği",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_237",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Wireshark TShark Başsız: Sysmon Event ID 3 Ağ Bağlantısı ile C2 Beaconing Tespiti",
+    "hizli_adimlar": [
+      "Wireshark TShark Başsız cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Zararlı yazılımın komuta kontrol sunucusuyla canlı bağlantı kurması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Sysmon Event ID 3 kayıtlarından hedef IP ve süreci (PID) tespit edip makineyi izole edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Get-WinEvent -FilterHashtable @{LogName=\"Microsoft-Windows-Sysmon/Operational\"; ID=3}",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "İç ağdaki bir istemcinin her 60 saniyede bir aynı dış IP'ye 128 byte paket atması.",
+    "derin_teknik_analiz": "Zararlı yazılımın komuta kontrol sunucusuyla canlı bağlantı kurması. Çözüm: Sysmon Event ID 3 kayıtlarından hedef IP ve süreci (PID) tespit edip makineyi izole edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "wireshark tshark başsız",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_238",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Wireshark TShark Başsız: Falco ile Kapsayıcı İçinde Yetkisiz Kabuk (Shell) Açılma Alarmı",
+    "hizli_adimlar": [
+      "Wireshark TShark Başsız cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Saldırganın uzaktan kod çalıştırma (RCE) ile konteyner içine sızması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Falco kuralını tetikleyen pod'u anında kubectl delete pod ile yok edin ve güvenlik açığını kapatın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "falco -c /etc/falco/falco.yaml",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Web sunucusu konteynerinde aniden /bin/bash oturumu başlatılması.",
+    "derin_teknik_analiz": "Saldırganın uzaktan kod çalıştırma (RCE) ile konteyner içine sızması. Çözüm: Falco kuralını tetikleyen pod'u anında kubectl delete pod ile yok edin ve güvenlik açığını kapatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "wireshark tshark başsız",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_239",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Wireshark TShark Başsız: YARA Kuralı ile Bellekteki Cobalt Strike İmzalarını Tarama",
+    "hizli_adimlar": [
+      "Wireshark TShark Başsız cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Belleğe yansıyan kötü niyetli kabuk kodunun (Shellcode) varlığı.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: yara64.exe -r cobalt_strike.yar [PID] komutuyla süreci bellek seviyesinde tarayın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "yara -r rule.yar /tmp/",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Şüpheli bir süreçte bilinen C2 enjeksiyon paterninin bulunması.",
+    "derin_teknik_analiz": "Belleğe yansıyan kötü niyetli kabuk kodunun (Shellcode) varlığı. Çözüm: yara64.exe -r cobalt_strike.yar [PID] komutuyla süreci bellek seviyesinde tarayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "wireshark tshark başsız",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2467",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Active Directory Domain Services: Kerberoasting Saldırısı ile Servis Hesaplarının Şifre Özetinin Çalınması",
+    "hizli_adimlar": [
+      "Active Directory Domain Services cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Servis hesaplarında RC4 şifreleme ve zayıf/tahmin edilebilir şifre kullanılması.",
+      "Saha servis prosedürünü yerine getirin: Servis hesaplarını Yönetilen Hizmet Hesaplarına (gMSA - 128 karakter) geçirin ve AES256 zorunlu kılın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Active Directory Domain Services Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Saldırganın etki alanındaki SPN tanımlı servis hesapları için TGS bileti talep etmesi.",
+    "derin_teknik_analiz": "Kök Neden: Servis hesaplarında RC4 şifreleme ve zayıf/tahmin edilebilir şifre kullanılması. Saha Çözümü: Servis hesaplarını Yönetilen Hizmet Hesaplarına (gMSA - 128 karakter) geçirin ve AES256 zorunlu kılın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "active directory domain services",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2468",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Active Directory Domain Services: Mimikatz ile LSASS Belleğinden Düz Metin Şifre Dökümü Girişimi",
+    "hizli_adimlar": [
+      "Active Directory Domain Services cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: LSASS sürecinin korumasız çalışması ve WDigest kimlik doğrulamasının açık olması.",
+      "Saha servis prosedürünü yerine getirin: Kayıt Defteri üzerinden RunAsPPL (Protected Process Light) özelliğini aktif edin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Active Directory Domain Services Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Yetkisi yükseltilen bir oturumda sistem belleğinden oturum açmış kullanıcı şifrelerinin çekilmesi.",
+    "derin_teknik_analiz": "Kök Neden: LSASS sürecinin korumasız çalışması ve WDigest kimlik doğrulamasının açık olması. Saha Çözümü: Kayıt Defteri üzerinden RunAsPPL (Protected Process Light) özelliğini aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "active directory domain services",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2469",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Active Directory Domain Services: Cobalt Strike / Meterpreter Beacon DNS Tünelleme Tespiti",
+    "hizli_adimlar": [
+      "Active Directory Domain Services cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Güvenlik duvarını aşmak için verilerin DNS sorgu paketlerinin içine gizlenmesi.",
+      "Saha servis prosedürünü yerine getirin: DNS sunucusunda sorgu sıklığı sınırlaması (RRL) uygulayın ve anormal uzunluktaki TXT sorgularını engelleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Active Directory Domain Services Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Ağdan dışarıya doğru şüpheli şekilde milyonlarca TXT ve A tipi DNS sorgusu atılması.",
+    "derin_teknik_analiz": "Kök Neden: Güvenlik duvarını aşmak için verilerin DNS sorgu paketlerinin içine gizlenmesi. Saha Çözümü: DNS sunucusunda sorgu sıklığı sınırlaması (RRL) uygulayın ve anormal uzunluktaki TXT sorgularını engelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "active directory domain services",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2470",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Windows Server 2022 Defender: Kerberoasting Saldırısı ile Servis Hesaplarının Şifre Özetinin Çalınması",
+    "hizli_adimlar": [
+      "Windows Server 2022 Defender cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Servis hesaplarında RC4 şifreleme ve zayıf/tahmin edilebilir şifre kullanılması.",
+      "Saha servis prosedürünü yerine getirin: Servis hesaplarını Yönetilen Hizmet Hesaplarına (gMSA - 128 karakter) geçirin ve AES256 zorunlu kılın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Windows Server 2022 Defender Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Saldırganın etki alanındaki SPN tanımlı servis hesapları için TGS bileti talep etmesi.",
+    "derin_teknik_analiz": "Kök Neden: Servis hesaplarında RC4 şifreleme ve zayıf/tahmin edilebilir şifre kullanılması. Saha Çözümü: Servis hesaplarını Yönetilen Hizmet Hesaplarına (gMSA - 128 karakter) geçirin ve AES256 zorunlu kılın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "windows server 2022 defender",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2471",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Windows Server 2022 Defender: Mimikatz ile LSASS Belleğinden Düz Metin Şifre Dökümü Girişimi",
+    "hizli_adimlar": [
+      "Windows Server 2022 Defender cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: LSASS sürecinin korumasız çalışması ve WDigest kimlik doğrulamasının açık olması.",
+      "Saha servis prosedürünü yerine getirin: Kayıt Defteri üzerinden RunAsPPL (Protected Process Light) özelliğini aktif edin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Windows Server 2022 Defender Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Yetkisi yükseltilen bir oturumda sistem belleğinden oturum açmış kullanıcı şifrelerinin çekilmesi.",
+    "derin_teknik_analiz": "Kök Neden: LSASS sürecinin korumasız çalışması ve WDigest kimlik doğrulamasının açık olması. Saha Çözümü: Kayıt Defteri üzerinden RunAsPPL (Protected Process Light) özelliğini aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "windows server 2022 defender",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2472",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Windows Server 2022 Defender: Cobalt Strike / Meterpreter Beacon DNS Tünelleme Tespiti",
+    "hizli_adimlar": [
+      "Windows Server 2022 Defender cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Güvenlik duvarını aşmak için verilerin DNS sorgu paketlerinin içine gizlenmesi.",
+      "Saha servis prosedürünü yerine getirin: DNS sunucusunda sorgu sıklığı sınırlaması (RRL) uygulayın ve anormal uzunluktaki TXT sorgularını engelleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Windows Server 2022 Defender Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Ağdan dışarıya doğru şüpheli şekilde milyonlarca TXT ve A tipi DNS sorgusu atılması.",
+    "derin_teknik_analiz": "Kök Neden: Güvenlik duvarını aşmak için verilerin DNS sorgu paketlerinin içine gizlenmesi. Saha Çözümü: DNS sunucusunda sorgu sıklığı sınırlaması (RRL) uygulayın ve anormal uzunluktaki TXT sorgularını engelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "windows server 2022 defender",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2473",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Wazuh SIEM / EDR: Kerberoasting Saldırısı ile Servis Hesaplarının Şifre Özetinin Çalınması",
+    "hizli_adimlar": [
+      "Wazuh SIEM / EDR cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Servis hesaplarında RC4 şifreleme ve zayıf/tahmin edilebilir şifre kullanılması.",
+      "Saha servis prosedürünü yerine getirin: Servis hesaplarını Yönetilen Hizmet Hesaplarına (gMSA - 128 karakter) geçirin ve AES256 zorunlu kılın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Wazuh SIEM / EDR Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Saldırganın etki alanındaki SPN tanımlı servis hesapları için TGS bileti talep etmesi.",
+    "derin_teknik_analiz": "Kök Neden: Servis hesaplarında RC4 şifreleme ve zayıf/tahmin edilebilir şifre kullanılması. Saha Çözümü: Servis hesaplarını Yönetilen Hizmet Hesaplarına (gMSA - 128 karakter) geçirin ve AES256 zorunlu kılın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "wazuh siem   edr",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2474",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Wazuh SIEM / EDR: Mimikatz ile LSASS Belleğinden Düz Metin Şifre Dökümü Girişimi",
+    "hizli_adimlar": [
+      "Wazuh SIEM / EDR cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: LSASS sürecinin korumasız çalışması ve WDigest kimlik doğrulamasının açık olması.",
+      "Saha servis prosedürünü yerine getirin: Kayıt Defteri üzerinden RunAsPPL (Protected Process Light) özelliğini aktif edin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Wazuh SIEM / EDR Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Yetkisi yükseltilen bir oturumda sistem belleğinden oturum açmış kullanıcı şifrelerinin çekilmesi.",
+    "derin_teknik_analiz": "Kök Neden: LSASS sürecinin korumasız çalışması ve WDigest kimlik doğrulamasının açık olması. Saha Çözümü: Kayıt Defteri üzerinden RunAsPPL (Protected Process Light) özelliğini aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "wazuh siem   edr",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2475",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "Wazuh SIEM / EDR: Cobalt Strike / Meterpreter Beacon DNS Tünelleme Tespiti",
+    "hizli_adimlar": [
+      "Wazuh SIEM / EDR cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Güvenlik duvarını aşmak için verilerin DNS sorgu paketlerinin içine gizlenmesi.",
+      "Saha servis prosedürünü yerine getirin: DNS sunucusunda sorgu sıklığı sınırlaması (RRL) uygulayın ve anormal uzunluktaki TXT sorgularını engelleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Wazuh SIEM / EDR Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Ağdan dışarıya doğru şüpheli şekilde milyonlarca TXT ve A tipi DNS sorgusu atılması.",
+    "derin_teknik_analiz": "Kök Neden: Güvenlik duvarını aşmak için verilerin DNS sorgu paketlerinin içine gizlenmesi. Saha Çözümü: DNS sunucusunda sorgu sıklığı sınırlaması (RRL) uygulayın ve anormal uzunluktaki TXT sorgularını engelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "wazuh siem   edr",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2476",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "CrowdStrike Falcon: Kerberoasting Saldırısı ile Servis Hesaplarının Şifre Özetinin Çalınması",
+    "hizli_adimlar": [
+      "CrowdStrike Falcon cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Servis hesaplarında RC4 şifreleme ve zayıf/tahmin edilebilir şifre kullanılması.",
+      "Saha servis prosedürünü yerine getirin: Servis hesaplarını Yönetilen Hizmet Hesaplarına (gMSA - 128 karakter) geçirin ve AES256 zorunlu kılın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "CrowdStrike Falcon Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Saldırganın etki alanındaki SPN tanımlı servis hesapları için TGS bileti talep etmesi.",
+    "derin_teknik_analiz": "Kök Neden: Servis hesaplarında RC4 şifreleme ve zayıf/tahmin edilebilir şifre kullanılması. Saha Çözümü: Servis hesaplarını Yönetilen Hizmet Hesaplarına (gMSA - 128 karakter) geçirin ve AES256 zorunlu kılın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "crowdstrike falcon",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2477",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "CrowdStrike Falcon: Mimikatz ile LSASS Belleğinden Düz Metin Şifre Dökümü Girişimi",
+    "hizli_adimlar": [
+      "CrowdStrike Falcon cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: LSASS sürecinin korumasız çalışması ve WDigest kimlik doğrulamasının açık olması.",
+      "Saha servis prosedürünü yerine getirin: Kayıt Defteri üzerinden RunAsPPL (Protected Process Light) özelliğini aktif edin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "CrowdStrike Falcon Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Yetkisi yükseltilen bir oturumda sistem belleğinden oturum açmış kullanıcı şifrelerinin çekilmesi.",
+    "derin_teknik_analiz": "Kök Neden: LSASS sürecinin korumasız çalışması ve WDigest kimlik doğrulamasının açık olması. Saha Çözümü: Kayıt Defteri üzerinden RunAsPPL (Protected Process Light) özelliğini aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "crowdstrike falcon",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2478",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "CrowdStrike Falcon: Cobalt Strike / Meterpreter Beacon DNS Tünelleme Tespiti",
+    "hizli_adimlar": [
+      "CrowdStrike Falcon cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Güvenlik duvarını aşmak için verilerin DNS sorgu paketlerinin içine gizlenmesi.",
+      "Saha servis prosedürünü yerine getirin: DNS sunucusunda sorgu sıklığı sınırlaması (RRL) uygulayın ve anormal uzunluktaki TXT sorgularını engelleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "CrowdStrike Falcon Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Ağdan dışarıya doğru şüpheli şekilde milyonlarca TXT ve A tipi DNS sorgusu atılması.",
+    "derin_teknik_analiz": "Kök Neden: Güvenlik duvarını aşmak için verilerin DNS sorgu paketlerinin içine gizlenmesi. Saha Çözümü: DNS sunucusunda sorgu sıklığı sınırlaması (RRL) uygulayın ve anormal uzunluktaki TXT sorgularını engelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "crowdstrike falcon",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2479",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "FortiEDR: Kerberoasting Saldırısı ile Servis Hesaplarının Şifre Özetinin Çalınması",
+    "hizli_adimlar": [
+      "FortiEDR cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Servis hesaplarında RC4 şifreleme ve zayıf/tahmin edilebilir şifre kullanılması.",
+      "Saha servis prosedürünü yerine getirin: Servis hesaplarını Yönetilen Hizmet Hesaplarına (gMSA - 128 karakter) geçirin ve AES256 zorunlu kılın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "FortiEDR Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Saldırganın etki alanındaki SPN tanımlı servis hesapları için TGS bileti talep etmesi.",
+    "derin_teknik_analiz": "Kök Neden: Servis hesaplarında RC4 şifreleme ve zayıf/tahmin edilebilir şifre kullanılması. Saha Çözümü: Servis hesaplarını Yönetilen Hizmet Hesaplarına (gMSA - 128 karakter) geçirin ve AES256 zorunlu kılın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "fortiedr",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2480",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "FortiEDR: Mimikatz ile LSASS Belleğinden Düz Metin Şifre Dökümü Girişimi",
+    "hizli_adimlar": [
+      "FortiEDR cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: LSASS sürecinin korumasız çalışması ve WDigest kimlik doğrulamasının açık olması.",
+      "Saha servis prosedürünü yerine getirin: Kayıt Defteri üzerinden RunAsPPL (Protected Process Light) özelliğini aktif edin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "FortiEDR Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Yetkisi yükseltilen bir oturumda sistem belleğinden oturum açmış kullanıcı şifrelerinin çekilmesi.",
+    "derin_teknik_analiz": "Kök Neden: LSASS sürecinin korumasız çalışması ve WDigest kimlik doğrulamasının açık olması. Saha Çözümü: Kayıt Defteri üzerinden RunAsPPL (Protected Process Light) özelliğini aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "fortiedr",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2481",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Siber Güvenlik & SOC",
+    "baslik": "FortiEDR: Cobalt Strike / Meterpreter Beacon DNS Tünelleme Tespiti",
+    "hizli_adimlar": [
+      "FortiEDR cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Güvenlik duvarını aşmak için verilerin DNS sorgu paketlerinin içine gizlenmesi.",
+      "Saha servis prosedürünü yerine getirin: DNS sunucusunda sorgu sıklığı sınırlaması (RRL) uygulayın ve anormal uzunluktaki TXT sorgularını engelleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "FortiEDR Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Ağdan dışarıya doğru şüpheli şekilde milyonlarca TXT ve A tipi DNS sorgusu atılması.",
+    "derin_teknik_analiz": "Kök Neden: Güvenlik duvarını aşmak için verilerin DNS sorgu paketlerinin içine gizlenmesi. Saha Çözümü: DNS sunucusunda sorgu sıklığı sınırlaması (RRL) uygulayın ve anormal uzunluktaki TXT sorgularını engelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "siber güvenlik & soc",
+      "fortiedr",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  }
+]

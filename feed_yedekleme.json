@@ -1,248 +1,1967 @@
-{
-  "versiyon": "2.5.0",
-  "toplam": 6,
-  "modul": "feed_yedekleme.json",
-  "kayitlar": [
-    {
-      "id": "yedekleme_00001",
-      "kategori": "Yedekleme",
-      "alt_kategori": "Veeam Backup VSS Freeze",
-      "baslik": "Veeam Backup VSS Freeze & Snapshot Hatası",
-      "hizli_adimlar": [
-        "Saha arıza/kurulum belirtisini teyit edin: Sanal makine yedeği alınırken VSS servisinin kilitlenmesi.",
-        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
-        "Birincil komutu veya eylemi uygulayın: vssadmin list writers; net stop vss && net start vss",
-        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Teşhis ve Uygulama Komutu",
-          "komut": "vssadmin list writers; net stop vss && net start vss",
-          "aciklama": "Bozuk VSS yazıcılarını sıfırlar."
-        }
-      ],
-      "temel_anlatim": "Veeam Backup VSS Freeze & Snapshot Hatası: Sanal makine yedeği alınırken VSS servisinin kilitlenmesi. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
-      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. vssadmin list writers; net stop vss && net start vss parametresi durumu optimize eder.",
-      "kenar_durumlar": [
-        {
-          "durum": "Zaman aşımı veya erişim engeli hatası",
-          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
-          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "snapshot",
-        "backup",
-        "veeam",
-        "yedekleme",
-        "vss"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "yedekleme_00002",
-      "kategori": "Yedekleme",
-      "alt_kategori": "Synology / QNAP RAID Scrubbing",
-      "baslik": "Synology / QNAP RAID Scrubbing & Disk Bozulması",
-      "hizli_adimlar": [
-        "Saha arıza/kurulum belirtisini teyit edin: NAS cihazında RAID 5/6 havuzunda bozuk sektör taraması ve rebuild.",
-        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
-        "Birincil komutu veya eylemi uygulayın: Storage Manager -> Storage Pool -> Action -> Data Scrubbing -> Start",
-        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Teşhis ve Uygulama Komutu",
-          "komut": "Storage Manager -> Storage Pool -> Action -> Data Scrubbing -> Start",
-          "aciklama": "RAID eşlik verilerini doğrular."
-        }
-      ],
-      "temel_anlatim": "Synology / QNAP RAID Scrubbing & Disk Bozulması: NAS cihazında RAID 5/6 havuzunda bozuk sektör taraması ve rebuild. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
-      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. Storage Manager -> Storage Pool -> Action -> Data Scrubbing -> Start parametresi durumu optimize eder.",
-      "kenar_durumlar": [
-        {
-          "durum": "Zaman aşımı veya erişim engeli hatası",
-          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
-          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "raid 5",
-        "nas",
-        "raid scrubbing",
-        "synology",
-        "yedekleme",
-        "qnap"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "yedekleme_00003",
-      "kategori": "Yedekleme",
-      "alt_kategori": "Rclone ile S3 / Backblaze Otomatik Şifreli Yedekleme",
-      "baslik": "Rclone ile S3 / Backblaze Otomatik Şifreli Yedekleme",
-      "hizli_adimlar": [
-        "Saha arıza/kurulum belirtisini teyit edin: Sunucu verilerini bulut depolamaya şifreli olarak eşitleme.",
-        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
-        "Birincil komutu veya eylemi uygulayın: rclone sync /var/backups remote:sirket-yedek --crypt-remote --fast-list",
-        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Teşhis ve Uygulama Komutu",
-          "komut": "rclone sync /var/backups remote:sirket-yedek --crypt-remote --fast-list",
-          "aciklama": "Bulut depolamaya şifreli yedek atar."
-        }
-      ],
-      "temel_anlatim": "Rclone ile S3 / Backblaze Otomatik Şifreli Yedekleme: Sunucu verilerini bulut depolamaya şifreli olarak eşitleme. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
-      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. rclone sync /var/backups remote:sirket-yedek --crypt-remote --fast-list parametresi durumu optimize eder.",
-      "kenar_durumlar": [
-        {
-          "durum": "Zaman aşımı veya erişim engeli hatası",
-          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
-          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "otomasyon",
-        "s3",
-        "rclone",
-        "backblaze",
-        "yedekleme",
-        "bulut yedekleme"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "win_file_history_reconnect",
-      "kategori": "Windows",
-      "alt_kategori": "Dosya Geçmişi & Yedekleme",
-      "baslik": "Dosya Geçmişi Hedef Sürücü Kopması",
-      "hizli_adimlar": [
-        "Sorun belirtisini teyit edin: Ağ diski veya harici sürücüye bağlanan Dosya Geçmişi servisinin kilitlenmesini onarma.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak açın.",
-        "Sistem parametrelerini ve olay loglarını denetleyin.",
-        "Uygulanacak komut: fhmanagew.exe -backupnow",
-        "Sonucu doğrulamak için servisi veya sistemi yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Dosya Geçmişi Hedef Sürücü Kopması",
-          "komut": "fhmanagew.exe -backupnow",
-          "aciklama": "Dosya Geçmişi yedeklemesini anında tetikler."
-        }
-      ],
-      "temel_anlatim": "Dosya Geçmişi Hedef Sürücü Kopması, Windows altyapısında ağ diski veya harici sürücüye bağlanan dosya geçmişi servisinin kilitlenmesini onarma.",
-      "derin_teknik_analiz": "Dosya Geçmişi Hedef Sürücü Kopması süreci, işletim sistemi çekirdeği ve ilgili donanım/ağ protokolü düzeyinde yürütülür. Ağ diski veya harici sürücüye bağlanan Dosya Geçmişi servisinin kilitlenmesini onarma. Kalıcı çözüm için sistem günlükleri ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komut sonuç vermiyor veya erişim reddedildi",
-          "neden": "Kullanıcı Yönetici yetkilerine sahip değildir veya dosya kilitlidir.",
-          "cozum": "Yönetici olarak çalıştırın veya Kurtarma Ortamında (WinRE) deneyin."
-        }
-      ],
-      "etiketler": [
-        "dosya geçmişi hedef sürücü kopması",
-        "windows",
-        "dosya geçmişi & yedekleme",
-        "ariza",
-        "onarim"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "bck_veeam_vss_writer_failed",
-      "kategori": "Yedekleme",
-      "alt_kategori": "Veeam & VSS",
-      "baslik": "Veeam VSS Writer Hataları (0x800423f4) & Gölge Kopya Onarımı",
-      "hizli_adimlar": [
-        "vssadmin list writers komutuyla 'Failed' olan VSS yazarını bul.",
-        "İlgili Windows servisini yeniden başlat.",
-        "Gölge kopya alanını (ShadowStorage) genişlet."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Arızalı VSS Yazarlarını Listele",
-          "komut": "vssadmin list writers",
-          "aciklama": "State: [Waiting for completion] veya [Failed] olan yazarları gösterir."
-        },
-        {
-          "etiket": "VSS ve Swprv Servislerini Sıfırla",
-          "komut": "net stop vss && net stop swprv && net start vss && net start swprv",
-          "aciklama": "Birim Gölge Kopyası motorunu temiz başlatır."
-        },
-        {
-          "etiket": "Gölge Kopya Alanını Genişlet",
-          "komut": "vssadmin resize shadowstorage /for=C: /on=C: /maxsize=20%",
-          "aciklama": "Yedekleme anlık görüntüsü için gereken disk alanını %20'ye çıkarır."
-        }
-      ],
-      "temel_anlatim": "Veeam veya Windows Server Backup çalışırken açık dosyaları yedeklemek için Volume Shadow Copy (VSS) kullanır. SQL veya System VSS Writer kilitlenirse yedek alınamaz.",
-      "derin_teknik_analiz": "VSS mimarisinde Requestor (Veeam), Writer (SQL/Exchange/System) ve Provider (disk sürücüsü) senkron çalışır. Bellek yetersizliğinde VSS timeout süresi (60 sn) aşılır ve 0x800423f4 döner.",
-      "kenar_durumlar": [
-        {
-          "durum": "SqlServerWriter sürekli Failed durumuna düşüyorsa",
-          "neden": "Veritabanı adında özel boşluk veya tire karakteri vardır.",
-          "cozum": "SQL servisini değil, SQL Server VSS Writer servisini yeniden başlatın."
-        }
-      ],
-      "etiketler": [
-        "veeam",
-        "vss",
-        "shadow copy",
-        "0x800423f4",
-        "sql writer",
-        "yedekleme"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "bkp_veeam_vss_freeze_timeout",
-      "kategori": "Yedekleme",
-      "alt_kategori": "Veeam Backup & Replication",
-      "baslik": "Veeam Backup Sırasında VSS Freeze Timeout Hatası ve 'Guest Processing' Onarımı",
-      "hizli_adimlar": [
-        "Yedeklenen sanal sunucuda CMD'yi yönetici olarak açın.",
-        "`vssadmin list writers` çalıştırıp durumu 'Stable' olmayan yazıcıyı bulun.",
-        "İlgili servisi (örneğin SQL Writer için `SQLWriter` servisini) `net stop` ve `net start` ile yeniden başlatın.",
-        "Disk üzerinde VSS için en az %15-20 boş alan olduğunu teyit edin (`vssadmin list shadowstorage`).",
-        "Veeam konsolunda göreve sağ tıklayıp 'Retry' yapın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "VSS Yazıcılarını Listele",
-          "komut": "vssadmin list writers",
-          "aciklama": "Hatalı VSS writer bileşenini tespit eder."
-        },
-        {
-          "etiket": "Gölge Depolama Alanını Kontrol Et",
-          "komut": "vssadmin list shadowstorage",
-          "aciklama": "Gölge kopyalar için ayrılan ve kullanılan disk alanını döker."
-        },
-        {
-          "etiket": "VSS Servisini Yeniden Başlat",
-          "komut": "net stop vss & net start vss",
-          "aciklama": "Windows VSS çekirdek servisini tazeler."
-        }
-      ],
-      "temel_anlatim": "Windows Server sanal sunucusunun Veeam ile yedeği alınırken 'Cannot create snapshot: VSS snapshot freeze failed' hatası verip görevin başarısız olması.",
-      "derin_teknik_analiz": "Veeam, veritabanı tutarlılığı sağlamak için Windows Volume Shadow Copy (VSS) servisini tetikler. Eğer Exchange, SQL veya Active Directory VSS Writer'larından biri 'Failed' veya 'Waiting for completion' durumunda takılmışsa VSS dondurma işlemi zaman aşımına (Freeze Timeout) uğrar.",
-      "kenar_durumlar": [
-        {
-          "durum": "VSS Writer restart edilmesine rağmen sürekli Failed kalıyor",
-          "neden": "Üçüncü parti eski bir yedekleme yazılımının (Acronis, Symantec) VSS Provider'ı sistemde çakışmaktadır.",
-          "cozum": "`vssadmin list providers` ile eski provider'ları listeleyip kayıt defterinden kaldırın."
-        }
-      ],
-      "etiketler": [
-        "yedekleme",
-        "veeam",
-        "vss",
-        "vssadmin",
-        "freeze-timeout",
-        "snapshot"
-      ],
-      "oncelik": 1
-    }
-  ]
-}
+[
+  {
+    "id": "ağ_broadcast_firtinasi",
+    "kategori": "Ağ",
+    "alt_kategori": "IPv4, Subnetting & CIDR",
+    "baslik": "Broadcast Fırtınası",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: Anahtarlarda (Switch) döngü kaynaklı ağ felçleri.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Ağ Durumu ve Rota Tablosu",
+        "komut": "route print -4",
+        "aciklama": "Aktif yönlendirme tablosunu ve ağ geçitlerini listeler."
+      },
+      {
+        "etiket": "Netsh Arayüz Bilgisi",
+        "komut": "netsh interface ipv4 show subinterfaces",
+        "aciklama": "Ağ kartı MTU ve paket durumlarını dökümler."
+      }
+    ],
+    "temel_anlatim": "Broadcast Fırtınası, bilişim altyapılarında anahtarlarda (switch) döngü kaynaklı ağ felçleri. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "Broadcast Fırtınası mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Anahtarlarda (Switch) döngü kaynaklı ağ felçleri. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "broadcast firtinasi ağ ipv4 subnetting cidr ariza onarım"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "yedekleme_00001",
+    "kategori": "Yedekleme",
+    "alt_kategori": "Veeam Backup VSS Freeze",
+    "baslik": "Veeam Backup VSS Freeze & Snapshot Hatası",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: Sanal makine yedeği alınırken VSS servisinin kilitlenmesi.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: vssadmin list writers; net stop vss && net start vss",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "vssadmin list writers; net stop vss && net start vss",
+        "aciklama": "Bozuk VSS yazıcılarını sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Veeam Backup VSS Freeze & Snapshot Hatası: Sanal makine yedeği alınırken VSS servisinin kilitlenmesi. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. vssadmin list writers; net stop vss && net start vss parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "snapshot backup veeam yedekleme vss"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "yedekleme_00002",
+    "kategori": "Yedekleme",
+    "alt_kategori": "Synology / QNAP RAID Scrubbing",
+    "baslik": "Synology / QNAP RAID Scrubbing & Disk Bozulması",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: NAS cihazında RAID 5/6 havuzunda bozuk sektör taraması ve rebuild.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: Storage Manager -> Storage Pool -> Action -> Data Scrubbing -> Start",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "Storage Manager -> Storage Pool -> Action -> Data Scrubbing -> Start",
+        "aciklama": "RAID eşlik verilerini doğrular."
+      }
+    ],
+    "temel_anlatim": "Synology / QNAP RAID Scrubbing & Disk Bozulması: NAS cihazında RAID 5/6 havuzunda bozuk sektör taraması ve rebuild. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. Storage Manager -> Storage Pool -> Action -> Data Scrubbing -> Start parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "raid 5 nas raid scrubbing synology yedekleme qnap"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "yedekleme_00003",
+    "kategori": "Yedekleme",
+    "alt_kategori": "Rclone ile S3 / Backblaze Otomatik Şifreli Yedekleme",
+    "baslik": "Rclone ile S3 / Backblaze Otomatik Şifreli Yedekleme",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: Sunucu verilerini bulut depolamaya şifreli olarak eşitleme.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: rclone sync /var/backups remote:sirket-yedek --crypt-remote --fast-list",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "rclone sync /var/backups remote:sirket-yedek --crypt-remote --fast-list",
+        "aciklama": "Bulut depolamaya şifreli yedek atar."
+      }
+    ],
+    "temel_anlatim": "Rclone ile S3 / Backblaze Otomatik Şifreli Yedekleme: Sunucu verilerini bulut depolamaya şifreli olarak eşitleme. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. rclone sync /var/backups remote:sirket-yedek --crypt-remote --fast-list parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "otomasyon s3 rclone backblaze yedekleme bulut yedekleme"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "win_file_history_reconnect",
+    "kategori": "Windows",
+    "alt_kategori": "Dosya Geçmişi & Yedekleme",
+    "baslik": "Dosya Geçmişi Hedef Sürücü Kopması",
+    "hizli_adimlar": [
+      "Sorun belirtisini teyit edin: Ağ diski veya harici sürücüye bağlanan Dosya Geçmişi servisinin kilitlenmesini onarma.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak açın.",
+      "Sistem parametrelerini ve olay loglarını denetleyin.",
+      "Uygulanacak komut: fhmanagew.exe -backupnow",
+      "Sonucu doğrulamak için servisi veya sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Dosya Geçmişi Hedef Sürücü Kopması",
+        "komut": "fhmanagew.exe -backupnow",
+        "aciklama": "Dosya Geçmişi yedeklemesini anında tetikler."
+      }
+    ],
+    "temel_anlatim": "Dosya Geçmişi Hedef Sürücü Kopması, Windows altyapısında ağ diski veya harici sürücüye bağlanan dosya geçmişi servisinin kilitlenmesini onarma.",
+    "derin_teknik_analiz": "Dosya Geçmişi Hedef Sürücü Kopması süreci, işletim sistemi çekirdeği ve ilgili donanım/ağ protokolü düzeyinde yürütülür. Ağ diski veya harici sürücüye bağlanan Dosya Geçmişi servisinin kilitlenmesini onarma. Kalıcı çözüm için sistem günlükleri ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komut sonuç vermiyor veya erişim reddedildi",
+        "neden": "Kullanıcı Yönetici yetkilerine sahip değildir veya dosya kilitlidir.",
+        "cozum": "Yönetici olarak çalıştırın veya Kurtarma Ortamında (WinRE) deneyin."
+      }
+    ],
+    "etiketler": [
+      "dosya geçmişi hedef sürücü kopması windows dosya geçmişi & yedekleme ariza onarim"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "bck_veeam_vss_writer_failed",
+    "kategori": "Yedekleme",
+    "alt_kategori": "Veeam & VSS",
+    "baslik": "Veeam VSS Writer Hataları (0x800423f4) & Gölge Kopya Onarımı",
+    "hizli_adimlar": [
+      "vssadmin list writers komutuyla 'Failed' olan VSS yazarını bul.",
+      "İlgili Windows servisini yeniden başlat.",
+      "Gölge kopya alanını (ShadowStorage) genişlet."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Arızalı VSS Yazarlarını Listele",
+        "komut": "vssadmin list writers",
+        "aciklama": "State: [Waiting for completion] veya [Failed] olan yazarları gösterir."
+      },
+      {
+        "etiket": "VSS ve Swprv Servislerini Sıfırla",
+        "komut": "net stop vss && net stop swprv && net start vss && net start swprv",
+        "aciklama": "Birim Gölge Kopyası motorunu temiz başlatır."
+      },
+      {
+        "etiket": "Gölge Kopya Alanını Genişlet",
+        "komut": "vssadmin resize shadowstorage /for=C: /on=C: /maxsize=20%",
+        "aciklama": "Yedekleme anlık görüntüsü için gereken disk alanını %20'ye çıkarır."
+      }
+    ],
+    "temel_anlatim": "Veeam veya Windows Server Backup çalışırken açık dosyaları yedeklemek için Volume Shadow Copy (VSS) kullanır. SQL veya System VSS Writer kilitlenirse yedek alınamaz.",
+    "derin_teknik_analiz": "VSS mimarisinde Requestor (Veeam), Writer (SQL/Exchange/System) ve Provider (disk sürücüsü) senkron çalışır. Bellek yetersizliğinde VSS timeout süresi (60 sn) aşılır ve 0x800423f4 döner.",
+    "kenar_durumlar": [
+      {
+        "durum": "SqlServerWriter sürekli Failed durumuna düşüyorsa",
+        "neden": "Veritabanı adında özel boşluk veya tire karakteri vardır.",
+        "cozum": "SQL servisini değil, SQL Server VSS Writer servisini yeniden başlatın."
+      }
+    ],
+    "etiketler": [
+      "veeam vss shadow copy 0x800423f4 sql writer yedekleme"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "bkp_veeam_vss_freeze_timeout",
+    "kategori": "Yedekleme",
+    "alt_kategori": "Veeam Backup & Replication",
+    "baslik": "Veeam Backup Sırasında VSS Freeze Timeout Hatası ve 'Guest Processing' Onarımı",
+    "hizli_adimlar": [
+      "Yedeklenen sanal sunucuda CMD'yi yönetici olarak açın.",
+      "`vssadmin list writers` çalıştırıp durumu 'Stable' olmayan yazıcıyı bulun.",
+      "İlgili servisi (örneğin SQL Writer için `SQLWriter` servisini) `net stop` ve `net start` ile yeniden başlatın.",
+      "Disk üzerinde VSS için en az %15-20 boş alan olduğunu teyit edin (`vssadmin list shadowstorage`).",
+      "Veeam konsolunda göreve sağ tıklayıp 'Retry' yapın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "VSS Yazıcılarını Listele",
+        "komut": "vssadmin list writers",
+        "aciklama": "Hatalı VSS writer bileşenini tespit eder."
+      },
+      {
+        "etiket": "Gölge Depolama Alanını Kontrol Et",
+        "komut": "vssadmin list shadowstorage",
+        "aciklama": "Gölge kopyalar için ayrılan ve kullanılan disk alanını döker."
+      },
+      {
+        "etiket": "VSS Servisini Yeniden Başlat",
+        "komut": "net stop vss & net start vss",
+        "aciklama": "Windows VSS çekirdek servisini tazeler."
+      }
+    ],
+    "temel_anlatim": "Windows Server sanal sunucusunun Veeam ile yedeği alınırken 'Cannot create snapshot: VSS snapshot freeze failed' hatası verip görevin başarısız olması.",
+    "derin_teknik_analiz": "Veeam, veritabanı tutarlılığı sağlamak için Windows Volume Shadow Copy (VSS) servisini tetikler. Eğer Exchange, SQL veya Active Directory VSS Writer'larından biri 'Failed' veya 'Waiting for completion' durumunda takılmışsa VSS dondurma işlemi zaman aşımına (Freeze Timeout) uğrar.",
+    "kenar_durumlar": [
+      {
+        "durum": "VSS Writer restart edilmesine rağmen sürekli Failed kalıyor",
+        "neden": "Üçüncü parti eski bir yedekleme yazılımının (Acronis, Symantec) VSS Provider'ı sistemde çakışmaktadır.",
+        "cozum": "`vssadmin list providers` ile eski provider'ları listeleyip kayıt defterinden kaldırın."
+      }
+    ],
+    "etiketler": [
+      "yedekleme veeam vss vssadmin freeze-timeout snapshot"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "bsod_0x8e_kernel_mode_exception",
+    "kategori": "Mavi Ekran",
+    "alt_kategori": "Çekirdek İstisnası",
+    "baslik": "KERNEL_MODE_EXCEPTION_NOT_HANDLED (0x8E)",
+    "hizli_adimlar": [
+      "Sorun belirtisini teyit edin: Uyumsuz sürücü veya arızalı bellek nedeniyle çekirdek modunda oluşan istisna.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak açın.",
+      "Sistem parametrelerini ve olay loglarını denetleyin.",
+      "Uygulanacak komut: verifier /reset",
+      "Sonucu doğrulamak için servisi veya sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "KERNEL_MODE_EXCEPTION_NOT_HANDLED (0x8E)",
+        "komut": "verifier /reset",
+        "aciklama": "Sürücü doğrulayıcıyı sıfırlar."
+      }
+    ],
+    "temel_anlatim": "KERNEL_MODE_EXCEPTION_NOT_HANDLED (0x8E), Mavi Ekran altyapısında uyumsuz sürücü veya arızalı bellek nedeniyle çekirdek modunda oluşan istisna.",
+    "derin_teknik_analiz": "KERNEL_MODE_EXCEPTION_NOT_HANDLED (0x8E) süreci, işletim sistemi çekirdeği ve ilgili donanım/ağ protokolü düzeyinde yürütülür. Uyumsuz sürücü veya arızalı bellek nedeniyle çekirdek modunda oluşan istisna. Kalıcı çözüm için sistem günlükleri ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komut sonuç vermiyor veya erişim reddedildi",
+        "neden": "Kullanıcı Yönetici yetkilerine sahip değildir veya dosya kilitlidir.",
+        "cozum": "Yönetici olarak çalıştırın veya Kurtarma Ortamında (WinRE) deneyin."
+      }
+    ],
+    "etiketler": [
+      "kernel_mode_exception_not_handled (0x8e) mavi ekran çekirdek i̇stisnası ariza onarim"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "bkp_mat_17",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Veeam Backup: VSS Freeze Failed Error 0x80042306 ve Writer Onarımı",
+    "hizli_adimlar": [
+      "Yedeklenen sunucuda CMD'yi yönetici olarak açın.",
+      "'vssadmin list writers' komutuyla 'State: Failed' durumundaki yazıcıları bulun.",
+      "Eğer SqlServerWriter hatalıysa 'net stop SQLWRITER && net start SQLWRITER' çalıştırın.",
+      "Veeam konsolundan görevi sağ tıklayıp 'Start' ile yeniden tetikleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "VSS Yazıcı Durumları",
+        "komut": "vssadmin list writers",
+        "aciklama": "Sistemdeki tüm VSS bileşenlerinin kararlılık durumunu döker."
+      }
+    ],
+    "temel_anlatim": "Sanal makine veya fiziksel sunucu yedeklenirken 'VSS freeze failed' hatasıyla görevin başarısız olması.",
+    "derin_teknik_analiz": "Kök Neden: Windows VSS Volume Shadow Copy sağlayıcılarının (System Writer / SQL Writer) zaman aşımına uğraması. Saha Çözümü: vssadmin list writers ile hatalı writer'ı tespit edin ve ilgili Windows servisini yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Writer durumu düzelmiyor",
+        "neden": "Gölge kopya disk alanı (Shadow Storage) yetersizdir.",
+        "cozum": "vssadmin resize shadowstorage /for=C: /on=C: /maxsize=20% komutunu verin."
+      }
+    ],
+    "etiketler": [
+      "yedekleme",
+      "veeam",
+      "vss",
+      "shadow-copy",
+      "0x80042306"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_384",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Synology RackStation RS3621xs+: Synology RAID 6 Yeniden Yapılandırma (Rebuild) Hız Sınırı",
+    "hizli_adimlar": [
+      "Synology RackStation RS3621xs+ sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: DSM varsayılan RAID senkronizasyon hız sınırının (10 MB/s) çok düşük olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Depolama Yöneticisi -> Genel Ayarlar altından RAID Yeniden Eşitleme Hızını Maksimum yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "echo 200000 > /proc/sys/dev/raid/speed_limit_min",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Disk değişimi sonrası dizinin onarılmasının 5 gün sürecek görünmesi.",
+    "derin_teknik_analiz": "DSM varsayılan RAID senkronizasyon hız sınırının (10 MB/s) çok düşük olması. Çözüm: Depolama Yöneticisi -> Genel Ayarlar altından RAID Yeniden Eşitleme Hızını Maksimum yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "synology rackstation rs3621xs+",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_385",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Synology RackStation RS3621xs+: Veeam Changed Block Tracking (CBT) Haritası Bozulması",
+    "hizli_adimlar": [
+      "Synology RackStation RS3621xs+ sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: VMware ESXi host çökmesi sonucu sanal makinenin CBT takip dosyasının bozulması.",
+      "Saha mühendisliği servis prosedürünü yürütün: VMware vSphere üzerinden makineyi kapatıp ctkEnabled ve ctkDisks değerlerini False yapıp tekrar açın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Veeam Console -> Reset CBT",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Her gün incremental yedek alması gerekirken her seferinde full yedek alması.",
+    "derin_teknik_analiz": "VMware ESXi host çökmesi sonucu sanal makinenin CBT takip dosyasının bozulması. Çözüm: VMware vSphere üzerinden makineyi kapatıp ctkEnabled ve ctkDisks değerlerini False yapıp tekrar açın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "synology rackstation rs3621xs+",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_386",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Synology RackStation RS3621xs+: TrueNAS ZFS Scrub Sırasında Bozuk Sektör ve Parite Onarımı",
+    "hizli_adimlar": [
+      "Synology RackStation RS3621xs+ sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Diskte okunamayan blokların parite diskindeki veriden anında düzeltilmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: zpool status -v ile hatalı dosyayı bulun ve diski en kısa sürede değiştirin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "zpool scrub pool1",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "ZFS havuzunda veri sağlama testi sırasında disk hatalarının artması.",
+    "derin_teknik_analiz": "Diskte okunamayan blokların parite diskindeki veriden anında düzeltilmesi. Çözüm: zpool status -v ile hatalı dosyayı bulun ve diski en kısa sürede değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "synology rackstation rs3621xs+",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_387",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Synology RackStation RS3621xs+: S3 Uyumlu Nesne Kilidi (Object Lock) İmmutability İptal Edilememe",
+    "hizli_adimlar": [
+      "Synology RackStation RS3621xs+ sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: WORM (Write Once Read Many) güvenlik politikasının yönetici yetkisiyle bile silmeye izin vermemesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Saklama süresi (Retention Period) dolana kadar bekleyin veya yedeği farklı bir havuza taşıyın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "aws s3api get-object-retention",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ransomware korumalı yedeklerin süresi dolmadan silinmek istenmesi.",
+    "derin_teknik_analiz": "WORM (Write Once Read Many) güvenlik politikasının yönetici yetkisiyle bile silmeye izin vermemesi. Çözüm: Saklama süresi (Retention Period) dolana kadar bekleyin veya yedeği farklı bir havuza taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "synology rackstation rs3621xs+",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_388",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "QNAP TS-873AU-RP: Synology RAID 6 Yeniden Yapılandırma (Rebuild) Hız Sınırı",
+    "hizli_adimlar": [
+      "QNAP TS-873AU-RP sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: DSM varsayılan RAID senkronizasyon hız sınırının (10 MB/s) çok düşük olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Depolama Yöneticisi -> Genel Ayarlar altından RAID Yeniden Eşitleme Hızını Maksimum yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "echo 200000 > /proc/sys/dev/raid/speed_limit_min",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Disk değişimi sonrası dizinin onarılmasının 5 gün sürecek görünmesi.",
+    "derin_teknik_analiz": "DSM varsayılan RAID senkronizasyon hız sınırının (10 MB/s) çok düşük olması. Çözüm: Depolama Yöneticisi -> Genel Ayarlar altından RAID Yeniden Eşitleme Hızını Maksimum yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "qnap ts-873au-rp",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_389",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "QNAP TS-873AU-RP: Veeam Changed Block Tracking (CBT) Haritası Bozulması",
+    "hizli_adimlar": [
+      "QNAP TS-873AU-RP sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: VMware ESXi host çökmesi sonucu sanal makinenin CBT takip dosyasının bozulması.",
+      "Saha mühendisliği servis prosedürünü yürütün: VMware vSphere üzerinden makineyi kapatıp ctkEnabled ve ctkDisks değerlerini False yapıp tekrar açın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Veeam Console -> Reset CBT",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Her gün incremental yedek alması gerekirken her seferinde full yedek alması.",
+    "derin_teknik_analiz": "VMware ESXi host çökmesi sonucu sanal makinenin CBT takip dosyasının bozulması. Çözüm: VMware vSphere üzerinden makineyi kapatıp ctkEnabled ve ctkDisks değerlerini False yapıp tekrar açın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "qnap ts-873au-rp",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_390",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "QNAP TS-873AU-RP: TrueNAS ZFS Scrub Sırasında Bozuk Sektör ve Parite Onarımı",
+    "hizli_adimlar": [
+      "QNAP TS-873AU-RP sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Diskte okunamayan blokların parite diskindeki veriden anında düzeltilmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: zpool status -v ile hatalı dosyayı bulun ve diski en kısa sürede değiştirin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "zpool scrub pool1",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "ZFS havuzunda veri sağlama testi sırasında disk hatalarının artması.",
+    "derin_teknik_analiz": "Diskte okunamayan blokların parite diskindeki veriden anında düzeltilmesi. Çözüm: zpool status -v ile hatalı dosyayı bulun ve diski en kısa sürede değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "qnap ts-873au-rp",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_391",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "QNAP TS-873AU-RP: S3 Uyumlu Nesne Kilidi (Object Lock) İmmutability İptal Edilememe",
+    "hizli_adimlar": [
+      "QNAP TS-873AU-RP sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: WORM (Write Once Read Many) güvenlik politikasının yönetici yetkisiyle bile silmeye izin vermemesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Saklama süresi (Retention Period) dolana kadar bekleyin veya yedeği farklı bir havuza taşıyın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "aws s3api get-object-retention",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ransomware korumalı yedeklerin süresi dolmadan silinmek istenmesi.",
+    "derin_teknik_analiz": "WORM (Write Once Read Many) güvenlik politikasının yönetici yetkisiyle bile silmeye izin vermemesi. Çözüm: Saklama süresi (Retention Period) dolana kadar bekleyin veya yedeği farklı bir havuza taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "qnap ts-873au-rp",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_392",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "TrueNAS Enterprise M40: Synology RAID 6 Yeniden Yapılandırma (Rebuild) Hız Sınırı",
+    "hizli_adimlar": [
+      "TrueNAS Enterprise M40 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: DSM varsayılan RAID senkronizasyon hız sınırının (10 MB/s) çok düşük olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Depolama Yöneticisi -> Genel Ayarlar altından RAID Yeniden Eşitleme Hızını Maksimum yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "echo 200000 > /proc/sys/dev/raid/speed_limit_min",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Disk değişimi sonrası dizinin onarılmasının 5 gün sürecek görünmesi.",
+    "derin_teknik_analiz": "DSM varsayılan RAID senkronizasyon hız sınırının (10 MB/s) çok düşük olması. Çözüm: Depolama Yöneticisi -> Genel Ayarlar altından RAID Yeniden Eşitleme Hızını Maksimum yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "truenas enterprise m40",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_393",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "TrueNAS Enterprise M40: Veeam Changed Block Tracking (CBT) Haritası Bozulması",
+    "hizli_adimlar": [
+      "TrueNAS Enterprise M40 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: VMware ESXi host çökmesi sonucu sanal makinenin CBT takip dosyasının bozulması.",
+      "Saha mühendisliği servis prosedürünü yürütün: VMware vSphere üzerinden makineyi kapatıp ctkEnabled ve ctkDisks değerlerini False yapıp tekrar açın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Veeam Console -> Reset CBT",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Her gün incremental yedek alması gerekirken her seferinde full yedek alması.",
+    "derin_teknik_analiz": "VMware ESXi host çökmesi sonucu sanal makinenin CBT takip dosyasının bozulması. Çözüm: VMware vSphere üzerinden makineyi kapatıp ctkEnabled ve ctkDisks değerlerini False yapıp tekrar açın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "truenas enterprise m40",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_394",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "TrueNAS Enterprise M40: TrueNAS ZFS Scrub Sırasında Bozuk Sektör ve Parite Onarımı",
+    "hizli_adimlar": [
+      "TrueNAS Enterprise M40 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Diskte okunamayan blokların parite diskindeki veriden anında düzeltilmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: zpool status -v ile hatalı dosyayı bulun ve diski en kısa sürede değiştirin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "zpool scrub pool1",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "ZFS havuzunda veri sağlama testi sırasında disk hatalarının artması.",
+    "derin_teknik_analiz": "Diskte okunamayan blokların parite diskindeki veriden anında düzeltilmesi. Çözüm: zpool status -v ile hatalı dosyayı bulun ve diski en kısa sürede değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "truenas enterprise m40",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_395",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "TrueNAS Enterprise M40: S3 Uyumlu Nesne Kilidi (Object Lock) İmmutability İptal Edilememe",
+    "hizli_adimlar": [
+      "TrueNAS Enterprise M40 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: WORM (Write Once Read Many) güvenlik politikasının yönetici yetkisiyle bile silmeye izin vermemesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Saklama süresi (Retention Period) dolana kadar bekleyin veya yedeği farklı bir havuza taşıyın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "aws s3api get-object-retention",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ransomware korumalı yedeklerin süresi dolmadan silinmek istenmesi.",
+    "derin_teknik_analiz": "WORM (Write Once Read Many) güvenlik politikasının yönetici yetkisiyle bile silmeye izin vermemesi. Çözüm: Saklama süresi (Retention Period) dolana kadar bekleyin veya yedeği farklı bir havuza taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "truenas enterprise m40",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_396",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Veeam Backup Server v12: Synology RAID 6 Yeniden Yapılandırma (Rebuild) Hız Sınırı",
+    "hizli_adimlar": [
+      "Veeam Backup Server v12 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: DSM varsayılan RAID senkronizasyon hız sınırının (10 MB/s) çok düşük olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Depolama Yöneticisi -> Genel Ayarlar altından RAID Yeniden Eşitleme Hızını Maksimum yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "echo 200000 > /proc/sys/dev/raid/speed_limit_min",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Disk değişimi sonrası dizinin onarılmasının 5 gün sürecek görünmesi.",
+    "derin_teknik_analiz": "DSM varsayılan RAID senkronizasyon hız sınırının (10 MB/s) çok düşük olması. Çözüm: Depolama Yöneticisi -> Genel Ayarlar altından RAID Yeniden Eşitleme Hızını Maksimum yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "veeam backup server v12",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_397",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Veeam Backup Server v12: Veeam Changed Block Tracking (CBT) Haritası Bozulması",
+    "hizli_adimlar": [
+      "Veeam Backup Server v12 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: VMware ESXi host çökmesi sonucu sanal makinenin CBT takip dosyasının bozulması.",
+      "Saha mühendisliği servis prosedürünü yürütün: VMware vSphere üzerinden makineyi kapatıp ctkEnabled ve ctkDisks değerlerini False yapıp tekrar açın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Veeam Console -> Reset CBT",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Her gün incremental yedek alması gerekirken her seferinde full yedek alması.",
+    "derin_teknik_analiz": "VMware ESXi host çökmesi sonucu sanal makinenin CBT takip dosyasının bozulması. Çözüm: VMware vSphere üzerinden makineyi kapatıp ctkEnabled ve ctkDisks değerlerini False yapıp tekrar açın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "veeam backup server v12",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_398",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Veeam Backup Server v12: TrueNAS ZFS Scrub Sırasında Bozuk Sektör ve Parite Onarımı",
+    "hizli_adimlar": [
+      "Veeam Backup Server v12 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Diskte okunamayan blokların parite diskindeki veriden anında düzeltilmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: zpool status -v ile hatalı dosyayı bulun ve diski en kısa sürede değiştirin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "zpool scrub pool1",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "ZFS havuzunda veri sağlama testi sırasında disk hatalarının artması.",
+    "derin_teknik_analiz": "Diskte okunamayan blokların parite diskindeki veriden anında düzeltilmesi. Çözüm: zpool status -v ile hatalı dosyayı bulun ve diski en kısa sürede değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "veeam backup server v12",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_399",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Veeam Backup Server v12: S3 Uyumlu Nesne Kilidi (Object Lock) İmmutability İptal Edilememe",
+    "hizli_adimlar": [
+      "Veeam Backup Server v12 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: WORM (Write Once Read Many) güvenlik politikasının yönetici yetkisiyle bile silmeye izin vermemesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Saklama süresi (Retention Period) dolana kadar bekleyin veya yedeği farklı bir havuza taşıyın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "aws s3api get-object-retention",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ransomware korumalı yedeklerin süresi dolmadan silinmek istenmesi.",
+    "derin_teknik_analiz": "WORM (Write Once Read Many) güvenlik politikasının yönetici yetkisiyle bile silmeye izin vermemesi. Çözüm: Saklama süresi (Retention Period) dolana kadar bekleyin veya yedeği farklı bir havuza taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "veeam backup server v12",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_400",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Asustor Lockerstor 8: Synology RAID 6 Yeniden Yapılandırma (Rebuild) Hız Sınırı",
+    "hizli_adimlar": [
+      "Asustor Lockerstor 8 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: DSM varsayılan RAID senkronizasyon hız sınırının (10 MB/s) çok düşük olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Depolama Yöneticisi -> Genel Ayarlar altından RAID Yeniden Eşitleme Hızını Maksimum yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "echo 200000 > /proc/sys/dev/raid/speed_limit_min",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Disk değişimi sonrası dizinin onarılmasının 5 gün sürecek görünmesi.",
+    "derin_teknik_analiz": "DSM varsayılan RAID senkronizasyon hız sınırının (10 MB/s) çok düşük olması. Çözüm: Depolama Yöneticisi -> Genel Ayarlar altından RAID Yeniden Eşitleme Hızını Maksimum yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "asustor lockerstor 8",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_401",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Asustor Lockerstor 8: Veeam Changed Block Tracking (CBT) Haritası Bozulması",
+    "hizli_adimlar": [
+      "Asustor Lockerstor 8 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: VMware ESXi host çökmesi sonucu sanal makinenin CBT takip dosyasının bozulması.",
+      "Saha mühendisliği servis prosedürünü yürütün: VMware vSphere üzerinden makineyi kapatıp ctkEnabled ve ctkDisks değerlerini False yapıp tekrar açın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Veeam Console -> Reset CBT",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Her gün incremental yedek alması gerekirken her seferinde full yedek alması.",
+    "derin_teknik_analiz": "VMware ESXi host çökmesi sonucu sanal makinenin CBT takip dosyasının bozulması. Çözüm: VMware vSphere üzerinden makineyi kapatıp ctkEnabled ve ctkDisks değerlerini False yapıp tekrar açın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "asustor lockerstor 8",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_402",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Asustor Lockerstor 8: TrueNAS ZFS Scrub Sırasında Bozuk Sektör ve Parite Onarımı",
+    "hizli_adimlar": [
+      "Asustor Lockerstor 8 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Diskte okunamayan blokların parite diskindeki veriden anında düzeltilmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: zpool status -v ile hatalı dosyayı bulun ve diski en kısa sürede değiştirin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "zpool scrub pool1",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "ZFS havuzunda veri sağlama testi sırasında disk hatalarının artması.",
+    "derin_teknik_analiz": "Diskte okunamayan blokların parite diskindeki veriden anında düzeltilmesi. Çözüm: zpool status -v ile hatalı dosyayı bulun ve diski en kısa sürede değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "asustor lockerstor 8",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_403",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Asustor Lockerstor 8: S3 Uyumlu Nesne Kilidi (Object Lock) İmmutability İptal Edilememe",
+    "hizli_adimlar": [
+      "Asustor Lockerstor 8 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: WORM (Write Once Read Many) güvenlik politikasının yönetici yetkisiyle bile silmeye izin vermemesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Saklama süresi (Retention Period) dolana kadar bekleyin veya yedeği farklı bir havuza taşıyın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "aws s3api get-object-retention",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ransomware korumalı yedeklerin süresi dolmadan silinmek istenmesi.",
+    "derin_teknik_analiz": "WORM (Write Once Read Many) güvenlik politikasının yönetici yetkisiyle bile silmeye izin vermemesi. Çözüm: Saklama süresi (Retention Period) dolana kadar bekleyin veya yedeği farklı bir havuza taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "asustor lockerstor 8",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_404",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Acronis Cyber Protect NAS: Synology RAID 6 Yeniden Yapılandırma (Rebuild) Hız Sınırı",
+    "hizli_adimlar": [
+      "Acronis Cyber Protect NAS sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: DSM varsayılan RAID senkronizasyon hız sınırının (10 MB/s) çok düşük olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Depolama Yöneticisi -> Genel Ayarlar altından RAID Yeniden Eşitleme Hızını Maksimum yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "echo 200000 > /proc/sys/dev/raid/speed_limit_min",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Disk değişimi sonrası dizinin onarılmasının 5 gün sürecek görünmesi.",
+    "derin_teknik_analiz": "DSM varsayılan RAID senkronizasyon hız sınırının (10 MB/s) çok düşük olması. Çözüm: Depolama Yöneticisi -> Genel Ayarlar altından RAID Yeniden Eşitleme Hızını Maksimum yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "acronis cyber protect nas",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_405",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Acronis Cyber Protect NAS: Veeam Changed Block Tracking (CBT) Haritası Bozulması",
+    "hizli_adimlar": [
+      "Acronis Cyber Protect NAS sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: VMware ESXi host çökmesi sonucu sanal makinenin CBT takip dosyasının bozulması.",
+      "Saha mühendisliği servis prosedürünü yürütün: VMware vSphere üzerinden makineyi kapatıp ctkEnabled ve ctkDisks değerlerini False yapıp tekrar açın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Veeam Console -> Reset CBT",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Her gün incremental yedek alması gerekirken her seferinde full yedek alması.",
+    "derin_teknik_analiz": "VMware ESXi host çökmesi sonucu sanal makinenin CBT takip dosyasının bozulması. Çözüm: VMware vSphere üzerinden makineyi kapatıp ctkEnabled ve ctkDisks değerlerini False yapıp tekrar açın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "acronis cyber protect nas",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_406",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Acronis Cyber Protect NAS: TrueNAS ZFS Scrub Sırasında Bozuk Sektör ve Parite Onarımı",
+    "hizli_adimlar": [
+      "Acronis Cyber Protect NAS sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Diskte okunamayan blokların parite diskindeki veriden anında düzeltilmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: zpool status -v ile hatalı dosyayı bulun ve diski en kısa sürede değiştirin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "zpool scrub pool1",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "ZFS havuzunda veri sağlama testi sırasında disk hatalarının artması.",
+    "derin_teknik_analiz": "Diskte okunamayan blokların parite diskindeki veriden anında düzeltilmesi. Çözüm: zpool status -v ile hatalı dosyayı bulun ve diski en kısa sürede değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "acronis cyber protect nas",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_407",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Acronis Cyber Protect NAS: S3 Uyumlu Nesne Kilidi (Object Lock) İmmutability İptal Edilememe",
+    "hizli_adimlar": [
+      "Acronis Cyber Protect NAS sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: WORM (Write Once Read Many) güvenlik politikasının yönetici yetkisiyle bile silmeye izin vermemesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Saklama süresi (Retention Period) dolana kadar bekleyin veya yedeği farklı bir havuza taşıyın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "aws s3api get-object-retention",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ransomware korumalı yedeklerin süresi dolmadan silinmek istenmesi.",
+    "derin_teknik_analiz": "WORM (Write Once Read Many) güvenlik politikasının yönetici yetkisiyle bile silmeye izin vermemesi. Çözüm: Saklama süresi (Retention Period) dolana kadar bekleyin veya yedeği farklı bir havuza taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "acronis cyber protect nas",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_408",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Synology DiskStation DS1621+: Synology RAID 6 Yeniden Yapılandırma (Rebuild) Hız Sınırı",
+    "hizli_adimlar": [
+      "Synology DiskStation DS1621+ sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: DSM varsayılan RAID senkronizasyon hız sınırının (10 MB/s) çok düşük olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Depolama Yöneticisi -> Genel Ayarlar altından RAID Yeniden Eşitleme Hızını Maksimum yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "echo 200000 > /proc/sys/dev/raid/speed_limit_min",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Disk değişimi sonrası dizinin onarılmasının 5 gün sürecek görünmesi.",
+    "derin_teknik_analiz": "DSM varsayılan RAID senkronizasyon hız sınırının (10 MB/s) çok düşük olması. Çözüm: Depolama Yöneticisi -> Genel Ayarlar altından RAID Yeniden Eşitleme Hızını Maksimum yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "synology diskstation ds1621+",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_409",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Synology DiskStation DS1621+: Veeam Changed Block Tracking (CBT) Haritası Bozulması",
+    "hizli_adimlar": [
+      "Synology DiskStation DS1621+ sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: VMware ESXi host çökmesi sonucu sanal makinenin CBT takip dosyasının bozulması.",
+      "Saha mühendisliği servis prosedürünü yürütün: VMware vSphere üzerinden makineyi kapatıp ctkEnabled ve ctkDisks değerlerini False yapıp tekrar açın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Veeam Console -> Reset CBT",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Her gün incremental yedek alması gerekirken her seferinde full yedek alması.",
+    "derin_teknik_analiz": "VMware ESXi host çökmesi sonucu sanal makinenin CBT takip dosyasının bozulması. Çözüm: VMware vSphere üzerinden makineyi kapatıp ctkEnabled ve ctkDisks değerlerini False yapıp tekrar açın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "synology diskstation ds1621+",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_410",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Synology DiskStation DS1621+: TrueNAS ZFS Scrub Sırasında Bozuk Sektör ve Parite Onarımı",
+    "hizli_adimlar": [
+      "Synology DiskStation DS1621+ sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Diskte okunamayan blokların parite diskindeki veriden anında düzeltilmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: zpool status -v ile hatalı dosyayı bulun ve diski en kısa sürede değiştirin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "zpool scrub pool1",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "ZFS havuzunda veri sağlama testi sırasında disk hatalarının artması.",
+    "derin_teknik_analiz": "Diskte okunamayan blokların parite diskindeki veriden anında düzeltilmesi. Çözüm: zpool status -v ile hatalı dosyayı bulun ve diski en kısa sürede değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "synology diskstation ds1621+",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_411",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Synology DiskStation DS1621+: S3 Uyumlu Nesne Kilidi (Object Lock) İmmutability İptal Edilememe",
+    "hizli_adimlar": [
+      "Synology DiskStation DS1621+ sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: WORM (Write Once Read Many) güvenlik politikasının yönetici yetkisiyle bile silmeye izin vermemesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Saklama süresi (Retention Period) dolana kadar bekleyin veya yedeği farklı bir havuza taşıyın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "aws s3api get-object-retention",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ransomware korumalı yedeklerin süresi dolmadan silinmek istenmesi.",
+    "derin_teknik_analiz": "WORM (Write Once Read Many) güvenlik politikasının yönetici yetkisiyle bile silmeye izin vermemesi. Çözüm: Saklama süresi (Retention Period) dolana kadar bekleyin veya yedeği farklı bir havuza taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "synology diskstation ds1621+",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_412",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "QNAP TVS-h1288X: Synology RAID 6 Yeniden Yapılandırma (Rebuild) Hız Sınırı",
+    "hizli_adimlar": [
+      "QNAP TVS-h1288X sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: DSM varsayılan RAID senkronizasyon hız sınırının (10 MB/s) çok düşük olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Depolama Yöneticisi -> Genel Ayarlar altından RAID Yeniden Eşitleme Hızını Maksimum yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "echo 200000 > /proc/sys/dev/raid/speed_limit_min",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Disk değişimi sonrası dizinin onarılmasının 5 gün sürecek görünmesi.",
+    "derin_teknik_analiz": "DSM varsayılan RAID senkronizasyon hız sınırının (10 MB/s) çok düşük olması. Çözüm: Depolama Yöneticisi -> Genel Ayarlar altından RAID Yeniden Eşitleme Hızını Maksimum yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "qnap tvs-h1288x",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_413",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "QNAP TVS-h1288X: Veeam Changed Block Tracking (CBT) Haritası Bozulması",
+    "hizli_adimlar": [
+      "QNAP TVS-h1288X sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: VMware ESXi host çökmesi sonucu sanal makinenin CBT takip dosyasının bozulması.",
+      "Saha mühendisliği servis prosedürünü yürütün: VMware vSphere üzerinden makineyi kapatıp ctkEnabled ve ctkDisks değerlerini False yapıp tekrar açın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Veeam Console -> Reset CBT",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Her gün incremental yedek alması gerekirken her seferinde full yedek alması.",
+    "derin_teknik_analiz": "VMware ESXi host çökmesi sonucu sanal makinenin CBT takip dosyasının bozulması. Çözüm: VMware vSphere üzerinden makineyi kapatıp ctkEnabled ve ctkDisks değerlerini False yapıp tekrar açın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "qnap tvs-h1288x",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_414",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "QNAP TVS-h1288X: TrueNAS ZFS Scrub Sırasında Bozuk Sektör ve Parite Onarımı",
+    "hizli_adimlar": [
+      "QNAP TVS-h1288X sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Diskte okunamayan blokların parite diskindeki veriden anında düzeltilmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: zpool status -v ile hatalı dosyayı bulun ve diski en kısa sürede değiştirin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "zpool scrub pool1",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "ZFS havuzunda veri sağlama testi sırasında disk hatalarının artması.",
+    "derin_teknik_analiz": "Diskte okunamayan blokların parite diskindeki veriden anında düzeltilmesi. Çözüm: zpool status -v ile hatalı dosyayı bulun ve diski en kısa sürede değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "qnap tvs-h1288x",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_415",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "QNAP TVS-h1288X: S3 Uyumlu Nesne Kilidi (Object Lock) İmmutability İptal Edilememe",
+    "hizli_adimlar": [
+      "QNAP TVS-h1288X sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: WORM (Write Once Read Many) güvenlik politikasının yönetici yetkisiyle bile silmeye izin vermemesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Saklama süresi (Retention Period) dolana kadar bekleyin veya yedeği farklı bir havuza taşıyın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "aws s3api get-object-retention",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ransomware korumalı yedeklerin süresi dolmadan silinmek istenmesi.",
+    "derin_teknik_analiz": "WORM (Write Once Read Many) güvenlik politikasının yönetici yetkisiyle bile silmeye izin vermemesi. Çözüm: Saklama süresi (Retention Period) dolana kadar bekleyin veya yedeği farklı bir havuza taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "qnap tvs-h1288x",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2482",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Synology DiskStation DS920+: RAID 5 / SHR Biriminin \"Degraded\" (Bozulmuş) Duruma Düşmesi ve Disk Değişimi",
+    "hizli_adimlar": [
+      "Synology DiskStation DS920+ cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Disklerden birinde bad sector sayısının limiti aşması veya kafa vurması.",
+      "Saha servis prosedürünü yerine getirin: Arızalı diski çalışırken (Hot-swap) çıkarıp aynı veya daha büyük kapasitede yeni NAS diski takarak onarımı (Rebuild) başlatın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Synology DiskStation DS920+ Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "NAS cihazının aralıksız bip sesi vermesi ve yönetim ekranında Disk 2 arızalı uyarısı.",
+    "derin_teknik_analiz": "Kök Neden: Disklerden birinde bad sector sayısının limiti aşması veya kafa vurması. Saha Çözümü: Arızalı diski çalışırken (Hot-swap) çıkarıp aynı veya daha büyük kapasitede yeni NAS diski takarak onarımı (Rebuild) başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "synology diskstation ds920+",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2483",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Synology DiskStation DS920+: ZFS Depolama Havuzunda Sağlama (Checksum) Hataları ve Scrub Onarımı",
+    "hizli_adimlar": [
+      "Synology DiskStation DS920+ cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Veri transferi sırasında SATA kablosunda veya bellek modülünde bit kayması oluşması.",
+      "Saha servis prosedürünü yerine getirin: zpool scrub komutunu çalıştırarak ZFS parite verilerinden bozuk blokların otomatik onarılmasını sağlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Synology DiskStation DS920+ Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "TrueNAS yönetiminde \"Pool degraded with checksum errors\" uyarısının çıkması.",
+    "derin_teknik_analiz": "Kök Neden: Veri transferi sırasında SATA kablosunda veya bellek modülünde bit kayması oluşması. Saha Çözümü: zpool scrub komutunu çalıştırarak ZFS parite verilerinden bozuk blokların otomatik onarılmasını sağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "synology diskstation ds920+",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2484",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Synology DiskStation DS920+: iSCSI Hedefine (Target) Bağlanırken MPIO Yolunun Kopması",
+    "hizli_adimlar": [
+      "Synology DiskStation DS920+ cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Çok yollu giriş/çıkış (MPIO) ağ kartlarından birinin linkinin düşmesi ve devir teslim yapamaması.",
+      "Saha servis prosedürünü yerine getirin: MPIO yapılandırmasını Round Robin yerine Least Queue Depth olarak güncelleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Synology DiskStation DS920+ Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sunucuya bağlı sanal diskin aniden donması ve I/O zaman aşımı vermesi.",
+    "derin_teknik_analiz": "Kök Neden: Çok yollu giriş/çıkış (MPIO) ağ kartlarından birinin linkinin düşmesi ve devir teslim yapamaması. Saha Çözümü: MPIO yapılandırmasını Round Robin yerine Least Queue Depth olarak güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "synology diskstation ds920+",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2485",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "QNAP TS-453D: RAID 5 / SHR Biriminin \"Degraded\" (Bozulmuş) Duruma Düşmesi ve Disk Değişimi",
+    "hizli_adimlar": [
+      "QNAP TS-453D cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Disklerden birinde bad sector sayısının limiti aşması veya kafa vurması.",
+      "Saha servis prosedürünü yerine getirin: Arızalı diski çalışırken (Hot-swap) çıkarıp aynı veya daha büyük kapasitede yeni NAS diski takarak onarımı (Rebuild) başlatın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "QNAP TS-453D Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "NAS cihazının aralıksız bip sesi vermesi ve yönetim ekranında Disk 2 arızalı uyarısı.",
+    "derin_teknik_analiz": "Kök Neden: Disklerden birinde bad sector sayısının limiti aşması veya kafa vurması. Saha Çözümü: Arızalı diski çalışırken (Hot-swap) çıkarıp aynı veya daha büyük kapasitede yeni NAS diski takarak onarımı (Rebuild) başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "qnap ts-453d",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2486",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "QNAP TS-453D: ZFS Depolama Havuzunda Sağlama (Checksum) Hataları ve Scrub Onarımı",
+    "hizli_adimlar": [
+      "QNAP TS-453D cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Veri transferi sırasında SATA kablosunda veya bellek modülünde bit kayması oluşması.",
+      "Saha servis prosedürünü yerine getirin: zpool scrub komutunu çalıştırarak ZFS parite verilerinden bozuk blokların otomatik onarılmasını sağlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "QNAP TS-453D Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "TrueNAS yönetiminde \"Pool degraded with checksum errors\" uyarısının çıkması.",
+    "derin_teknik_analiz": "Kök Neden: Veri transferi sırasında SATA kablosunda veya bellek modülünde bit kayması oluşması. Saha Çözümü: zpool scrub komutunu çalıştırarak ZFS parite verilerinden bozuk blokların otomatik onarılmasını sağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "qnap ts-453d",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2487",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "QNAP TS-453D: iSCSI Hedefine (Target) Bağlanırken MPIO Yolunun Kopması",
+    "hizli_adimlar": [
+      "QNAP TS-453D cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Çok yollu giriş/çıkış (MPIO) ağ kartlarından birinin linkinin düşmesi ve devir teslim yapamaması.",
+      "Saha servis prosedürünü yerine getirin: MPIO yapılandırmasını Round Robin yerine Least Queue Depth olarak güncelleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "QNAP TS-453D Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sunucuya bağlı sanal diskin aniden donması ve I/O zaman aşımı vermesi.",
+    "derin_teknik_analiz": "Kök Neden: Çok yollu giriş/çıkış (MPIO) ağ kartlarından birinin linkinin düşmesi ve devir teslim yapamaması. Saha Çözümü: MPIO yapılandırmasını Round Robin yerine Least Queue Depth olarak güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "qnap ts-453d",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2488",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "TrueNAS SCALE Enterprise: RAID 5 / SHR Biriminin \"Degraded\" (Bozulmuş) Duruma Düşmesi ve Disk Değişimi",
+    "hizli_adimlar": [
+      "TrueNAS SCALE Enterprise cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Disklerden birinde bad sector sayısının limiti aşması veya kafa vurması.",
+      "Saha servis prosedürünü yerine getirin: Arızalı diski çalışırken (Hot-swap) çıkarıp aynı veya daha büyük kapasitede yeni NAS diski takarak onarımı (Rebuild) başlatın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "TrueNAS SCALE Enterprise Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "NAS cihazının aralıksız bip sesi vermesi ve yönetim ekranında Disk 2 arızalı uyarısı.",
+    "derin_teknik_analiz": "Kök Neden: Disklerden birinde bad sector sayısının limiti aşması veya kafa vurması. Saha Çözümü: Arızalı diski çalışırken (Hot-swap) çıkarıp aynı veya daha büyük kapasitede yeni NAS diski takarak onarımı (Rebuild) başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "truenas scale enterprise",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2489",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "TrueNAS SCALE Enterprise: ZFS Depolama Havuzunda Sağlama (Checksum) Hataları ve Scrub Onarımı",
+    "hizli_adimlar": [
+      "TrueNAS SCALE Enterprise cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Veri transferi sırasında SATA kablosunda veya bellek modülünde bit kayması oluşması.",
+      "Saha servis prosedürünü yerine getirin: zpool scrub komutunu çalıştırarak ZFS parite verilerinden bozuk blokların otomatik onarılmasını sağlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "TrueNAS SCALE Enterprise Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "TrueNAS yönetiminde \"Pool degraded with checksum errors\" uyarısının çıkması.",
+    "derin_teknik_analiz": "Kök Neden: Veri transferi sırasında SATA kablosunda veya bellek modülünde bit kayması oluşması. Saha Çözümü: zpool scrub komutunu çalıştırarak ZFS parite verilerinden bozuk blokların otomatik onarılmasını sağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "truenas scale enterprise",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2490",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "TrueNAS SCALE Enterprise: iSCSI Hedefine (Target) Bağlanırken MPIO Yolunun Kopması",
+    "hizli_adimlar": [
+      "TrueNAS SCALE Enterprise cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Çok yollu giriş/çıkış (MPIO) ağ kartlarından birinin linkinin düşmesi ve devir teslim yapamaması.",
+      "Saha servis prosedürünü yerine getirin: MPIO yapılandırmasını Round Robin yerine Least Queue Depth olarak güncelleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "TrueNAS SCALE Enterprise Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sunucuya bağlı sanal diskin aniden donması ve I/O zaman aşımı vermesi.",
+    "derin_teknik_analiz": "Kök Neden: Çok yollu giriş/çıkış (MPIO) ağ kartlarından birinin linkinin düşmesi ve devir teslim yapamaması. Saha Çözümü: MPIO yapılandırmasını Round Robin yerine Least Queue Depth olarak güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "truenas scale enterprise",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2491",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Asustor Lockerstor: RAID 5 / SHR Biriminin \"Degraded\" (Bozulmuş) Duruma Düşmesi ve Disk Değişimi",
+    "hizli_adimlar": [
+      "Asustor Lockerstor cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Disklerden birinde bad sector sayısının limiti aşması veya kafa vurması.",
+      "Saha servis prosedürünü yerine getirin: Arızalı diski çalışırken (Hot-swap) çıkarıp aynı veya daha büyük kapasitede yeni NAS diski takarak onarımı (Rebuild) başlatın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Asustor Lockerstor Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "NAS cihazının aralıksız bip sesi vermesi ve yönetim ekranında Disk 2 arızalı uyarısı.",
+    "derin_teknik_analiz": "Kök Neden: Disklerden birinde bad sector sayısının limiti aşması veya kafa vurması. Saha Çözümü: Arızalı diski çalışırken (Hot-swap) çıkarıp aynı veya daha büyük kapasitede yeni NAS diski takarak onarımı (Rebuild) başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "asustor lockerstor",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2492",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Asustor Lockerstor: ZFS Depolama Havuzunda Sağlama (Checksum) Hataları ve Scrub Onarımı",
+    "hizli_adimlar": [
+      "Asustor Lockerstor cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Veri transferi sırasında SATA kablosunda veya bellek modülünde bit kayması oluşması.",
+      "Saha servis prosedürünü yerine getirin: zpool scrub komutunu çalıştırarak ZFS parite verilerinden bozuk blokların otomatik onarılmasını sağlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Asustor Lockerstor Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "TrueNAS yönetiminde \"Pool degraded with checksum errors\" uyarısının çıkması.",
+    "derin_teknik_analiz": "Kök Neden: Veri transferi sırasında SATA kablosunda veya bellek modülünde bit kayması oluşması. Saha Çözümü: zpool scrub komutunu çalıştırarak ZFS parite verilerinden bozuk blokların otomatik onarılmasını sağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "asustor lockerstor",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2493",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Asustor Lockerstor: iSCSI Hedefine (Target) Bağlanırken MPIO Yolunun Kopması",
+    "hizli_adimlar": [
+      "Asustor Lockerstor cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Çok yollu giriş/çıkış (MPIO) ağ kartlarından birinin linkinin düşmesi ve devir teslim yapamaması.",
+      "Saha servis prosedürünü yerine getirin: MPIO yapılandırmasını Round Robin yerine Least Queue Depth olarak güncelleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Asustor Lockerstor Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sunucuya bağlı sanal diskin aniden donması ve I/O zaman aşımı vermesi.",
+    "derin_teknik_analiz": "Kök Neden: Çok yollu giriş/çıkış (MPIO) ağ kartlarından birinin linkinin düşmesi ve devir teslim yapamaması. Saha Çözümü: MPIO yapılandırmasını Round Robin yerine Least Queue Depth olarak güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "asustor lockerstor",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2494",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Veeam Backup & Replication 12: RAID 5 / SHR Biriminin \"Degraded\" (Bozulmuş) Duruma Düşmesi ve Disk Değişimi",
+    "hizli_adimlar": [
+      "Veeam Backup & Replication 12 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Disklerden birinde bad sector sayısının limiti aşması veya kafa vurması.",
+      "Saha servis prosedürünü yerine getirin: Arızalı diski çalışırken (Hot-swap) çıkarıp aynı veya daha büyük kapasitede yeni NAS diski takarak onarımı (Rebuild) başlatın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Veeam Backup & Replication 12 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "NAS cihazının aralıksız bip sesi vermesi ve yönetim ekranında Disk 2 arızalı uyarısı.",
+    "derin_teknik_analiz": "Kök Neden: Disklerden birinde bad sector sayısının limiti aşması veya kafa vurması. Saha Çözümü: Arızalı diski çalışırken (Hot-swap) çıkarıp aynı veya daha büyük kapasitede yeni NAS diski takarak onarımı (Rebuild) başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "veeam backup & replication 12",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2495",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Veeam Backup & Replication 12: ZFS Depolama Havuzunda Sağlama (Checksum) Hataları ve Scrub Onarımı",
+    "hizli_adimlar": [
+      "Veeam Backup & Replication 12 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Veri transferi sırasında SATA kablosunda veya bellek modülünde bit kayması oluşması.",
+      "Saha servis prosedürünü yerine getirin: zpool scrub komutunu çalıştırarak ZFS parite verilerinden bozuk blokların otomatik onarılmasını sağlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Veeam Backup & Replication 12 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "TrueNAS yönetiminde \"Pool degraded with checksum errors\" uyarısının çıkması.",
+    "derin_teknik_analiz": "Kök Neden: Veri transferi sırasında SATA kablosunda veya bellek modülünde bit kayması oluşması. Saha Çözümü: zpool scrub komutunu çalıştırarak ZFS parite verilerinden bozuk blokların otomatik onarılmasını sağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "veeam backup & replication 12",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2496",
+    "kategori": "Kurtarma & Güvenlik",
+    "alt_kategori": "Yedekleme & NAS Depolama",
+    "baslik": "Veeam Backup & Replication 12: iSCSI Hedefine (Target) Bağlanırken MPIO Yolunun Kopması",
+    "hizli_adimlar": [
+      "Veeam Backup & Replication 12 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Çok yollu giriş/çıkış (MPIO) ağ kartlarından birinin linkinin düşmesi ve devir teslim yapamaması.",
+      "Saha servis prosedürünü yerine getirin: MPIO yapılandırmasını Round Robin yerine Least Queue Depth olarak güncelleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Veeam Backup & Replication 12 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sunucuya bağlı sanal diskin aniden donması ve I/O zaman aşımı vermesi.",
+    "derin_teknik_analiz": "Kök Neden: Çok yollu giriş/çıkış (MPIO) ağ kartlarından birinin linkinin düşmesi ve devir teslim yapamaması. Saha Çözümü: MPIO yapılandırmasını Round Robin yerine Least Queue Depth olarak güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "kurtarma & güvenlik",
+      "yedekleme & nas depolama",
+      "veeam backup & replication 12",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  }
+]

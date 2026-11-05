@@ -1,82 +1,1698 @@
-{
-  "versiyon": "2.5.0",
-  "toplam": 2,
-  "modul": "feed_yazici_zebra.json",
-  "kayitlar": [
-    {
-      "id": "prn_zebra_zd420_calibration",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Zebra Barkod & ZPL",
-      "baslik": "Zebra ZD420 / ZT410 Gap Sensör Kalibrasyonu ve Boş Etiket Atlama",
-      "hizli_adimlar": [
-        "PAUSE ve CANCEL tuşlarına 2 saniye basılı tutun.",
-        "Yazıcı sarı ışık yakarak etiketleri ileri geri besler.",
-        "Sürücüden etiket tipini 'Etiketler Arasında Boşluklar' yapın.",
-        "FEED tuşuna basarak tam 1 etiketin çıktığını doğrulayın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "ZPL II Kalibrasyon",
-          "komut": "~JC\n^XA^JUS^XZ",
-          "aciklama": "Kalibrasyon komutu gönderir."
-        }
-      ],
-      "temel_anlatim": "Yazıcıya 1 etiket gönderildiğinde 3-4 boş etiket atlaması ve kırmızı 'Media' ışığı.",
-      "derin_teknik_analiz": "Termal yazıcılar etiket aralığını (Gap) ışık geçirgenliğiyle algılar. Eşik voltajı kalibre edilmezse etiket sınırları algılanamaz.",
-      "kenar_durumlar": [
-        {
-          "durum": "Hala kırmızı ışık yanıyor",
-          "neden": "Sensör çentik hizasında değildir.",
-          "cozum": "Sensör tırnağını etiketin ortasına kaydırın."
-        }
-      ],
-      "etiketler": [
-        "yazici",
-        "zebra",
-        "zd420",
-        "zt410",
-        "zpl",
-        "gap-sensor"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "prn_zebra_turkish_characters_zpl",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Zebra Barkod & ZPL",
-      "baslik": "Zebra ZPL II Etiket Kodlarında Türkçe Karakter (Ş, Ğ, İ, Ö, Ü) Bozulması",
-      "hizli_adimlar": [
-        "ZPL kod bloğunun en başına (`^XA` satırından hemen sonraya) `^CI28` komutunu ekleyin.",
-        "Metin alanını tanımlarken `^FO50,50^A0N,30,30^FDŞÜPHELİ ÜRÜN İNCELEME^FS` şeklinde yazın.",
-        "Metin dosyasını veya soket veri akışını ISO-8859-9 değil 'UTF-8' olarak encode edip gönderin.",
-        "Yazıcı üzerinde Unicode font yoksa Zebra Setup Utilities ile `Swiss 721` TTF fontunu yazıcı hafızasına (E: belleği) yükleyin."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Örnek Türkçe Destekli ZPL Bloğu",
-          "komut": "^XA\n^CI28\n^FO50,50^A0N,35,35^FDDEPO: KADIKÖY - ŞUBE 4^FS\n^FO50,100^BY2^BCN,60,Y,N,N^FDTR12345678^FS\n^XZ",
-          "aciklama": "Türkçe karakterleri ve barkodu UTF-8 olarak basan tam ZPL örneği."
-        }
-      ],
-      "temel_anlatim": "ERP veya WMS programından gönderilen ZPL etiket kodlarında Türkçe karakterlerin yerine soru işareti veya garip simgeler basılması.",
-      "derin_teknik_analiz": "Zebra yazıcıların varsayılan ZPL kod sayfası ASCII / Code Page 850'dir. Türkçe karakterlerin (UTF-8) doğru yorumlanması için ZPL etiket başlığına `^CI28` (Unicode UTF-8 Encoding) komutu eklenmeli ve font olarak `^A0` veya Swiss 721 fontu tanımlanmalıdır.",
-      "kenar_durumlar": [
-        {
-          "durum": "^CI28 eklenmesine rağmen karakterler yine bozuk çıkıyor",
-          "neden": "Veri gönderen yazılım (C# / Python / PHP) sokete baytları UTF-8 değil Windows-1254 basmaktadır.",
-          "cozum": "Yazılımda `Encoding.UTF8.GetBytes(zpl)` formatını zorunlu kılın."
-        }
-      ],
-      "etiketler": [
-        "yazici",
-        "zebra",
-        "zpl",
-        "turkce-karakter",
-        "ci28",
-        "utf-8",
-        "barkod"
-      ],
-      "oncelik": 1
-    }
-  ]
-}
+[
+  {
+    "id": "prn_896",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı Hata Kodları",
+    "baslik": "Zebra Barkod Yazıcıda Termal Kafa Çizilmesi (Dead Pixel)",
+    "hizli_adimlar": [
+      "Yazıcı kafasını kaldırıp altındaki siyah ince çizgiyi temizleme kalemiyle silin.",
+      "Eğer beyaz çizgi gitmiyorsa termal kafa fiziksel olarak çizilmiştir.",
+      "Yeni kafa takana kadar etiket formatını (ZPL) 90 derece döndürerek barkodun çizgiye paralel gelmesini sağlayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Kafa Direnç Hattı Temizliği",
+        "komut": "Termal Temizleme Kalemi (Isopropanol Pen)",
+        "aciklama": "Kafadaki yapışkan etiket artıklarını çözer."
+      }
+    ],
+    "temel_anlatim": "Basılan etiketlerde barkod çizgilerinin üzerinde dikey beyaz bir hat çıkması ve okuyucuların barkodu okumaması.",
+    "derin_teknik_analiz": "Termal kafadaki mikroskobik ısıtıcı dirençlerden birinin toz veya sert partikül sürtünmesi sonucu yanması/kopması.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata temizlenmesine rağmen tekrar ediyor",
+        "neden": "Mekanik parçada aşınma vardır.",
+        "cozum": "İlgili sensör veya mekanik modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazici",
+      "zebra",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_897",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı Hata Kodları",
+    "baslik": "Zebra Barkod Yazıcıda Ribbon (Termal Şerit) Kırışması",
+    "hizli_adimlar": [
+      "Kafanın üzerindeki iki adet basınç vidasını eşit seviyeye getirin.",
+      "Ribbon taşıyıcı ruloların düzgün takıldığını teyit edin.",
+      "Sürücüden 'Darkness' (Koyuluk) değerini düşürün."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Kafa Basınç Ayarı",
+        "komut": "Kafa üstündeki kadranları '3' ve '3' dengeli pozisyona getirin",
+        "aciklama": "Kafa basıncını simetrik yapar."
+      }
+    ],
+    "temel_anlatim": "Yazdırma sırasında hışırtı sesi gelmesi, ribbonun buruşup etikete yapışması.",
+    "derin_teknik_analiz": "Kafa baskı basıncının (Head Pressure) iki tarafta dengesiz olması veya ribbon germe milinin ayarsızlığı.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata temizlenmesine rağmen tekrar ediyor",
+        "neden": "Mekanik parçada aşınma vardır.",
+        "cozum": "İlgili sensör veya mekanik modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazici",
+      "zebra",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_zb_65",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZD220 / ZD420 / ZT230: Medya ve Boşluk Sensörü (Gap/Web Sensor) Manuel Kalibrasyonu",
+    "hizli_adimlar": [
+      "Yazıcıyı açık konuma getirin.",
+      "Duraklat (Pause) ve İptal (Cancel) butonlarına aynı anda basıp sarı ışık yanana kadar 3 saniye basılı tutun.",
+      "Yazıcı etiketleri ileri geri çekerek medya sensörü eşik değerlerini ölçecektir.",
+      "Kalibrasyon tamamlandığında Feed butonuna bastığınızda tam olarak 1 adet etiket vermesini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "ZPL Kalibrasyon Komutu",
+        "komut": "^XA~JC^XZ",
+        "aciklama": "Yazıcıya anında donanımsal medya kalibrasyonu yaptırır."
+      }
+    ],
+    "temel_anlatim": "Etiket yazdırırken her seferinde 2-3 boş etiket atlaması veya kırmızı ışığın yanıp sönmesi.",
+    "derin_teknik_analiz": "Kök Neden: Yazıcının etiketler arasındaki boşluğu (Gap) veya siyah çizgiyi (Black Mark) algılayamaması. Çözüm: Pause + Cancel tuşlarına basılı tutarak manuel sensör kalibrasyonunu çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Kalibrasyon sonrası hala kırmızı yanıyor",
+        "neden": "Medya sensörü hareketli kızağı etiket boyutuna göre ayarlanmamıştır.",
+        "cozum": "Sensör kızağını etiketin tam ortasındaki boşluğa denk gelecek şekilde kaydırın."
+      }
+    ],
+    "etiketler": [
+      "zebra",
+      "barkod",
+      "zd420",
+      "gap-sensor",
+      "kalibrasyon"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_zb_66",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra GK420t / GX420d: Termal Baskı Kafasında Yanık Çizgisi (Beyaz Dikey Boşluk)",
+    "hizli_adimlar": [
+      "Yazıcı kafasını izopropil alkollü kafa temizleme kalemiyle temizleyin.",
+      "Kafadaki mikro direnç hattında yanık/kararma olup olmadığını büyüteçle kontrol edin.",
+      "Hasar fiziksel ise yeni orijinal Zebra kafa kiti takın.",
+      "Geçici saha çözümü olarak ZPL kodundaki ^FO koordinatını 2 mm sağa kaydırarak barkod çizgilerinin sağlam bölgeye denk gelmesini sağlayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Kafa Direnç Testi",
+        "komut": "~HD",
+        "aciklama": "Yazıcıdan termal kafa elemanlarının sağlamlık durum dökümünü alır."
+      }
+    ],
+    "temel_anlatim": "Basılan tüm barkodların üzerinden yukarıdan aşağıya jilet gibi beyaz bir çizgi geçmesi ve barkod okuyucunun okuyamaması.",
+    "derin_teknik_analiz": "Kök Neden: Termal kafa üzerindeki mikro ısıtıcı direnç noktalarından birinin aşırı voltaj veya metal temasıyla yanması. Çözüm: Baskı kafasını temizleyin; düzelmezse termal kafa ünitesini yenileyin veya ZPL ile baskı konumunu kaydırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Yeni kafa takıldıktan sonra baskı silik çıkıyor",
+        "neden": "Kafa baskı basınç mandalı tam kilitlenmemiştir.",
+        "cozum": "Sağ ve sol kafa kilit tırnaklarının 'tık' sesiyle oturduğunu kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "zebra",
+      "gk420t",
+      "termal-kafa",
+      "cizik-baski",
+      "barkod-okumama"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_zb_67",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZT410 Endüstriyel: Ribbon Out Hatası (Ribon Bitti Yanıltıcı Alarmı)",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "Sensörleri izopropil alkolle temizleyin.",
+      "Zebra Setup Utilities ile test çıktısı alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "ZPL Komutu",
+        "komut": "^XA^XZ",
+        "aciklama": "Standart ZPL oturumunu açar ve kapatır."
+      }
+    ],
+    "temel_anlatim": "Ribon takılı olmasına rağmen optik ribon sensörünün reflektörünün tozlanması.",
+    "derin_teknik_analiz": "Kök Neden: Direkt termal modda ribon uyarısı vermesi durumunda medya tipini Direct Thermal seçmek. Çözüm: Zebra bültenine göre kalibrasyon veya parça değişimi yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Anakart sensör devresi arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "zebra",
+      "barkod",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_zb_68",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZD220: Zebra Setup Utilities ile Statik IP Yapılandırması",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "Sensörleri izopropil alkolle temizleyin.",
+      "Zebra Setup Utilities ile test çıktısı alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "ZPL Komutu",
+        "komut": "^XA^XZ",
+        "aciklama": "Standart ZPL oturumunu açar ve kapatır."
+      }
+    ],
+    "temel_anlatim": "USB üzerinden yazıcıya bağlanıp ağ kartına kalıcı IP, Ağ Maskesi ve Ağ Geçidi tanımlama.",
+    "derin_teknik_analiz": "Kök Neden: DHCP sunucusunun her açılışta farklı IP vermesini önlemek. Çözüm: Zebra bültenine göre kalibrasyon veya parça değişimi yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Anakart sensör devresi arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "zebra",
+      "barkod",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_zb_69",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra GX420d: Platen Roller Kauçuk Silindir Aşınması ve Etiket Kayması",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "Sensörleri izopropil alkolle temizleyin.",
+      "Zebra Setup Utilities ile test çıktısı alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "ZPL Komutu",
+        "komut": "^XA^XZ",
+        "aciklama": "Standart ZPL oturumunu açar ve kapatır."
+      }
+    ],
+    "temel_anlatim": "Kauçuk çekme rulosunun pürüzsüzleşip etiketi çekerken yamultması.",
+    "derin_teknik_analiz": "Kök Neden: Platen silindirini alkolle silmek veya ruloyu tırnaklarından kurtarıp yenilemek. Çözüm: Zebra bültenine göre kalibrasyon veya parça değişimi yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Anakart sensör devresi arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "zebra",
+      "barkod",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_zb_70",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZT230: ZPL ^FO Koordinat Kayması ve Etiket Dışına Taşma",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "Sensörleri izopropil alkolle temizleyin.",
+      "Zebra Setup Utilities ile test çıktısı alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "ZPL Komutu",
+        "komut": "^XA^XZ",
+        "aciklama": "Standart ZPL oturumunu açar ve kapatır."
+      }
+    ],
+    "temel_anlatim": "Etiket tasarımının 5 mm yukarı veya sola basılarak kenardan kesilmesi.",
+    "derin_teknik_analiz": "Kök Neden: ^LH (Label Home) etiketi başlangıç koordinatını ZPL başlığında düzeltmek. Çözüm: Zebra bültenine göre kalibrasyon veya parça değişimi yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Anakart sensör devresi arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "zebra",
+      "barkod",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_zb_71",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZD420: Baskı Yoğunluğu (Darkness / Density) Ayarı",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "Sensörleri izopropil alkolle temizleyin.",
+      "Zebra Setup Utilities ile test çıktısı alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "ZPL Komutu",
+        "komut": "^XA^XZ",
+        "aciklama": "Standart ZPL oturumunu açar ve kapatır."
+      }
+    ],
+    "temel_anlatim": "Barkod çizgilerinin birbirine yapışması veya aşırı silik çıkması.",
+    "derin_teknik_analiz": "Kök Neden: Zebra Setup Utilities veya ~SD komutuyla koyuluk derecesini 15-20 aralığına çekmek. Çözüm: Zebra bültenine göre kalibrasyon veya parça değişimi yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Anakart sensör devresi arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "zebra",
+      "barkod",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_zb_72",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra GK420t: Otomatik Kesici (Auto-Cutter) Bıçak Sıkışması",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "Sensörleri izopropil alkolle temizleyin.",
+      "Zebra Setup Utilities ile test çıktısı alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "ZPL Komutu",
+        "komut": "^XA^XZ",
+        "aciklama": "Standart ZPL oturumunu açar ve kapatır."
+      }
+    ],
+    "temel_anlatim": "Kalın etiket keserken bıçağın yarıda kalıp yazıcının kilitlenmesi.",
+    "derin_teknik_analiz": "Kök Neden: Kesici ünitesini açıp vidayı manuel çevirerek bıçağı başlangıç konumuna getirmek. Çözüm: Zebra bültenine göre kalibrasyon veya parça değişimi yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Anakart sensör devresi arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "zebra",
+      "barkod",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_zb_73",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZT610: RFID Tag Kalibrasyon Başarısızlığı (Void Basması)",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "Sensörleri izopropil alkolle temizleyin.",
+      "Zebra Setup Utilities ile test çıktısı alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "ZPL Komutu",
+        "komut": "^XA^XZ",
+        "aciklama": "Standart ZPL oturumunu açar ve kapatır."
+      }
+    ],
+    "temel_anlatim": "Akıllı RFID etiketlerine yazarken antenin çipi programlayamayıp etiketi çizmesi.",
+    "derin_teknik_analiz": "Kök Neden: RFID sensör pozisyonunu ve güç seviyesini (Read/Write Power) kalibre etmek. Çözüm: Zebra bültenine göre kalibrasyon veya parça değişimi yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Anakart sensör devresi arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "zebra",
+      "barkod",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_zb_74",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZD220: Seri Port (RS-232) Baud Rate Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "Sensörleri izopropil alkolle temizleyin.",
+      "Zebra Setup Utilities ile test çıktısı alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "ZPL Komutu",
+        "komut": "^XA^XZ",
+        "aciklama": "Standart ZPL oturumunu açar ve kapatır."
+      }
+    ],
+    "temel_anlatim": "COM porttan veri gönderildiğinde anlamsız karakterler veya soru işaretleri basması.",
+    "derin_teknik_analiz": "Kök Neden: Yazıcı seri hızının (9600 vs 115200) bilgisayar portuyla eşleştirilmesi. Çözüm: Zebra bültenine göre kalibrasyon veya parça değişimi yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Anakart sensör devresi arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "zebra",
+      "barkod",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_zb_75",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZT410: Termal Kafa Açık Sensörü (Head Open) Sürekli Yanması",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "Sensörleri izopropil alkolle temizleyin.",
+      "Zebra Setup Utilities ile test çıktısı alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "ZPL Komutu",
+        "komut": "^XA^XZ",
+        "aciklama": "Standart ZPL oturumunu açar ve kapatır."
+      }
+    ],
+    "temel_anlatim": "Kapak kapalı olmasına rağmen ekranın 'Head Open' uyarısında kalması.",
+    "derin_teknik_analiz": "Kök Neden: Kafa kilitleme mikro-anahtarının tırnağının kırılması veya soketinin çıkması. Çözüm: Zebra bültenine göre kalibrasyon veya parça değişimi yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Anakart sensör devresi arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "zebra",
+      "barkod",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_zb_76",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra GK420d: Bellenim (Firmware) Çökmesi Sonrası Forced Download Modu",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "Sensörleri izopropil alkolle temizleyin.",
+      "Zebra Setup Utilities ile test çıktısı alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "ZPL Komutu",
+        "komut": "^XA^XZ",
+        "aciklama": "Standart ZPL oturumunu açar ve kapatır."
+      }
+    ],
+    "temel_anlatim": "Yazıcının açılışta kırmızı-yeşil donup hiçbir butona tepki vermemesi.",
+    "derin_teknik_analiz": "Kök Neden: Tüm butonlara basılı tutarak açıp ZDownloader ile .zpl firmware dosyasını yüklemek. Çözüm: Zebra bültenine göre kalibrasyon veya parça değişimi yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Anakart sensör devresi arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "zebra",
+      "barkod",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "zebra_exp_38",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZD421 / ZD620: Medya Sensörü Tipi Uyuşmazlığı (Transmissive vs Reflective)",
+    "hizli_adimlar": [
+      "Zebra ZD421 / ZD620 barkod yazıcısını kapatıp açın.",
+      "Kök neden analizini uygulayın: Sensör tipinin Gap yerine Black Mark olarak seçili kalması.",
+      "Zebra saha kalibrasyon adımlarını yürütün: Zebra Setup Utilities üzerinden sensör tipini 'Web/Gap' olarak güncelleyin.",
+      "Feed butonuna basarak tam 1 etiket beslendiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "ZPL Kalibrasyon",
+        "komut": "^XA~JC^XZ",
+        "aciklama": "Donanımsal medya kalibrasyonu komutudur."
+      }
+    ],
+    "temel_anlatim": "Etiketler arasında boşluk olmasına rağmen yazıcının sürekli kırmızı yanması.",
+    "derin_teknik_analiz": "Sensör tipinin Gap yerine Black Mark olarak seçili kalması. Çözüm: Zebra Setup Utilities üzerinden sensör tipini 'Web/Gap' olarak güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata giderilemedi",
+        "neden": "Sensör kablosu kopuktur.",
+        "cozum": "Sensör flex kablosunu ölçün."
+      }
+    ],
+    "etiketler": [
+      "zebra",
+      "barkod",
+      "zpl",
+      "zebra zd421   zd620",
+      "kalibrasyon"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "zebra_exp_39",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZT411 / ZT421 Endüstriyel: Termal Kafa Direnç Değeri (Head Resistance) Kalibrasyonu",
+    "hizli_adimlar": [
+      "Zebra ZT411 / ZT421 Endüstriyel barkod yazıcısını kapatıp açın.",
+      "Kök neden analizini uygulayın: Yeni kafanın ohmik direncinin yazıcı anakartına tanıtılmamış olması.",
+      "Zebra saha kalibrasyon adımlarını yürütün: Kafa üzerindeki direnç etiketindeki değeri (Örn: 1250 Ohm) LCD ekrandan girin.",
+      "Feed butonuna basarak tam 1 etiket beslendiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "ZPL Kalibrasyon",
+        "komut": "^XA~JC^XZ",
+        "aciklama": "Donanımsal medya kalibrasyonu komutudur."
+      }
+    ],
+    "temel_anlatim": "Yeni kafa takıldıktan sonra baskının aşırı koyu çıkıp ribonu eritmesi.",
+    "derin_teknik_analiz": "Yeni kafanın ohmik direncinin yazıcı anakartına tanıtılmamış olması. Çözüm: Kafa üzerindeki direnç etiketindeki değeri (Örn: 1250 Ohm) LCD ekrandan girin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata giderilemedi",
+        "neden": "Sensör kablosu kopuktur.",
+        "cozum": "Sensör flex kablosunu ölçün."
+      }
+    ],
+    "etiketler": [
+      "zebra",
+      "barkod",
+      "zpl",
+      "zebra zt411   zt421 endüstriyel",
+      "kalibrasyon"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "zebra_exp_40",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra GC420t / GT800: Ribon Besleme Şaftı Sürtünme Debriyajı (Clutch) Kayması",
+    "hizli_adimlar": [
+      "Zebra GC420t / GT800 barkod yazıcısını kapatıp açın.",
+      "Kök neden analizini uygulayın: Ribon sarma şaftının içindeki keçeli debriyaj yayının gevşemesi.",
+      "Zebra saha kalibrasyon adımlarını yürütün: Arka kapağı açıp sarma mekanizmasındaki somunu sıkarak yay gerginliğini artırın.",
+      "Feed butonuna basarak tam 1 etiket beslendiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "ZPL Kalibrasyon",
+        "komut": "^XA~JC^XZ",
+        "aciklama": "Donanımsal medya kalibrasyonu komutudur."
+      }
+    ],
+    "temel_anlatim": "Yazdırma sırasında ribonun kırışarak etikete yapışması.",
+    "derin_teknik_analiz": "Ribon sarma şaftının içindeki keçeli debriyaj yayının gevşemesi. Çözüm: Arka kapağı açıp sarma mekanizmasındaki somunu sıkarak yay gerginliğini artırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata giderilemedi",
+        "neden": "Sensör kablosu kopuktur.",
+        "cozum": "Sensör flex kablosunu ölçün."
+      }
+    ],
+    "etiketler": [
+      "zebra",
+      "barkod",
+      "zpl",
+      "zebra gc420t   gt800",
+      "kalibrasyon"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_0_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZD421c Kartuşlu: Ribon Kırışması (Ribbon Wrinkle) ve Çapraz Çizgi Hatası",
+    "hizli_adimlar": [
+      "Zebra ZD421c Kartuşlu sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kafa baskı basıncının sağ ve sol tarafta dengesiz olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kafa üstü baskı ayar vidasını sağa sola çevirerek basıncı eşitleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "^XA~JC^XZ",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Etiket basılırken ribonun katlanıp diyagonal siyah çizgiler basması.",
+    "derin_teknik_analiz": "Kafa baskı basıncının sağ ve sol tarafta dengesiz olması. Çözüm: Kafa üstü baskı ayar vidasını sağa sola çevirerek basıncı eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zd421c kartuşlu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_1_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZD421c Kartuşlu: Termal Kafa Aşırı Isınma (Head Overheat) Uyarısı",
+    "hizli_adimlar": [
+      "Zebra ZD421c Kartuşlu sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Baskı hızının çok yüksek olması ve koyuluk (Darkness) ayarının maksimumda kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Koyuluğu 18 seviyesine düşürün ve hızı 4 IPS olarak sınırlayın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "~SD18",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yoğun seride yazıcının durup duraklat ışığının yanıp sönmesi.",
+    "derin_teknik_analiz": "Baskı hızının çok yüksek olması ve koyuluk (Darkness) ayarının maksimumda kalması. Çözüm: Koyuluğu 18 seviyesine düşürün ve hızı 4 IPS olarak sınırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zd421c kartuşlu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_2_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZD421c Kartuşlu: ZPL Yazı Tipi Türkçe Karakter (CP1254) Baskı Bozulması",
+    "hizli_adimlar": [
+      "Zebra ZD421c Kartuşlu sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: ZPL şablonunda UTF-8 veya Code Page 1254 font seçim komutunun eksikliği.",
+      "Saha mühendisliği servis prosedürünü yürütün: ZPL başına ^CI28 komutunu ekleyerek UTF-8 kodlamasını aktif edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "^XA^CI28^XZ",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ş, Ğ, İ harfleri yerine soru işareti veya anlamsız simgeler çıkması.",
+    "derin_teknik_analiz": "ZPL şablonunda UTF-8 veya Code Page 1254 font seçim komutunun eksikliği. Çözüm: ZPL başına ^CI28 komutunu ekleyerek UTF-8 kodlamasını aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zd421c kartuşlu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_3_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZD421c Kartuşlu: Medya Sensörü Siyah Çizgi (Black Mark) Algılayamama",
+    "hizli_adimlar": [
+      "Zebra ZD421c Kartuşlu sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Sensör tipinin Gap modunda kalması ve sensör gözünün siyah çizgi dışına bakması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Zebra Setup Utilities ile sensörü Black Mark yapın ve sensörü çizgi hizasına kaydırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "^XA^MNM^XZ",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Etiketin arkasındaki siyah çizgiye denk gelmeyip sürekli boş etiket vermesi.",
+    "derin_teknik_analiz": "Sensör tipinin Gap modunda kalması ve sensör gözünün siyah çizgi dışına bakması. Çözüm: Zebra Setup Utilities ile sensörü Black Mark yapın ve sensörü çizgi hizasına kaydırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zd421c kartuşlu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_4_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZT411 300 DPI: Ribon Kırışması (Ribbon Wrinkle) ve Çapraz Çizgi Hatası",
+    "hizli_adimlar": [
+      "Zebra ZT411 300 DPI sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kafa baskı basıncının sağ ve sol tarafta dengesiz olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kafa üstü baskı ayar vidasını sağa sola çevirerek basıncı eşitleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "^XA~JC^XZ",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Etiket basılırken ribonun katlanıp diyagonal siyah çizgiler basması.",
+    "derin_teknik_analiz": "Kafa baskı basıncının sağ ve sol tarafta dengesiz olması. Çözüm: Kafa üstü baskı ayar vidasını sağa sola çevirerek basıncı eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zt411 300 dpi",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_5_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZT411 300 DPI: Termal Kafa Aşırı Isınma (Head Overheat) Uyarısı",
+    "hizli_adimlar": [
+      "Zebra ZT411 300 DPI sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Baskı hızının çok yüksek olması ve koyuluk (Darkness) ayarının maksimumda kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Koyuluğu 18 seviyesine düşürün ve hızı 4 IPS olarak sınırlayın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "~SD18",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yoğun seride yazıcının durup duraklat ışığının yanıp sönmesi.",
+    "derin_teknik_analiz": "Baskı hızının çok yüksek olması ve koyuluk (Darkness) ayarının maksimumda kalması. Çözüm: Koyuluğu 18 seviyesine düşürün ve hızı 4 IPS olarak sınırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zt411 300 dpi",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_6_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZT411 300 DPI: ZPL Yazı Tipi Türkçe Karakter (CP1254) Baskı Bozulması",
+    "hizli_adimlar": [
+      "Zebra ZT411 300 DPI sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: ZPL şablonunda UTF-8 veya Code Page 1254 font seçim komutunun eksikliği.",
+      "Saha mühendisliği servis prosedürünü yürütün: ZPL başına ^CI28 komutunu ekleyerek UTF-8 kodlamasını aktif edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "^XA^CI28^XZ",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ş, Ğ, İ harfleri yerine soru işareti veya anlamsız simgeler çıkması.",
+    "derin_teknik_analiz": "ZPL şablonunda UTF-8 veya Code Page 1254 font seçim komutunun eksikliği. Çözüm: ZPL başına ^CI28 komutunu ekleyerek UTF-8 kodlamasını aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zt411 300 dpi",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_7_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZT411 300 DPI: Medya Sensörü Siyah Çizgi (Black Mark) Algılayamama",
+    "hizli_adimlar": [
+      "Zebra ZT411 300 DPI sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Sensör tipinin Gap modunda kalması ve sensör gözünün siyah çizgi dışına bakması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Zebra Setup Utilities ile sensörü Black Mark yapın ve sensörü çizgi hizasına kaydırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "^XA^MNM^XZ",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Etiketin arkasındaki siyah çizgiye denk gelmeyip sürekli boş etiket vermesi.",
+    "derin_teknik_analiz": "Sensör tipinin Gap modunda kalması ve sensör gözünün siyah çizgi dışına bakması. Çözüm: Zebra Setup Utilities ile sensörü Black Mark yapın ve sensörü çizgi hizasına kaydırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zt411 300 dpi",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_8_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZD621 RFID: Ribon Kırışması (Ribbon Wrinkle) ve Çapraz Çizgi Hatası",
+    "hizli_adimlar": [
+      "Zebra ZD621 RFID sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kafa baskı basıncının sağ ve sol tarafta dengesiz olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kafa üstü baskı ayar vidasını sağa sola çevirerek basıncı eşitleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "^XA~JC^XZ",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Etiket basılırken ribonun katlanıp diyagonal siyah çizgiler basması.",
+    "derin_teknik_analiz": "Kafa baskı basıncının sağ ve sol tarafta dengesiz olması. Çözüm: Kafa üstü baskı ayar vidasını sağa sola çevirerek basıncı eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zd621 rfid",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_9_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZD621 RFID: Termal Kafa Aşırı Isınma (Head Overheat) Uyarısı",
+    "hizli_adimlar": [
+      "Zebra ZD621 RFID sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Baskı hızının çok yüksek olması ve koyuluk (Darkness) ayarının maksimumda kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Koyuluğu 18 seviyesine düşürün ve hızı 4 IPS olarak sınırlayın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "~SD18",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yoğun seride yazıcının durup duraklat ışığının yanıp sönmesi.",
+    "derin_teknik_analiz": "Baskı hızının çok yüksek olması ve koyuluk (Darkness) ayarının maksimumda kalması. Çözüm: Koyuluğu 18 seviyesine düşürün ve hızı 4 IPS olarak sınırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zd621 rfid",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_10_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZD621 RFID: ZPL Yazı Tipi Türkçe Karakter (CP1254) Baskı Bozulması",
+    "hizli_adimlar": [
+      "Zebra ZD621 RFID sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: ZPL şablonunda UTF-8 veya Code Page 1254 font seçim komutunun eksikliği.",
+      "Saha mühendisliği servis prosedürünü yürütün: ZPL başına ^CI28 komutunu ekleyerek UTF-8 kodlamasını aktif edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "^XA^CI28^XZ",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ş, Ğ, İ harfleri yerine soru işareti veya anlamsız simgeler çıkması.",
+    "derin_teknik_analiz": "ZPL şablonunda UTF-8 veya Code Page 1254 font seçim komutunun eksikliği. Çözüm: ZPL başına ^CI28 komutunu ekleyerek UTF-8 kodlamasını aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zd621 rfid",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_11_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZD621 RFID: Medya Sensörü Siyah Çizgi (Black Mark) Algılayamama",
+    "hizli_adimlar": [
+      "Zebra ZD621 RFID sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Sensör tipinin Gap modunda kalması ve sensör gözünün siyah çizgi dışına bakması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Zebra Setup Utilities ile sensörü Black Mark yapın ve sensörü çizgi hizasına kaydırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "^XA^MNM^XZ",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Etiketin arkasındaki siyah çizgiye denk gelmeyip sürekli boş etiket vermesi.",
+    "derin_teknik_analiz": "Sensör tipinin Gap modunda kalması ve sensör gözünün siyah çizgi dışına bakması. Çözüm: Zebra Setup Utilities ile sensörü Black Mark yapın ve sensörü çizgi hizasına kaydırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zd621 rfid",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_12_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZT231 Endüstriyel: Ribon Kırışması (Ribbon Wrinkle) ve Çapraz Çizgi Hatası",
+    "hizli_adimlar": [
+      "Zebra ZT231 Endüstriyel sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kafa baskı basıncının sağ ve sol tarafta dengesiz olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kafa üstü baskı ayar vidasını sağa sola çevirerek basıncı eşitleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "^XA~JC^XZ",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Etiket basılırken ribonun katlanıp diyagonal siyah çizgiler basması.",
+    "derin_teknik_analiz": "Kafa baskı basıncının sağ ve sol tarafta dengesiz olması. Çözüm: Kafa üstü baskı ayar vidasını sağa sola çevirerek basıncı eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zt231 endüstriyel",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_13_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZT231 Endüstriyel: Termal Kafa Aşırı Isınma (Head Overheat) Uyarısı",
+    "hizli_adimlar": [
+      "Zebra ZT231 Endüstriyel sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Baskı hızının çok yüksek olması ve koyuluk (Darkness) ayarının maksimumda kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Koyuluğu 18 seviyesine düşürün ve hızı 4 IPS olarak sınırlayın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "~SD18",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yoğun seride yazıcının durup duraklat ışığının yanıp sönmesi.",
+    "derin_teknik_analiz": "Baskı hızının çok yüksek olması ve koyuluk (Darkness) ayarının maksimumda kalması. Çözüm: Koyuluğu 18 seviyesine düşürün ve hızı 4 IPS olarak sınırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zt231 endüstriyel",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_14_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZT231 Endüstriyel: ZPL Yazı Tipi Türkçe Karakter (CP1254) Baskı Bozulması",
+    "hizli_adimlar": [
+      "Zebra ZT231 Endüstriyel sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: ZPL şablonunda UTF-8 veya Code Page 1254 font seçim komutunun eksikliği.",
+      "Saha mühendisliği servis prosedürünü yürütün: ZPL başına ^CI28 komutunu ekleyerek UTF-8 kodlamasını aktif edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "^XA^CI28^XZ",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ş, Ğ, İ harfleri yerine soru işareti veya anlamsız simgeler çıkması.",
+    "derin_teknik_analiz": "ZPL şablonunda UTF-8 veya Code Page 1254 font seçim komutunun eksikliği. Çözüm: ZPL başına ^CI28 komutunu ekleyerek UTF-8 kodlamasını aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zt231 endüstriyel",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_15_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZT231 Endüstriyel: Medya Sensörü Siyah Çizgi (Black Mark) Algılayamama",
+    "hizli_adimlar": [
+      "Zebra ZT231 Endüstriyel sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Sensör tipinin Gap modunda kalması ve sensör gözünün siyah çizgi dışına bakması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Zebra Setup Utilities ile sensörü Black Mark yapın ve sensörü çizgi hizasına kaydırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "^XA^MNM^XZ",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Etiketin arkasındaki siyah çizgiye denk gelmeyip sürekli boş etiket vermesi.",
+    "derin_teknik_analiz": "Sensör tipinin Gap modunda kalması ve sensör gözünün siyah çizgi dışına bakması. Çözüm: Zebra Setup Utilities ile sensörü Black Mark yapın ve sensörü çizgi hizasına kaydırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zt231 endüstriyel",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_16_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZD888 Masaüstü: Ribon Kırışması (Ribbon Wrinkle) ve Çapraz Çizgi Hatası",
+    "hizli_adimlar": [
+      "Zebra ZD888 Masaüstü sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kafa baskı basıncının sağ ve sol tarafta dengesiz olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kafa üstü baskı ayar vidasını sağa sola çevirerek basıncı eşitleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "^XA~JC^XZ",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Etiket basılırken ribonun katlanıp diyagonal siyah çizgiler basması.",
+    "derin_teknik_analiz": "Kafa baskı basıncının sağ ve sol tarafta dengesiz olması. Çözüm: Kafa üstü baskı ayar vidasını sağa sola çevirerek basıncı eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zd888 masaüstü",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_17_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZD888 Masaüstü: Termal Kafa Aşırı Isınma (Head Overheat) Uyarısı",
+    "hizli_adimlar": [
+      "Zebra ZD888 Masaüstü sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Baskı hızının çok yüksek olması ve koyuluk (Darkness) ayarının maksimumda kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Koyuluğu 18 seviyesine düşürün ve hızı 4 IPS olarak sınırlayın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "~SD18",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yoğun seride yazıcının durup duraklat ışığının yanıp sönmesi.",
+    "derin_teknik_analiz": "Baskı hızının çok yüksek olması ve koyuluk (Darkness) ayarının maksimumda kalması. Çözüm: Koyuluğu 18 seviyesine düşürün ve hızı 4 IPS olarak sınırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zd888 masaüstü",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_18_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZD888 Masaüstü: ZPL Yazı Tipi Türkçe Karakter (CP1254) Baskı Bozulması",
+    "hizli_adimlar": [
+      "Zebra ZD888 Masaüstü sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: ZPL şablonunda UTF-8 veya Code Page 1254 font seçim komutunun eksikliği.",
+      "Saha mühendisliği servis prosedürünü yürütün: ZPL başına ^CI28 komutunu ekleyerek UTF-8 kodlamasını aktif edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "^XA^CI28^XZ",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ş, Ğ, İ harfleri yerine soru işareti veya anlamsız simgeler çıkması.",
+    "derin_teknik_analiz": "ZPL şablonunda UTF-8 veya Code Page 1254 font seçim komutunun eksikliği. Çözüm: ZPL başına ^CI28 komutunu ekleyerek UTF-8 kodlamasını aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zd888 masaüstü",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_19_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZD888 Masaüstü: Medya Sensörü Siyah Çizgi (Black Mark) Algılayamama",
+    "hizli_adimlar": [
+      "Zebra ZD888 Masaüstü sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Sensör tipinin Gap modunda kalması ve sensör gözünün siyah çizgi dışına bakması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Zebra Setup Utilities ile sensörü Black Mark yapın ve sensörü çizgi hizasına kaydırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "^XA^MNM^XZ",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Etiketin arkasındaki siyah çizgiye denk gelmeyip sürekli boş etiket vermesi.",
+    "derin_teknik_analiz": "Sensör tipinin Gap modunda kalması ve sensör gözünün siyah çizgi dışına bakması. Çözüm: Zebra Setup Utilities ile sensörü Black Mark yapın ve sensörü çizgi hizasına kaydırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zd888 masaüstü",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_20_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZT510 Ağır Sanayi: Ribon Kırışması (Ribbon Wrinkle) ve Çapraz Çizgi Hatası",
+    "hizli_adimlar": [
+      "Zebra ZT510 Ağır Sanayi sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kafa baskı basıncının sağ ve sol tarafta dengesiz olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kafa üstü baskı ayar vidasını sağa sola çevirerek basıncı eşitleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "^XA~JC^XZ",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Etiket basılırken ribonun katlanıp diyagonal siyah çizgiler basması.",
+    "derin_teknik_analiz": "Kafa baskı basıncının sağ ve sol tarafta dengesiz olması. Çözüm: Kafa üstü baskı ayar vidasını sağa sola çevirerek basıncı eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zt510 ağır sanayi",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_21_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZT510 Ağır Sanayi: Termal Kafa Aşırı Isınma (Head Overheat) Uyarısı",
+    "hizli_adimlar": [
+      "Zebra ZT510 Ağır Sanayi sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Baskı hızının çok yüksek olması ve koyuluk (Darkness) ayarının maksimumda kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Koyuluğu 18 seviyesine düşürün ve hızı 4 IPS olarak sınırlayın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "~SD18",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yoğun seride yazıcının durup duraklat ışığının yanıp sönmesi.",
+    "derin_teknik_analiz": "Baskı hızının çok yüksek olması ve koyuluk (Darkness) ayarının maksimumda kalması. Çözüm: Koyuluğu 18 seviyesine düşürün ve hızı 4 IPS olarak sınırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zt510 ağır sanayi",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_22_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZT510 Ağır Sanayi: ZPL Yazı Tipi Türkçe Karakter (CP1254) Baskı Bozulması",
+    "hizli_adimlar": [
+      "Zebra ZT510 Ağır Sanayi sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: ZPL şablonunda UTF-8 veya Code Page 1254 font seçim komutunun eksikliği.",
+      "Saha mühendisliği servis prosedürünü yürütün: ZPL başına ^CI28 komutunu ekleyerek UTF-8 kodlamasını aktif edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "^XA^CI28^XZ",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ş, Ğ, İ harfleri yerine soru işareti veya anlamsız simgeler çıkması.",
+    "derin_teknik_analiz": "ZPL şablonunda UTF-8 veya Code Page 1254 font seçim komutunun eksikliği. Çözüm: ZPL başına ^CI28 komutunu ekleyerek UTF-8 kodlamasını aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zt510 ağır sanayi",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_23_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZT510 Ağır Sanayi: Medya Sensörü Siyah Çizgi (Black Mark) Algılayamama",
+    "hizli_adimlar": [
+      "Zebra ZT510 Ağır Sanayi sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Sensör tipinin Gap modunda kalması ve sensör gözünün siyah çizgi dışına bakması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Zebra Setup Utilities ile sensörü Black Mark yapın ve sensörü çizgi hizasına kaydırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "^XA^MNM^XZ",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Etiketin arkasındaki siyah çizgiye denk gelmeyip sürekli boş etiket vermesi.",
+    "derin_teknik_analiz": "Sensör tipinin Gap modunda kalması ve sensör gözünün siyah çizgi dışına bakması. Çözüm: Zebra Setup Utilities ile sensörü Black Mark yapın ve sensörü çizgi hizasına kaydırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zt510 ağır sanayi",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_24_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZD410 2 İnç: Ribon Kırışması (Ribbon Wrinkle) ve Çapraz Çizgi Hatası",
+    "hizli_adimlar": [
+      "Zebra ZD410 2 İnç sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kafa baskı basıncının sağ ve sol tarafta dengesiz olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kafa üstü baskı ayar vidasını sağa sola çevirerek basıncı eşitleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "^XA~JC^XZ",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Etiket basılırken ribonun katlanıp diyagonal siyah çizgiler basması.",
+    "derin_teknik_analiz": "Kafa baskı basıncının sağ ve sol tarafta dengesiz olması. Çözüm: Kafa üstü baskı ayar vidasını sağa sola çevirerek basıncı eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zd410 2 i̇nç",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_25_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZD410 2 İnç: Termal Kafa Aşırı Isınma (Head Overheat) Uyarısı",
+    "hizli_adimlar": [
+      "Zebra ZD410 2 İnç sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Baskı hızının çok yüksek olması ve koyuluk (Darkness) ayarının maksimumda kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Koyuluğu 18 seviyesine düşürün ve hızı 4 IPS olarak sınırlayın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "~SD18",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yoğun seride yazıcının durup duraklat ışığının yanıp sönmesi.",
+    "derin_teknik_analiz": "Baskı hızının çok yüksek olması ve koyuluk (Darkness) ayarının maksimumda kalması. Çözüm: Koyuluğu 18 seviyesine düşürün ve hızı 4 IPS olarak sınırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zd410 2 i̇nç",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_26_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZD410 2 İnç: ZPL Yazı Tipi Türkçe Karakter (CP1254) Baskı Bozulması",
+    "hizli_adimlar": [
+      "Zebra ZD410 2 İnç sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: ZPL şablonunda UTF-8 veya Code Page 1254 font seçim komutunun eksikliği.",
+      "Saha mühendisliği servis prosedürünü yürütün: ZPL başına ^CI28 komutunu ekleyerek UTF-8 kodlamasını aktif edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "^XA^CI28^XZ",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ş, Ğ, İ harfleri yerine soru işareti veya anlamsız simgeler çıkması.",
+    "derin_teknik_analiz": "ZPL şablonunda UTF-8 veya Code Page 1254 font seçim komutunun eksikliği. Çözüm: ZPL başına ^CI28 komutunu ekleyerek UTF-8 kodlamasını aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zd410 2 i̇nç",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_27_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra ZD410 2 İnç: Medya Sensörü Siyah Çizgi (Black Mark) Algılayamama",
+    "hizli_adimlar": [
+      "Zebra ZD410 2 İnç sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Sensör tipinin Gap modunda kalması ve sensör gözünün siyah çizgi dışına bakması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Zebra Setup Utilities ile sensörü Black Mark yapın ve sensörü çizgi hizasına kaydırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "^XA^MNM^XZ",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Etiketin arkasındaki siyah çizgiye denk gelmeyip sürekli boş etiket vermesi.",
+    "derin_teknik_analiz": "Sensör tipinin Gap modunda kalması ve sensör gözünün siyah çizgi dışına bakması. Çözüm: Zebra Setup Utilities ile sensörü Black Mark yapın ve sensörü çizgi hizasına kaydırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra zd410 2 i̇nç",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_28_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra KR403 Kiosk: Ribon Kırışması (Ribbon Wrinkle) ve Çapraz Çizgi Hatası",
+    "hizli_adimlar": [
+      "Zebra KR403 Kiosk sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kafa baskı basıncının sağ ve sol tarafta dengesiz olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kafa üstü baskı ayar vidasını sağa sola çevirerek basıncı eşitleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "^XA~JC^XZ",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Etiket basılırken ribonun katlanıp diyagonal siyah çizgiler basması.",
+    "derin_teknik_analiz": "Kafa baskı basıncının sağ ve sol tarafta dengesiz olması. Çözüm: Kafa üstü baskı ayar vidasını sağa sola çevirerek basıncı eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra kr403 kiosk",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_29_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra KR403 Kiosk: Termal Kafa Aşırı Isınma (Head Overheat) Uyarısı",
+    "hizli_adimlar": [
+      "Zebra KR403 Kiosk sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Baskı hızının çok yüksek olması ve koyuluk (Darkness) ayarının maksimumda kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Koyuluğu 18 seviyesine düşürün ve hızı 4 IPS olarak sınırlayın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "~SD18",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yoğun seride yazıcının durup duraklat ışığının yanıp sönmesi.",
+    "derin_teknik_analiz": "Baskı hızının çok yüksek olması ve koyuluk (Darkness) ayarının maksimumda kalması. Çözüm: Koyuluğu 18 seviyesine düşürün ve hızı 4 IPS olarak sınırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra kr403 kiosk",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_30_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra KR403 Kiosk: ZPL Yazı Tipi Türkçe Karakter (CP1254) Baskı Bozulması",
+    "hizli_adimlar": [
+      "Zebra KR403 Kiosk sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: ZPL şablonunda UTF-8 veya Code Page 1254 font seçim komutunun eksikliği.",
+      "Saha mühendisliği servis prosedürünü yürütün: ZPL başına ^CI28 komutunu ekleyerek UTF-8 kodlamasını aktif edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "^XA^CI28^XZ",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ş, Ğ, İ harfleri yerine soru işareti veya anlamsız simgeler çıkması.",
+    "derin_teknik_analiz": "ZPL şablonunda UTF-8 veya Code Page 1254 font seçim komutunun eksikliği. Çözüm: ZPL başına ^CI28 komutunu ekleyerek UTF-8 kodlamasını aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra kr403 kiosk",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_31_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Zebra Barkod ZPL",
+    "baslik": "Zebra KR403 Kiosk: Medya Sensörü Siyah Çizgi (Black Mark) Algılayamama",
+    "hizli_adimlar": [
+      "Zebra KR403 Kiosk sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Sensör tipinin Gap modunda kalması ve sensör gözünün siyah çizgi dışına bakması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Zebra Setup Utilities ile sensörü Black Mark yapın ve sensörü çizgi hizasına kaydırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "^XA^MNM^XZ",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Etiketin arkasındaki siyah çizgiye denk gelmeyip sürekli boş etiket vermesi.",
+    "derin_teknik_analiz": "Sensör tipinin Gap modunda kalması ve sensör gözünün siyah çizgi dışına bakması. Çözüm: Zebra Setup Utilities ile sensörü Black Mark yapın ve sensörü çizgi hizasına kaydırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "zebra barkod zpl",
+      "zebra kr403 kiosk",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  }
+]

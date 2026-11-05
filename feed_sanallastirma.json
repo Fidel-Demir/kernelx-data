@@ -1,285 +1,3328 @@
-{
-  "versiyon": "2.5.0",
-  "toplam": 7,
-  "modul": "feed_sanallastirma.json",
-  "kayitlar": [
-    {
-      "id": "sanallastirma_00001",
-      "kategori": "Sanallaştırma",
-      "alt_kategori": "Proxmox VE Cluster Quorum Kaybı Kurtarma",
-      "baslik": "Proxmox VE Cluster Quorum Kaybı Kurtarma",
-      "hizli_adimlar": [
-        "Saha arıza/kurulum belirtisini teyit edin: İki düğümlü kümede düğümlerden biri çöktüğünde VM'lerin kilitlenmesini çözme.",
-        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
-        "Birincil komutu veya eylemi uygulayın: pvecm expected 1; pvecm status",
-        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Teşhis ve Uygulama Komutu",
-          "komut": "pvecm expected 1; pvecm status",
-          "aciklama": "Quorum çoğunluk şartını tek düğüme çeker."
-        }
-      ],
-      "temel_anlatim": "Proxmox VE Cluster Quorum Kaybı Kurtarma: İki düğümlü kümede düğümlerden biri çöktüğünde VM'lerin kilitlenmesini çözme. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
-      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. pvecm expected 1; pvecm status parametresi durumu optimize eder.",
-      "kenar_durumlar": [
-        {
-          "durum": "Zaman aşımı veya erişim engeli hatası",
-          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
-          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "sanallaştırma",
-        "pve",
-        "cluster",
-        "quorum",
-        "proxmox",
-        "sanallastirma"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "sanallastirma_00002",
-      "kategori": "Sanallaştırma",
-      "alt_kategori": "Proxmox PCIe GPU",
-      "baslik": "Proxmox PCIe GPU & Ağ Kartı Passthrough",
-      "hizli_adimlar": [
-        "Saha arıza/kurulum belirtisini teyit edin: Sanal makineye doğrudan ekran kartı veya fiber HBA bağlama (IOMMU).",
-        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
-        "Birincil komutu veya eylemi uygulayın: nano /etc/default/grub -> intel_iommu=on iommu=pt; update-grub",
-        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Teşhis ve Uygulama Komutu",
-          "komut": "nano /etc/default/grub -> intel_iommu=on iommu=pt; update-grub",
-          "aciklama": "IOMMU donanım izolasyonunu açar."
-        }
-      ],
-      "temel_anlatim": "Proxmox PCIe GPU & Ağ Kartı Passthrough: Sanal makineye doğrudan ekran kartı veya fiber HBA bağlama (IOMMU). Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
-      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. nano /etc/default/grub -> intel_iommu=on iommu=pt; update-grub parametresi durumu optimize eder.",
-      "kenar_durumlar": [
-        {
-          "durum": "Zaman aşımı veya erişim engeli hatası",
-          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
-          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "sanallaştırma",
-        "iommu",
-        "passthrough",
-        "pcie",
-        "gpu",
-        "proxmox",
-        "sanallastirma"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "sanallastirma_00003",
-      "kategori": "Sanallaştırma",
-      "alt_kategori": "VMware ESXi Kilitli .vmdk",
-      "baslik": "VMware ESXi Kilitli .vmdk & Snapshot Birleştirme",
-      "hizli_adimlar": [
-        "Saha arıza/kurulum belirtisini teyit edin: Snapshot şişmesi ve disk kilitlenmesi nedeniyle açılmayan VM onarımı.",
-        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
-        "Birincil komutu veya eylemi uygulayın: vmkfstools -D /vmfs/volumes/Datastore/VM/disk.vmdk; vim-cmd vmsvc/getallvms",
-        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Teşhis ve Uygulama Komutu",
-          "komut": "vmkfstools -D /vmfs/volumes/Datastore/VM/disk.vmdk; vim-cmd vmsvc/getallvms",
-          "aciklama": "Kilitli disk handle'ını tespit eder."
-        }
-      ],
-      "temel_anlatim": "VMware ESXi Kilitli .vmdk & Snapshot Birleştirme: Snapshot şişmesi ve disk kilitlenmesi nedeniyle açılmayan VM onarımı. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
-      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. vmkfstools -D /vmfs/volumes/Datastore/VM/disk.vmdk; vim-cmd vmsvc/getallvms parametresi durumu optimize eder.",
-      "kenar_durumlar": [
-        {
-          "durum": "Zaman aşımı veya erişim engeli hatası",
-          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
-          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "snapshot",
-        "sanallaştırma",
-        "esxi",
-        "vsphere",
-        "vmware",
-        "vmdk",
-        "sanallastirma"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "bsod_0x20001_hypervisor_error",
-      "kategori": "Mavi Ekran",
-      "alt_kategori": "Sanallaştırma & Hyper-V",
-      "baslik": "HYPERVISOR_ERROR (0x20001)",
-      "hizli_adimlar": [
-        "Sorun belirtisini teyit edin: Hyper-V veya WSL2 çekirdeğinde donanım sanallaştırma (VT-x/AMD-V) hatası.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak açın.",
-        "Sistem parametrelerini ve olay loglarını denetleyin.",
-        "Uygulanacak komut: powershell -Command \"Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V\"",
-        "Sonucu doğrulamak için servisi veya sistemi yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "HYPERVISOR_ERROR (0x20001)",
-          "komut": "powershell -Command \"Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V\"",
-          "aciklama": "Hyper-V durumunu listeler."
-        }
-      ],
-      "temel_anlatim": "HYPERVISOR_ERROR (0x20001), Mavi Ekran altyapısında hyper-v veya wsl2 çekirdeğinde donanım sanallaştırma (vt-x/amd-v) hatası.",
-      "derin_teknik_analiz": "HYPERVISOR_ERROR (0x20001) süreci, işletim sistemi çekirdeği ve ilgili donanım/ağ protokolü düzeyinde yürütülür. Hyper-V veya WSL2 çekirdeğinde donanım sanallaştırma (VT-x/AMD-V) hatası. Kalıcı çözüm için sistem günlükleri ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komut sonuç vermiyor veya erişim reddedildi",
-          "neden": "Kullanıcı Yönetici yetkilerine sahip değildir veya dosya kilitlidir.",
-          "cozum": "Yönetici olarak çalıştırın veya Kurtarma Ortamında (WinRE) deneyin."
-        }
-      ],
-      "etiketler": [
-        "hypervisor_error (0x20001)",
-        "mavi ekran",
-        "sanallaştırma & hyper-v",
-        "ariza",
-        "onarim"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "vm_esxi_mgmt_network_restore",
-      "kategori": "Sanallaştırma",
-      "alt_kategori": "VMware ESXi",
-      "baslik": "VMware ESXi Yönetim Ağı (Management Network) Erişimi Kurtarma",
-      "hizli_adimlar": [
-        "Fiziksel sunucu konsoluna (DCUI) monitör veya iLO/iDRAC ile bağlan.",
-        "F2 ile giriş yapıp 'Restart Management Network' seç.",
-        "IP ve VLAN etiketini doğrula."
-      ],
-      "komutlar": [
-        {
-          "etiket": "ESXi Yönetim Servislerini Konsoldan Yeniden Başlat",
-          "komut": "services.sh restart",
-          "aciklama": "hostd ve vpxa yönetim servislerini yeniden başlatır."
-        },
-        {
-          "etiket": "VLAN ID ve vSwitch Ayarını Gör",
-          "komut": "esxcli network vswitch standard list",
-          "aciklama": "vSwitch0 ve vmk0 yönetim portunun fiziksel NIC durumunu listeler."
-        }
-      ],
-      "temel_anlatim": "vSphere Client veya web arayüzü yanıt vermediğinde hostd servisi çökmüş veya VLAN etiketi yanlış girilmiş olabilir. DCUI konsolundan ağ yeniden başlatılır.",
-      "derin_teknik_analiz": "ESXi mimarisinde hostd ana yerel yönetim arayüzüdür. hostd kilitlendiğinde sanal makineler çalışmaya devam eder ancak vCenter host'u 'Not Responding' durumuna düşürür.",
-      "kenar_durumlar": [
-        {
-          "durum": "Sanal makineler çalışıyor ama vCenter kopuk",
-          "neden": "vpxa ajanı kilitlenmiştir.",
-          "cozum": "/etc/init.d/vpxa restart komutunu SSH üzerinden çalıştırın."
-        }
-      ],
-      "etiketler": [
-        "vmware",
-        "esxi",
-        "hostd",
-        "management network",
-        "dcui"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "vm_proxmox_locked_snapshot",
-      "kategori": "Sanallaştırma",
-      "alt_kategori": "Proxmox VE",
-      "baslik": "Proxmox VM 'Locked (backup/snapshot)' Durumunu Açma",
-      "hizli_adimlar": [
-        "Proxmox shell konsoluna gir.",
-        "Kilitli sanal makine ID'sini (VMID) belirle.",
-        "qm unlock <vmid> komutuyla kilidi kaldır."
-      ],
-      "komutlar": [
-        {
-          "etiket": "VM Kilidini Kaldır",
-          "komut": "qm unlock 100",
-          "aciklama": "100 numaralı sanal makinenin backup veya snapshot kilidini çözer."
-        },
-        {
-          "etiket": "Zorla Kapat (Stop)",
-          "komut": "qm stop 100 --skiplock 1",
-          "aciklama": "Askıda kalan VM'i kilit kontrolünü atlayarak güvenle durdurur."
-        }
-      ],
-      "temel_anlatim": "Yedekleme veya anlık görüntü (snapshot) sırasında sunucu yeniden başlarsa veya NFS/SMB depolama koparsa VM konfigürasyonu kilitli kalır ve açılmaz.",
-      "derin_teknik_analiz": "Proxmox, /etc/pve/qemu-server/<vmid>.conf dosyasında 'lock: backup' veya 'lock: snapshot' bayrağı tutar. qm unlock bu satırı konfigürasyondan güvenle temizler.",
-      "kenar_durumlar": [
-        {
-          "durum": "qm unlock sonrası hala task running diyorsa",
-          "neden": "Arka planda kopuk vzdump süreci asılı kalmıştır.",
-          "cozum": "killall vzdump veya pkill -9 -f vzdump komutunu çalıştırın."
-        }
-      ],
-      "etiketler": [
-        "proxmox",
-        "pve",
-        "qm unlock",
-        "locked backup",
-        "snapshot"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "virt_esxi_disk_locked_by_another_vm",
-      "kategori": "Sanallaştırma",
-      "alt_kategori": "VMware ESXi & vSphere",
-      "baslik": "VMware ESXi Hostunda 'Disk Locked by Another Host/VM' ve Bozuk .vmdk.lck Kilidini Kaldırma",
-      "hizli_adimlar": [
-        "ESXi hostuna SSH ile root olarak bağlanın.",
-        "VM'in bulunduğu datastore dizinine gidin (`cd /vmfs/volumes/DatastoreX/SanalSunucu`).",
-        "Kilitli diski hangi işlemcinin veya hostun tuttuğunu `vmkfstools -D SanalDisk.vmdk` ile inceleyin.",
-        "Eğer VM hiçbir hostta çalışmıyorsa askıda kalan `.lck` dosyasını tespit edin.",
-        "`services.sh restart` komutu ile ESXi yönetim servislerini yenileyin ve VM'i tekrar açın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "VMFS Kilit Durumunu İncele",
-          "komut": "vmkfstools -D /vmfs/volumes/Datastore1/VM1/VM1.vmdk",
-          "aciklama": "Diski tutan MAC adresini ve kilit sahibini gösterir."
-        },
-        {
-          "etiket": "Çalışan VM Süreçlerini Listele",
-          "komut": "esxcli vm process list",
-          "aciklama": "Donmuş sanal makinelerin World ID'lerini listeler."
-        },
-        {
-          "etiket": "Kilitli VM Sürecini Zorla Kapat",
-          "komut": "esxcli vm process kill --type=force --world-id=123456",
-          "aciklama": "Kilit tutan askıdaki VM sürecini sonlandırır."
-        }
-      ],
-      "temel_anlatim": "Sanal makine başlatılmak istendiğinde 'Failed to lock the file. Cannot open the disk' hatası vermesi ve VM'in açılmaması.",
-      "derin_teknik_analiz": "VMFS küme dosya sistemi, aynı VMDK diskine birden fazla hostun aynı anda yazıp veriyi bozmasını önlemek için disk dosyasıyla aynı dizinde gizli `.vmdk.lck` kilit dosyası oluşturur. Host aniden çöktüğünde veya vMotion yarıda kaldığında kilit havada asılı kalır.",
-      "kenar_durumlar": [
-        {
-          "durum": "vmkfstools çıktısında kilit sahibinin MAC adresi başka bir ESXi hostu gösteriyor",
-          "neden": "Diğer host çökmüş ama HA kümesi kilidi henüz serbest bırakmamıştır.",
-          "cozum": "vCenter üzerinden o hostu 'Enter Maintenance Mode' yapın veya hostu yeniden başlatın."
-        }
-      ],
-      "etiketler": [
-        "sanallastirma",
-        "vmware",
-        "esxi",
-        "vmdk-lck",
-        "disk-locked",
-        "vmfs"
-      ],
-      "oncelik": 1
-    }
-  ]
-}
+[
+  {
+    "id": "sanallastirma_00001",
+    "kategori": "Sanallaştırma",
+    "alt_kategori": "Proxmox VE Cluster Quorum Kaybı Kurtarma",
+    "baslik": "Proxmox VE Cluster Quorum Kaybı Kurtarma",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: İki düğümlü kümede düğümlerden biri çöktüğünde VM'lerin kilitlenmesini çözme.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: pvecm expected 1; pvecm status",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "pvecm expected 1; pvecm status",
+        "aciklama": "Quorum çoğunluk şartını tek düğüme çeker."
+      }
+    ],
+    "temel_anlatim": "Proxmox VE Cluster Quorum Kaybı Kurtarma: İki düğümlü kümede düğümlerden biri çöktüğünde VM'lerin kilitlenmesini çözme. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. pvecm expected 1; pvecm status parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "sanallaştırma pve cluster quorum proxmox sanallastirma"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "sanallastirma_00002",
+    "kategori": "Sanallaştırma",
+    "alt_kategori": "Proxmox PCIe GPU",
+    "baslik": "Proxmox PCIe GPU & Ağ Kartı Passthrough",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: Sanal makineye doğrudan ekran kartı veya fiber HBA bağlama (IOMMU).",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: nano /etc/default/grub -> intel_iommu=on iommu=pt; update-grub",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "nano /etc/default/grub -> intel_iommu=on iommu=pt; update-grub",
+        "aciklama": "IOMMU donanım izolasyonunu açar."
+      }
+    ],
+    "temel_anlatim": "Proxmox PCIe GPU & Ağ Kartı Passthrough: Sanal makineye doğrudan ekran kartı veya fiber HBA bağlama (IOMMU). Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. nano /etc/default/grub -> intel_iommu=on iommu=pt; update-grub parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "sanallaştırma iommu passthrough pcie gpu proxmox sanallastirma"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "sanallastirma_00003",
+    "kategori": "Sanallaştırma",
+    "alt_kategori": "VMware ESXi Kilitli .vmdk",
+    "baslik": "VMware ESXi Kilitli .vmdk & Snapshot Birleştirme",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: Snapshot şişmesi ve disk kilitlenmesi nedeniyle açılmayan VM onarımı.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: vmkfstools -D /vmfs/volumes/Datastore/VM/disk.vmdk; vim-cmd vmsvc/getallvms",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "vmkfstools -D /vmfs/volumes/Datastore/VM/disk.vmdk; vim-cmd vmsvc/getallvms",
+        "aciklama": "Kilitli disk handle'ını tespit eder."
+      }
+    ],
+    "temel_anlatim": "VMware ESXi Kilitli .vmdk & Snapshot Birleştirme: Snapshot şişmesi ve disk kilitlenmesi nedeniyle açılmayan VM onarımı. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. vmkfstools -D /vmfs/volumes/Datastore/VM/disk.vmdk; vim-cmd vmsvc/getallvms parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "snapshot sanallaştırma esxi vsphere vmware vmdk sanallastirma"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "bsod_0x20001_hypervisor_error",
+    "kategori": "Mavi Ekran",
+    "alt_kategori": "Sanallaştırma & Hyper-V",
+    "baslik": "HYPERVISOR_ERROR (0x20001)",
+    "hizli_adimlar": [
+      "Sorun belirtisini teyit edin: Hyper-V veya WSL2 çekirdeğinde donanım sanallaştırma (VT-x/AMD-V) hatası.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak açın.",
+      "Sistem parametrelerini ve olay loglarını denetleyin.",
+      "Uygulanacak komut: powershell -Command \"Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V\"",
+      "Sonucu doğrulamak için servisi veya sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "HYPERVISOR_ERROR (0x20001)",
+        "komut": "powershell -Command \"Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V\"",
+        "aciklama": "Hyper-V durumunu listeler."
+      }
+    ],
+    "temel_anlatim": "HYPERVISOR_ERROR (0x20001), Mavi Ekran altyapısında hyper-v veya wsl2 çekirdeğinde donanım sanallaştırma (vt-x/amd-v) hatası.",
+    "derin_teknik_analiz": "HYPERVISOR_ERROR (0x20001) süreci, işletim sistemi çekirdeği ve ilgili donanım/ağ protokolü düzeyinde yürütülür. Hyper-V veya WSL2 çekirdeğinde donanım sanallaştırma (VT-x/AMD-V) hatası. Kalıcı çözüm için sistem günlükleri ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komut sonuç vermiyor veya erişim reddedildi",
+        "neden": "Kullanıcı Yönetici yetkilerine sahip değildir veya dosya kilitlidir.",
+        "cozum": "Yönetici olarak çalıştırın veya Kurtarma Ortamında (WinRE) deneyin."
+      }
+    ],
+    "etiketler": [
+      "hypervisor_error (0x20001) mavi ekran sanallaştırma & hyper-v ariza onarim"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "vm_esxi_mgmt_network_restore",
+    "kategori": "Sanallaştırma",
+    "alt_kategori": "VMware ESXi",
+    "baslik": "VMware ESXi Yönetim Ağı (Management Network) Erişimi Kurtarma",
+    "hizli_adimlar": [
+      "Fiziksel sunucu konsoluna (DCUI) monitör veya iLO/iDRAC ile bağlan.",
+      "F2 ile giriş yapıp 'Restart Management Network' seç.",
+      "IP ve VLAN etiketini doğrula."
+    ],
+    "komutlar": [
+      {
+        "etiket": "ESXi Yönetim Servislerini Konsoldan Yeniden Başlat",
+        "komut": "services.sh restart",
+        "aciklama": "hostd ve vpxa yönetim servislerini yeniden başlatır."
+      },
+      {
+        "etiket": "VLAN ID ve vSwitch Ayarını Gör",
+        "komut": "esxcli network vswitch standard list",
+        "aciklama": "vSwitch0 ve vmk0 yönetim portunun fiziksel NIC durumunu listeler."
+      }
+    ],
+    "temel_anlatim": "vSphere Client veya web arayüzü yanıt vermediğinde hostd servisi çökmüş veya VLAN etiketi yanlış girilmiş olabilir. DCUI konsolundan ağ yeniden başlatılır.",
+    "derin_teknik_analiz": "ESXi mimarisinde hostd ana yerel yönetim arayüzüdür. hostd kilitlendiğinde sanal makineler çalışmaya devam eder ancak vCenter host'u 'Not Responding' durumuna düşürür.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sanal makineler çalışıyor ama vCenter kopuk",
+        "neden": "vpxa ajanı kilitlenmiştir.",
+        "cozum": "/etc/init.d/vpxa restart komutunu SSH üzerinden çalıştırın."
+      }
+    ],
+    "etiketler": [
+      "vmware esxi hostd management network dcui"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "vm_proxmox_locked_snapshot",
+    "kategori": "Sanallaştırma",
+    "alt_kategori": "Proxmox VE",
+    "baslik": "Proxmox VM 'Locked (backup/snapshot)' Durumunu Açma",
+    "hizli_adimlar": [
+      "Proxmox shell konsoluna gir.",
+      "Kilitli sanal makine ID'sini (VMID) belirle.",
+      "qm unlock <vmid> komutuyla kilidi kaldır."
+    ],
+    "komutlar": [
+      {
+        "etiket": "VM Kilidini Kaldır",
+        "komut": "qm unlock 100",
+        "aciklama": "100 numaralı sanal makinenin backup veya snapshot kilidini çözer."
+      },
+      {
+        "etiket": "Zorla Kapat (Stop)",
+        "komut": "qm stop 100 --skiplock 1",
+        "aciklama": "Askıda kalan VM'i kilit kontrolünü atlayarak güvenle durdurur."
+      }
+    ],
+    "temel_anlatim": "Yedekleme veya anlık görüntü (snapshot) sırasında sunucu yeniden başlarsa veya NFS/SMB depolama koparsa VM konfigürasyonu kilitli kalır ve açılmaz.",
+    "derin_teknik_analiz": "Proxmox, /etc/pve/qemu-server/<vmid>.conf dosyasında 'lock: backup' veya 'lock: snapshot' bayrağı tutar. qm unlock bu satırı konfigürasyondan güvenle temizler.",
+    "kenar_durumlar": [
+      {
+        "durum": "qm unlock sonrası hala task running diyorsa",
+        "neden": "Arka planda kopuk vzdump süreci asılı kalmıştır.",
+        "cozum": "killall vzdump veya pkill -9 -f vzdump komutunu çalıştırın."
+      }
+    ],
+    "etiketler": [
+      "proxmox pve qm unlock locked backup snapshot"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "virt_esxi_disk_locked_by_another_vm",
+    "kategori": "Sanallaştırma",
+    "alt_kategori": "VMware ESXi & vSphere",
+    "baslik": "VMware ESXi Hostunda 'Disk Locked by Another Host/VM' ve Bozuk .vmdk.lck Kilidini Kaldırma",
+    "hizli_adimlar": [
+      "ESXi hostuna SSH ile root olarak bağlanın.",
+      "VM'in bulunduğu datastore dizinine gidin (`cd /vmfs/volumes/DatastoreX/SanalSunucu`).",
+      "Kilitli diski hangi işlemcinin veya hostun tuttuğunu `vmkfstools -D SanalDisk.vmdk` ile inceleyin.",
+      "Eğer VM hiçbir hostta çalışmıyorsa askıda kalan `.lck` dosyasını tespit edin.",
+      "`services.sh restart` komutu ile ESXi yönetim servislerini yenileyin ve VM'i tekrar açın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "VMFS Kilit Durumunu İncele",
+        "komut": "vmkfstools -D /vmfs/volumes/Datastore1/VM1/VM1.vmdk",
+        "aciklama": "Diski tutan MAC adresini ve kilit sahibini gösterir."
+      },
+      {
+        "etiket": "Çalışan VM Süreçlerini Listele",
+        "komut": "esxcli vm process list",
+        "aciklama": "Donmuş sanal makinelerin World ID'lerini listeler."
+      },
+      {
+        "etiket": "Kilitli VM Sürecini Zorla Kapat",
+        "komut": "esxcli vm process kill --type=force --world-id=123456",
+        "aciklama": "Kilit tutan askıdaki VM sürecini sonlandırır."
+      }
+    ],
+    "temel_anlatim": "Sanal makine başlatılmak istendiğinde 'Failed to lock the file. Cannot open the disk' hatası vermesi ve VM'in açılmaması.",
+    "derin_teknik_analiz": "VMFS küme dosya sistemi, aynı VMDK diskine birden fazla hostun aynı anda yazıp veriyi bozmasını önlemek için disk dosyasıyla aynı dizinde gizli `.vmdk.lck` kilit dosyası oluşturur. Host aniden çöktüğünde veya vMotion yarıda kaldığında kilit havada asılı kalır.",
+    "kenar_durumlar": [
+      {
+        "durum": "vmkfstools çıktısında kilit sahibinin MAC adresi başka bir ESXi hostu gösteriyor",
+        "neden": "Diğer host çökmüş ama HA kümesi kilidi henüz serbest bırakmamıştır.",
+        "cozum": "vCenter üzerinden o hostu 'Enter Maintenance Mode' yapın veya hostu yeniden başlatın."
+      }
+    ],
+    "etiketler": [
+      "sanallastirma vmware esxi vmdk-lck disk-locked vmfs"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "virt_mat_18",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "VMware ESXi: 'Lock Heartbeat Lost' ve Kilitlenen Sanal Makinenin Kurtarılması",
+    "hizli_adimlar": [
+      "ESXi hostuna SSH ile root olarak bağlanın.",
+      "'esxcli vm process list' komutuyla kilitli makinenin 'World ID' numarasını öğrenin.",
+      "'esxcli vm process kill --type=force --world-id=[WORLD_ID]' komutuyla işlemi sonlandırın.",
+      "VM dizinine gidip 'vmkfstools -D [DISK].vmdk' ile dosya üzerindeki kilidi inceleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Kilitli VM Sürecini Öldür",
+        "komut": "esxcli vm process kill -t force -w [WORLD_ID]",
+        "aciklama": "ESXi çekirdeğinde donan sanal makine sürecini zorla sonlandırır."
+      }
+    ],
+    "temel_anlatim": "ESXi üzerinde bir sanal makinenin yanıt vermemesi, kapatılamaması ve 'Cannot power off' hatası vermesi.",
+    "derin_teknik_analiz": "Kök Neden: VMFS dosya sistemi üzerinde sanal diskin .vmdk kilit dosyasının (lock file) başka bir hostta askıda kalması. Saha Mühendisliği: SSH üzerinden vmkfstools ve esxcli vm process kill komutlarıyla kilidi kırın ve VM'i serbest bırakın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Komut yanıt vermiyor",
+        "neden": "ESXi host yönetim ajanları (hostd / vpxa) kilitlenmiştir.",
+        "cozum": "/etc/init.d/hostd restart ve /etc/init.d/vpxa restart çalıştırın."
+      }
+    ],
+    "etiketler": [
+      "sanallastirma",
+      "vmware",
+      "esxi",
+      "vmfs-lock",
+      "world-id",
+      "vmdk"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_60",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "VMware ESXi PSOD (Purple Screen of Death) Çekirdek Çökme Analizi",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: esxcfg-dumppart -L",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "esxcfg-dumppart -L",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "VMware ESXi PSOD (Purple Screen of Death) Çekirdek Çökme Analizi ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: esxcfg-dumppart -L",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "sanallaştırma",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_61",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "ESXi Datastore 'Cannot delete file' ve Kilitli Snapshot Zinciri Onarımı",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: vmkfstools -D /vmfs/volumes/datastore1/vm/vm-000001.vmdk",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "vmkfstools -D /vmfs/volumes/datastore1/vm/vm-000001.vmdk",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "ESXi Datastore 'Cannot delete file' ve Kilitli Snapshot Zinciri Onarımı ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: vmkfstools -D /vmfs/volumes/datastore1/vm/vm-000001.vmdk",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "sanallaştırma",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_62",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "vCenter Server Appliance (VCSA) 6.7/7.0/8.0 Root Şifresi Sıfırlama",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: grub menu -> rw init=/bin/bash -> passwd root",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "grub menu -> rw init=/bin/bash -> passwd root",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "vCenter Server Appliance (VCSA) 6.7/7.0/8.0 Root Şifresi Sıfırlama ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: grub menu -> rw init=/bin/bash -> passwd root",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "sanallaştırma",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_63",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Proxmox local-lvm Thin Pool Alanının %100 Dolup VM'lerin Paused Olması",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: lvextend -L +20G /dev/pve/data",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "lvextend -L +20G /dev/pve/data",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Proxmox local-lvm Thin Pool Alanının %100 Dolup VM'lerin Paused Olması ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: lvextend -L +20G /dev/pve/data",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "sanallaştırma",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_64",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Hyper-V Sanal Disk (VHDX) Boyutunu Canlı Genişletme Prosedürü",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: Resize-VHD -Path C:\\VM\\disk.vhdx -SizeBytes 200GB",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "Resize-VHD -Path C:\\VM\\disk.vhdx -SizeBytes 200GB",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Hyper-V Sanal Disk (VHDX) Boyutunu Canlı Genişletme Prosedürü ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: Resize-VHD -Path C:\\VM\\disk.vhdx -SizeBytes 200GB",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "sanallaştırma",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_65",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "VMware Tools VSS Quiesced Snapshot Başarısızlığı",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: Get-Service -Name \"VMTools\"",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "Get-Service -Name \"VMTools\"",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "VMware Tools VSS Quiesced Snapshot Başarısızlığı ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: Get-Service -Name \"VMTools\"",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "sanallaştırma",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_66",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "ESXi vSwitch Port Grubu VLAN ID 4095 (VLAN Trunking) Yapılandırması",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: esxcli network vswitch standard portgroup set -p \"TrunkGroup\" -v 4095",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "esxcli network vswitch standard portgroup set -p \"TrunkGroup\" -v 4095",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "ESXi vSwitch Port Grubu VLAN ID 4095 (VLAN Trunking) Yapılandırması ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: esxcli network vswitch standard portgroup set -p \"TrunkGroup\" -v 4095",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "sanallaştırma",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_67",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Proxmox Corosync Küme Ağı Gecikmesi ve Düğümün Kendini Yeniden Başlatması",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: pvecm status",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "pvecm status",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Proxmox Corosync Küme Ağı Gecikmesi ve Düğümün Kendini Yeniden Başlatması ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: pvecm status",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "sanallaştırma",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_68",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "KVM / QEMU QCOW2 Disk İmajının RAW Formata Dönüştürülmesi",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: qemu-img convert -f qcow2 -O raw vm.qcow2 vm.raw",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "qemu-img convert -f qcow2 -O raw vm.qcow2 vm.raw",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "KVM / QEMU QCOW2 Disk İmajının RAW Formata Dönüştürülmesi ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: qemu-img convert -f qcow2 -O raw vm.qcow2 vm.raw",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "sanallaştırma",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_69",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "SR-IOV Ağ Adaptörü Sanal Fonksiyonu (VF) Doğrudan Atama Arızası",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: lspci -nn | grep -i ethernet",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "lspci -nn | grep -i ethernet",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "SR-IOV Ağ Adaptörü Sanal Fonksiyonu (VF) Doğrudan Atama Arızası ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: lspci -nn | grep -i ethernet",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "sanallaştırma",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_416",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "VMware ESXi 8.0 Update 2: vMotion Canlı Taşıma Sırasında CPU EVC Uyumluluk Hatası",
+    "hizli_adimlar": [
+      "VMware ESXi 8.0 Update 2 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İki fiziksel host arasındaki CPU komut setlerinin (AVX-512) farklı olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: vCenter kümesinde Enhanced vMotion Compatibility (EVC) modunu aktif edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Get-VMHost | Select Name, HyperthreadingActive",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal makinenin yeni nesil sunucuya taşınırken donması veya reddedilmesi.",
+    "derin_teknik_analiz": "İki fiziksel host arasındaki CPU komut setlerinin (AVX-512) farklı olması. Çözüm: vCenter kümesinde Enhanced vMotion Compatibility (EVC) modunu aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "vmware esxi 8.0 update 2",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_417",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "VMware ESXi 8.0 Update 2: Proxmox Ceph Depolama Havuzunda OSD Kapanması (OSD Down)",
+    "hizli_adimlar": [
+      "VMware ESXi 8.0 Update 2 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: NVMe SSD diskin I/O gecikmesinin 500ms üzerine çıkması sonucu Ceph monitörünün diski atması.",
+      "Saha mühendisliği servis prosedürünü yürütün: ceph osd status ile hatalı OSD'yi bulun ve restart ceph-osd@[ID] komutunu çalıştırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ceph health detail",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal disklerin yavaşlaması ve Ceph durumunun WARNING vermesi.",
+    "derin_teknik_analiz": "NVMe SSD diskin I/O gecikmesinin 500ms üzerine çıkması sonucu Ceph monitörünün diski atması. Çözüm: ceph osd status ile hatalı OSD'yi bulun ve restart ceph-osd@[ID] komutunu çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "vmware esxi 8.0 update 2",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_418",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "VMware ESXi 8.0 Update 2: Hyper-V Checkpoint Birleştirme Sırasında Disk Doluluk Kilitlenmesi",
+    "hizli_adimlar": [
+      "VMware ESXi 8.0 Update 2 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: AVHDX fark diskinin birleştirilirken geçici olarak iki kat alan tüketmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Farklı bir LUN veya harici NVMe bağlayarak sanal diski Move Virtual Hard Disk ile taşıyın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Get-VMSnapshot -VMName \"SQL\"",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Birleştirme işlemi %90'da iken ana diskin dolup makinenin Paused olması.",
+    "derin_teknik_analiz": "AVHDX fark diskinin birleştirilirken geçici olarak iki kat alan tüketmesi. Çözüm: Farklı bir LUN veya harici NVMe bağlayarak sanal diski Move Virtual Hard Disk ile taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "vmware esxi 8.0 update 2",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_419",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "VMware ESXi 8.0 Update 2: Sanal Makine Ağ Kartı (vmxnet3) Paket Düşmesi ve RSS Ayarı",
+    "hizli_adimlar": [
+      "VMware ESXi 8.0 Update 2 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İşletim sistemi içinde Receive Side Scaling (RSS) kuyruk sayısının 1 olarak kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Windows misafir içinde netsh int tcp set global rss=enabled yapın ve vmxnet3 kuyruk sayısını 4 yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "netstat -e",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "10G sanal arayüzde yüksek bant genişliğinde TCP paket kaybı.",
+    "derin_teknik_analiz": "İşletim sistemi içinde Receive Side Scaling (RSS) kuyruk sayısının 1 olarak kalması. Çözüm: Windows misafir içinde netsh int tcp set global rss=enabled yapın ve vmxnet3 kuyruk sayısını 4 yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "vmware esxi 8.0 update 2",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_420",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Proxmox VE 8.2 Cluster: vMotion Canlı Taşıma Sırasında CPU EVC Uyumluluk Hatası",
+    "hizli_adimlar": [
+      "Proxmox VE 8.2 Cluster sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İki fiziksel host arasındaki CPU komut setlerinin (AVX-512) farklı olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: vCenter kümesinde Enhanced vMotion Compatibility (EVC) modunu aktif edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Get-VMHost | Select Name, HyperthreadingActive",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal makinenin yeni nesil sunucuya taşınırken donması veya reddedilmesi.",
+    "derin_teknik_analiz": "İki fiziksel host arasındaki CPU komut setlerinin (AVX-512) farklı olması. Çözüm: vCenter kümesinde Enhanced vMotion Compatibility (EVC) modunu aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "proxmox ve 8.2 cluster",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_421",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Proxmox VE 8.2 Cluster: Proxmox Ceph Depolama Havuzunda OSD Kapanması (OSD Down)",
+    "hizli_adimlar": [
+      "Proxmox VE 8.2 Cluster sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: NVMe SSD diskin I/O gecikmesinin 500ms üzerine çıkması sonucu Ceph monitörünün diski atması.",
+      "Saha mühendisliği servis prosedürünü yürütün: ceph osd status ile hatalı OSD'yi bulun ve restart ceph-osd@[ID] komutunu çalıştırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ceph health detail",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal disklerin yavaşlaması ve Ceph durumunun WARNING vermesi.",
+    "derin_teknik_analiz": "NVMe SSD diskin I/O gecikmesinin 500ms üzerine çıkması sonucu Ceph monitörünün diski atması. Çözüm: ceph osd status ile hatalı OSD'yi bulun ve restart ceph-osd@[ID] komutunu çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "proxmox ve 8.2 cluster",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_422",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Proxmox VE 8.2 Cluster: Hyper-V Checkpoint Birleştirme Sırasında Disk Doluluk Kilitlenmesi",
+    "hizli_adimlar": [
+      "Proxmox VE 8.2 Cluster sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: AVHDX fark diskinin birleştirilirken geçici olarak iki kat alan tüketmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Farklı bir LUN veya harici NVMe bağlayarak sanal diski Move Virtual Hard Disk ile taşıyın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Get-VMSnapshot -VMName \"SQL\"",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Birleştirme işlemi %90'da iken ana diskin dolup makinenin Paused olması.",
+    "derin_teknik_analiz": "AVHDX fark diskinin birleştirilirken geçici olarak iki kat alan tüketmesi. Çözüm: Farklı bir LUN veya harici NVMe bağlayarak sanal diski Move Virtual Hard Disk ile taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "proxmox ve 8.2 cluster",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_423",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Proxmox VE 8.2 Cluster: Sanal Makine Ağ Kartı (vmxnet3) Paket Düşmesi ve RSS Ayarı",
+    "hizli_adimlar": [
+      "Proxmox VE 8.2 Cluster sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İşletim sistemi içinde Receive Side Scaling (RSS) kuyruk sayısının 1 olarak kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Windows misafir içinde netsh int tcp set global rss=enabled yapın ve vmxnet3 kuyruk sayısını 4 yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "netstat -e",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "10G sanal arayüzde yüksek bant genişliğinde TCP paket kaybı.",
+    "derin_teknik_analiz": "İşletim sistemi içinde Receive Side Scaling (RSS) kuyruk sayısının 1 olarak kalması. Çözüm: Windows misafir içinde netsh int tcp set global rss=enabled yapın ve vmxnet3 kuyruk sayısını 4 yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "proxmox ve 8.2 cluster",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_424",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Microsoft Hyper-V Server 2022: vMotion Canlı Taşıma Sırasında CPU EVC Uyumluluk Hatası",
+    "hizli_adimlar": [
+      "Microsoft Hyper-V Server 2022 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İki fiziksel host arasındaki CPU komut setlerinin (AVX-512) farklı olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: vCenter kümesinde Enhanced vMotion Compatibility (EVC) modunu aktif edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Get-VMHost | Select Name, HyperthreadingActive",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal makinenin yeni nesil sunucuya taşınırken donması veya reddedilmesi.",
+    "derin_teknik_analiz": "İki fiziksel host arasındaki CPU komut setlerinin (AVX-512) farklı olması. Çözüm: vCenter kümesinde Enhanced vMotion Compatibility (EVC) modunu aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "microsoft hyper-v server 2022",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_425",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Microsoft Hyper-V Server 2022: Proxmox Ceph Depolama Havuzunda OSD Kapanması (OSD Down)",
+    "hizli_adimlar": [
+      "Microsoft Hyper-V Server 2022 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: NVMe SSD diskin I/O gecikmesinin 500ms üzerine çıkması sonucu Ceph monitörünün diski atması.",
+      "Saha mühendisliği servis prosedürünü yürütün: ceph osd status ile hatalı OSD'yi bulun ve restart ceph-osd@[ID] komutunu çalıştırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ceph health detail",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal disklerin yavaşlaması ve Ceph durumunun WARNING vermesi.",
+    "derin_teknik_analiz": "NVMe SSD diskin I/O gecikmesinin 500ms üzerine çıkması sonucu Ceph monitörünün diski atması. Çözüm: ceph osd status ile hatalı OSD'yi bulun ve restart ceph-osd@[ID] komutunu çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "microsoft hyper-v server 2022",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_426",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Microsoft Hyper-V Server 2022: Hyper-V Checkpoint Birleştirme Sırasında Disk Doluluk Kilitlenmesi",
+    "hizli_adimlar": [
+      "Microsoft Hyper-V Server 2022 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: AVHDX fark diskinin birleştirilirken geçici olarak iki kat alan tüketmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Farklı bir LUN veya harici NVMe bağlayarak sanal diski Move Virtual Hard Disk ile taşıyın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Get-VMSnapshot -VMName \"SQL\"",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Birleştirme işlemi %90'da iken ana diskin dolup makinenin Paused olması.",
+    "derin_teknik_analiz": "AVHDX fark diskinin birleştirilirken geçici olarak iki kat alan tüketmesi. Çözüm: Farklı bir LUN veya harici NVMe bağlayarak sanal diski Move Virtual Hard Disk ile taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "microsoft hyper-v server 2022",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_427",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Microsoft Hyper-V Server 2022: Sanal Makine Ağ Kartı (vmxnet3) Paket Düşmesi ve RSS Ayarı",
+    "hizli_adimlar": [
+      "Microsoft Hyper-V Server 2022 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İşletim sistemi içinde Receive Side Scaling (RSS) kuyruk sayısının 1 olarak kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Windows misafir içinde netsh int tcp set global rss=enabled yapın ve vmxnet3 kuyruk sayısını 4 yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "netstat -e",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "10G sanal arayüzde yüksek bant genişliğinde TCP paket kaybı.",
+    "derin_teknik_analiz": "İşletim sistemi içinde Receive Side Scaling (RSS) kuyruk sayısının 1 olarak kalması. Çözüm: Windows misafir içinde netsh int tcp set global rss=enabled yapın ve vmxnet3 kuyruk sayısını 4 yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "microsoft hyper-v server 2022",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_428",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Nutanix AHV Enterprise: vMotion Canlı Taşıma Sırasında CPU EVC Uyumluluk Hatası",
+    "hizli_adimlar": [
+      "Nutanix AHV Enterprise sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İki fiziksel host arasındaki CPU komut setlerinin (AVX-512) farklı olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: vCenter kümesinde Enhanced vMotion Compatibility (EVC) modunu aktif edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Get-VMHost | Select Name, HyperthreadingActive",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal makinenin yeni nesil sunucuya taşınırken donması veya reddedilmesi.",
+    "derin_teknik_analiz": "İki fiziksel host arasındaki CPU komut setlerinin (AVX-512) farklı olması. Çözüm: vCenter kümesinde Enhanced vMotion Compatibility (EVC) modunu aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "nutanix ahv enterprise",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_429",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Nutanix AHV Enterprise: Proxmox Ceph Depolama Havuzunda OSD Kapanması (OSD Down)",
+    "hizli_adimlar": [
+      "Nutanix AHV Enterprise sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: NVMe SSD diskin I/O gecikmesinin 500ms üzerine çıkması sonucu Ceph monitörünün diski atması.",
+      "Saha mühendisliği servis prosedürünü yürütün: ceph osd status ile hatalı OSD'yi bulun ve restart ceph-osd@[ID] komutunu çalıştırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ceph health detail",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal disklerin yavaşlaması ve Ceph durumunun WARNING vermesi.",
+    "derin_teknik_analiz": "NVMe SSD diskin I/O gecikmesinin 500ms üzerine çıkması sonucu Ceph monitörünün diski atması. Çözüm: ceph osd status ile hatalı OSD'yi bulun ve restart ceph-osd@[ID] komutunu çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "nutanix ahv enterprise",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_430",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Nutanix AHV Enterprise: Hyper-V Checkpoint Birleştirme Sırasında Disk Doluluk Kilitlenmesi",
+    "hizli_adimlar": [
+      "Nutanix AHV Enterprise sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: AVHDX fark diskinin birleştirilirken geçici olarak iki kat alan tüketmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Farklı bir LUN veya harici NVMe bağlayarak sanal diski Move Virtual Hard Disk ile taşıyın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Get-VMSnapshot -VMName \"SQL\"",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Birleştirme işlemi %90'da iken ana diskin dolup makinenin Paused olması.",
+    "derin_teknik_analiz": "AVHDX fark diskinin birleştirilirken geçici olarak iki kat alan tüketmesi. Çözüm: Farklı bir LUN veya harici NVMe bağlayarak sanal diski Move Virtual Hard Disk ile taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "nutanix ahv enterprise",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_431",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Nutanix AHV Enterprise: Sanal Makine Ağ Kartı (vmxnet3) Paket Düşmesi ve RSS Ayarı",
+    "hizli_adimlar": [
+      "Nutanix AHV Enterprise sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İşletim sistemi içinde Receive Side Scaling (RSS) kuyruk sayısının 1 olarak kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Windows misafir içinde netsh int tcp set global rss=enabled yapın ve vmxnet3 kuyruk sayısını 4 yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "netstat -e",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "10G sanal arayüzde yüksek bant genişliğinde TCP paket kaybı.",
+    "derin_teknik_analiz": "İşletim sistemi içinde Receive Side Scaling (RSS) kuyruk sayısının 1 olarak kalması. Çözüm: Windows misafir içinde netsh int tcp set global rss=enabled yapın ve vmxnet3 kuyruk sayısını 4 yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "nutanix ahv enterprise",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_432",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Red Hat OpenShift Virtualization: vMotion Canlı Taşıma Sırasında CPU EVC Uyumluluk Hatası",
+    "hizli_adimlar": [
+      "Red Hat OpenShift Virtualization sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İki fiziksel host arasındaki CPU komut setlerinin (AVX-512) farklı olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: vCenter kümesinde Enhanced vMotion Compatibility (EVC) modunu aktif edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Get-VMHost | Select Name, HyperthreadingActive",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal makinenin yeni nesil sunucuya taşınırken donması veya reddedilmesi.",
+    "derin_teknik_analiz": "İki fiziksel host arasındaki CPU komut setlerinin (AVX-512) farklı olması. Çözüm: vCenter kümesinde Enhanced vMotion Compatibility (EVC) modunu aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "red hat openshift virtualization",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_433",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Red Hat OpenShift Virtualization: Proxmox Ceph Depolama Havuzunda OSD Kapanması (OSD Down)",
+    "hizli_adimlar": [
+      "Red Hat OpenShift Virtualization sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: NVMe SSD diskin I/O gecikmesinin 500ms üzerine çıkması sonucu Ceph monitörünün diski atması.",
+      "Saha mühendisliği servis prosedürünü yürütün: ceph osd status ile hatalı OSD'yi bulun ve restart ceph-osd@[ID] komutunu çalıştırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ceph health detail",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal disklerin yavaşlaması ve Ceph durumunun WARNING vermesi.",
+    "derin_teknik_analiz": "NVMe SSD diskin I/O gecikmesinin 500ms üzerine çıkması sonucu Ceph monitörünün diski atması. Çözüm: ceph osd status ile hatalı OSD'yi bulun ve restart ceph-osd@[ID] komutunu çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "red hat openshift virtualization",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_434",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Red Hat OpenShift Virtualization: Hyper-V Checkpoint Birleştirme Sırasında Disk Doluluk Kilitlenmesi",
+    "hizli_adimlar": [
+      "Red Hat OpenShift Virtualization sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: AVHDX fark diskinin birleştirilirken geçici olarak iki kat alan tüketmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Farklı bir LUN veya harici NVMe bağlayarak sanal diski Move Virtual Hard Disk ile taşıyın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Get-VMSnapshot -VMName \"SQL\"",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Birleştirme işlemi %90'da iken ana diskin dolup makinenin Paused olması.",
+    "derin_teknik_analiz": "AVHDX fark diskinin birleştirilirken geçici olarak iki kat alan tüketmesi. Çözüm: Farklı bir LUN veya harici NVMe bağlayarak sanal diski Move Virtual Hard Disk ile taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "red hat openshift virtualization",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_435",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Red Hat OpenShift Virtualization: Sanal Makine Ağ Kartı (vmxnet3) Paket Düşmesi ve RSS Ayarı",
+    "hizli_adimlar": [
+      "Red Hat OpenShift Virtualization sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İşletim sistemi içinde Receive Side Scaling (RSS) kuyruk sayısının 1 olarak kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Windows misafir içinde netsh int tcp set global rss=enabled yapın ve vmxnet3 kuyruk sayısını 4 yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "netstat -e",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "10G sanal arayüzde yüksek bant genişliğinde TCP paket kaybı.",
+    "derin_teknik_analiz": "İşletim sistemi içinde Receive Side Scaling (RSS) kuyruk sayısının 1 olarak kalması. Çözüm: Windows misafir içinde netsh int tcp set global rss=enabled yapın ve vmxnet3 kuyruk sayısını 4 yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "red hat openshift virtualization",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_436",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "XenServer 8.2 CU1: vMotion Canlı Taşıma Sırasında CPU EVC Uyumluluk Hatası",
+    "hizli_adimlar": [
+      "XenServer 8.2 CU1 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İki fiziksel host arasındaki CPU komut setlerinin (AVX-512) farklı olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: vCenter kümesinde Enhanced vMotion Compatibility (EVC) modunu aktif edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Get-VMHost | Select Name, HyperthreadingActive",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal makinenin yeni nesil sunucuya taşınırken donması veya reddedilmesi.",
+    "derin_teknik_analiz": "İki fiziksel host arasındaki CPU komut setlerinin (AVX-512) farklı olması. Çözüm: vCenter kümesinde Enhanced vMotion Compatibility (EVC) modunu aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "xenserver 8.2 cu1",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_437",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "XenServer 8.2 CU1: Proxmox Ceph Depolama Havuzunda OSD Kapanması (OSD Down)",
+    "hizli_adimlar": [
+      "XenServer 8.2 CU1 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: NVMe SSD diskin I/O gecikmesinin 500ms üzerine çıkması sonucu Ceph monitörünün diski atması.",
+      "Saha mühendisliği servis prosedürünü yürütün: ceph osd status ile hatalı OSD'yi bulun ve restart ceph-osd@[ID] komutunu çalıştırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ceph health detail",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal disklerin yavaşlaması ve Ceph durumunun WARNING vermesi.",
+    "derin_teknik_analiz": "NVMe SSD diskin I/O gecikmesinin 500ms üzerine çıkması sonucu Ceph monitörünün diski atması. Çözüm: ceph osd status ile hatalı OSD'yi bulun ve restart ceph-osd@[ID] komutunu çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "xenserver 8.2 cu1",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_438",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "XenServer 8.2 CU1: Hyper-V Checkpoint Birleştirme Sırasında Disk Doluluk Kilitlenmesi",
+    "hizli_adimlar": [
+      "XenServer 8.2 CU1 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: AVHDX fark diskinin birleştirilirken geçici olarak iki kat alan tüketmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Farklı bir LUN veya harici NVMe bağlayarak sanal diski Move Virtual Hard Disk ile taşıyın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Get-VMSnapshot -VMName \"SQL\"",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Birleştirme işlemi %90'da iken ana diskin dolup makinenin Paused olması.",
+    "derin_teknik_analiz": "AVHDX fark diskinin birleştirilirken geçici olarak iki kat alan tüketmesi. Çözüm: Farklı bir LUN veya harici NVMe bağlayarak sanal diski Move Virtual Hard Disk ile taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "xenserver 8.2 cu1",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_439",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "XenServer 8.2 CU1: Sanal Makine Ağ Kartı (vmxnet3) Paket Düşmesi ve RSS Ayarı",
+    "hizli_adimlar": [
+      "XenServer 8.2 CU1 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İşletim sistemi içinde Receive Side Scaling (RSS) kuyruk sayısının 1 olarak kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Windows misafir içinde netsh int tcp set global rss=enabled yapın ve vmxnet3 kuyruk sayısını 4 yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "netstat -e",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "10G sanal arayüzde yüksek bant genişliğinde TCP paket kaybı.",
+    "derin_teknik_analiz": "İşletim sistemi içinde Receive Side Scaling (RSS) kuyruk sayısının 1 olarak kalması. Çözüm: Windows misafir içinde netsh int tcp set global rss=enabled yapın ve vmxnet3 kuyruk sayısını 4 yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "xenserver 8.2 cu1",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_440",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "KVM Debian 12 Hypervisor: vMotion Canlı Taşıma Sırasında CPU EVC Uyumluluk Hatası",
+    "hizli_adimlar": [
+      "KVM Debian 12 Hypervisor sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İki fiziksel host arasındaki CPU komut setlerinin (AVX-512) farklı olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: vCenter kümesinde Enhanced vMotion Compatibility (EVC) modunu aktif edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Get-VMHost | Select Name, HyperthreadingActive",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal makinenin yeni nesil sunucuya taşınırken donması veya reddedilmesi.",
+    "derin_teknik_analiz": "İki fiziksel host arasındaki CPU komut setlerinin (AVX-512) farklı olması. Çözüm: vCenter kümesinde Enhanced vMotion Compatibility (EVC) modunu aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "kvm debian 12 hypervisor",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_441",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "KVM Debian 12 Hypervisor: Proxmox Ceph Depolama Havuzunda OSD Kapanması (OSD Down)",
+    "hizli_adimlar": [
+      "KVM Debian 12 Hypervisor sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: NVMe SSD diskin I/O gecikmesinin 500ms üzerine çıkması sonucu Ceph monitörünün diski atması.",
+      "Saha mühendisliği servis prosedürünü yürütün: ceph osd status ile hatalı OSD'yi bulun ve restart ceph-osd@[ID] komutunu çalıştırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ceph health detail",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal disklerin yavaşlaması ve Ceph durumunun WARNING vermesi.",
+    "derin_teknik_analiz": "NVMe SSD diskin I/O gecikmesinin 500ms üzerine çıkması sonucu Ceph monitörünün diski atması. Çözüm: ceph osd status ile hatalı OSD'yi bulun ve restart ceph-osd@[ID] komutunu çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "kvm debian 12 hypervisor",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_442",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "KVM Debian 12 Hypervisor: Hyper-V Checkpoint Birleştirme Sırasında Disk Doluluk Kilitlenmesi",
+    "hizli_adimlar": [
+      "KVM Debian 12 Hypervisor sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: AVHDX fark diskinin birleştirilirken geçici olarak iki kat alan tüketmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Farklı bir LUN veya harici NVMe bağlayarak sanal diski Move Virtual Hard Disk ile taşıyın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Get-VMSnapshot -VMName \"SQL\"",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Birleştirme işlemi %90'da iken ana diskin dolup makinenin Paused olması.",
+    "derin_teknik_analiz": "AVHDX fark diskinin birleştirilirken geçici olarak iki kat alan tüketmesi. Çözüm: Farklı bir LUN veya harici NVMe bağlayarak sanal diski Move Virtual Hard Disk ile taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "kvm debian 12 hypervisor",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_443",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "KVM Debian 12 Hypervisor: Sanal Makine Ağ Kartı (vmxnet3) Paket Düşmesi ve RSS Ayarı",
+    "hizli_adimlar": [
+      "KVM Debian 12 Hypervisor sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İşletim sistemi içinde Receive Side Scaling (RSS) kuyruk sayısının 1 olarak kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Windows misafir içinde netsh int tcp set global rss=enabled yapın ve vmxnet3 kuyruk sayısını 4 yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "netstat -e",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "10G sanal arayüzde yüksek bant genişliğinde TCP paket kaybı.",
+    "derin_teknik_analiz": "İşletim sistemi içinde Receive Side Scaling (RSS) kuyruk sayısının 1 olarak kalması. Çözüm: Windows misafir içinde netsh int tcp set global rss=enabled yapın ve vmxnet3 kuyruk sayısını 4 yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "kvm debian 12 hypervisor",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_444",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "VMware vCenter Server 8.0: vMotion Canlı Taşıma Sırasında CPU EVC Uyumluluk Hatası",
+    "hizli_adimlar": [
+      "VMware vCenter Server 8.0 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İki fiziksel host arasındaki CPU komut setlerinin (AVX-512) farklı olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: vCenter kümesinde Enhanced vMotion Compatibility (EVC) modunu aktif edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Get-VMHost | Select Name, HyperthreadingActive",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal makinenin yeni nesil sunucuya taşınırken donması veya reddedilmesi.",
+    "derin_teknik_analiz": "İki fiziksel host arasındaki CPU komut setlerinin (AVX-512) farklı olması. Çözüm: vCenter kümesinde Enhanced vMotion Compatibility (EVC) modunu aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "vmware vcenter server 8.0",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_445",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "VMware vCenter Server 8.0: Proxmox Ceph Depolama Havuzunda OSD Kapanması (OSD Down)",
+    "hizli_adimlar": [
+      "VMware vCenter Server 8.0 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: NVMe SSD diskin I/O gecikmesinin 500ms üzerine çıkması sonucu Ceph monitörünün diski atması.",
+      "Saha mühendisliği servis prosedürünü yürütün: ceph osd status ile hatalı OSD'yi bulun ve restart ceph-osd@[ID] komutunu çalıştırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ceph health detail",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal disklerin yavaşlaması ve Ceph durumunun WARNING vermesi.",
+    "derin_teknik_analiz": "NVMe SSD diskin I/O gecikmesinin 500ms üzerine çıkması sonucu Ceph monitörünün diski atması. Çözüm: ceph osd status ile hatalı OSD'yi bulun ve restart ceph-osd@[ID] komutunu çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "vmware vcenter server 8.0",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_446",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "VMware vCenter Server 8.0: Hyper-V Checkpoint Birleştirme Sırasında Disk Doluluk Kilitlenmesi",
+    "hizli_adimlar": [
+      "VMware vCenter Server 8.0 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: AVHDX fark diskinin birleştirilirken geçici olarak iki kat alan tüketmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Farklı bir LUN veya harici NVMe bağlayarak sanal diski Move Virtual Hard Disk ile taşıyın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Get-VMSnapshot -VMName \"SQL\"",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Birleştirme işlemi %90'da iken ana diskin dolup makinenin Paused olması.",
+    "derin_teknik_analiz": "AVHDX fark diskinin birleştirilirken geçici olarak iki kat alan tüketmesi. Çözüm: Farklı bir LUN veya harici NVMe bağlayarak sanal diski Move Virtual Hard Disk ile taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "vmware vcenter server 8.0",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_447",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "VMware vCenter Server 8.0: Sanal Makine Ağ Kartı (vmxnet3) Paket Düşmesi ve RSS Ayarı",
+    "hizli_adimlar": [
+      "VMware vCenter Server 8.0 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İşletim sistemi içinde Receive Side Scaling (RSS) kuyruk sayısının 1 olarak kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Windows misafir içinde netsh int tcp set global rss=enabled yapın ve vmxnet3 kuyruk sayısını 4 yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "netstat -e",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "10G sanal arayüzde yüksek bant genişliğinde TCP paket kaybı.",
+    "derin_teknik_analiz": "İşletim sistemi içinde Receive Side Scaling (RSS) kuyruk sayısının 1 olarak kalması. Çözüm: Windows misafir içinde netsh int tcp set global rss=enabled yapın ve vmxnet3 kuyruk sayısını 4 yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "vmware vcenter server 8.0",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_150",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "VMware ESXi 7.0 Update 3: ESXi Hostunun vCenter Üzerinde Not Responding Kalması",
+    "hizli_adimlar": [
+      "VMware ESXi 7.0 Update 3 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: ESXi yönetim ajanı vpxa servisinin bellek yetersizliğinden kilitlenmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: ESXi konsoluna SSH ile bağlanıp /etc/init.d/vpxa restart komutuyla ajanı tazeleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "/etc/init.d/vpxa restart",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Hostun çalışması ve VM'lerin açık olması ancak vCenter'dan yönetilememesi.",
+    "derin_teknik_analiz": "ESXi yönetim ajanı vpxa servisinin bellek yetersizliğinden kilitlenmesi. Çözüm: ESXi konsoluna SSH ile bağlanıp /etc/init.d/vpxa restart komutuyla ajanı tazeleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "vmware esxi 7.0 update 3",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_151",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "VMware ESXi 7.0 Update 3: Proxmox Depolama Havuzunda QCOW2 Disk Kilit Dosyası (Lockfile)",
+    "hizli_adimlar": [
+      "VMware ESXi 7.0 Update 3 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Yarım kalan bir yedekleme görevinin sanal makine durum kilidini açık bırakması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: qm unlock [VM_ID] komutunu çalıştırarak makine kilidini kaldırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "qm unlock 101",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal makine açılırken \"VM is locked (backup)\" hatası vermesi.",
+    "derin_teknik_analiz": "Yarım kalan bir yedekleme görevinin sanal makine durum kilidini açık bırakması. Çözüm: qm unlock [VM_ID] komutunu çalıştırarak makine kilidini kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "vmware esxi 7.0 update 3",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_152",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "VMware ESXi 7.0 Update 3: vSAN Depolama Nesnelerinde Uyumluluk Kaybı (Non-Compliant)",
+    "hizli_adimlar": [
+      "VMware ESXi 7.0 Update 3 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Depolama ilkesindeki (Storage Policy) FTT=1 ayna kuralını sağlayacak boş host kalmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Arızalı ESXi hostunu onarın veya yeni bir kapasite diski ekleyerek yeniden eşitleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "esxcli vsan health cluster list",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "vSAN disk grubunda kırmızı ünlem çıkması ve veri sağlığının uyarılara düşmesi.",
+    "derin_teknik_analiz": "Depolama ilkesindeki (Storage Policy) FTT=1 ayna kuralını sağlayacak boş host kalmaması. Çözüm: Arızalı ESXi hostunu onarın veya yeni bir kapasite diski ekleyerek yeniden eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "vmware esxi 7.0 update 3",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_153",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Proxmox VE 7.4 Kümesi: ESXi Hostunun vCenter Üzerinde Not Responding Kalması",
+    "hizli_adimlar": [
+      "Proxmox VE 7.4 Kümesi cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: ESXi yönetim ajanı vpxa servisinin bellek yetersizliğinden kilitlenmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: ESXi konsoluna SSH ile bağlanıp /etc/init.d/vpxa restart komutuyla ajanı tazeleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "/etc/init.d/vpxa restart",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Hostun çalışması ve VM'lerin açık olması ancak vCenter'dan yönetilememesi.",
+    "derin_teknik_analiz": "ESXi yönetim ajanı vpxa servisinin bellek yetersizliğinden kilitlenmesi. Çözüm: ESXi konsoluna SSH ile bağlanıp /etc/init.d/vpxa restart komutuyla ajanı tazeleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "proxmox ve 7.4 kümesi",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_154",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Proxmox VE 7.4 Kümesi: Proxmox Depolama Havuzunda QCOW2 Disk Kilit Dosyası (Lockfile)",
+    "hizli_adimlar": [
+      "Proxmox VE 7.4 Kümesi cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Yarım kalan bir yedekleme görevinin sanal makine durum kilidini açık bırakması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: qm unlock [VM_ID] komutunu çalıştırarak makine kilidini kaldırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "qm unlock 101",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal makine açılırken \"VM is locked (backup)\" hatası vermesi.",
+    "derin_teknik_analiz": "Yarım kalan bir yedekleme görevinin sanal makine durum kilidini açık bırakması. Çözüm: qm unlock [VM_ID] komutunu çalıştırarak makine kilidini kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "proxmox ve 7.4 kümesi",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_155",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Proxmox VE 7.4 Kümesi: vSAN Depolama Nesnelerinde Uyumluluk Kaybı (Non-Compliant)",
+    "hizli_adimlar": [
+      "Proxmox VE 7.4 Kümesi cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Depolama ilkesindeki (Storage Policy) FTT=1 ayna kuralını sağlayacak boş host kalmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Arızalı ESXi hostunu onarın veya yeni bir kapasite diski ekleyerek yeniden eşitleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "esxcli vsan health cluster list",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "vSAN disk grubunda kırmızı ünlem çıkması ve veri sağlığının uyarılara düşmesi.",
+    "derin_teknik_analiz": "Depolama ilkesindeki (Storage Policy) FTT=1 ayna kuralını sağlayacak boş host kalmaması. Çözüm: Arızalı ESXi hostunu onarın veya yeni bir kapasite diski ekleyerek yeniden eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "proxmox ve 7.4 kümesi",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_156",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "OpenStack Yoga Compute: ESXi Hostunun vCenter Üzerinde Not Responding Kalması",
+    "hizli_adimlar": [
+      "OpenStack Yoga Compute cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: ESXi yönetim ajanı vpxa servisinin bellek yetersizliğinden kilitlenmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: ESXi konsoluna SSH ile bağlanıp /etc/init.d/vpxa restart komutuyla ajanı tazeleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "/etc/init.d/vpxa restart",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Hostun çalışması ve VM'lerin açık olması ancak vCenter'dan yönetilememesi.",
+    "derin_teknik_analiz": "ESXi yönetim ajanı vpxa servisinin bellek yetersizliğinden kilitlenmesi. Çözüm: ESXi konsoluna SSH ile bağlanıp /etc/init.d/vpxa restart komutuyla ajanı tazeleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "openstack yoga compute",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_157",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "OpenStack Yoga Compute: Proxmox Depolama Havuzunda QCOW2 Disk Kilit Dosyası (Lockfile)",
+    "hizli_adimlar": [
+      "OpenStack Yoga Compute cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Yarım kalan bir yedekleme görevinin sanal makine durum kilidini açık bırakması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: qm unlock [VM_ID] komutunu çalıştırarak makine kilidini kaldırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "qm unlock 101",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal makine açılırken \"VM is locked (backup)\" hatası vermesi.",
+    "derin_teknik_analiz": "Yarım kalan bir yedekleme görevinin sanal makine durum kilidini açık bırakması. Çözüm: qm unlock [VM_ID] komutunu çalıştırarak makine kilidini kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "openstack yoga compute",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_158",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "OpenStack Yoga Compute: vSAN Depolama Nesnelerinde Uyumluluk Kaybı (Non-Compliant)",
+    "hizli_adimlar": [
+      "OpenStack Yoga Compute cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Depolama ilkesindeki (Storage Policy) FTT=1 ayna kuralını sağlayacak boş host kalmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Arızalı ESXi hostunu onarın veya yeni bir kapasite diski ekleyerek yeniden eşitleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "esxcli vsan health cluster list",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "vSAN disk grubunda kırmızı ünlem çıkması ve veri sağlığının uyarılara düşmesi.",
+    "derin_teknik_analiz": "Depolama ilkesindeki (Storage Policy) FTT=1 ayna kuralını sağlayacak boş host kalmaması. Çözüm: Arızalı ESXi hostunu onarın veya yeni bir kapasite diski ekleyerek yeniden eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "openstack yoga compute",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_159",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Nutanix Prism Central: ESXi Hostunun vCenter Üzerinde Not Responding Kalması",
+    "hizli_adimlar": [
+      "Nutanix Prism Central cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: ESXi yönetim ajanı vpxa servisinin bellek yetersizliğinden kilitlenmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: ESXi konsoluna SSH ile bağlanıp /etc/init.d/vpxa restart komutuyla ajanı tazeleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "/etc/init.d/vpxa restart",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Hostun çalışması ve VM'lerin açık olması ancak vCenter'dan yönetilememesi.",
+    "derin_teknik_analiz": "ESXi yönetim ajanı vpxa servisinin bellek yetersizliğinden kilitlenmesi. Çözüm: ESXi konsoluna SSH ile bağlanıp /etc/init.d/vpxa restart komutuyla ajanı tazeleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "nutanix prism central",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_160",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Nutanix Prism Central: Proxmox Depolama Havuzunda QCOW2 Disk Kilit Dosyası (Lockfile)",
+    "hizli_adimlar": [
+      "Nutanix Prism Central cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Yarım kalan bir yedekleme görevinin sanal makine durum kilidini açık bırakması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: qm unlock [VM_ID] komutunu çalıştırarak makine kilidini kaldırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "qm unlock 101",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal makine açılırken \"VM is locked (backup)\" hatası vermesi.",
+    "derin_teknik_analiz": "Yarım kalan bir yedekleme görevinin sanal makine durum kilidini açık bırakması. Çözüm: qm unlock [VM_ID] komutunu çalıştırarak makine kilidini kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "nutanix prism central",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_161",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Nutanix Prism Central: vSAN Depolama Nesnelerinde Uyumluluk Kaybı (Non-Compliant)",
+    "hizli_adimlar": [
+      "Nutanix Prism Central cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Depolama ilkesindeki (Storage Policy) FTT=1 ayna kuralını sağlayacak boş host kalmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Arızalı ESXi hostunu onarın veya yeni bir kapasite diski ekleyerek yeniden eşitleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "esxcli vsan health cluster list",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "vSAN disk grubunda kırmızı ünlem çıkması ve veri sağlığının uyarılara düşmesi.",
+    "derin_teknik_analiz": "Depolama ilkesindeki (Storage Policy) FTT=1 ayna kuralını sağlayacak boş host kalmaması. Çözüm: Arızalı ESXi hostunu onarın veya yeni bir kapasite diski ekleyerek yeniden eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "nutanix prism central",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_162",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "XenServer 8.0 Havuzu: ESXi Hostunun vCenter Üzerinde Not Responding Kalması",
+    "hizli_adimlar": [
+      "XenServer 8.0 Havuzu cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: ESXi yönetim ajanı vpxa servisinin bellek yetersizliğinden kilitlenmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: ESXi konsoluna SSH ile bağlanıp /etc/init.d/vpxa restart komutuyla ajanı tazeleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "/etc/init.d/vpxa restart",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Hostun çalışması ve VM'lerin açık olması ancak vCenter'dan yönetilememesi.",
+    "derin_teknik_analiz": "ESXi yönetim ajanı vpxa servisinin bellek yetersizliğinden kilitlenmesi. Çözüm: ESXi konsoluna SSH ile bağlanıp /etc/init.d/vpxa restart komutuyla ajanı tazeleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "xenserver 8.0 havuzu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_163",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "XenServer 8.0 Havuzu: Proxmox Depolama Havuzunda QCOW2 Disk Kilit Dosyası (Lockfile)",
+    "hizli_adimlar": [
+      "XenServer 8.0 Havuzu cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Yarım kalan bir yedekleme görevinin sanal makine durum kilidini açık bırakması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: qm unlock [VM_ID] komutunu çalıştırarak makine kilidini kaldırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "qm unlock 101",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal makine açılırken \"VM is locked (backup)\" hatası vermesi.",
+    "derin_teknik_analiz": "Yarım kalan bir yedekleme görevinin sanal makine durum kilidini açık bırakması. Çözüm: qm unlock [VM_ID] komutunu çalıştırarak makine kilidini kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "xenserver 8.0 havuzu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_164",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "XenServer 8.0 Havuzu: vSAN Depolama Nesnelerinde Uyumluluk Kaybı (Non-Compliant)",
+    "hizli_adimlar": [
+      "XenServer 8.0 Havuzu cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Depolama ilkesindeki (Storage Policy) FTT=1 ayna kuralını sağlayacak boş host kalmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Arızalı ESXi hostunu onarın veya yeni bir kapasite diski ekleyerek yeniden eşitleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "esxcli vsan health cluster list",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "vSAN disk grubunda kırmızı ünlem çıkması ve veri sağlığının uyarılara düşmesi.",
+    "derin_teknik_analiz": "Depolama ilkesindeki (Storage Policy) FTT=1 ayna kuralını sağlayacak boş host kalmaması. Çözüm: Arızalı ESXi hostunu onarın veya yeni bir kapasite diski ekleyerek yeniden eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "xenserver 8.0 havuzu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_165",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Microsoft Azure Stack HCI: ESXi Hostunun vCenter Üzerinde Not Responding Kalması",
+    "hizli_adimlar": [
+      "Microsoft Azure Stack HCI cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: ESXi yönetim ajanı vpxa servisinin bellek yetersizliğinden kilitlenmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: ESXi konsoluna SSH ile bağlanıp /etc/init.d/vpxa restart komutuyla ajanı tazeleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "/etc/init.d/vpxa restart",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Hostun çalışması ve VM'lerin açık olması ancak vCenter'dan yönetilememesi.",
+    "derin_teknik_analiz": "ESXi yönetim ajanı vpxa servisinin bellek yetersizliğinden kilitlenmesi. Çözüm: ESXi konsoluna SSH ile bağlanıp /etc/init.d/vpxa restart komutuyla ajanı tazeleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "microsoft azure stack hci",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_166",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Microsoft Azure Stack HCI: Proxmox Depolama Havuzunda QCOW2 Disk Kilit Dosyası (Lockfile)",
+    "hizli_adimlar": [
+      "Microsoft Azure Stack HCI cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Yarım kalan bir yedekleme görevinin sanal makine durum kilidini açık bırakması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: qm unlock [VM_ID] komutunu çalıştırarak makine kilidini kaldırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "qm unlock 101",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal makine açılırken \"VM is locked (backup)\" hatası vermesi.",
+    "derin_teknik_analiz": "Yarım kalan bir yedekleme görevinin sanal makine durum kilidini açık bırakması. Çözüm: qm unlock [VM_ID] komutunu çalıştırarak makine kilidini kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "microsoft azure stack hci",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_167",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Microsoft Azure Stack HCI: vSAN Depolama Nesnelerinde Uyumluluk Kaybı (Non-Compliant)",
+    "hizli_adimlar": [
+      "Microsoft Azure Stack HCI cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Depolama ilkesindeki (Storage Policy) FTT=1 ayna kuralını sağlayacak boş host kalmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Arızalı ESXi hostunu onarın veya yeni bir kapasite diski ekleyerek yeniden eşitleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "esxcli vsan health cluster list",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "vSAN disk grubunda kırmızı ünlem çıkması ve veri sağlığının uyarılara düşmesi.",
+    "derin_teknik_analiz": "Depolama ilkesindeki (Storage Policy) FTT=1 ayna kuralını sağlayacak boş host kalmaması. Çözüm: Arızalı ESXi hostunu onarın veya yeni bir kapasite diski ekleyerek yeniden eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "microsoft azure stack hci",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_168",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "VMware vSAN 8 ESA: ESXi Hostunun vCenter Üzerinde Not Responding Kalması",
+    "hizli_adimlar": [
+      "VMware vSAN 8 ESA cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: ESXi yönetim ajanı vpxa servisinin bellek yetersizliğinden kilitlenmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: ESXi konsoluna SSH ile bağlanıp /etc/init.d/vpxa restart komutuyla ajanı tazeleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "/etc/init.d/vpxa restart",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Hostun çalışması ve VM'lerin açık olması ancak vCenter'dan yönetilememesi.",
+    "derin_teknik_analiz": "ESXi yönetim ajanı vpxa servisinin bellek yetersizliğinden kilitlenmesi. Çözüm: ESXi konsoluna SSH ile bağlanıp /etc/init.d/vpxa restart komutuyla ajanı tazeleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "vmware vsan 8 esa",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_169",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "VMware vSAN 8 ESA: Proxmox Depolama Havuzunda QCOW2 Disk Kilit Dosyası (Lockfile)",
+    "hizli_adimlar": [
+      "VMware vSAN 8 ESA cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Yarım kalan bir yedekleme görevinin sanal makine durum kilidini açık bırakması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: qm unlock [VM_ID] komutunu çalıştırarak makine kilidini kaldırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "qm unlock 101",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal makine açılırken \"VM is locked (backup)\" hatası vermesi.",
+    "derin_teknik_analiz": "Yarım kalan bir yedekleme görevinin sanal makine durum kilidini açık bırakması. Çözüm: qm unlock [VM_ID] komutunu çalıştırarak makine kilidini kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "vmware vsan 8 esa",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_170",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "VMware vSAN 8 ESA: vSAN Depolama Nesnelerinde Uyumluluk Kaybı (Non-Compliant)",
+    "hizli_adimlar": [
+      "VMware vSAN 8 ESA cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Depolama ilkesindeki (Storage Policy) FTT=1 ayna kuralını sağlayacak boş host kalmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Arızalı ESXi hostunu onarın veya yeni bir kapasite diski ekleyerek yeniden eşitleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "esxcli vsan health cluster list",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "vSAN disk grubunda kırmızı ünlem çıkması ve veri sağlığının uyarılara düşmesi.",
+    "derin_teknik_analiz": "Depolama ilkesindeki (Storage Policy) FTT=1 ayna kuralını sağlayacak boş host kalmaması. Çözüm: Arızalı ESXi hostunu onarın veya yeni bir kapasite diski ekleyerek yeniden eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "vmware vsan 8 esa",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_171",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Proxmox Backup Server PBS: ESXi Hostunun vCenter Üzerinde Not Responding Kalması",
+    "hizli_adimlar": [
+      "Proxmox Backup Server PBS cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: ESXi yönetim ajanı vpxa servisinin bellek yetersizliğinden kilitlenmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: ESXi konsoluna SSH ile bağlanıp /etc/init.d/vpxa restart komutuyla ajanı tazeleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "/etc/init.d/vpxa restart",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Hostun çalışması ve VM'lerin açık olması ancak vCenter'dan yönetilememesi.",
+    "derin_teknik_analiz": "ESXi yönetim ajanı vpxa servisinin bellek yetersizliğinden kilitlenmesi. Çözüm: ESXi konsoluna SSH ile bağlanıp /etc/init.d/vpxa restart komutuyla ajanı tazeleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "proxmox backup server pbs",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_172",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Proxmox Backup Server PBS: Proxmox Depolama Havuzunda QCOW2 Disk Kilit Dosyası (Lockfile)",
+    "hizli_adimlar": [
+      "Proxmox Backup Server PBS cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Yarım kalan bir yedekleme görevinin sanal makine durum kilidini açık bırakması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: qm unlock [VM_ID] komutunu çalıştırarak makine kilidini kaldırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "qm unlock 101",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal makine açılırken \"VM is locked (backup)\" hatası vermesi.",
+    "derin_teknik_analiz": "Yarım kalan bir yedekleme görevinin sanal makine durum kilidini açık bırakması. Çözüm: qm unlock [VM_ID] komutunu çalıştırarak makine kilidini kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "proxmox backup server pbs",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_173",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Proxmox Backup Server PBS: vSAN Depolama Nesnelerinde Uyumluluk Kaybı (Non-Compliant)",
+    "hizli_adimlar": [
+      "Proxmox Backup Server PBS cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Depolama ilkesindeki (Storage Policy) FTT=1 ayna kuralını sağlayacak boş host kalmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Arızalı ESXi hostunu onarın veya yeni bir kapasite diski ekleyerek yeniden eşitleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "esxcli vsan health cluster list",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "vSAN disk grubunda kırmızı ünlem çıkması ve veri sağlığının uyarılara düşmesi.",
+    "derin_teknik_analiz": "Depolama ilkesindeki (Storage Policy) FTT=1 ayna kuralını sağlayacak boş host kalmaması. Çözüm: Arızalı ESXi hostunu onarın veya yeni bir kapasite diski ekleyerek yeniden eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "proxmox backup server pbs",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_174",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Harvester HCI Kubernetes: ESXi Hostunun vCenter Üzerinde Not Responding Kalması",
+    "hizli_adimlar": [
+      "Harvester HCI Kubernetes cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: ESXi yönetim ajanı vpxa servisinin bellek yetersizliğinden kilitlenmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: ESXi konsoluna SSH ile bağlanıp /etc/init.d/vpxa restart komutuyla ajanı tazeleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "/etc/init.d/vpxa restart",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Hostun çalışması ve VM'lerin açık olması ancak vCenter'dan yönetilememesi.",
+    "derin_teknik_analiz": "ESXi yönetim ajanı vpxa servisinin bellek yetersizliğinden kilitlenmesi. Çözüm: ESXi konsoluna SSH ile bağlanıp /etc/init.d/vpxa restart komutuyla ajanı tazeleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "harvester hci kubernetes",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_175",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Harvester HCI Kubernetes: Proxmox Depolama Havuzunda QCOW2 Disk Kilit Dosyası (Lockfile)",
+    "hizli_adimlar": [
+      "Harvester HCI Kubernetes cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Yarım kalan bir yedekleme görevinin sanal makine durum kilidini açık bırakması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: qm unlock [VM_ID] komutunu çalıştırarak makine kilidini kaldırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "qm unlock 101",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal makine açılırken \"VM is locked (backup)\" hatası vermesi.",
+    "derin_teknik_analiz": "Yarım kalan bir yedekleme görevinin sanal makine durum kilidini açık bırakması. Çözüm: qm unlock [VM_ID] komutunu çalıştırarak makine kilidini kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "harvester hci kubernetes",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_176",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Harvester HCI Kubernetes: vSAN Depolama Nesnelerinde Uyumluluk Kaybı (Non-Compliant)",
+    "hizli_adimlar": [
+      "Harvester HCI Kubernetes cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Depolama ilkesindeki (Storage Policy) FTT=1 ayna kuralını sağlayacak boş host kalmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Arızalı ESXi hostunu onarın veya yeni bir kapasite diski ekleyerek yeniden eşitleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "esxcli vsan health cluster list",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "vSAN disk grubunda kırmızı ünlem çıkması ve veri sağlığının uyarılara düşmesi.",
+    "derin_teknik_analiz": "Depolama ilkesindeki (Storage Policy) FTT=1 ayna kuralını sağlayacak boş host kalmaması. Çözüm: Arızalı ESXi hostunu onarın veya yeni bir kapasite diski ekleyerek yeniden eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "harvester hci kubernetes",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_177",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Red Hat Virtualization RHV: ESXi Hostunun vCenter Üzerinde Not Responding Kalması",
+    "hizli_adimlar": [
+      "Red Hat Virtualization RHV cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: ESXi yönetim ajanı vpxa servisinin bellek yetersizliğinden kilitlenmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: ESXi konsoluna SSH ile bağlanıp /etc/init.d/vpxa restart komutuyla ajanı tazeleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "/etc/init.d/vpxa restart",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Hostun çalışması ve VM'lerin açık olması ancak vCenter'dan yönetilememesi.",
+    "derin_teknik_analiz": "ESXi yönetim ajanı vpxa servisinin bellek yetersizliğinden kilitlenmesi. Çözüm: ESXi konsoluna SSH ile bağlanıp /etc/init.d/vpxa restart komutuyla ajanı tazeleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "red hat virtualization rhv",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_178",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Red Hat Virtualization RHV: Proxmox Depolama Havuzunda QCOW2 Disk Kilit Dosyası (Lockfile)",
+    "hizli_adimlar": [
+      "Red Hat Virtualization RHV cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Yarım kalan bir yedekleme görevinin sanal makine durum kilidini açık bırakması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: qm unlock [VM_ID] komutunu çalıştırarak makine kilidini kaldırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "qm unlock 101",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal makine açılırken \"VM is locked (backup)\" hatası vermesi.",
+    "derin_teknik_analiz": "Yarım kalan bir yedekleme görevinin sanal makine durum kilidini açık bırakması. Çözüm: qm unlock [VM_ID] komutunu çalıştırarak makine kilidini kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "red hat virtualization rhv",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_179",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Red Hat Virtualization RHV: vSAN Depolama Nesnelerinde Uyumluluk Kaybı (Non-Compliant)",
+    "hizli_adimlar": [
+      "Red Hat Virtualization RHV cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Depolama ilkesindeki (Storage Policy) FTT=1 ayna kuralını sağlayacak boş host kalmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Arızalı ESXi hostunu onarın veya yeni bir kapasite diski ekleyerek yeniden eşitleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "esxcli vsan health cluster list",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "vSAN disk grubunda kırmızı ünlem çıkması ve veri sağlığının uyarılara düşmesi.",
+    "derin_teknik_analiz": "Depolama ilkesindeki (Storage Policy) FTT=1 ayna kuralını sağlayacak boş host kalmaması. Çözüm: Arızalı ESXi hostunu onarın veya yeni bir kapasite diski ekleyerek yeniden eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "red hat virtualization rhv",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2452",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "VMware ESXi 7.0 / 8.0: Anlık Görüntü (Snapshot) Zincirinin Bozulması ve \"CID Mismatch\" Hatası",
+    "hizli_adimlar": [
+      "VMware ESXi 7.0 / 8.0 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: VMDK tanımlayıcı dosyasındaki Parent CID değerinin üst diskin CID değeriyle uyuşmaması.",
+      "Saha servis prosedürünü yerine getirin: VMDK dosyasını SSH üzerinden metin düzenleyiciyle açıp ParentCID değerini doğru üst CID ile eşitleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "VMware ESXi 7.0 / 8.0 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sanal makinenin başlatılırken disk hatası vermesi ve disk zincirinin kopması.",
+    "derin_teknik_analiz": "Kök Neden: VMDK tanımlayıcı dosyasındaki Parent CID değerinin üst diskin CID değeriyle uyuşmaması. Saha Çözümü: VMDK dosyasını SSH üzerinden metin düzenleyiciyle açıp ParentCID değerini doğru üst CID ile eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "vmware esxi 7.0   8.0",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2453",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "VMware ESXi 7.0 / 8.0: Proxmox Kümesinde Quorum Kaybı ve Sanal Makinelerin Kilitlenmesi",
+    "hizli_adimlar": [
+      "VMware ESXi 7.0 / 8.0 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kalan düğümlerin yeterli çoğunluk (Quorum) oy sayısına ulaşamaması.",
+      "Saha servis prosedürünü yerine getirin: pvecm expected 1 komutunu vererek geçici olarak tek düğümün yetkili çalışmasını sağlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "VMware ESXi 7.0 / 8.0 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Üç düğümlü kümede bir host koptuğunda diğer hostların konfigürasyon değişikliği yapamaması.",
+    "derin_teknik_analiz": "Kök Neden: Kalan düğümlerin yeterli çoğunluk (Quorum) oy sayısına ulaşamaması. Saha Çözümü: pvecm expected 1 komutunu vererek geçici olarak tek düğümün yetkili çalışmasını sağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "vmware esxi 7.0   8.0",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2454",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "VMware ESXi 7.0 / 8.0: Hyper-V Dinamik Bellek (Dynamic Memory) Tahsisinde VM Donması",
+    "hizli_adimlar": [
+      "VMware ESXi 7.0 / 8.0 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Ana makinede boş bellek kalmaması ve bellek önceliği (Weight) ayarının düşük olması.",
+      "Saha servis prosedürünü yerine getirin: Sanal makineye sabit RAM (Static Memory) atayın veya sayfalama dosyasını büyütün.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "VMware ESXi 7.0 / 8.0 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sanal makinenin anlık bellek ihtiyacı arttığında ana sunucunun RAM veremeyip makineyi duraklatması.",
+    "derin_teknik_analiz": "Kök Neden: Ana makinede boş bellek kalmaması ve bellek önceliği (Weight) ayarının düşük olması. Saha Çözümü: Sanal makineye sabit RAM (Static Memory) atayın veya sayfalama dosyasını büyütün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "vmware esxi 7.0   8.0",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2455",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "VMware vCenter Server 8: Anlık Görüntü (Snapshot) Zincirinin Bozulması ve \"CID Mismatch\" Hatası",
+    "hizli_adimlar": [
+      "VMware vCenter Server 8 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: VMDK tanımlayıcı dosyasındaki Parent CID değerinin üst diskin CID değeriyle uyuşmaması.",
+      "Saha servis prosedürünü yerine getirin: VMDK dosyasını SSH üzerinden metin düzenleyiciyle açıp ParentCID değerini doğru üst CID ile eşitleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "VMware vCenter Server 8 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sanal makinenin başlatılırken disk hatası vermesi ve disk zincirinin kopması.",
+    "derin_teknik_analiz": "Kök Neden: VMDK tanımlayıcı dosyasındaki Parent CID değerinin üst diskin CID değeriyle uyuşmaması. Saha Çözümü: VMDK dosyasını SSH üzerinden metin düzenleyiciyle açıp ParentCID değerini doğru üst CID ile eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "vmware vcenter server 8",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2456",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "VMware vCenter Server 8: Proxmox Kümesinde Quorum Kaybı ve Sanal Makinelerin Kilitlenmesi",
+    "hizli_adimlar": [
+      "VMware vCenter Server 8 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kalan düğümlerin yeterli çoğunluk (Quorum) oy sayısına ulaşamaması.",
+      "Saha servis prosedürünü yerine getirin: pvecm expected 1 komutunu vererek geçici olarak tek düğümün yetkili çalışmasını sağlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "VMware vCenter Server 8 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Üç düğümlü kümede bir host koptuğunda diğer hostların konfigürasyon değişikliği yapamaması.",
+    "derin_teknik_analiz": "Kök Neden: Kalan düğümlerin yeterli çoğunluk (Quorum) oy sayısına ulaşamaması. Saha Çözümü: pvecm expected 1 komutunu vererek geçici olarak tek düğümün yetkili çalışmasını sağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "vmware vcenter server 8",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2457",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "VMware vCenter Server 8: Hyper-V Dinamik Bellek (Dynamic Memory) Tahsisinde VM Donması",
+    "hizli_adimlar": [
+      "VMware vCenter Server 8 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Ana makinede boş bellek kalmaması ve bellek önceliği (Weight) ayarının düşük olması.",
+      "Saha servis prosedürünü yerine getirin: Sanal makineye sabit RAM (Static Memory) atayın veya sayfalama dosyasını büyütün.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "VMware vCenter Server 8 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sanal makinenin anlık bellek ihtiyacı arttığında ana sunucunun RAM veremeyip makineyi duraklatması.",
+    "derin_teknik_analiz": "Kök Neden: Ana makinede boş bellek kalmaması ve bellek önceliği (Weight) ayarının düşük olması. Saha Çözümü: Sanal makineye sabit RAM (Static Memory) atayın veya sayfalama dosyasını büyütün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "vmware vcenter server 8",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2458",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Proxmox VE 8.1: Anlık Görüntü (Snapshot) Zincirinin Bozulması ve \"CID Mismatch\" Hatası",
+    "hizli_adimlar": [
+      "Proxmox VE 8.1 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: VMDK tanımlayıcı dosyasındaki Parent CID değerinin üst diskin CID değeriyle uyuşmaması.",
+      "Saha servis prosedürünü yerine getirin: VMDK dosyasını SSH üzerinden metin düzenleyiciyle açıp ParentCID değerini doğru üst CID ile eşitleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Proxmox VE 8.1 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sanal makinenin başlatılırken disk hatası vermesi ve disk zincirinin kopması.",
+    "derin_teknik_analiz": "Kök Neden: VMDK tanımlayıcı dosyasındaki Parent CID değerinin üst diskin CID değeriyle uyuşmaması. Saha Çözümü: VMDK dosyasını SSH üzerinden metin düzenleyiciyle açıp ParentCID değerini doğru üst CID ile eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "proxmox ve 8.1",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2459",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Proxmox VE 8.1: Proxmox Kümesinde Quorum Kaybı ve Sanal Makinelerin Kilitlenmesi",
+    "hizli_adimlar": [
+      "Proxmox VE 8.1 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kalan düğümlerin yeterli çoğunluk (Quorum) oy sayısına ulaşamaması.",
+      "Saha servis prosedürünü yerine getirin: pvecm expected 1 komutunu vererek geçici olarak tek düğümün yetkili çalışmasını sağlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Proxmox VE 8.1 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Üç düğümlü kümede bir host koptuğunda diğer hostların konfigürasyon değişikliği yapamaması.",
+    "derin_teknik_analiz": "Kök Neden: Kalan düğümlerin yeterli çoğunluk (Quorum) oy sayısına ulaşamaması. Saha Çözümü: pvecm expected 1 komutunu vererek geçici olarak tek düğümün yetkili çalışmasını sağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "proxmox ve 8.1",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2460",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Proxmox VE 8.1: Hyper-V Dinamik Bellek (Dynamic Memory) Tahsisinde VM Donması",
+    "hizli_adimlar": [
+      "Proxmox VE 8.1 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Ana makinede boş bellek kalmaması ve bellek önceliği (Weight) ayarının düşük olması.",
+      "Saha servis prosedürünü yerine getirin: Sanal makineye sabit RAM (Static Memory) atayın veya sayfalama dosyasını büyütün.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Proxmox VE 8.1 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sanal makinenin anlık bellek ihtiyacı arttığında ana sunucunun RAM veremeyip makineyi duraklatması.",
+    "derin_teknik_analiz": "Kök Neden: Ana makinede boş bellek kalmaması ve bellek önceliği (Weight) ayarının düşük olması. Saha Çözümü: Sanal makineye sabit RAM (Static Memory) atayın veya sayfalama dosyasını büyütün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "proxmox ve 8.1",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2461",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Microsoft Hyper-V 2022: Anlık Görüntü (Snapshot) Zincirinin Bozulması ve \"CID Mismatch\" Hatası",
+    "hizli_adimlar": [
+      "Microsoft Hyper-V 2022 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: VMDK tanımlayıcı dosyasındaki Parent CID değerinin üst diskin CID değeriyle uyuşmaması.",
+      "Saha servis prosedürünü yerine getirin: VMDK dosyasını SSH üzerinden metin düzenleyiciyle açıp ParentCID değerini doğru üst CID ile eşitleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Microsoft Hyper-V 2022 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sanal makinenin başlatılırken disk hatası vermesi ve disk zincirinin kopması.",
+    "derin_teknik_analiz": "Kök Neden: VMDK tanımlayıcı dosyasındaki Parent CID değerinin üst diskin CID değeriyle uyuşmaması. Saha Çözümü: VMDK dosyasını SSH üzerinden metin düzenleyiciyle açıp ParentCID değerini doğru üst CID ile eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "microsoft hyper-v 2022",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2462",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Microsoft Hyper-V 2022: Proxmox Kümesinde Quorum Kaybı ve Sanal Makinelerin Kilitlenmesi",
+    "hizli_adimlar": [
+      "Microsoft Hyper-V 2022 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kalan düğümlerin yeterli çoğunluk (Quorum) oy sayısına ulaşamaması.",
+      "Saha servis prosedürünü yerine getirin: pvecm expected 1 komutunu vererek geçici olarak tek düğümün yetkili çalışmasını sağlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Microsoft Hyper-V 2022 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Üç düğümlü kümede bir host koptuğunda diğer hostların konfigürasyon değişikliği yapamaması.",
+    "derin_teknik_analiz": "Kök Neden: Kalan düğümlerin yeterli çoğunluk (Quorum) oy sayısına ulaşamaması. Saha Çözümü: pvecm expected 1 komutunu vererek geçici olarak tek düğümün yetkili çalışmasını sağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "microsoft hyper-v 2022",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2463",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "Microsoft Hyper-V 2022: Hyper-V Dinamik Bellek (Dynamic Memory) Tahsisinde VM Donması",
+    "hizli_adimlar": [
+      "Microsoft Hyper-V 2022 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Ana makinede boş bellek kalmaması ve bellek önceliği (Weight) ayarının düşük olması.",
+      "Saha servis prosedürünü yerine getirin: Sanal makineye sabit RAM (Static Memory) atayın veya sayfalama dosyasını büyütün.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Microsoft Hyper-V 2022 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sanal makinenin anlık bellek ihtiyacı arttığında ana sunucunun RAM veremeyip makineyi duraklatması.",
+    "derin_teknik_analiz": "Kök Neden: Ana makinede boş bellek kalmaması ve bellek önceliği (Weight) ayarının düşük olması. Saha Çözümü: Sanal makineye sabit RAM (Static Memory) atayın veya sayfalama dosyasını büyütün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "microsoft hyper-v 2022",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2464",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "KVM / QEMU Enterprise: Anlık Görüntü (Snapshot) Zincirinin Bozulması ve \"CID Mismatch\" Hatası",
+    "hizli_adimlar": [
+      "KVM / QEMU Enterprise cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: VMDK tanımlayıcı dosyasındaki Parent CID değerinin üst diskin CID değeriyle uyuşmaması.",
+      "Saha servis prosedürünü yerine getirin: VMDK dosyasını SSH üzerinden metin düzenleyiciyle açıp ParentCID değerini doğru üst CID ile eşitleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "KVM / QEMU Enterprise Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sanal makinenin başlatılırken disk hatası vermesi ve disk zincirinin kopması.",
+    "derin_teknik_analiz": "Kök Neden: VMDK tanımlayıcı dosyasındaki Parent CID değerinin üst diskin CID değeriyle uyuşmaması. Saha Çözümü: VMDK dosyasını SSH üzerinden metin düzenleyiciyle açıp ParentCID değerini doğru üst CID ile eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "kvm   qemu enterprise",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2465",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "KVM / QEMU Enterprise: Proxmox Kümesinde Quorum Kaybı ve Sanal Makinelerin Kilitlenmesi",
+    "hizli_adimlar": [
+      "KVM / QEMU Enterprise cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kalan düğümlerin yeterli çoğunluk (Quorum) oy sayısına ulaşamaması.",
+      "Saha servis prosedürünü yerine getirin: pvecm expected 1 komutunu vererek geçici olarak tek düğümün yetkili çalışmasını sağlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "KVM / QEMU Enterprise Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Üç düğümlü kümede bir host koptuğunda diğer hostların konfigürasyon değişikliği yapamaması.",
+    "derin_teknik_analiz": "Kök Neden: Kalan düğümlerin yeterli çoğunluk (Quorum) oy sayısına ulaşamaması. Saha Çözümü: pvecm expected 1 komutunu vererek geçici olarak tek düğümün yetkili çalışmasını sağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "kvm   qemu enterprise",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2466",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sanallaştırma & Bulut",
+    "baslik": "KVM / QEMU Enterprise: Hyper-V Dinamik Bellek (Dynamic Memory) Tahsisinde VM Donması",
+    "hizli_adimlar": [
+      "KVM / QEMU Enterprise cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Ana makinede boş bellek kalmaması ve bellek önceliği (Weight) ayarının düşük olması.",
+      "Saha servis prosedürünü yerine getirin: Sanal makineye sabit RAM (Static Memory) atayın veya sayfalama dosyasını büyütün.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "KVM / QEMU Enterprise Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sanal makinenin anlık bellek ihtiyacı arttığında ana sunucunun RAM veremeyip makineyi duraklatması.",
+    "derin_teknik_analiz": "Kök Neden: Ana makinede boş bellek kalmaması ve bellek önceliği (Weight) ayarının düşük olması. Saha Çözümü: Sanal makineye sabit RAM (Static Memory) atayın veya sayfalama dosyasını büyütün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sanallaştırma & bulut",
+      "kvm   qemu enterprise",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  }
+]

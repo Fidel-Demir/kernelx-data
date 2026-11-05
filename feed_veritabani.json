@@ -1,246 +1,3253 @@
-{
-  "versiyon": "2.5.0",
-  "toplam": 6,
-  "modul": "feed_veritabani.json",
-  "kayitlar": [
-    {
-      "id": "veritabani_00001",
-      "kategori": "Veritabanı",
-      "alt_kategori": "MSSQL SUSPECT Moduna Düşen Veritabanı Kurtarma",
-      "baslik": "MSSQL SUSPECT Moduna Düşen Veritabanı Kurtarma",
-      "hizli_adimlar": [
-        "Saha arıza/kurulum belirtisini teyit edin: Elektrik kesintisinde çöken SQL veritabanını acil moda alıp onarma.",
-        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
-        "Birincil komutu veya eylemi uygulayın: ALTER DATABASE [DB] SET EMERGENCY; DBCC CHECKDB ([DB], REPAIR_ALLOW_DATA_LOSS); ALTER DATABASE [DB] SET MULTI_USER;",
-        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Teşhis ve Uygulama Komutu",
-          "komut": "ALTER DATABASE [DB] SET EMERGENCY; DBCC CHECKDB ([DB], REPAIR_ALLOW_DATA_LOSS); ALTER DATABASE [DB] SET MULTI_USER;",
-          "aciklama": "Bozuk SQL sayfalarını tamir eder."
-        }
-      ],
-      "temel_anlatim": "MSSQL SUSPECT Moduna Düşen Veritabanı Kurtarma: Elektrik kesintisinde çöken SQL veritabanını acil moda alıp onarma. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
-      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. ALTER DATABASE [DB] SET EMERGENCY; DBCC CHECKDB ([DB], REPAIR_ALLOW_DATA_LOSS); ALTER DATABASE [DB] SET MULTI_USER; parametresi durumu optimize eder.",
-      "kenar_durumlar": [
-        {
-          "durum": "Zaman aşımı veya erişim engeli hatası",
-          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
-          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "suspect",
-        "mssql",
-        "dbcc checkdb",
-        "veritabani",
-        "veritabanı",
-        "sql server"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "veritabani_00002",
-      "kategori": "Veritabanı",
-      "alt_kategori": "MSSQL Şişen .ldf İşlem Günlüğü Dosyasını Küçültme",
-      "baslik": "MSSQL Şişen .ldf İşlem Günlüğü Dosyasını Küçültme",
-      "hizli_adimlar": [
-        "Saha arıza/kurulum belirtisini teyit edin: Diski dolduran SQL log dosyasını Simple recovery moduna alıp küçültme.",
-        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
-        "Birincil komutu veya eylemi uygulayın: ALTER DATABASE [DB] SET RECOVERY SIMPLE; DBCC SHRINKFILE ('DB_Log', 100);",
-        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Teşhis ve Uygulama Komutu",
-          "komut": "ALTER DATABASE [DB] SET RECOVERY SIMPLE; DBCC SHRINKFILE ('DB_Log', 100);",
-          "aciklama": "Log dosyasını 100 MB'a küçültür."
-        }
-      ],
-      "temel_anlatim": "MSSQL Şişen .ldf İşlem Günlüğü Dosyasını Küçültme: Diski dolduran SQL log dosyasını Simple recovery moduna alıp küçültme. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
-      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. ALTER DATABASE [DB] SET RECOVERY SIMPLE; DBCC SHRINKFILE ('DB_Log', 100); parametresi durumu optimize eder.",
-      "kenar_durumlar": [
-        {
-          "durum": "Zaman aşımı veya erişim engeli hatası",
-          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
-          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "mssql",
-        "disk doldu",
-        "shrinkfile",
-        "ldf",
-        "veritabani",
-        "veritabanı",
-        "sql server"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "veritabani_00003",
-      "kategori": "Veritabanı",
-      "alt_kategori": "Logo / Zirve / Mikro ERP Lisans Kilitleri Temizliği",
-      "baslik": "Logo / Zirve / Mikro ERP Lisans Kilitleri Temizliği",
-      "hizli_adimlar": [
-        "Saha arıza/kurulum belirtisini teyit edin: Kullanıcı düştüğü halde 'Kullanıcı oturumu zaten açık' uyuşmazlığı.",
-        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
-        "Birincil komutu veya eylemi uygulayın: DELETE FROM L_CUSERS WHERE USERNR = 1; DELETE FROM _LICENSEDUSERS;",
-        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Teşhis ve Uygulama Komutu",
-          "komut": "DELETE FROM L_CUSERS WHERE USERNR = 1; DELETE FROM _LICENSEDUSERS;",
-          "aciklama": "Askıda kalan ERP oturumunu sıfırlar."
-        }
-      ],
-      "temel_anlatim": "Logo / Zirve / Mikro ERP Lisans Kilitleri Temizliği: Kullanıcı düştüğü halde 'Kullanıcı oturumu zaten açık' uyuşmazlığı. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
-      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. DELETE FROM L_CUSERS WHERE USERNR = 1; DELETE FROM _LICENSEDUSERS; parametresi durumu optimize eder.",
-      "kenar_durumlar": [
-        {
-          "durum": "Zaman aşımı veya erişim engeli hatası",
-          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
-          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "erp",
-        "zirve",
-        "mikro",
-        "logo",
-        "lisans kilidi",
-        "sql",
-        "veritabani",
-        "veritabanı"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "veritabani_00004",
-      "kategori": "Veritabanı",
-      "alt_kategori": "PostgreSQL max_connections",
-      "baslik": "PostgreSQL max_connections & Deadlock Analizi",
-      "hizli_adimlar": [
-        "Saha arıza/kurulum belirtisini teyit edin: Veritabanına yeni bağlantı açılmadığında kilitli transaction'ları öldürme.",
-        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
-        "Birincil komutu veya eylemi uygulayın: SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE state = 'idle in transaction';",
-        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Teşhis ve Uygulama Komutu",
-          "komut": "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE state = 'idle in transaction';",
-          "aciklama": "Askıda kalan sorguları sonlandırır."
-        }
-      ],
-      "temel_anlatim": "PostgreSQL max_connections & Deadlock Analizi: Veritabanına yeni bağlantı açılmadığında kilitli transaction'ları öldürme. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
-      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE state = 'idle in transaction'; parametresi durumu optimize eder.",
-      "kenar_durumlar": [
-        {
-          "durum": "Zaman aşımı veya erişim engeli hatası",
-          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
-          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "deadlock",
-        "max_connections",
-        "postgresql",
-        "pg_stat_activity",
-        "veritabani",
-        "veritabanı"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "db_mysql_1045_access_denied",
-      "kategori": "Veritabanı",
-      "alt_kategori": "MySQL / MariaDB",
-      "baslik": "MySQL 1045 Access Denied & Root Şifresini Sıfırlama",
-      "hizli_adimlar": [
-        "MySQL servisini durdur.",
-        "mysqld_safe --skip-grant-tables ile şifresiz modda başlat.",
-        "Root şifresini ALTER USER ile güncelle."
-      ],
-      "komutlar": [
-        {
-          "etiket": "MySQL Servisini Durdur",
-          "komut": "sudo systemctl stop mysql",
-          "aciklama": "Mevcut veritabanı servisini durdurur."
-        },
-        {
-          "etiket": "Yetki Kontrolsüz Başlat",
-          "komut": "sudo mysqld_safe --skip-grant-tables --skip-networking &",
-          "aciklama": "Şifre sormadan ve dış ağ erişimini kapatıp yerel modda açar."
-        },
-        {
-          "etiket": "Root Şifresini Sıfırla",
-          "komut": "mysql -u root -e \"FLUSH PRIVILEGES; ALTER USER 'root'@'localhost' IDENTIFIED BY 'YeniGucluSifre123!'; FLUSH PRIVILEGES;\"",
-          "aciklama": "Root kullanıcısına yeni şifre atar."
-        }
-      ],
-      "temel_anlatim": "Root şifresi unutulduğunda veya kullanıcı izinleri bozulduğunda MySQL bağlantı hatası 1045 verir. Güvenli modda yetki tabloları atlanarak şifre yenilenir.",
-      "derin_teknik_analiz": "skip-grant-tables parametresi mysqld sürecinin mysql.user tablosunu belleğe yüklemesini engeller. skip-networking ise şifresiz mod sırasında dış ağdan gelecek sızmaları önler.",
-      "kenar_durumlar": [
-        {
-          "durum": "auth_socket eklentisi aktifse",
-          "neden": "Ubuntu/Debian'da şifre yerine linux kullanıcısı kontrol edilir.",
-          "cozum": "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'sifre'; çalıştırın."
-        }
-      ],
-      "etiketler": [
-        "mysql",
-        "mariadb",
-        "1045 access denied",
-        "root sifre",
-        "skip grant tables"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "db_mssql_ldf_log_shrink",
-      "kategori": "Veritabanı",
-      "alt_kategori": "MS SQL Server",
-      "baslik": "MS SQL Server LDF (Transaction Log) Dosyasının Şişmesi ve Güvenli Shrink Prosedürü",
-      "hizli_adimlar": [
-        "SQL Server Management Studio (SSMS) açıp veritabanına bağlanın.",
-        "Yeni bir sorgu (New Query) penceresi açın.",
-        "Veritabanını geçici olarak 'SIMPLE' kurtarma moduna alın (Bu işlem aktif olmayan VLF'leri işaretler).",
-        "`DBCC SHRINKFILE` çalıştırarak hedef boyut belirleyin (Örn: 2048 MB).",
-        "Gerekiyorsa veritabanını tekrar 'FULL' moduna geri alın ve hemen tam (FULL) yedek alın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "SQL Log Shrink Betiği",
-          "komut": "ALTER DATABASE [VeritabaniAdi] SET RECOVERY SIMPLE;\nGO\nDBCC SHRINKFILE (VeritabaniAdi_Log, 2048);\nGO\nALTER DATABASE [VeritabaniAdi] SET RECOVERY FULL;\nGO",
-          "aciklama": "Log dosyasını güvenle 2 GB'a düşürür."
-        },
-        {
-          "etiket": "Log Alanı Kullanımını Sorgula",
-          "komut": "DBCC SQLPERF(LOGSPACE);",
-          "aciklama": "Hangi veritabanının yüzde kaç log alanı kullandığını listeler."
-        }
-      ],
-      "temel_anlatim": "SQL Server'da veritabanının `.ldf` dosyasının 200-500 GB'a ulaşıp diski tamamen doldurması ve veritabanının 'SUSPECT' veya 'READ ONLY' moduna geçmesi.",
-      "derin_teknik_analiz": "Recovery Model 'FULL' olan veritabanlarında Transaction Log yedeği (Log Backup) düzenli alınmazsa SQL Server tamamlanan işlemleri log dosyasından asla silmez. `DBCC SHRINKFILE` doğrudan çalışmaz çünkü aktif VLF (Virtual Log File) dosyaları serbest bırakılmamıştır.",
-      "kenar_durumlar": [
-        {
-          "durum": "Shrink komutu çalışıyor ama dosya boyutu 1 MB bile küçülmüyor",
-          "neden": "Açık kalmış bir transaction (Open Transaction) veya aktif CDC / Replication süreci vardır.",
-          "cozum": "`DBCC OPENTRAN` ile işlemi tutan SPID'yi bulun ve `KILL <SPID>` yapın."
-        }
-      ],
-      "etiketler": [
-        "veritabani",
-        "mssql",
-        "ldf",
-        "shrinkfile",
-        "transaction-log",
-        "ssms"
-      ],
-      "oncelik": 1
-    }
-  ]
-}
+[
+  {
+    "id": "ag_00001",
+    "kategori": "Ağ",
+    "alt_kategori": "MikroTik RouterOS v7 QuickSet",
+    "baslik": "MikroTik RouterOS v7 QuickSet & Bridge",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: MikroTik Winbox ile bridge oluşturma, LAN IP (192.168.88.1/24) ve DHCP sunucusu kurma.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: /interface bridge add name=bridge-lan; /ip address add address=192.168.88.1/24 interface=bridge-lan",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "/interface bridge add name=bridge-lan; /ip address add address=192.168.88.1/24 interface=bridge-lan",
+        "aciklama": "LAN bridge arabirimini başlatır."
+      }
+    ],
+    "temel_anlatim": "MikroTik RouterOS v7 QuickSet & Bridge: MikroTik Winbox ile bridge oluşturma, LAN IP (192.168.88.1/24) ve DHCP sunucusu kurma. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. /interface bridge add name=bridge-lan; /ip address add address=192.168.88.1/24 interface=bridge-lan parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "ağ bridge routeros lan ag router dhcp mikrotik"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "ag_00003",
+    "kategori": "Ağ",
+    "alt_kategori": "MikroTik NAT Masquerade",
+    "baslik": "MikroTik NAT Masquerade & FastTrack",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: İç ağ internet çıkış kuralı ve CPU yükünü düşüren donanımsal FastTrack hızlandırması.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: /ip firewall nat add chain=srcnat out-interface=pppoe-out1 action=masquerade; /ip firewall filter add chain=forward action=fasttrack-connection",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "/ip firewall nat add chain=srcnat out-interface=pppoe-out1 action=masquerade; /ip firewall filter add chain=forward action=fasttrack-connection",
+        "aciklama": "Donanımsal yönlendirmeyi açar."
+      }
+    ],
+    "temel_anlatim": "MikroTik NAT Masquerade & FastTrack: İç ağ internet çıkış kuralı ve CPU yükünü düşüren donanımsal FastTrack hızlandırması. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. /ip firewall nat add chain=srcnat out-interface=pppoe-out1 action=masquerade; /ip firewall filter add chain=forward action=fasttrack-connection parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "nat ağ cpu fasttrack masquerade ag router mikrotik"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "ag_mt_004",
+    "kategori": "Ağ",
+    "alt_kategori": "MikroTik & RouterOS",
+    "baslik": "Hairpin NAT (NAT Loopback) Yerel Ağdan Dış IP'ye Erişememe",
+    "hizli_adimlar": [
+      "Router yönetim paneline (Winbox / WebFig) bağlanın.",
+      "IP -> Firewall -> NAT menüsüne gidin.",
+      "Yeni bir `srcnat` kuralı açın: Src. Address yerel alt ağınız (örneğin 192.168.1.0/24), Dst. Address yerel sunucunuz (örneğin 192.168.1.200) olsun.",
+      "Action sekmesinden `masquerade` seçin ve kaydedin.",
+      "Kullanıcının bilgisayarından dış IP veya alan adını tarayıcıda test edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Hairpin NAT Kuralı Ekle",
+        "komut": "/ip firewall nat add chain=srcnat src-address=192.168.1.0/24 dst-address=192.168.1.200 protocol=tcp dst-port=80,443,8000 action=masquerade",
+        "aciklama": "Yerel ağdan gelen istekleri router IP'siyle maskeler"
+      },
+      {
+        "etiket": "NAT Kurallarını Sırala",
+        "komut": "/ip firewall nat print",
+        "aciklama": "Mevcut NAT kurallarının sırasını görüntüler"
+      }
+    ],
+    "temel_anlatim": "Ofis içindeki bilgisayarların, firmanın dış statik IP'sine veya yönlendirilmiş portlarına (kamera, web sunucu vb.) bağlanamaması.",
+    "derin_teknik_analiz": "Yerel ağdaki istemci dış IP'ye istek gönderdiğinde paket router'a gider ve iç sunucuya yönlendirilir; ancak sunucu istemciye doğrudan yerel IP'sinden yanıt döner. İstemci dış IP'den yanıt beklediği için bu paketi reddeder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sunucu Loglarında Tüm İstemciler Router IP'si Olarak Görünüyor",
+        "neden": "Masquerade kuralı istemcinin gerçek yerel IP'sini router IP'siyle ezer.",
+        "cozum": "Daha temiz bir çözüm için yerel ağda 'Split-Brain DNS' (yerel DNS sunucusunda alan adını doğrudan 192.168.1.200'e yönlendirme) uygulayın."
+      }
+    ],
+    "etiketler": [
+      "hairpin-nat nat-loopback port-forward mikrotik cctv-erisim"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "veritabani_00001",
+    "kategori": "Veritabanı",
+    "alt_kategori": "MSSQL SUSPECT Moduna Düşen Veritabanı Kurtarma",
+    "baslik": "MSSQL SUSPECT Moduna Düşen Veritabanı Kurtarma",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: Elektrik kesintisinde çöken SQL veritabanını acil moda alıp onarma.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: ALTER DATABASE [DB] SET EMERGENCY; DBCC CHECKDB ([DB], REPAIR_ALLOW_DATA_LOSS); ALTER DATABASE [DB] SET MULTI_USER;",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "ALTER DATABASE [DB] SET EMERGENCY; DBCC CHECKDB ([DB], REPAIR_ALLOW_DATA_LOSS); ALTER DATABASE [DB] SET MULTI_USER;",
+        "aciklama": "Bozuk SQL sayfalarını tamir eder."
+      }
+    ],
+    "temel_anlatim": "MSSQL SUSPECT Moduna Düşen Veritabanı Kurtarma: Elektrik kesintisinde çöken SQL veritabanını acil moda alıp onarma. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. ALTER DATABASE [DB] SET EMERGENCY; DBCC CHECKDB ([DB], REPAIR_ALLOW_DATA_LOSS); ALTER DATABASE [DB] SET MULTI_USER; parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "suspect mssql dbcc checkdb veritabani veritabanı sql server"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "veritabani_00002",
+    "kategori": "Veritabanı",
+    "alt_kategori": "MSSQL Şişen .ldf İşlem Günlüğü Dosyasını Küçültme",
+    "baslik": "MSSQL Şişen .ldf İşlem Günlüğü Dosyasını Küçültme",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: Diski dolduran SQL log dosyasını Simple recovery moduna alıp küçültme.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: ALTER DATABASE [DB] SET RECOVERY SIMPLE; DBCC SHRINKFILE ('DB_Log', 100);",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "ALTER DATABASE [DB] SET RECOVERY SIMPLE; DBCC SHRINKFILE ('DB_Log', 100);",
+        "aciklama": "Log dosyasını 100 MB'a küçültür."
+      }
+    ],
+    "temel_anlatim": "MSSQL Şişen .ldf İşlem Günlüğü Dosyasını Küçültme: Diski dolduran SQL log dosyasını Simple recovery moduna alıp küçültme. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. ALTER DATABASE [DB] SET RECOVERY SIMPLE; DBCC SHRINKFILE ('DB_Log', 100); parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "mssql disk doldu shrinkfile ldf veritabani veritabanı sql server"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "veritabani_00003",
+    "kategori": "Veritabanı",
+    "alt_kategori": "Logo / Zirve / Mikro ERP Lisans Kilitleri Temizliği",
+    "baslik": "Logo / Zirve / Mikro ERP Lisans Kilitleri Temizliği",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: Kullanıcı düştüğü halde 'Kullanıcı oturumu zaten açık' uyuşmazlığı.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: DELETE FROM L_CUSERS WHERE USERNR = 1; DELETE FROM _LICENSEDUSERS;",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "DELETE FROM L_CUSERS WHERE USERNR = 1; DELETE FROM _LICENSEDUSERS;",
+        "aciklama": "Askıda kalan ERP oturumunu sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Logo / Zirve / Mikro ERP Lisans Kilitleri Temizliği: Kullanıcı düştüğü halde 'Kullanıcı oturumu zaten açık' uyuşmazlığı. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. DELETE FROM L_CUSERS WHERE USERNR = 1; DELETE FROM _LICENSEDUSERS; parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "erp zirve mikro logo lisans kilidi sql veritabani veritabanı"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "veritabani_00004",
+    "kategori": "Veritabanı",
+    "alt_kategori": "PostgreSQL max_connections",
+    "baslik": "PostgreSQL max_connections & Deadlock Analizi",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: Veritabanına yeni bağlantı açılmadığında kilitli transaction'ları öldürme.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE state = 'idle in transaction';",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE state = 'idle in transaction';",
+        "aciklama": "Askıda kalan sorguları sonlandırır."
+      }
+    ],
+    "temel_anlatim": "PostgreSQL max_connections & Deadlock Analizi: Veritabanına yeni bağlantı açılmadığında kilitli transaction'ları öldürme. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE state = 'idle in transaction'; parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "deadlock max_connections postgresql pg_stat_activity veritabani veritabanı"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "db_mysql_1045_access_denied",
+    "kategori": "Veritabanı",
+    "alt_kategori": "MySQL / MariaDB",
+    "baslik": "MySQL 1045 Access Denied & Root Şifresini Sıfırlama",
+    "hizli_adimlar": [
+      "MySQL servisini durdur.",
+      "mysqld_safe --skip-grant-tables ile şifresiz modda başlat.",
+      "Root şifresini ALTER USER ile güncelle."
+    ],
+    "komutlar": [
+      {
+        "etiket": "MySQL Servisini Durdur",
+        "komut": "sudo systemctl stop mysql",
+        "aciklama": "Mevcut veritabanı servisini durdurur."
+      },
+      {
+        "etiket": "Yetki Kontrolsüz Başlat",
+        "komut": "sudo mysqld_safe --skip-grant-tables --skip-networking &",
+        "aciklama": "Şifre sormadan ve dış ağ erişimini kapatıp yerel modda açar."
+      },
+      {
+        "etiket": "Root Şifresini Sıfırla",
+        "komut": "mysql -u root -e \"FLUSH PRIVILEGES; ALTER USER 'root'@'localhost' IDENTIFIED BY 'YeniGucluSifre123!'; FLUSH PRIVILEGES;\"",
+        "aciklama": "Root kullanıcısına yeni şifre atar."
+      }
+    ],
+    "temel_anlatim": "Root şifresi unutulduğunda veya kullanıcı izinleri bozulduğunda MySQL bağlantı hatası 1045 verir. Güvenli modda yetki tabloları atlanarak şifre yenilenir.",
+    "derin_teknik_analiz": "skip-grant-tables parametresi mysqld sürecinin mysql.user tablosunu belleğe yüklemesini engeller. skip-networking ise şifresiz mod sırasında dış ağdan gelecek sızmaları önler.",
+    "kenar_durumlar": [
+      {
+        "durum": "auth_socket eklentisi aktifse",
+        "neden": "Ubuntu/Debian'da şifre yerine linux kullanıcısı kontrol edilir.",
+        "cozum": "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'sifre'; çalıştırın."
+      }
+    ],
+    "etiketler": [
+      "mysql mariadb 1045 access denied root sifre skip grant tables"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "db_mssql_ldf_log_shrink",
+    "kategori": "Veritabanı",
+    "alt_kategori": "MS SQL Server",
+    "baslik": "MS SQL Server LDF (Transaction Log) Dosyasının Şişmesi ve Güvenli Shrink Prosedürü",
+    "hizli_adimlar": [
+      "SQL Server Management Studio (SSMS) açıp veritabanına bağlanın.",
+      "Yeni bir sorgu (New Query) penceresi açın.",
+      "Veritabanını geçici olarak 'SIMPLE' kurtarma moduna alın (Bu işlem aktif olmayan VLF'leri işaretler).",
+      "`DBCC SHRINKFILE` çalıştırarak hedef boyut belirleyin (Örn: 2048 MB).",
+      "Gerekiyorsa veritabanını tekrar 'FULL' moduna geri alın ve hemen tam (FULL) yedek alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SQL Log Shrink Betiği",
+        "komut": "ALTER DATABASE [VeritabaniAdi] SET RECOVERY SIMPLE;\nGO\nDBCC SHRINKFILE (VeritabaniAdi_Log, 2048);\nGO\nALTER DATABASE [VeritabaniAdi] SET RECOVERY FULL;\nGO",
+        "aciklama": "Log dosyasını güvenle 2 GB'a düşürür."
+      },
+      {
+        "etiket": "Log Alanı Kullanımını Sorgula",
+        "komut": "DBCC SQLPERF(LOGSPACE);",
+        "aciklama": "Hangi veritabanının yüzde kaç log alanı kullandığını listeler."
+      }
+    ],
+    "temel_anlatim": "SQL Server'da veritabanının `.ldf` dosyasının 200-500 GB'a ulaşıp diski tamamen doldurması ve veritabanının 'SUSPECT' veya 'READ ONLY' moduna geçmesi.",
+    "derin_teknik_analiz": "Recovery Model 'FULL' olan veritabanlarında Transaction Log yedeği (Log Backup) düzenli alınmazsa SQL Server tamamlanan işlemleri log dosyasından asla silmez. `DBCC SHRINKFILE` doğrudan çalışmaz çünkü aktif VLF (Virtual Log File) dosyaları serbest bırakılmamıştır.",
+    "kenar_durumlar": [
+      {
+        "durum": "Shrink komutu çalışıyor ama dosya boyutu 1 MB bile küçülmüyor",
+        "neden": "Açık kalmış bir transaction (Open Transaction) veya aktif CDC / Replication süreci vardır.",
+        "cozum": "`DBCC OPENTRAN` ile işlemi tutan SPID'yi bulun ve `KILL <SPID>` yapın."
+      }
+    ],
+    "etiketler": [
+      "veritabani mssql ldf shrinkfile transaction-log ssms"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "db_mat_19",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MS SQL Server: 'SUSPECT' Moduna Düşen Veritabanını EMERGENCY ile Kurtarma",
+    "hizli_adimlar": [
+      "SSMS üzerinden yeni sorgu (New Query) açın.",
+      "ALTER DATABASE [DB_ADI] SET EMERGENCY; çalıştırın.",
+      "ALTER DATABASE [DB_ADI] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; ile kullanıcıları düşürün.",
+      "DBCC CHECKDB ([DB_ADI], REPAIR_ALLOW_DATA_LOSS); ile onarımı başlatın.",
+      "ALTER DATABASE [DB_ADI] SET MULTI_USER; ile veritabanını normal kullanıma açın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Suspect Onarım SQL Scripti",
+        "komut": "ALTER DATABASE [DB] SET EMERGENCY;\nALTER DATABASE [DB] SET SINGLE_USER;\nDBCC CHECKDB ([DB], REPAIR_ALLOW_DATA_LOSS);\nALTER DATABASE [DB] SET MULTI_USER;",
+        "aciklama": "Çöken SQL veritabanını acil durum modunda kurtarır."
+      }
+    ],
+    "temel_anlatim": "SQL Server servis açılışında veritabanının yanında '(Suspect)' yazması ve hiçbir kullanıcının bağlanamaması.",
+    "derin_teknik_analiz": "Kök Neden: İşlem günlüğü (LDF) dosyasının bozulması veya sunucu aniden kapandığında veri tablosunun tutarsız kalması. Mühendislik Müdahalesi: EMERGENCY ve SINGLE_USER moduna alıp DBCC CHECKDB ile veri kaybını minimize ederek onarın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Onarım I/O hatasıyla duruyor",
+        "neden": "Fiziksel diskte bad sector oluşmuştur.",
+        "cozum": "Veritabanını farklı bir NVMe SSD diske kopyalayıp orada onarın."
+      }
+    ],
+    "etiketler": [
+      "veritabani",
+      "sql-server",
+      "suspect-db",
+      "dbcc-checkdb",
+      "emergency-mode"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_70",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MS SQL Server Hata 823 / 824 Fiziksel Disk G/Ç (I/O) Bozulması",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: DBCC CHECKDB ('VeritabaniAdi') WITH NO_INFOMSGS, ALL_ERRORMSGS",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "DBCC CHECKDB ('VeritabaniAdi') WITH NO_INFOMSGS, ALL_ERRORMSGS",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "MS SQL Server Hata 823 / 824 Fiziksel Disk G/Ç (I/O) Bozulması ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: DBCC CHECKDB ('VeritabaniAdi') WITH NO_INFOMSGS, ALL_ERRORMSGS",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "veritabanı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_71",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MySQL Error 1040: 'Too many connections' ve max_connections Ayarı",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: SET GLOBAL max_connections = 500;",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "SET GLOBAL max_connections = 500;",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "MySQL Error 1040: 'Too many connections' ve max_connections Ayarı ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: SET GLOBAL max_connections = 500;",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "veritabanı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_72",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "PostgreSQL FATAL: 'remaining connection slots are reserved for non-replication superuser connections'",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: ALTER SYSTEM SET max_connections = 300;",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "ALTER SYSTEM SET max_connections = 300;",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "PostgreSQL FATAL: 'remaining connection slots are reserved for non-replication superuser connections' ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: ALTER SYSTEM SET max_connections = 300;",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "veritabanı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_73",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MySQL InnoDB Crash Loop: innodb_force_recovery 1-6 Modları",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: my.cnf -> [mysqld] innodb_force_recovery = 3",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "my.cnf -> [mysqld] innodb_force_recovery = 3",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "MySQL InnoDB Crash Loop: innodb_force_recovery 1-6 Modları ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: my.cnf -> [mysqld] innodb_force_recovery = 3",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "veritabanı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_74",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "SQL Server TempDB PAGELATCH_UP Çekişmesi ve Çoklu Veri Dosyası Çözümü",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: ALTER DATABASE tempdb ADD FILE (NAME = tempdev2, FILENAME = 'T:\\tempdb2.ndf', SIZE = 10GB)",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "ALTER DATABASE tempdb ADD FILE (NAME = tempdev2, FILENAME = 'T:\\tempdb2.ndf', SIZE = 10GB)",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "SQL Server TempDB PAGELATCH_UP Çekişmesi ve Çoklu Veri Dosyası Çözümü ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: ALTER DATABASE tempdb ADD FILE (NAME = tempdev2, FILENAME = 'T:\\tempdb2.ndf', SIZE = 10GB)",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "veritabanı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_75",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "PostgreSQL VACUUM FULL ve Transaction ID (TXID) Wraparound Krizi",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: vacuumdb --all --analyze-in-stages -v",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "vacuumdb --all --analyze-in-stages -v",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "PostgreSQL VACUUM FULL ve Transaction ID (TXID) Wraparound Krizi ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: vacuumdb --all --analyze-in-stages -v",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "veritabanı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_76",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Logo Tiger / GO3 ERP 'Sysax Object Hatası' ve DLL Kayıt Prosedürü",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: regsvr32 /s C:\\Logo\\Tiger3\\LbsSysax.dll",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "regsvr32 /s C:\\Logo\\Tiger3\\LbsSysax.dll",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Logo Tiger / GO3 ERP 'Sysax Object Hatası' ve DLL Kayıt Prosedürü ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: regsvr32 /s C:\\Logo\\Tiger3\\LbsSysax.dll",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "veritabanı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_77",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Mikro ERP SQL Collation Uyuşmazlığı (Turkish_CI_AS vs SQL_Latin1_General_CP1_CI_AS)",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: ALTER DATABASE MikroDB COLLATE Turkish_CI_AS",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "ALTER DATABASE MikroDB COLLATE Turkish_CI_AS",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Mikro ERP SQL Collation Uyuşmazlığı (Turkish_CI_AS vs SQL_Latin1_General_CP1_CI_AS) ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: ALTER DATABASE MikroDB COLLATE Turkish_CI_AS",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "veritabanı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_78",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "SQLite Veritabanında 'database disk image is malformed' Kurtarma",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: sqlite3 bozuk.db \".recover\" | sqlite3 kurtarilan.db",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "sqlite3 bozuk.db \".recover\" | sqlite3 kurtarilan.db",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "SQLite Veritabanında 'database disk image is malformed' Kurtarma ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: sqlite3 bozuk.db \".recover\" | sqlite3 kurtarilan.db",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "veritabanı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_79",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Oracle Database ORA-01034: ORACLE not available ve ORA-27101 Shared Memory Realm Does Not Exist",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: sqlplus / as sysdba -> STARTUP;",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "sqlplus / as sysdba -> STARTUP;",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Oracle Database ORA-01034: ORACLE not available ve ORA-27101 Shared Memory Realm Does Not Exist ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: sqlplus / as sysdba -> STARTUP;",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "veritabanı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "db_surge_12",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MS SQL Server 2022 Enterprise: Hata 18456: Kullanıcı için Oturum Açma Başarısız (State 5 / 8)",
+    "hizli_adimlar": [
+      "MS SQL Server 2022 Enterprise yönetim konsolunu (SSMS / CLI / psql) açın.",
+      "Kök neden analizini uygulayın: SQL Server'ın yalnızca 'Windows Authentication' modunda çalışması ve SQL Auth'a kapalı olması.",
+      "Saha servis prosedürünü yürütün: Sunucu Özellikleri -> Güvenlik -> 'SQL Server ve Windows Kimlik Doğrulama Modu'nu seçin.",
+      "Veritabanı bütünlük testini çalıştırarak hatanın temizlendiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SQL Komutu",
+        "komut": "sqlcmd -S localhost -E -Q \"SELECT SERVERPROPERTY('IsIntegratedSecurityOnly')\"",
+        "aciklama": "Veritabanı onarım ve durum komutu."
+      }
+    ],
+    "temel_anlatim": "İstemcinin SQL'e bağlanırken şifre doğru olmasına rağmen 'Login failed for user' alması.",
+    "derin_teknik_analiz": "SQL Server'ın yalnızca 'Windows Authentication' modunda çalışması ve SQL Auth'a kapalı olması. Çözüm: Sunucu Özellikleri -> Güvenlik -> 'SQL Server ve Windows Kimlik Doğrulama Modu'nu seçin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Veritabanı açılmıyor",
+        "neden": "Fiziksel diskte I/O arızası vardır.",
+        "cozum": "Yedekten geri yükleme yapın."
+      }
+    ],
+    "etiketler": [
+      "veritabani",
+      "ms",
+      "erp",
+      "dba"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "db_surge_13",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MS SQL Server 2022 Enterprise: Hata 1105: Disk Doluluğu Nedeniyle Dosya Grubuna Alan Tahsis Edilemiyor",
+    "hizli_adimlar": [
+      "MS SQL Server 2022 Enterprise yönetim konsolunu (SSMS / CLI / psql) açın.",
+      "Kök neden analizini uygulayın: Birincil veri dosyasının (MDF) diskte yer kalmaması veya MAXSIZE sınırına takılması.",
+      "Saha servis prosedürünü yürütün: Diskte yer açın veya ALTER DATABASE [DB] MODIFY FILE ile MAXSIZE değerini UNLIMITED yapın.",
+      "Veritabanı bütünlük testini çalıştırarak hatanın temizlendiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SQL Komutu",
+        "komut": "ALTER DATABASE [DB] MODIFY FILE (NAME = N'DB_Data', MAXSIZE = UNLIMITED)",
+        "aciklama": "Veritabanı onarım ve durum komutu."
+      }
+    ],
+    "temel_anlatim": "Kullanıcılar veri kaydederken 'Could not allocate space for object' alması.",
+    "derin_teknik_analiz": "Birincil veri dosyasının (MDF) diskte yer kalmaması veya MAXSIZE sınırına takılması. Çözüm: Diskte yer açın veya ALTER DATABASE [DB] MODIFY FILE ile MAXSIZE değerini UNLIMITED yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Veritabanı açılmıyor",
+        "neden": "Fiziksel diskte I/O arızası vardır.",
+        "cozum": "Yedekten geri yükleme yapın."
+      }
+    ],
+    "etiketler": [
+      "veritabani",
+      "ms",
+      "erp",
+      "dba"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "db_surge_14",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MS SQL Server 2022 Enterprise: Hata 5171: Veritabanı Birincil Dosya Başlığı Geçersiz",
+    "hizli_adimlar": [
+      "MS SQL Server 2022 Enterprise yönetim konsolunu (SSMS / CLI / psql) açın.",
+      "Kök neden analizini uygulayın: Elektrik kesintisinde MDF dosyasının ilk sektöründeki (Page 0) dosya başlığının bozulması.",
+      "Saha servis prosedürünü yürütün: ATTACH_REBUILD_LOG komutuyla MDF dosyasını yeni bir LDF ile iliştirmeyi deneyin.",
+      "Veritabanı bütünlük testini çalıştırarak hatanın temizlendiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SQL Komutu",
+        "komut": "CREATE DATABASE [DB] ON (FILENAME = 'C:\\DB.mdf') FOR ATTACH_REBUILD_LOG",
+        "aciklama": "Veritabanı onarım ve durum komutu."
+      }
+    ],
+    "temel_anlatim": "SQL servisi açılırken veritabanının 'Recovery Pending' modunda kalması.",
+    "derin_teknik_analiz": "Elektrik kesintisinde MDF dosyasının ilk sektöründeki (Page 0) dosya başlığının bozulması. Çözüm: ATTACH_REBUILD_LOG komutuyla MDF dosyasını yeni bir LDF ile iliştirmeyi deneyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Veritabanı açılmıyor",
+        "neden": "Fiziksel diskte I/O arızası vardır.",
+        "cozum": "Yedekten geri yükleme yapın."
+      }
+    ],
+    "etiketler": [
+      "veritabani",
+      "ms",
+      "erp",
+      "dba"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "db_surge_15",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MS SQL Server 2022 Enterprise: Sorgu Bellek İzni (Memory Grant Timeout) Nedeniyle Sorguların Askıda Kalması",
+    "hizli_adimlar": [
+      "MS SQL Server 2022 Enterprise yönetim konsolunu (SSMS / CLI / psql) açın.",
+      "Kök neden analizini uygulayın: Büyük sıralama (SORT/HASH) işlemlerinin maksimum bellek havuzunu bloke etmesi.",
+      "Saha servis prosedürünü yürütün: RESOURCE GOVERNOR üzerinden sorgu başına düşen maksimum bellek yüzdesini sınırlayın.",
+      "Veritabanı bütünlük testini çalıştırarak hatanın temizlendiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SQL Komutu",
+        "komut": "SELECT * FROM sys.dm_exec_query_memory_grants",
+        "aciklama": "Veritabanı onarım ve durum komutu."
+      }
+    ],
+    "temel_anlatim": "Kullanıcıların rapor çekerken sonsuz beklemede kalması ve CPU'nun normal görünmesi.",
+    "derin_teknik_analiz": "Büyük sıralama (SORT/HASH) işlemlerinin maksimum bellek havuzunu bloke etmesi. Çözüm: RESOURCE GOVERNOR üzerinden sorgu başına düşen maksimum bellek yüzdesini sınırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Veritabanı açılmıyor",
+        "neden": "Fiziksel diskte I/O arızası vardır.",
+        "cozum": "Yedekten geri yükleme yapın."
+      }
+    ],
+    "etiketler": [
+      "veritabani",
+      "ms",
+      "erp",
+      "dba"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "db_surge_16",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "PostgreSQL 16 Enterprise: WAL Arşivleme Hatası ve pg_wal Dizininde Diskin %100 Dolması",
+    "hizli_adimlar": [
+      "PostgreSQL 16 Enterprise yönetim konsolunu (SSMS / CLI / psql) açın.",
+      "Kök neden analizini uygulayın: Arşiv komutundaki hedef yedekleme dizininin erişilemez veya dolu olması.",
+      "Saha servis prosedürünü yürütün: Arşiv komutunu geçici olarak '/bin/true' yapıp diski rahatlatın ve hedef dizin izinlerini onarın.",
+      "Veritabanı bütünlük testini çalıştırarak hatanın temizlendiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SQL Komutu",
+        "komut": "psql -c \"SHOW archive_command;\"",
+        "aciklama": "Veritabanı onarım ve durum komutu."
+      }
+    ],
+    "temel_anlatim": "PostgreSQL'in kapanması ve 'archive_command failed' logu üretmesi.",
+    "derin_teknik_analiz": "Arşiv komutundaki hedef yedekleme dizininin erişilemez veya dolu olması. Çözüm: Arşiv komutunu geçici olarak '/bin/true' yapıp diski rahatlatın ve hedef dizin izinlerini onarın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Veritabanı açılmıyor",
+        "neden": "Fiziksel diskte I/O arızası vardır.",
+        "cozum": "Yedekten geri yükleme yapın."
+      }
+    ],
+    "etiketler": [
+      "veritabani",
+      "postgresql",
+      "erp",
+      "dba"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "db_surge_17",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "PostgreSQL 16 Enterprise: FATAL: 'password authentication failed for user' ve pg_hba.conf Yetkisi",
+    "hizli_adimlar": [
+      "PostgreSQL 16 Enterprise yönetim konsolunu (SSMS / CLI / psql) açın.",
+      "Kök neden analizini uygulayın: pg_hba.conf dosyasında md5 yerine scram-sha-256 veya peer ayarının çakışması.",
+      "Saha servis prosedürünü yürütün: pg_hba.conf dosyasında ilgili IP aralığı için auth-method değerini 'scram-sha-256' olarak düzenleyin ve reload edin.",
+      "Veritabanı bütünlük testini çalıştırarak hatanın temizlendiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SQL Komutu",
+        "komut": "pg_ctl reload",
+        "aciklama": "Veritabanı onarım ve durum komutu."
+      }
+    ],
+    "temel_anlatim": "Doğru şifre girilmesine rağmen yerel veya uzak bağlantının reddedilmesi.",
+    "derin_teknik_analiz": "pg_hba.conf dosyasında md5 yerine scram-sha-256 veya peer ayarının çakışması. Çözüm: pg_hba.conf dosyasında ilgili IP aralığı için auth-method değerini 'scram-sha-256' olarak düzenleyin ve reload edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Veritabanı açılmıyor",
+        "neden": "Fiziksel diskte I/O arızası vardır.",
+        "cozum": "Yedekten geri yükleme yapın."
+      }
+    ],
+    "etiketler": [
+      "veritabani",
+      "postgresql",
+      "erp",
+      "dba"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "db_surge_18",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "PostgreSQL 16 Enterprise: Autovacuum Yetersizliği ve Tablo Şişmesi (Table Bloat)",
+    "hizli_adimlar": [
+      "PostgreSQL 16 Enterprise yönetim konsolunu (SSMS / CLI / psql) açın.",
+      "Kök neden analizini uygulayın: Ölü kayıtların (Dead Tuples) autovacuum eşiğine takılıp temizlenememesi.",
+      "Saha servis prosedürünü yürütün: İlgili tabloya 'VACUUM (VERBOSE, ANALYZE) [TabloAdi]' çalıştırın veya pg_repack ile kilitsiz küçültün.",
+      "Veritabanı bütünlük testini çalıştırarak hatanın temizlendiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SQL Komutu",
+        "komut": "psql -c \"VACUUM FULL TabloAdi;\"",
+        "aciklama": "Veritabanı onarım ve durum komutu."
+      }
+    ],
+    "temel_anlatim": "Milyonlarca kayıt silinmesine rağmen disk alanının hiç küçülmemesi ve sorguların yavaşlaması.",
+    "derin_teknik_analiz": "Ölü kayıtların (Dead Tuples) autovacuum eşiğine takılıp temizlenememesi. Çözüm: İlgili tabloya 'VACUUM (VERBOSE, ANALYZE) [TabloAdi]' çalıştırın veya pg_repack ile kilitsiz küçültün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Veritabanı açılmıyor",
+        "neden": "Fiziksel diskte I/O arızası vardır.",
+        "cozum": "Yedekten geri yükleme yapın."
+      }
+    ],
+    "etiketler": [
+      "veritabani",
+      "postgresql",
+      "erp",
+      "dba"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "db_surge_19",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "PostgreSQL 16 Enterprise: Replikasyon Gecikmesi (Replication Lag) ve Standby Sunucunun Geri Kalması",
+    "hizli_adimlar": [
+      "PostgreSQL 16 Enterprise yönetim konsolunu (SSMS / CLI / psql) açın.",
+      "Kök neden analizini uygulayın: Ağ gecikmesi veya standby sunucuda max_standby_streaming_delay süresinin aşılması.",
+      "Saha servis prosedürünü yürütün: Replikasyon yuvasını (Replication Slot) kontrol edin ve wal_keep_size değerini artırın.",
+      "Veritabanı bütünlük testini çalıştırarak hatanın temizlendiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SQL Komutu",
+        "komut": "SELECT * FROM pg_stat_replication;",
+        "aciklama": "Veritabanı onarım ve durum komutu."
+      }
+    ],
+    "temel_anlatim": "İkincil replika sunucusunda raporların 1 saat önceki eski veriyi göstermesi.",
+    "derin_teknik_analiz": "Ağ gecikmesi veya standby sunucuda max_standby_streaming_delay süresinin aşılması. Çözüm: Replikasyon yuvasını (Replication Slot) kontrol edin ve wal_keep_size değerini artırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Veritabanı açılmıyor",
+        "neden": "Fiziksel diskte I/O arızası vardır.",
+        "cozum": "Yedekten geri yükleme yapın."
+      }
+    ],
+    "etiketler": [
+      "veritabani",
+      "postgresql",
+      "erp",
+      "dba"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "db_surge_20",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MySQL 8.0 / MariaDB 10.11: Error 1062 (23000): Duplicate entry for key 'PRIMARY'",
+    "hizli_adimlar": [
+      "MySQL 8.0 / MariaDB 10.11 yönetim konsolunu (SSMS / CLI / psql) açın.",
+      "Kök neden analizini uygulayın: Otomatik artan alanın (AUTO_INCREMENT) mevcut en büyük ID'den daha küçük bir değere takılması.",
+      "Saha servis prosedürünü yürütün: ALTER TABLE [Tablo] AUTO_INCREMENT = [Maks_ID + 1] komutuyla sayaç değerini güncelleyin.",
+      "Veritabanı bütünlük testini çalıştırarak hatanın temizlendiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SQL Komutu",
+        "komut": "SELECT MAX(id) FROM Tablo;",
+        "aciklama": "Veritabanı onarım ve durum komutu."
+      }
+    ],
+    "temel_anlatim": "Veri aktarımı veya tablo kopyalama sırasında birincil anahtar çakışması.",
+    "derin_teknik_analiz": "Otomatik artan alanın (AUTO_INCREMENT) mevcut en büyük ID'den daha küçük bir değere takılması. Çözüm: ALTER TABLE [Tablo] AUTO_INCREMENT = [Maks_ID + 1] komutuyla sayaç değerini güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Veritabanı açılmıyor",
+        "neden": "Fiziksel diskte I/O arızası vardır.",
+        "cozum": "Yedekten geri yükleme yapın."
+      }
+    ],
+    "etiketler": [
+      "veritabani",
+      "mysql",
+      "erp",
+      "dba"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "db_surge_21",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MySQL 8.0 / MariaDB 10.11: Sort Aborted: Out of sort memory, consider increasing server sort buffer size",
+    "hizli_adimlar": [
+      "MySQL 8.0 / MariaDB 10.11 yönetim konsolunu (SSMS / CLI / psql) açın.",
+      "Kök neden analizini uygulayın: sort_buffer_size oturum parametresinin sıralanacak veri boyutuna yetmemesi.",
+      "Saha servis prosedürünü yürütün: my.cnf içinde sort_buffer_size = 4M ve read_rnd_buffer_size = 2M olarak ayarlayın.",
+      "Veritabanı bütünlük testini çalıştırarak hatanın temizlendiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SQL Komutu",
+        "komut": "SET GLOBAL sort_buffer_size = 4194304;",
+        "aciklama": "Veritabanı onarım ve durum komutu."
+      }
+    ],
+    "temel_anlatim": "Büyük tabloda ORDER BY çalıştırıldığında sorgunun hata verip durması.",
+    "derin_teknik_analiz": "sort_buffer_size oturum parametresinin sıralanacak veri boyutuna yetmemesi. Çözüm: my.cnf içinde sort_buffer_size = 4M ve read_rnd_buffer_size = 2M olarak ayarlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Veritabanı açılmıyor",
+        "neden": "Fiziksel diskte I/O arızası vardır.",
+        "cozum": "Yedekten geri yükleme yapın."
+      }
+    ],
+    "etiketler": [
+      "veritabani",
+      "mysql",
+      "erp",
+      "dba"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "db_surge_22",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MySQL 8.0 / MariaDB 10.11: MySQL 'Waiting for table metadata lock' ve Tüm Bağlantıların Kilitlenmesi",
+    "hizli_adimlar": [
+      "MySQL 8.0 / MariaDB 10.11 yönetim konsolunu (SSMS / CLI / psql) açın.",
+      "Kök neden analizini uygulayın: Açık kalan uzun bir SELECT işleminin tablonun DDL kilidini bırakmaması.",
+      "Saha servis prosedürünü yürütün: SHOW FULL PROCESSLIST ile bekleme yapan işlemi bulun ve 'KILL [PID]' komutuyla sonlandırın.",
+      "Veritabanı bütünlük testini çalıştırarak hatanın temizlendiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SQL Komutu",
+        "komut": "SHOW FULL PROCESSLIST;",
+        "aciklama": "Veritabanı onarım ve durum komutu."
+      }
+    ],
+    "temel_anlatim": "Tek bir ALTER TABLE veya BACKUP komutunun tüm web sitesini donurması.",
+    "derin_teknik_analiz": "Açık kalan uzun bir SELECT işleminin tablonun DDL kilidini bırakmaması. Çözüm: SHOW FULL PROCESSLIST ile bekleme yapan işlemi bulun ve 'KILL [PID]' komutuyla sonlandırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Veritabanı açılmıyor",
+        "neden": "Fiziksel diskte I/O arızası vardır.",
+        "cozum": "Yedekten geri yükleme yapın."
+      }
+    ],
+    "etiketler": [
+      "veritabani",
+      "mysql",
+      "erp",
+      "dba"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "db_surge_23",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MySQL 8.0 / MariaDB 10.11: Binary Log (binlog) Dosyalarının Diski Doldurması ve Temizleme",
+    "hizli_adimlar": [
+      "MySQL 8.0 / MariaDB 10.11 yönetim konsolunu (SSMS / CLI / psql) açın.",
+      "Kök neden analizini uygulayın: binlog_expire_logs_seconds parametresinin tanımlanmamış olması.",
+      "Saha servis prosedürünü yürütün: PURGE BINARY LOGS BEFORE NOW() - INTERVAL 3 DAY; komutuyla eski logları güvenle silin.",
+      "Veritabanı bütünlük testini çalıştırarak hatanın temizlendiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SQL Komutu",
+        "komut": "PURGE BINARY LOGS TO 'binlog.000010';",
+        "aciklama": "Veritabanı onarım ve durum komutu."
+      }
+    ],
+    "temel_anlatim": "mysql-bin.00000X dosyalarının yüzlerce gigabayt yer kaplaması.",
+    "derin_teknik_analiz": "binlog_expire_logs_seconds parametresinin tanımlanmamış olması. Çözüm: PURGE BINARY LOGS BEFORE NOW() - INTERVAL 3 DAY; komutuyla eski logları güvenle silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Veritabanı açılmıyor",
+        "neden": "Fiziksel diskte I/O arızası vardır.",
+        "cozum": "Yedekten geri yükleme yapın."
+      }
+    ],
+    "etiketler": [
+      "veritabani",
+      "mysql",
+      "erp",
+      "dba"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "db_f350_20",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MS SQL Server: 'Recovery Pending' Durumundaki Veritabanını Ayağa Kaldırma",
+    "hizli_adimlar": [
+      "Veritabanı yönetim konsolunda aktif sorguları ve kilitleri inceleyin.",
+      "Kök neden analizini uygulayın: Veritabanı başlatılırken LDF işlem günlüğü dosyasına erişilememesi veya dosyanın kilitli olması.",
+      "Saha DBA müdahalesini yürütün: ALTER DATABASE [DB] SET EMERGENCY ve DBCC CHECKDB çalıştırarak veritabanını kurtarın.",
+      "Veritabanı bütünlük testini çalıştırarak onarımı doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Veritabanı Komutu",
+        "komut": "ALTER DATABASE [DB] SET ONLINE;",
+        "aciklama": "DBA yönetim komutu."
+      }
+    ],
+    "temel_anlatim": "Sunucu başladığında veritabanının yanında (Recovery Pending) yazması ve açılamaması.",
+    "derin_teknik_analiz": "Veritabanı başlatılırken LDF işlem günlüğü dosyasına erişilememesi veya dosyanın kilitli olması. Çözüm: ALTER DATABASE [DB] SET EMERGENCY ve DBCC CHECKDB çalıştırarak veritabanını kurtarın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Kurtarma başarısız",
+        "neden": "Fiziksel depolama bozuktur.",
+        "cozum": "Yedekten geri yükleme yapın."
+      }
+    ],
+    "etiketler": [
+      "veritabani",
+      "sql",
+      "dba",
+      "erp"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "db_f350_21",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "PostgreSQL: 'could not connect to server: Connection refused' ve postgresql.conf listen_addresses",
+    "hizli_adimlar": [
+      "Veritabanı yönetim konsolunda aktif sorguları ve kilitleri inceleyin.",
+      "Kök neden analizini uygulayın: postgresql.conf içinde listen_addresses parametresinin yalnızca 'localhost' olarak kalması.",
+      "Saha DBA müdahalesini yürütün: listen_addresses = '*' olarak değiştirip pg_hba.conf dosyasına istemci IP bloğunu ekleyin ve servisi yeniden başlatın.",
+      "Veritabanı bütünlük testini çalıştırarak onarımı doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Veritabanı Komutu",
+        "komut": "sudo systemctl restart postgresql",
+        "aciklama": "DBA yönetim komutu."
+      }
+    ],
+    "temel_anlatim": "İstemcilerin uzaktan PostgreSQL veritabanına bağlanamaması.",
+    "derin_teknik_analiz": "postgresql.conf içinde listen_addresses parametresinin yalnızca 'localhost' olarak kalması. Çözüm: listen_addresses = '*' olarak değiştirip pg_hba.conf dosyasına istemci IP bloğunu ekleyin ve servisi yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Kurtarma başarısız",
+        "neden": "Fiziksel depolama bozuktur.",
+        "cozum": "Yedekten geri yükleme yapın."
+      }
+    ],
+    "etiketler": [
+      "veritabani",
+      "sql",
+      "dba",
+      "erp"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "db_f350_22",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MySQL: 'Table is marked as crashed and should be repaired' MyISAM Onarımı",
+    "hizli_adimlar": [
+      "Veritabanı yönetim konsolunda aktif sorguları ve kilitleri inceleyin.",
+      "Kök neden analizini uygulayın: Sunucu aniden kapandığında MyISAM indeks dosyasının (.MYI) hasar görmesi.",
+      "Saha DBA müdahalesini yürütün: myisamchk -r -v /var/lib/mysql/veritabani/tablo.MYI veya REPAIR TABLE [TabloAdi]; çalıştırın.",
+      "Veritabanı bütünlük testini çalıştırarak onarımı doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Veritabanı Komutu",
+        "komut": "mysqlcheck -u root -p --auto-repair --check veritabani",
+        "aciklama": "DBA yönetim komutu."
+      }
+    ],
+    "temel_anlatim": "Tabloya sorgu atıldığında tablonun çökmüş olduğu uyarısıyla sorgunun iptal olması.",
+    "derin_teknik_analiz": "Sunucu aniden kapandığında MyISAM indeks dosyasının (.MYI) hasar görmesi. Çözüm: myisamchk -r -v /var/lib/mysql/veritabani/tablo.MYI veya REPAIR TABLE [TabloAdi]; çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Kurtarma başarısız",
+        "neden": "Fiziksel depolama bozuktur.",
+        "cozum": "Yedekten geri yükleme yapın."
+      }
+    ],
+    "etiketler": [
+      "veritabani",
+      "sql",
+      "dba",
+      "erp"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "db_f350_23",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MS SQL Server: TempDB Boyutunun Sınırlandırılması ve Diskin Taşmasının Önlenmesi",
+    "hizli_adimlar": [
+      "Veritabanı yönetim konsolunda aktif sorguları ve kilitleri inceleyin.",
+      "Kök neden analizini uygulayın: TempDB için maksimum dosya büyüme (AutoGrowth) sınırının koyulmaması.",
+      "Saha DBA müdahalesini yürütün: TempDB veri ve log dosyalarının MAXSIZE değerini sabit bir değere (Örn: 20 GB) sınırlayın.",
+      "Veritabanı bütünlük testini çalıştırarak onarımı doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Veritabanı Komutu",
+        "komut": "ALTER DATABASE tempdb MODIFY FILE (NAME = 'tempdev', MAXSIZE = 20GB);",
+        "aciklama": "DBA yönetim komutu."
+      }
+    ],
+    "temel_anlatim": "C: veya veri diskinin her gün TempDB büyümesi yüzünden sıfır bayta düşmesi.",
+    "derin_teknik_analiz": "TempDB için maksimum dosya büyüme (AutoGrowth) sınırının koyulmaması. Çözüm: TempDB veri ve log dosyalarının MAXSIZE değerini sabit bir değere (Örn: 20 GB) sınırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Kurtarma başarısız",
+        "neden": "Fiziksel depolama bozuktur.",
+        "cozum": "Yedekten geri yükleme yapın."
+      }
+    ],
+    "etiketler": [
+      "veritabani",
+      "sql",
+      "dba",
+      "erp"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "db_f350_24",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Logo Tiger / GO3: 'Kullanıcı Zaten Sistemde Oturum Açmış' Kilitlenmesi",
+    "hizli_adimlar": [
+      "Veritabanı yönetim konsolunda aktif sorguları ve kilitleri inceleyin.",
+      "Kök neden analizini uygulayın: LOBJECTS veya LG_USAGE tablosunda kullanıcının açık oturum kaydının (Terminal Lock) asılı kalması.",
+      "Saha DBA müdahalesini yürütün: Logo Sys üzerinden 'Aktif Kullanıcıları Listele' menüsünden asılı kalan oturumu sonlandırın.",
+      "Veritabanı bütünlük testini çalıştırarak onarımı doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Veritabanı Komutu",
+        "komut": "SELECT * FROM L_CAPIUSER WHERE NR = [KullaniciNo];",
+        "aciklama": "DBA yönetim komutu."
+      }
+    ],
+    "temel_anlatim": "Kullanıcı bilgisayarı çöktükten sonra ERP'ye girmek istediğinde lisans kilidi uyarısı alması.",
+    "derin_teknik_analiz": "LOBJECTS veya LG_USAGE tablosunda kullanıcının açık oturum kaydının (Terminal Lock) asılı kalması. Çözüm: Logo Sys üzerinden 'Aktif Kullanıcıları Listele' menüsünden asılı kalan oturumu sonlandırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Kurtarma başarısız",
+        "neden": "Fiziksel depolama bozuktur.",
+        "cozum": "Yedekten geri yükleme yapın."
+      }
+    ],
+    "etiketler": [
+      "veritabani",
+      "sql",
+      "dba",
+      "erp"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "db_f350_25",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Mikro ERP: 'Runtime Error 91: Object variable or With block variable not set'",
+    "hizli_adimlar": [
+      "Veritabanı yönetim konsolunda aktif sorguları ve kilitleri inceleyin.",
+      "Kök neden analizini uygulayın: Windows güncellemesi sonrası sistemdeki VB6 çalışma zamanı COM DLL dosyalarının kaydının bozulması.",
+      "Saha DBA müdahalesini yürütün: Mikro dizinindeki 'MikroKur.exe' aracını yönetici olarak çalıştırıp DLL tescilini yenileyin.",
+      "Veritabanı bütünlük testini çalıştırarak onarımı doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Veritabanı Komutu",
+        "komut": "regsvr32 /s MikroCore.dll",
+        "aciklama": "DBA yönetim komutu."
+      }
+    ],
+    "temel_anlatim": "Fatura veya irsaliye kaydederken Mikro programının hata verip aniden kapanması.",
+    "derin_teknik_analiz": "Windows güncellemesi sonrası sistemdeki VB6 çalışma zamanı COM DLL dosyalarının kaydının bozulması. Çözüm: Mikro dizinindeki 'MikroKur.exe' aracını yönetici olarak çalıştırıp DLL tescilini yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Kurtarma başarısız",
+        "neden": "Fiziksel depolama bozuktur.",
+        "cozum": "Yedekten geri yükleme yapın."
+      }
+    ],
+    "etiketler": [
+      "veritabani",
+      "sql",
+      "dba",
+      "erp"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "db_f350_26",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Redis: 'MISCONF Errors writing to the AOF file: Resource temporarily unavailable'",
+    "hizli_adimlar": [
+      "Veritabanı yönetim konsolunda aktif sorguları ve kilitleri inceleyin.",
+      "Kök neden analizini uygulayın: Arka plan AOF/RDB kaydı sırasında diskin dolması veya bellek kopyalama (fork) izninin aşılması.",
+      "Saha DBA müdahalesini yürütün: Linux sysctl vm.overcommit_memory = 1 ayarını yapın ve CONFIG SET stop-writes-on-bgsave-error no çalıştırın.",
+      "Veritabanı bütünlük testini çalıştırarak onarımı doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Veritabanı Komutu",
+        "komut": "redis-cli config get dir",
+        "aciklama": "DBA yönetim komutu."
+      }
+    ],
+    "temel_anlatim": "Önbellek sunucusunun yeni anahtar yazmayı reddedip tüm web uygulamasını yavaşlatması.",
+    "derin_teknik_analiz": "Arka plan AOF/RDB kaydı sırasında diskin dolması veya bellek kopyalama (fork) izninin aşılması. Çözüm: Linux sysctl vm.overcommit_memory = 1 ayarını yapın ve CONFIG SET stop-writes-on-bgsave-error no çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Kurtarma başarısız",
+        "neden": "Fiziksel depolama bozuktur.",
+        "cozum": "Yedekten geri yükleme yapın."
+      }
+    ],
+    "etiketler": [
+      "veritabani",
+      "sql",
+      "dba",
+      "erp"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "db_f350_27",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MongoDB: 'WiredTiger error: checkpoint failed' ve Journal Kurtarma",
+    "hizli_adimlar": [
+      "Veritabanı yönetim konsolunda aktif sorguları ve kilitleri inceleyin.",
+      "Kök neden analizini uygulayın: Beklenmeyen kapanma sonucu WiredTiger.turtle veya journal dosyalarının bozulması.",
+      "Saha DBA müdahalesini yürütün: mongod --repair --dbpath /var/lib/mongodb komutuyla veritabanını onarın.",
+      "Veritabanı bütünlük testini çalıştırarak onarımı doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Veritabanı Komutu",
+        "komut": "mongod --repair",
+        "aciklama": "DBA yönetim komutu."
+      }
+    ],
+    "temel_anlatim": "MongoDB servisinin başlatılamaması ve WiredTiger kütüphanesinin çekirdek hatası vermesi.",
+    "derin_teknik_analiz": "Beklenmeyen kapanma sonucu WiredTiger.turtle veya journal dosyalarının bozulması. Çözüm: mongod --repair --dbpath /var/lib/mongodb komutuyla veritabanını onarın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Kurtarma başarısız",
+        "neden": "Fiziksel depolama bozuktur.",
+        "cozum": "Yedekten geri yükleme yapın."
+      }
+    ],
+    "etiketler": [
+      "veritabani",
+      "sql",
+      "dba",
+      "erp"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "db_f350_28",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Oracle Database: 'ORA-00257: archiver error. Connect internal only, until freed'",
+    "hizli_adimlar": [
+      "Veritabanı yönetim konsolunda aktif sorguları ve kilitleri inceleyin.",
+      "Kök neden analizini uygulayın: Fast Recovery Area (FRA) arşiv log dizininin %100 dolması.",
+      "Saha DBA müdahalesini yürütün: RMAN (Recovery Manager) ile bağlanıp 'CROSSCHECK ARCHIVELOG ALL;' ve 'DELETE NOPROMPT EXPIRED ARCHIVELOG ALL;' çalıştırın.",
+      "Veritabanı bütünlük testini çalıştırarak onarımı doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Veritabanı Komutu",
+        "komut": "rman target / -> DELETE ARCHIVELOG ALL COMPLETED BEFORE 'SYSDATE-2';",
+        "aciklama": "DBA yönetim komutu."
+      }
+    ],
+    "temel_anlatim": "Hiçbir kullanıcının Oracle veritabanına oturum açamaması ve işlemlerin askıda kalması.",
+    "derin_teknik_analiz": "Fast Recovery Area (FRA) arşiv log dizininin %100 dolması. Çözüm: RMAN (Recovery Manager) ile bağlanıp 'CROSSCHECK ARCHIVELOG ALL;' ve 'DELETE NOPROMPT EXPIRED ARCHIVELOG ALL;' çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Kurtarma başarısız",
+        "neden": "Fiziksel depolama bozuktur.",
+        "cozum": "Yedekten geri yükleme yapın."
+      }
+    ],
+    "etiketler": [
+      "veritabani",
+      "sql",
+      "dba",
+      "erp"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "db_f350_29",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "SQLite: 'database is locked' Hatası ve Çoklu Yazma Çakışması",
+    "hizli_adimlar": [
+      "Veritabanı yönetim konsolunda aktif sorguları ve kilitleri inceleyin.",
+      "Kök neden analizini uygulayın: Aynı anda birden fazla iş parçacığının varsayılan kilit modunda yazmaya çalışması.",
+      "Saha DBA müdahalesini yürütün: SQLite veritabanında WAL (Write-Ahead Logging) modunu etkinleştirerek okuma ve yazmayı birbirinden ayırın.",
+      "Veritabanı bütünlük testini çalıştırarak onarımı doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Veritabanı Komutu",
+        "komut": "PRAGMA journal_mode=WAL;",
+        "aciklama": "DBA yönetim komutu."
+      }
+    ],
+    "temel_anlatim": "Yerel uygulama SQLite veritabanına kayıt atarken kilitlenme hatası alması.",
+    "derin_teknik_analiz": "Aynı anda birden fazla iş parçacığının varsayılan kilit modunda yazmaya çalışması. Çözüm: SQLite veritabanında WAL (Write-Ahead Logging) modunu etkinleştirerek okuma ve yazmayı birbirinden ayırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Kurtarma başarısız",
+        "neden": "Fiziksel depolama bozuktur.",
+        "cozum": "Yedekten geri yükleme yapın."
+      }
+    ],
+    "etiketler": [
+      "veritabani",
+      "sql",
+      "dba",
+      "erp"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_180",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MS SQL Server 2016 SP3: Veritabanı İndeks Parçalanması (Fragmentation > %50) ve Yavaşlık",
+    "hizli_adimlar": [
+      "MS SQL Server 2016 SP3 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Tablo indeks sayfalarının aşırı veri giriş/çıkışı sonucu parçalanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: İlgili indekse ALTER INDEX [IndexAdi] ON [Tablo] REBUILD WITH (ONLINE = ON) çalıştırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ALTER INDEX ALL ON TabloAdi REBUILD;",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sorguların dün 1 saniyede gelirken bugün 30 saniyede gelmesi.",
+    "derin_teknik_analiz": "Tablo indeks sayfalarının aşırı veri giriş/çıkışı sonucu parçalanması. Çözüm: İlgili indekse ALTER INDEX [IndexAdi] ON [Tablo] REBUILD WITH (ONLINE = ON) çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "ms sql server 2016 sp3",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_181",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MS SQL Server 2016 SP3: Galera Cluster Kümesinde Düğümün Desync Olması ve Ayrılması",
+    "hizli_adimlar": [
+      "MS SQL Server 2016 SP3 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Ağ gecikmesi nedeniyle düğümün state transfer yapamaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: wsrep_cluster_address ayarını kontrol edip düğümü systemctl restart mariadb ile tazeleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "SHOW STATUS LIKE \"wsrep_cluster_size\";",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Üç düğümlü veritabanı kümesinde bir sunucunun sorguları kabul etmemesi.",
+    "derin_teknik_analiz": "Ağ gecikmesi nedeniyle düğümün state transfer yapamaması. Çözüm: wsrep_cluster_address ayarını kontrol edip düğümü systemctl restart mariadb ile tazeleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "ms sql server 2016 sp3",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_182",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MS SQL Server 2016 SP3: Elasticsearch İndeks Durumunun RED (Kırmızı) Olması ve Eksik Parça",
+    "hizli_adimlar": [
+      "MS SQL Server 2016 SP3 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Birincil shard disk arızası nedeniyle kaybolması ve kopyanın bulunamaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Cluster reroute API ile kayıp shard'ı sağlam bir düğüme manuel tahsis edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "GET _cluster/health",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kibana üzerinde arama yapılamaması ve indeks sağlığının kırmızıya dönmesi.",
+    "derin_teknik_analiz": "Birincil shard disk arızası nedeniyle kaybolması ve kopyanın bulunamaması. Çözüm: Cluster reroute API ile kayıp shard'ı sağlam bir düğüme manuel tahsis edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "ms sql server 2016 sp3",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_183",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MySQL 5.7 EOL Geçişi: Veritabanı İndeks Parçalanması (Fragmentation > %50) ve Yavaşlık",
+    "hizli_adimlar": [
+      "MySQL 5.7 EOL Geçişi cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Tablo indeks sayfalarının aşırı veri giriş/çıkışı sonucu parçalanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: İlgili indekse ALTER INDEX [IndexAdi] ON [Tablo] REBUILD WITH (ONLINE = ON) çalıştırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ALTER INDEX ALL ON TabloAdi REBUILD;",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sorguların dün 1 saniyede gelirken bugün 30 saniyede gelmesi.",
+    "derin_teknik_analiz": "Tablo indeks sayfalarının aşırı veri giriş/çıkışı sonucu parçalanması. Çözüm: İlgili indekse ALTER INDEX [IndexAdi] ON [Tablo] REBUILD WITH (ONLINE = ON) çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "mysql 5.7 eol geçişi",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_184",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MySQL 5.7 EOL Geçişi: Galera Cluster Kümesinde Düğümün Desync Olması ve Ayrılması",
+    "hizli_adimlar": [
+      "MySQL 5.7 EOL Geçişi cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Ağ gecikmesi nedeniyle düğümün state transfer yapamaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: wsrep_cluster_address ayarını kontrol edip düğümü systemctl restart mariadb ile tazeleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "SHOW STATUS LIKE \"wsrep_cluster_size\";",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Üç düğümlü veritabanı kümesinde bir sunucunun sorguları kabul etmemesi.",
+    "derin_teknik_analiz": "Ağ gecikmesi nedeniyle düğümün state transfer yapamaması. Çözüm: wsrep_cluster_address ayarını kontrol edip düğümü systemctl restart mariadb ile tazeleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "mysql 5.7 eol geçişi",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_185",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MySQL 5.7 EOL Geçişi: Elasticsearch İndeks Durumunun RED (Kırmızı) Olması ve Eksik Parça",
+    "hizli_adimlar": [
+      "MySQL 5.7 EOL Geçişi cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Birincil shard disk arızası nedeniyle kaybolması ve kopyanın bulunamaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Cluster reroute API ile kayıp shard'ı sağlam bir düğüme manuel tahsis edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "GET _cluster/health",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kibana üzerinde arama yapılamaması ve indeks sağlığının kırmızıya dönmesi.",
+    "derin_teknik_analiz": "Birincil shard disk arızası nedeniyle kaybolması ve kopyanın bulunamaması. Çözüm: Cluster reroute API ile kayıp shard'ı sağlam bir düğüme manuel tahsis edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "mysql 5.7 eol geçişi",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_186",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "PostgreSQL 14 Cloud SQL: Veritabanı İndeks Parçalanması (Fragmentation > %50) ve Yavaşlık",
+    "hizli_adimlar": [
+      "PostgreSQL 14 Cloud SQL cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Tablo indeks sayfalarının aşırı veri giriş/çıkışı sonucu parçalanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: İlgili indekse ALTER INDEX [IndexAdi] ON [Tablo] REBUILD WITH (ONLINE = ON) çalıştırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ALTER INDEX ALL ON TabloAdi REBUILD;",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sorguların dün 1 saniyede gelirken bugün 30 saniyede gelmesi.",
+    "derin_teknik_analiz": "Tablo indeks sayfalarının aşırı veri giriş/çıkışı sonucu parçalanması. Çözüm: İlgili indekse ALTER INDEX [IndexAdi] ON [Tablo] REBUILD WITH (ONLINE = ON) çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "postgresql 14 cloud sql",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_187",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "PostgreSQL 14 Cloud SQL: Galera Cluster Kümesinde Düğümün Desync Olması ve Ayrılması",
+    "hizli_adimlar": [
+      "PostgreSQL 14 Cloud SQL cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Ağ gecikmesi nedeniyle düğümün state transfer yapamaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: wsrep_cluster_address ayarını kontrol edip düğümü systemctl restart mariadb ile tazeleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "SHOW STATUS LIKE \"wsrep_cluster_size\";",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Üç düğümlü veritabanı kümesinde bir sunucunun sorguları kabul etmemesi.",
+    "derin_teknik_analiz": "Ağ gecikmesi nedeniyle düğümün state transfer yapamaması. Çözüm: wsrep_cluster_address ayarını kontrol edip düğümü systemctl restart mariadb ile tazeleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "postgresql 14 cloud sql",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_188",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "PostgreSQL 14 Cloud SQL: Elasticsearch İndeks Durumunun RED (Kırmızı) Olması ve Eksik Parça",
+    "hizli_adimlar": [
+      "PostgreSQL 14 Cloud SQL cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Birincil shard disk arızası nedeniyle kaybolması ve kopyanın bulunamaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Cluster reroute API ile kayıp shard'ı sağlam bir düğüme manuel tahsis edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "GET _cluster/health",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kibana üzerinde arama yapılamaması ve indeks sağlığının kırmızıya dönmesi.",
+    "derin_teknik_analiz": "Birincil shard disk arızası nedeniyle kaybolması ve kopyanın bulunamaması. Çözüm: Cluster reroute API ile kayıp shard'ı sağlam bir düğüme manuel tahsis edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "postgresql 14 cloud sql",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_189",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MongoDB 6.0 Enterprise: Veritabanı İndeks Parçalanması (Fragmentation > %50) ve Yavaşlık",
+    "hizli_adimlar": [
+      "MongoDB 6.0 Enterprise cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Tablo indeks sayfalarının aşırı veri giriş/çıkışı sonucu parçalanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: İlgili indekse ALTER INDEX [IndexAdi] ON [Tablo] REBUILD WITH (ONLINE = ON) çalıştırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ALTER INDEX ALL ON TabloAdi REBUILD;",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sorguların dün 1 saniyede gelirken bugün 30 saniyede gelmesi.",
+    "derin_teknik_analiz": "Tablo indeks sayfalarının aşırı veri giriş/çıkışı sonucu parçalanması. Çözüm: İlgili indekse ALTER INDEX [IndexAdi] ON [Tablo] REBUILD WITH (ONLINE = ON) çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "mongodb 6.0 enterprise",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_190",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MongoDB 6.0 Enterprise: Galera Cluster Kümesinde Düğümün Desync Olması ve Ayrılması",
+    "hizli_adimlar": [
+      "MongoDB 6.0 Enterprise cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Ağ gecikmesi nedeniyle düğümün state transfer yapamaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: wsrep_cluster_address ayarını kontrol edip düğümü systemctl restart mariadb ile tazeleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "SHOW STATUS LIKE \"wsrep_cluster_size\";",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Üç düğümlü veritabanı kümesinde bir sunucunun sorguları kabul etmemesi.",
+    "derin_teknik_analiz": "Ağ gecikmesi nedeniyle düğümün state transfer yapamaması. Çözüm: wsrep_cluster_address ayarını kontrol edip düğümü systemctl restart mariadb ile tazeleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "mongodb 6.0 enterprise",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_191",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MongoDB 6.0 Enterprise: Elasticsearch İndeks Durumunun RED (Kırmızı) Olması ve Eksik Parça",
+    "hizli_adimlar": [
+      "MongoDB 6.0 Enterprise cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Birincil shard disk arızası nedeniyle kaybolması ve kopyanın bulunamaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Cluster reroute API ile kayıp shard'ı sağlam bir düğüme manuel tahsis edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "GET _cluster/health",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kibana üzerinde arama yapılamaması ve indeks sağlığının kırmızıya dönmesi.",
+    "derin_teknik_analiz": "Birincil shard disk arızası nedeniyle kaybolması ve kopyanın bulunamaması. Çözüm: Cluster reroute API ile kayıp shard'ı sağlam bir düğüme manuel tahsis edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "mongodb 6.0 enterprise",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_192",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Redis 7.2 Sentinel Yüksek Erişilebilirlik: Veritabanı İndeks Parçalanması (Fragmentation > %50) ve Yavaşlık",
+    "hizli_adimlar": [
+      "Redis 7.2 Sentinel Yüksek Erişilebilirlik cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Tablo indeks sayfalarının aşırı veri giriş/çıkışı sonucu parçalanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: İlgili indekse ALTER INDEX [IndexAdi] ON [Tablo] REBUILD WITH (ONLINE = ON) çalıştırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ALTER INDEX ALL ON TabloAdi REBUILD;",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sorguların dün 1 saniyede gelirken bugün 30 saniyede gelmesi.",
+    "derin_teknik_analiz": "Tablo indeks sayfalarının aşırı veri giriş/çıkışı sonucu parçalanması. Çözüm: İlgili indekse ALTER INDEX [IndexAdi] ON [Tablo] REBUILD WITH (ONLINE = ON) çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "redis 7.2 sentinel yüksek erişilebilirlik",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_193",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Redis 7.2 Sentinel Yüksek Erişilebilirlik: Galera Cluster Kümesinde Düğümün Desync Olması ve Ayrılması",
+    "hizli_adimlar": [
+      "Redis 7.2 Sentinel Yüksek Erişilebilirlik cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Ağ gecikmesi nedeniyle düğümün state transfer yapamaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: wsrep_cluster_address ayarını kontrol edip düğümü systemctl restart mariadb ile tazeleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "SHOW STATUS LIKE \"wsrep_cluster_size\";",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Üç düğümlü veritabanı kümesinde bir sunucunun sorguları kabul etmemesi.",
+    "derin_teknik_analiz": "Ağ gecikmesi nedeniyle düğümün state transfer yapamaması. Çözüm: wsrep_cluster_address ayarını kontrol edip düğümü systemctl restart mariadb ile tazeleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "redis 7.2 sentinel yüksek erişilebilirlik",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_194",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Redis 7.2 Sentinel Yüksek Erişilebilirlik: Elasticsearch İndeks Durumunun RED (Kırmızı) Olması ve Eksik Parça",
+    "hizli_adimlar": [
+      "Redis 7.2 Sentinel Yüksek Erişilebilirlik cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Birincil shard disk arızası nedeniyle kaybolması ve kopyanın bulunamaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Cluster reroute API ile kayıp shard'ı sağlam bir düğüme manuel tahsis edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "GET _cluster/health",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kibana üzerinde arama yapılamaması ve indeks sağlığının kırmızıya dönmesi.",
+    "derin_teknik_analiz": "Birincil shard disk arızası nedeniyle kaybolması ve kopyanın bulunamaması. Çözüm: Cluster reroute API ile kayıp shard'ı sağlam bir düğüme manuel tahsis edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "redis 7.2 sentinel yüksek erişilebilirlik",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_195",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MariaDB 10.6 Galera Cluster: Veritabanı İndeks Parçalanması (Fragmentation > %50) ve Yavaşlık",
+    "hizli_adimlar": [
+      "MariaDB 10.6 Galera Cluster cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Tablo indeks sayfalarının aşırı veri giriş/çıkışı sonucu parçalanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: İlgili indekse ALTER INDEX [IndexAdi] ON [Tablo] REBUILD WITH (ONLINE = ON) çalıştırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ALTER INDEX ALL ON TabloAdi REBUILD;",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sorguların dün 1 saniyede gelirken bugün 30 saniyede gelmesi.",
+    "derin_teknik_analiz": "Tablo indeks sayfalarının aşırı veri giriş/çıkışı sonucu parçalanması. Çözüm: İlgili indekse ALTER INDEX [IndexAdi] ON [Tablo] REBUILD WITH (ONLINE = ON) çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "mariadb 10.6 galera cluster",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_196",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MariaDB 10.6 Galera Cluster: Galera Cluster Kümesinde Düğümün Desync Olması ve Ayrılması",
+    "hizli_adimlar": [
+      "MariaDB 10.6 Galera Cluster cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Ağ gecikmesi nedeniyle düğümün state transfer yapamaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: wsrep_cluster_address ayarını kontrol edip düğümü systemctl restart mariadb ile tazeleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "SHOW STATUS LIKE \"wsrep_cluster_size\";",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Üç düğümlü veritabanı kümesinde bir sunucunun sorguları kabul etmemesi.",
+    "derin_teknik_analiz": "Ağ gecikmesi nedeniyle düğümün state transfer yapamaması. Çözüm: wsrep_cluster_address ayarını kontrol edip düğümü systemctl restart mariadb ile tazeleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "mariadb 10.6 galera cluster",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_197",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MariaDB 10.6 Galera Cluster: Elasticsearch İndeks Durumunun RED (Kırmızı) Olması ve Eksik Parça",
+    "hizli_adimlar": [
+      "MariaDB 10.6 Galera Cluster cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Birincil shard disk arızası nedeniyle kaybolması ve kopyanın bulunamaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Cluster reroute API ile kayıp shard'ı sağlam bir düğüme manuel tahsis edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "GET _cluster/health",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kibana üzerinde arama yapılamaması ve indeks sağlığının kırmızıya dönmesi.",
+    "derin_teknik_analiz": "Birincil shard disk arızası nedeniyle kaybolması ve kopyanın bulunamaması. Çözüm: Cluster reroute API ile kayıp shard'ı sağlam bir düğüme manuel tahsis edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "mariadb 10.6 galera cluster",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_198",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Oracle 12c R2 RAC: Veritabanı İndeks Parçalanması (Fragmentation > %50) ve Yavaşlık",
+    "hizli_adimlar": [
+      "Oracle 12c R2 RAC cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Tablo indeks sayfalarının aşırı veri giriş/çıkışı sonucu parçalanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: İlgili indekse ALTER INDEX [IndexAdi] ON [Tablo] REBUILD WITH (ONLINE = ON) çalıştırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ALTER INDEX ALL ON TabloAdi REBUILD;",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sorguların dün 1 saniyede gelirken bugün 30 saniyede gelmesi.",
+    "derin_teknik_analiz": "Tablo indeks sayfalarının aşırı veri giriş/çıkışı sonucu parçalanması. Çözüm: İlgili indekse ALTER INDEX [IndexAdi] ON [Tablo] REBUILD WITH (ONLINE = ON) çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "oracle 12c r2 rac",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_199",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Oracle 12c R2 RAC: Galera Cluster Kümesinde Düğümün Desync Olması ve Ayrılması",
+    "hizli_adimlar": [
+      "Oracle 12c R2 RAC cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Ağ gecikmesi nedeniyle düğümün state transfer yapamaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: wsrep_cluster_address ayarını kontrol edip düğümü systemctl restart mariadb ile tazeleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "SHOW STATUS LIKE \"wsrep_cluster_size\";",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Üç düğümlü veritabanı kümesinde bir sunucunun sorguları kabul etmemesi.",
+    "derin_teknik_analiz": "Ağ gecikmesi nedeniyle düğümün state transfer yapamaması. Çözüm: wsrep_cluster_address ayarını kontrol edip düğümü systemctl restart mariadb ile tazeleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "oracle 12c r2 rac",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_200",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Oracle 12c R2 RAC: Elasticsearch İndeks Durumunun RED (Kırmızı) Olması ve Eksik Parça",
+    "hizli_adimlar": [
+      "Oracle 12c R2 RAC cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Birincil shard disk arızası nedeniyle kaybolması ve kopyanın bulunamaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Cluster reroute API ile kayıp shard'ı sağlam bir düğüme manuel tahsis edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "GET _cluster/health",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kibana üzerinde arama yapılamaması ve indeks sağlığının kırmızıya dönmesi.",
+    "derin_teknik_analiz": "Birincil shard disk arızası nedeniyle kaybolması ve kopyanın bulunamaması. Çözüm: Cluster reroute API ile kayıp shard'ı sağlam bir düğüme manuel tahsis edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "oracle 12c r2 rac",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_201",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "ClickHouse Analitik: Veritabanı İndeks Parçalanması (Fragmentation > %50) ve Yavaşlık",
+    "hizli_adimlar": [
+      "ClickHouse Analitik cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Tablo indeks sayfalarının aşırı veri giriş/çıkışı sonucu parçalanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: İlgili indekse ALTER INDEX [IndexAdi] ON [Tablo] REBUILD WITH (ONLINE = ON) çalıştırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ALTER INDEX ALL ON TabloAdi REBUILD;",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sorguların dün 1 saniyede gelirken bugün 30 saniyede gelmesi.",
+    "derin_teknik_analiz": "Tablo indeks sayfalarının aşırı veri giriş/çıkışı sonucu parçalanması. Çözüm: İlgili indekse ALTER INDEX [IndexAdi] ON [Tablo] REBUILD WITH (ONLINE = ON) çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "clickhouse analitik",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_202",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "ClickHouse Analitik: Galera Cluster Kümesinde Düğümün Desync Olması ve Ayrılması",
+    "hizli_adimlar": [
+      "ClickHouse Analitik cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Ağ gecikmesi nedeniyle düğümün state transfer yapamaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: wsrep_cluster_address ayarını kontrol edip düğümü systemctl restart mariadb ile tazeleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "SHOW STATUS LIKE \"wsrep_cluster_size\";",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Üç düğümlü veritabanı kümesinde bir sunucunun sorguları kabul etmemesi.",
+    "derin_teknik_analiz": "Ağ gecikmesi nedeniyle düğümün state transfer yapamaması. Çözüm: wsrep_cluster_address ayarını kontrol edip düğümü systemctl restart mariadb ile tazeleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "clickhouse analitik",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_203",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "ClickHouse Analitik: Elasticsearch İndeks Durumunun RED (Kırmızı) Olması ve Eksik Parça",
+    "hizli_adimlar": [
+      "ClickHouse Analitik cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Birincil shard disk arızası nedeniyle kaybolması ve kopyanın bulunamaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Cluster reroute API ile kayıp shard'ı sağlam bir düğüme manuel tahsis edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "GET _cluster/health",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kibana üzerinde arama yapılamaması ve indeks sağlığının kırmızıya dönmesi.",
+    "derin_teknik_analiz": "Birincil shard disk arızası nedeniyle kaybolması ve kopyanın bulunamaması. Çözüm: Cluster reroute API ile kayıp shard'ı sağlam bir düğüme manuel tahsis edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "clickhouse analitik",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_204",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Elasticsearch 8.11 İndeks: Veritabanı İndeks Parçalanması (Fragmentation > %50) ve Yavaşlık",
+    "hizli_adimlar": [
+      "Elasticsearch 8.11 İndeks cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Tablo indeks sayfalarının aşırı veri giriş/çıkışı sonucu parçalanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: İlgili indekse ALTER INDEX [IndexAdi] ON [Tablo] REBUILD WITH (ONLINE = ON) çalıştırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ALTER INDEX ALL ON TabloAdi REBUILD;",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sorguların dün 1 saniyede gelirken bugün 30 saniyede gelmesi.",
+    "derin_teknik_analiz": "Tablo indeks sayfalarının aşırı veri giriş/çıkışı sonucu parçalanması. Çözüm: İlgili indekse ALTER INDEX [IndexAdi] ON [Tablo] REBUILD WITH (ONLINE = ON) çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "elasticsearch 8.11 i̇ndeks",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_205",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Elasticsearch 8.11 İndeks: Galera Cluster Kümesinde Düğümün Desync Olması ve Ayrılması",
+    "hizli_adimlar": [
+      "Elasticsearch 8.11 İndeks cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Ağ gecikmesi nedeniyle düğümün state transfer yapamaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: wsrep_cluster_address ayarını kontrol edip düğümü systemctl restart mariadb ile tazeleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "SHOW STATUS LIKE \"wsrep_cluster_size\";",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Üç düğümlü veritabanı kümesinde bir sunucunun sorguları kabul etmemesi.",
+    "derin_teknik_analiz": "Ağ gecikmesi nedeniyle düğümün state transfer yapamaması. Çözüm: wsrep_cluster_address ayarını kontrol edip düğümü systemctl restart mariadb ile tazeleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "elasticsearch 8.11 i̇ndeks",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_206",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Elasticsearch 8.11 İndeks: Elasticsearch İndeks Durumunun RED (Kırmızı) Olması ve Eksik Parça",
+    "hizli_adimlar": [
+      "Elasticsearch 8.11 İndeks cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Birincil shard disk arızası nedeniyle kaybolması ve kopyanın bulunamaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Cluster reroute API ile kayıp shard'ı sağlam bir düğüme manuel tahsis edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "GET _cluster/health",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kibana üzerinde arama yapılamaması ve indeks sağlığının kırmızıya dönmesi.",
+    "derin_teknik_analiz": "Birincil shard disk arızası nedeniyle kaybolması ve kopyanın bulunamaması. Çözüm: Cluster reroute API ile kayıp shard'ı sağlam bir düğüme manuel tahsis edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "elasticsearch 8.11 i̇ndeks",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_207",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Cassandra 4.1 NoSQL: Veritabanı İndeks Parçalanması (Fragmentation > %50) ve Yavaşlık",
+    "hizli_adimlar": [
+      "Cassandra 4.1 NoSQL cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Tablo indeks sayfalarının aşırı veri giriş/çıkışı sonucu parçalanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: İlgili indekse ALTER INDEX [IndexAdi] ON [Tablo] REBUILD WITH (ONLINE = ON) çalıştırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ALTER INDEX ALL ON TabloAdi REBUILD;",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sorguların dün 1 saniyede gelirken bugün 30 saniyede gelmesi.",
+    "derin_teknik_analiz": "Tablo indeks sayfalarının aşırı veri giriş/çıkışı sonucu parçalanması. Çözüm: İlgili indekse ALTER INDEX [IndexAdi] ON [Tablo] REBUILD WITH (ONLINE = ON) çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "cassandra 4.1 nosql",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_208",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Cassandra 4.1 NoSQL: Galera Cluster Kümesinde Düğümün Desync Olması ve Ayrılması",
+    "hizli_adimlar": [
+      "Cassandra 4.1 NoSQL cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Ağ gecikmesi nedeniyle düğümün state transfer yapamaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: wsrep_cluster_address ayarını kontrol edip düğümü systemctl restart mariadb ile tazeleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "SHOW STATUS LIKE \"wsrep_cluster_size\";",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Üç düğümlü veritabanı kümesinde bir sunucunun sorguları kabul etmemesi.",
+    "derin_teknik_analiz": "Ağ gecikmesi nedeniyle düğümün state transfer yapamaması. Çözüm: wsrep_cluster_address ayarını kontrol edip düğümü systemctl restart mariadb ile tazeleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "cassandra 4.1 nosql",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_209",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Cassandra 4.1 NoSQL: Elasticsearch İndeks Durumunun RED (Kırmızı) Olması ve Eksik Parça",
+    "hizli_adimlar": [
+      "Cassandra 4.1 NoSQL cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Birincil shard disk arızası nedeniyle kaybolması ve kopyanın bulunamaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Cluster reroute API ile kayıp shard'ı sağlam bir düğüme manuel tahsis edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "GET _cluster/health",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kibana üzerinde arama yapılamaması ve indeks sağlığının kırmızıya dönmesi.",
+    "derin_teknik_analiz": "Birincil shard disk arızası nedeniyle kaybolması ve kopyanın bulunamaması. Çözüm: Cluster reroute API ile kayıp shard'ı sağlam bir düğüme manuel tahsis edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "cassandra 4.1 nosql",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2413",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MS SQL Server 2019 / 2022: İşlem Günlüğü (Transaction Log LDF) Dosyasının Diski Tamamen Doldurması",
+    "hizli_adimlar": [
+      "MS SQL Server 2019 / 2022 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Veritabanı Recovery Model Full iken düzenli Log yedeği alınmaması sonucu LDF dosyasının yüzlerce gigabyte büyümesi.",
+      "Saha servis prosedürünü yerine getirin: DBCC SHRINKFILE komutuyla LDF dosyasını küçültün ve günlük Log Backup görevi planlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "MS SQL Server 2019 / 2022 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kullanıcıların ERP'de fatura kaydederken \"Disk alanı yetersiz\" hatası alması.",
+    "derin_teknik_analiz": "Kök Neden: Veritabanı Recovery Model Full iken düzenli Log yedeği alınmaması sonucu LDF dosyasının yüzlerce gigabyte büyümesi. Saha Çözümü: DBCC SHRINKFILE komutuyla LDF dosyasını küçültün ve günlük Log Backup görevi planlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "ms sql server 2019   2022",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2414",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MS SQL Server 2019 / 2022: Kilitlenme (Deadlock) Nedeniyle ERP Kullanıcılarının Donması",
+    "hizli_adimlar": [
+      "MS SQL Server 2019 / 2022 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: İki farklı sürecin birbirinin kilitlediği tablolara karşılıklı erişmeye çalışması.",
+      "Saha servis prosedürünü yerine getirin: SQL Profiler veya Extended Events ile Deadlock grafiğini inceleyip eksik indeksleri oluşturun.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "MS SQL Server 2019 / 2022 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Birden fazla kullanıcının aynı anda stok veya cari kart kaydederken işlemin iptal olması.",
+    "derin_teknik_analiz": "Kök Neden: İki farklı sürecin birbirinin kilitlediği tablolara karşılıklı erişmeye çalışması. Saha Çözümü: SQL Profiler veya Extended Events ile Deadlock grafiğini inceleyip eksik indeksleri oluşturun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "ms sql server 2019   2022",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2415",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MS SQL Server 2019 / 2022: TempDB Çekişmesi (Allocation Contention) ve Sayfa Bekleme Süreleri",
+    "hizli_adimlar": [
+      "MS SQL Server 2019 / 2022 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: TempDB tek veri dosyasıyla çalışırken PFS ve GAM tahsis sayfalarında kilitlenme yaşanması.",
+      "Saha servis prosedürünü yerine getirin: TempDB veri dosyası sayısını sunucunun CPU çekirdek sayısına (örneğin 8 adet) eşitleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "MS SQL Server 2019 / 2022 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Yoğun rapor çekilirken tüm veritabanının sorgulara çok geç yanıt vermesi.",
+    "derin_teknik_analiz": "Kök Neden: TempDB tek veri dosyasıyla çalışırken PFS ve GAM tahsis sayfalarında kilitlenme yaşanması. Saha Çözümü: TempDB veri dosyası sayısını sunucunun CPU çekirdek sayısına (örneğin 8 adet) eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "ms sql server 2019   2022",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2416",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "PostgreSQL 15 / 16: İşlem Günlüğü (Transaction Log LDF) Dosyasının Diski Tamamen Doldurması",
+    "hizli_adimlar": [
+      "PostgreSQL 15 / 16 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Veritabanı Recovery Model Full iken düzenli Log yedeği alınmaması sonucu LDF dosyasının yüzlerce gigabyte büyümesi.",
+      "Saha servis prosedürünü yerine getirin: DBCC SHRINKFILE komutuyla LDF dosyasını küçültün ve günlük Log Backup görevi planlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "PostgreSQL 15 / 16 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kullanıcıların ERP'de fatura kaydederken \"Disk alanı yetersiz\" hatası alması.",
+    "derin_teknik_analiz": "Kök Neden: Veritabanı Recovery Model Full iken düzenli Log yedeği alınmaması sonucu LDF dosyasının yüzlerce gigabyte büyümesi. Saha Çözümü: DBCC SHRINKFILE komutuyla LDF dosyasını küçültün ve günlük Log Backup görevi planlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "postgresql 15   16",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2417",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "PostgreSQL 15 / 16: Kilitlenme (Deadlock) Nedeniyle ERP Kullanıcılarının Donması",
+    "hizli_adimlar": [
+      "PostgreSQL 15 / 16 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: İki farklı sürecin birbirinin kilitlediği tablolara karşılıklı erişmeye çalışması.",
+      "Saha servis prosedürünü yerine getirin: SQL Profiler veya Extended Events ile Deadlock grafiğini inceleyip eksik indeksleri oluşturun.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "PostgreSQL 15 / 16 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Birden fazla kullanıcının aynı anda stok veya cari kart kaydederken işlemin iptal olması.",
+    "derin_teknik_analiz": "Kök Neden: İki farklı sürecin birbirinin kilitlediği tablolara karşılıklı erişmeye çalışması. Saha Çözümü: SQL Profiler veya Extended Events ile Deadlock grafiğini inceleyip eksik indeksleri oluşturun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "postgresql 15   16",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2418",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "PostgreSQL 15 / 16: TempDB Çekişmesi (Allocation Contention) ve Sayfa Bekleme Süreleri",
+    "hizli_adimlar": [
+      "PostgreSQL 15 / 16 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: TempDB tek veri dosyasıyla çalışırken PFS ve GAM tahsis sayfalarında kilitlenme yaşanması.",
+      "Saha servis prosedürünü yerine getirin: TempDB veri dosyası sayısını sunucunun CPU çekirdek sayısına (örneğin 8 adet) eşitleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "PostgreSQL 15 / 16 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Yoğun rapor çekilirken tüm veritabanının sorgulara çok geç yanıt vermesi.",
+    "derin_teknik_analiz": "Kök Neden: TempDB tek veri dosyasıyla çalışırken PFS ve GAM tahsis sayfalarında kilitlenme yaşanması. Saha Çözümü: TempDB veri dosyası sayısını sunucunun CPU çekirdek sayısına (örneğin 8 adet) eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "postgresql 15   16",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2419",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MySQL 8.0 / Percona: İşlem Günlüğü (Transaction Log LDF) Dosyasının Diski Tamamen Doldurması",
+    "hizli_adimlar": [
+      "MySQL 8.0 / Percona cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Veritabanı Recovery Model Full iken düzenli Log yedeği alınmaması sonucu LDF dosyasının yüzlerce gigabyte büyümesi.",
+      "Saha servis prosedürünü yerine getirin: DBCC SHRINKFILE komutuyla LDF dosyasını küçültün ve günlük Log Backup görevi planlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "MySQL 8.0 / Percona Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kullanıcıların ERP'de fatura kaydederken \"Disk alanı yetersiz\" hatası alması.",
+    "derin_teknik_analiz": "Kök Neden: Veritabanı Recovery Model Full iken düzenli Log yedeği alınmaması sonucu LDF dosyasının yüzlerce gigabyte büyümesi. Saha Çözümü: DBCC SHRINKFILE komutuyla LDF dosyasını küçültün ve günlük Log Backup görevi planlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "mysql 8.0   percona",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2420",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MySQL 8.0 / Percona: Kilitlenme (Deadlock) Nedeniyle ERP Kullanıcılarının Donması",
+    "hizli_adimlar": [
+      "MySQL 8.0 / Percona cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: İki farklı sürecin birbirinin kilitlediği tablolara karşılıklı erişmeye çalışması.",
+      "Saha servis prosedürünü yerine getirin: SQL Profiler veya Extended Events ile Deadlock grafiğini inceleyip eksik indeksleri oluşturun.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "MySQL 8.0 / Percona Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Birden fazla kullanıcının aynı anda stok veya cari kart kaydederken işlemin iptal olması.",
+    "derin_teknik_analiz": "Kök Neden: İki farklı sürecin birbirinin kilitlediği tablolara karşılıklı erişmeye çalışması. Saha Çözümü: SQL Profiler veya Extended Events ile Deadlock grafiğini inceleyip eksik indeksleri oluşturun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "mysql 8.0   percona",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2421",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "MySQL 8.0 / Percona: TempDB Çekişmesi (Allocation Contention) ve Sayfa Bekleme Süreleri",
+    "hizli_adimlar": [
+      "MySQL 8.0 / Percona cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: TempDB tek veri dosyasıyla çalışırken PFS ve GAM tahsis sayfalarında kilitlenme yaşanması.",
+      "Saha servis prosedürünü yerine getirin: TempDB veri dosyası sayısını sunucunun CPU çekirdek sayısına (örneğin 8 adet) eşitleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "MySQL 8.0 / Percona Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Yoğun rapor çekilirken tüm veritabanının sorgulara çok geç yanıt vermesi.",
+    "derin_teknik_analiz": "Kök Neden: TempDB tek veri dosyasıyla çalışırken PFS ve GAM tahsis sayfalarında kilitlenme yaşanması. Saha Çözümü: TempDB veri dosyası sayısını sunucunun CPU çekirdek sayısına (örneğin 8 adet) eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "mysql 8.0   percona",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2422",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Oracle Database 19c: İşlem Günlüğü (Transaction Log LDF) Dosyasının Diski Tamamen Doldurması",
+    "hizli_adimlar": [
+      "Oracle Database 19c cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Veritabanı Recovery Model Full iken düzenli Log yedeği alınmaması sonucu LDF dosyasının yüzlerce gigabyte büyümesi.",
+      "Saha servis prosedürünü yerine getirin: DBCC SHRINKFILE komutuyla LDF dosyasını küçültün ve günlük Log Backup görevi planlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Oracle Database 19c Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kullanıcıların ERP'de fatura kaydederken \"Disk alanı yetersiz\" hatası alması.",
+    "derin_teknik_analiz": "Kök Neden: Veritabanı Recovery Model Full iken düzenli Log yedeği alınmaması sonucu LDF dosyasının yüzlerce gigabyte büyümesi. Saha Çözümü: DBCC SHRINKFILE komutuyla LDF dosyasını küçültün ve günlük Log Backup görevi planlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "oracle database 19c",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2423",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Oracle Database 19c: Kilitlenme (Deadlock) Nedeniyle ERP Kullanıcılarının Donması",
+    "hizli_adimlar": [
+      "Oracle Database 19c cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: İki farklı sürecin birbirinin kilitlediği tablolara karşılıklı erişmeye çalışması.",
+      "Saha servis prosedürünü yerine getirin: SQL Profiler veya Extended Events ile Deadlock grafiğini inceleyip eksik indeksleri oluşturun.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Oracle Database 19c Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Birden fazla kullanıcının aynı anda stok veya cari kart kaydederken işlemin iptal olması.",
+    "derin_teknik_analiz": "Kök Neden: İki farklı sürecin birbirinin kilitlediği tablolara karşılıklı erişmeye çalışması. Saha Çözümü: SQL Profiler veya Extended Events ile Deadlock grafiğini inceleyip eksik indeksleri oluşturun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "oracle database 19c",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2424",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Oracle Database 19c: TempDB Çekişmesi (Allocation Contention) ve Sayfa Bekleme Süreleri",
+    "hizli_adimlar": [
+      "Oracle Database 19c cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: TempDB tek veri dosyasıyla çalışırken PFS ve GAM tahsis sayfalarında kilitlenme yaşanması.",
+      "Saha servis prosedürünü yerine getirin: TempDB veri dosyası sayısını sunucunun CPU çekirdek sayısına (örneğin 8 adet) eşitleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Oracle Database 19c Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Yoğun rapor çekilirken tüm veritabanının sorgulara çok geç yanıt vermesi.",
+    "derin_teknik_analiz": "Kök Neden: TempDB tek veri dosyasıyla çalışırken PFS ve GAM tahsis sayfalarında kilitlenme yaşanması. Saha Çözümü: TempDB veri dosyası sayısını sunucunun CPU çekirdek sayısına (örneğin 8 adet) eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "oracle database 19c",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2425",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Logo Tiger 3 ERP: İşlem Günlüğü (Transaction Log LDF) Dosyasının Diski Tamamen Doldurması",
+    "hizli_adimlar": [
+      "Logo Tiger 3 ERP cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Veritabanı Recovery Model Full iken düzenli Log yedeği alınmaması sonucu LDF dosyasının yüzlerce gigabyte büyümesi.",
+      "Saha servis prosedürünü yerine getirin: DBCC SHRINKFILE komutuyla LDF dosyasını küçültün ve günlük Log Backup görevi planlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Logo Tiger 3 ERP Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kullanıcıların ERP'de fatura kaydederken \"Disk alanı yetersiz\" hatası alması.",
+    "derin_teknik_analiz": "Kök Neden: Veritabanı Recovery Model Full iken düzenli Log yedeği alınmaması sonucu LDF dosyasının yüzlerce gigabyte büyümesi. Saha Çözümü: DBCC SHRINKFILE komutuyla LDF dosyasını küçültün ve günlük Log Backup görevi planlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "logo tiger 3 erp",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2426",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Logo Tiger 3 ERP: Kilitlenme (Deadlock) Nedeniyle ERP Kullanıcılarının Donması",
+    "hizli_adimlar": [
+      "Logo Tiger 3 ERP cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: İki farklı sürecin birbirinin kilitlediği tablolara karşılıklı erişmeye çalışması.",
+      "Saha servis prosedürünü yerine getirin: SQL Profiler veya Extended Events ile Deadlock grafiğini inceleyip eksik indeksleri oluşturun.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Logo Tiger 3 ERP Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Birden fazla kullanıcının aynı anda stok veya cari kart kaydederken işlemin iptal olması.",
+    "derin_teknik_analiz": "Kök Neden: İki farklı sürecin birbirinin kilitlediği tablolara karşılıklı erişmeye çalışması. Saha Çözümü: SQL Profiler veya Extended Events ile Deadlock grafiğini inceleyip eksik indeksleri oluşturun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "logo tiger 3 erp",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2427",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Logo Tiger 3 ERP: TempDB Çekişmesi (Allocation Contention) ve Sayfa Bekleme Süreleri",
+    "hizli_adimlar": [
+      "Logo Tiger 3 ERP cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: TempDB tek veri dosyasıyla çalışırken PFS ve GAM tahsis sayfalarında kilitlenme yaşanması.",
+      "Saha servis prosedürünü yerine getirin: TempDB veri dosyası sayısını sunucunun CPU çekirdek sayısına (örneğin 8 adet) eşitleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Logo Tiger 3 ERP Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Yoğun rapor çekilirken tüm veritabanının sorgulara çok geç yanıt vermesi.",
+    "derin_teknik_analiz": "Kök Neden: TempDB tek veri dosyasıyla çalışırken PFS ve GAM tahsis sayfalarında kilitlenme yaşanması. Saha Çözümü: TempDB veri dosyası sayısını sunucunun CPU çekirdek sayısına (örneğin 8 adet) eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "logo tiger 3 erp",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2428",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Mikro Jump / Fly ERP: İşlem Günlüğü (Transaction Log LDF) Dosyasının Diski Tamamen Doldurması",
+    "hizli_adimlar": [
+      "Mikro Jump / Fly ERP cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Veritabanı Recovery Model Full iken düzenli Log yedeği alınmaması sonucu LDF dosyasının yüzlerce gigabyte büyümesi.",
+      "Saha servis prosedürünü yerine getirin: DBCC SHRINKFILE komutuyla LDF dosyasını küçültün ve günlük Log Backup görevi planlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Mikro Jump / Fly ERP Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kullanıcıların ERP'de fatura kaydederken \"Disk alanı yetersiz\" hatası alması.",
+    "derin_teknik_analiz": "Kök Neden: Veritabanı Recovery Model Full iken düzenli Log yedeği alınmaması sonucu LDF dosyasının yüzlerce gigabyte büyümesi. Saha Çözümü: DBCC SHRINKFILE komutuyla LDF dosyasını küçültün ve günlük Log Backup görevi planlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "mikro jump   fly erp",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2429",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Mikro Jump / Fly ERP: Kilitlenme (Deadlock) Nedeniyle ERP Kullanıcılarının Donması",
+    "hizli_adimlar": [
+      "Mikro Jump / Fly ERP cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: İki farklı sürecin birbirinin kilitlediği tablolara karşılıklı erişmeye çalışması.",
+      "Saha servis prosedürünü yerine getirin: SQL Profiler veya Extended Events ile Deadlock grafiğini inceleyip eksik indeksleri oluşturun.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Mikro Jump / Fly ERP Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Birden fazla kullanıcının aynı anda stok veya cari kart kaydederken işlemin iptal olması.",
+    "derin_teknik_analiz": "Kök Neden: İki farklı sürecin birbirinin kilitlediği tablolara karşılıklı erişmeye çalışması. Saha Çözümü: SQL Profiler veya Extended Events ile Deadlock grafiğini inceleyip eksik indeksleri oluşturun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "mikro jump   fly erp",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2430",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Mikro Jump / Fly ERP: TempDB Çekişmesi (Allocation Contention) ve Sayfa Bekleme Süreleri",
+    "hizli_adimlar": [
+      "Mikro Jump / Fly ERP cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: TempDB tek veri dosyasıyla çalışırken PFS ve GAM tahsis sayfalarında kilitlenme yaşanması.",
+      "Saha servis prosedürünü yerine getirin: TempDB veri dosyası sayısını sunucunun CPU çekirdek sayısına (örneğin 8 adet) eşitleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Mikro Jump / Fly ERP Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Yoğun rapor çekilirken tüm veritabanının sorgulara çok geç yanıt vermesi.",
+    "derin_teknik_analiz": "Kök Neden: TempDB tek veri dosyasıyla çalışırken PFS ve GAM tahsis sayfalarında kilitlenme yaşanması. Saha Çözümü: TempDB veri dosyası sayısını sunucunun CPU çekirdek sayısına (örneğin 8 adet) eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "mikro jump   fly erp",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2431",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Netsis 3 Enterprise: İşlem Günlüğü (Transaction Log LDF) Dosyasının Diski Tamamen Doldurması",
+    "hizli_adimlar": [
+      "Netsis 3 Enterprise cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Veritabanı Recovery Model Full iken düzenli Log yedeği alınmaması sonucu LDF dosyasının yüzlerce gigabyte büyümesi.",
+      "Saha servis prosedürünü yerine getirin: DBCC SHRINKFILE komutuyla LDF dosyasını küçültün ve günlük Log Backup görevi planlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Netsis 3 Enterprise Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kullanıcıların ERP'de fatura kaydederken \"Disk alanı yetersiz\" hatası alması.",
+    "derin_teknik_analiz": "Kök Neden: Veritabanı Recovery Model Full iken düzenli Log yedeği alınmaması sonucu LDF dosyasının yüzlerce gigabyte büyümesi. Saha Çözümü: DBCC SHRINKFILE komutuyla LDF dosyasını küçültün ve günlük Log Backup görevi planlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "netsis 3 enterprise",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2432",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Netsis 3 Enterprise: Kilitlenme (Deadlock) Nedeniyle ERP Kullanıcılarının Donması",
+    "hizli_adimlar": [
+      "Netsis 3 Enterprise cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: İki farklı sürecin birbirinin kilitlediği tablolara karşılıklı erişmeye çalışması.",
+      "Saha servis prosedürünü yerine getirin: SQL Profiler veya Extended Events ile Deadlock grafiğini inceleyip eksik indeksleri oluşturun.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Netsis 3 Enterprise Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Birden fazla kullanıcının aynı anda stok veya cari kart kaydederken işlemin iptal olması.",
+    "derin_teknik_analiz": "Kök Neden: İki farklı sürecin birbirinin kilitlediği tablolara karşılıklı erişmeye çalışması. Saha Çözümü: SQL Profiler veya Extended Events ile Deadlock grafiğini inceleyip eksik indeksleri oluşturun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "netsis 3 enterprise",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2433",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Veritabanı & ERP",
+    "baslik": "Netsis 3 Enterprise: TempDB Çekişmesi (Allocation Contention) ve Sayfa Bekleme Süreleri",
+    "hizli_adimlar": [
+      "Netsis 3 Enterprise cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: TempDB tek veri dosyasıyla çalışırken PFS ve GAM tahsis sayfalarında kilitlenme yaşanması.",
+      "Saha servis prosedürünü yerine getirin: TempDB veri dosyası sayısını sunucunun CPU çekirdek sayısına (örneğin 8 adet) eşitleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Netsis 3 Enterprise Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Yoğun rapor çekilirken tüm veritabanının sorgulara çok geç yanıt vermesi.",
+    "derin_teknik_analiz": "Kök Neden: TempDB tek veri dosyasıyla çalışırken PFS ve GAM tahsis sayfalarında kilitlenme yaşanması. Saha Çözümü: TempDB veri dosyası sayısını sunucunun CPU çekirdek sayısına (örneğin 8 adet) eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "veritabanı & erp",
+      "netsis 3 enterprise",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  }
+]

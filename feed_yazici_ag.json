@@ -1,731 +1,2604 @@
-{
-  "versiyon": "2.5.0",
-  "toplam": 19,
-  "modul": "feed_yazici_ag.json",
-  "kayitlar": [
-    {
-      "id": "prn_spooler_stuck_queue_reset",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Yazdırma Biriktiricisi",
-      "baslik": "Yazıcı Kuyruğu & Spooler Sıfırlama",
-      "hizli_adimlar": [
-        "Yönetici CMD aç.",
-        "Yazdırma servisini durdur: net stop spooler",
-        "Kilitlenen yazdırma dosyalarını temizle: del /Q /F /S \"%systemroot%\\System32\\Spool\\Printers\\*.*\"",
-        "Servisi yeniden başlat: net start spooler",
-        "Kuyruk anında tertemiz açılır."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Spooler Servisini Durdur",
-          "komut": "net stop spooler",
-          "aciklama": "Yazdırma biriktiricisini askıya alır."
-        },
-        {
-          "etiket": "Kilitli Kuyruk Dosyalarını Sil",
-          "komut": "del /Q /F /S \"%systemroot%\\System32\\Spool\\Printers\\*.*\"",
-          "aciklama": "Askıda kalan .SPL ve .SHD dosyalarını siler."
-        },
-        {
-          "etiket": "Spooler Servisini Başlat",
-          "komut": "net start spooler",
-          "aciklama": "Servisi temiz kuyrukla yeniden başlatır."
-        }
-      ],
-      "temel_anlatim": "Yazıcıda bir belge takıldığında 'Siliniyor...' der fakat saatlerce silinmez ve arkasından gelen hiçbir çıktı yazdırılamaz. Bu script kilitlenen kuyruğu zorla temizler.",
-      "derin_teknik_analiz": "Yazdırma işleri Spool\\Printers klasöründe iki dosyayla tutulur: .SHD (Gölge dosya - ayarlar) ve .SPL (Yazdırma verisi). Spooler servisi çalışırken bu dosyalar kilitli olduğundan normal silinemez; önce servis durdurulmalıdır.",
-      "kenar_durumlar": [
-        {
-          "durum": "'net stop spooler' yazınca servis durdurulamıyor",
-          "neden": "Bozuk bir 3. parti yazıcı sürücüsü RPC thread'ini kilitlemiştir.",
-          "cozum": "Görev yöneticisinden 'spoolsv.exe' sürecini bulun ve 'Görevi sonlandır' yapın."
-        }
-      ],
-      "etiketler": [
-        "spooler",
-        "yazici kilitlendi",
-        "siliniyor",
-        "printer offline",
-        "yazıcı bağlanamıyor",
-        "printers",
-        "net stop spooler",
-        "print spooler",
-        "yazici kuyrugu",
-        "spoolsv.exe",
-        "yazici baglanamiyor",
-        "yazıcıyı bağlayamıyorum"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "yaz_spooler_acil_sifirlama",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Spooler & Yazdırma Kuyruğu",
-      "baslik": "Spooler Acil Sıfırlama",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: `net stop spooler && del Spool\\Printers\\*.* && net start spooler`.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Spooler Servisini Yeniden Başlat",
-          "komut": "net stop spooler && net start spooler",
-          "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
-        }
-      ],
-      "temel_anlatim": "Spooler Acil Sıfırlama, bilişim altyapılarında `net stop spooler && del spool\\printers\\*.* && net start spooler`. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "Spooler Acil Sıfırlama mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. `net stop spooler && del Spool\\Printers\\*.* && net start spooler`. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "spooler acil sifirlama",
-        "yazıcı",
-        "spooler yazdirma kuyrugu",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "yaz_kuyrukta_kalan_spl_shd_dosyalari",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Spooler & Yazdırma Kuyruğu",
-      "baslik": "Kuyrukta Kalan (.SPL & .SHD) Dosyaları",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: Yazdırma işinin diskteki binary yapısı.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Spooler Servisini Yeniden Başlat",
-          "komut": "net stop spooler && net start spooler",
-          "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
-        }
-      ],
-      "temel_anlatim": "Kuyrukta Kalan (.SPL & .SHD) Dosyaları, bilişim altyapılarında yazdırma işinin diskteki binary yapısı. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "Kuyrukta Kalan (.SPL & .SHD) Dosyaları mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Yazdırma işinin diskteki binary yapısı. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "kuyrukta kalan spl shd dosyalari",
-        "yazıcı",
-        "spooler yazdirma kuyrugu",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "yaz_spooler_cokme_dongusu",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Spooler & Yazdırma Kuyruğu",
-      "baslik": "Spooler Çökme Döngüsü",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: Bozuk sürücünün `spoolsv.exe` sürecini anında kapatması.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Spooler Servisini Yeniden Başlat",
-          "komut": "net stop spooler && net start spooler",
-          "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
-        }
-      ],
-      "temel_anlatim": "Spooler Çökme Döngüsü, bilişim altyapılarında bozuk sürücünün `spoolsv.exe` sürecini anında kapatması. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "Spooler Çökme Döngüsü mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Bozuk sürücünün `spoolsv.exe` sürecini anında kapatması. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "spooler cokme dongusu",
-        "yazıcı",
-        "spooler yazdirma kuyrugu",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "yaz_rpc_sunucusu_kullanilamiyor_hatasi",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Spooler & Yazdırma Kuyruğu",
-      "baslik": "RPC Sunucusu Kullanılamıyor Hatası",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: Spooler'ın bağımlı olduğu DCOM ve RPC servisleri.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Spooler Servisini Yeniden Başlat",
-          "komut": "net stop spooler && net start spooler",
-          "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
-        }
-      ],
-      "temel_anlatim": "RPC Sunucusu Kullanılamıyor Hatası, bilişim altyapılarında spooler'ın bağımlı olduğu dcom ve rpc servisleri. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "RPC Sunucusu Kullanılamıyor Hatası mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Spooler'ın bağımlı olduğu DCOM ve RPC servisleri. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "rpc sunucusu kullanilamiyor hatasi",
-        "yazıcı",
-        "spooler yazdirma kuyrugu",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "yaz_yazdirma_i_slemcisi_print_processor",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Spooler & Yazdırma Kuyruğu",
-      "baslik": "Yazdırma İşlemcisi (Print Processor)",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: winprint vs OEM işlemci çakışmaları.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Spooler Servisini Yeniden Başlat",
-          "komut": "net stop spooler && net start spooler",
-          "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
-        }
-      ],
-      "temel_anlatim": "Yazdırma İşlemcisi (Print Processor), bilişim altyapılarında winprint vs oem işlemci çakışmaları. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "Yazdırma İşlemcisi (Print Processor) mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. winprint vs OEM işlemci çakışmaları. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "yazdirma i slemcisi print processor",
-        "yazıcı",
-        "spooler yazdirma kuyrugu",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "yaz_spooler_klasor_i_zinleri",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Spooler & Yazdırma Kuyruğu",
-      "baslik": "Spooler Klasör İzinleri",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: SYSTEM hesabının `C:\\Windows\\System32\\Spool` yetkileri.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Spooler Servisini Yeniden Başlat",
-          "komut": "net stop spooler && net start spooler",
-          "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
-        }
-      ],
-      "temel_anlatim": "Spooler Klasör İzinleri, bilişim altyapılarında system hesabının `c:\\windows\\system32\\spool` yetkileri. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "Spooler Klasör İzinleri mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. SYSTEM hesabının `C:\\Windows\\System32\\Spool` yetkileri. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "spooler klasor i zinleri",
-        "yazıcı",
-        "spooler yazdirma kuyrugu",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "yaz_i_zole_surucu_calistirma_driver_iso",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Spooler & Yazdırma Kuyruğu",
-      "baslik": "İzole Sürücü Çalıştırma (Driver Isolation)",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: Çöken sürücünün tüm spooler'ı öldürmesini önleme.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Spooler Servisini Yeniden Başlat",
-          "komut": "net stop spooler && net start spooler",
-          "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
-        }
-      ],
-      "temel_anlatim": "İzole Sürücü Çalıştırma (Driver Isolation), bilişim altyapılarında çöken sürücünün tüm spooler'ı öldürmesini önleme. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "İzole Sürücü Çalıştırma (Driver Isolation) mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Çöken sürücünün tüm spooler'ı öldürmesini önleme. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "i zole surucu calistirma driver iso",
-        "yazıcı",
-        "spooler yazdirma kuyrugu",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "yaz_kuyrukta_siliniyor_asili_kalmasi",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Spooler & Yazdırma Kuyruğu",
-      "baslik": "Kuyrukta 'Siliniyor...' Asılı Kalması",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: Yazıcının çevrimdışı olması sebebiyle işin silinememesi.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Spooler Servisini Yeniden Başlat",
-          "komut": "net stop spooler && net start spooler",
-          "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
-        }
-      ],
-      "temel_anlatim": "Kuyrukta 'Siliniyor...' Asılı Kalması, bilişim altyapılarında yazıcının çevrimdışı olması sebebiyle işin silinememesi. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "Kuyrukta 'Siliniyor...' Asılı Kalması mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Yazıcının çevrimdışı olması sebebiyle işin silinememesi. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "kuyrukta siliniyor asili kalmasi",
-        "yazıcı",
-        "spooler yazdirma kuyrugu",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "yaz_kullanici_yazdirma_limiti",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Spooler & Yazdırma Kuyruğu",
-      "baslik": "Kullanıcı Yazdırma Limiti",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: Kotası dolan kullanıcının kuyruğunu boşaltma.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Spooler Servisini Yeniden Başlat",
-          "komut": "net stop spooler && net start spooler",
-          "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
-        }
-      ],
-      "temel_anlatim": "Kullanıcı Yazdırma Limiti, bilişim altyapılarında kotası dolan kullanıcının kuyruğunu boşaltma. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "Kullanıcı Yazdırma Limiti mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Kotası dolan kullanıcının kuyruğunu boşaltma. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "kullanici yazdirma limiti",
-        "yazıcı",
-        "spooler yazdirma kuyrugu",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "yaz_dogrudan_yaziciya_yazdir_spool_etme",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Spooler & Yazdırma Kuyruğu",
-      "baslik": "Doğrudan Yazıcıya Yazdır (Spool Etmeden)",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: Bellek yetersizliğinde acil mod.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Spooler Servisini Yeniden Başlat",
-          "komut": "net stop spooler && net start spooler",
-          "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
-        }
-      ],
-      "temel_anlatim": "Doğrudan Yazıcıya Yazdır (Spool Etmeden), bilişim altyapılarında bellek yetersizliğinde acil mod. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "Doğrudan Yazıcıya Yazdır (Spool Etmeden) mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Bellek yetersizliğinde acil mod. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "dogrudan yaziciya yazdir spool etme",
-        "yazıcı",
-        "spooler yazdirma kuyrugu",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "yaz_oncelikli_yazdirma",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Spooler & Yazdırma Kuyruğu",
-      "baslik": "Öncelikli Yazdırma",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: Acil faturalar için kuyrukta öncelik değeri (Priority 1-99) atama.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Spooler Servisini Yeniden Başlat",
-          "komut": "net stop spooler && net start spooler",
-          "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
-        }
-      ],
-      "temel_anlatim": "Öncelikli Yazdırma, bilişim altyapılarında acil faturalar için kuyrukta öncelik değeri (priority 1-99) atama. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "Öncelikli Yazdırma mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Acil faturalar için kuyrukta öncelik değeri (Priority 1-99) atama. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "oncelikli yazdirma",
-        "yazıcı",
-        "spooler yazdirma kuyrugu",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "yaz_yazdirma_kuyrugu_bekletme",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Spooler & Yazdırma Kuyruğu",
-      "baslik": "Yazdırma Kuyruğu Bekletme",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: Yazıcı arızalandığında işleri kaybetmeden 'Duraklat' yapma.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Spooler Servisini Yeniden Başlat",
-          "komut": "net stop spooler && net start spooler",
-          "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
-        }
-      ],
-      "temel_anlatim": "Yazdırma Kuyruğu Bekletme, bilişim altyapılarında yazıcı arızalandığında işleri kaybetmeden 'duraklat' yapma. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "Yazdırma Kuyruğu Bekletme mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Yazıcı arızalandığında işleri kaybetmeden 'Duraklat' yapma. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "yazdirma kuyrugu bekletme",
-        "yazıcı",
-        "spooler yazdirma kuyrugu",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "yaz_yazdirma_sunucusu_ozellikleri",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Spooler & Yazdırma Kuyruğu",
-      "baslik": "Yazdırma Sunucusu Özellikleri",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: Form tanımlama ve özel kağıt boyutu ekleme.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Spooler Servisini Yeniden Başlat",
-          "komut": "net stop spooler && net start spooler",
-          "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
-        }
-      ],
-      "temel_anlatim": "Yazdırma Sunucusu Özellikleri, bilişim altyapılarında form tanımlama ve özel kağıt boyutu ekleme. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "Yazdırma Sunucusu Özellikleri mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Form tanımlama ve özel kağıt boyutu ekleme. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "yazdirma sunucusu ozellikleri",
-        "yazıcı",
-        "spooler yazdirma kuyrugu",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "yaz_yazdirma_gunlukleri",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Spooler & Yazdırma Kuyruğu",
-      "baslik": "Yazdırma Günlükleri",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: Olay Görüntüleyicisinde kimin kaç sayfa bastığını takip etme.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Spooler Servisini Yeniden Başlat",
-          "komut": "net stop spooler && net start spooler",
-          "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
-        }
-      ],
-      "temel_anlatim": "Yazdırma Günlükleri, bilişim altyapılarında olay görüntüleyicisinde kimin kaç sayfa bastığını takip etme. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "Yazdırma Günlükleri mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Olay Görüntüleyicisinde kimin kaç sayfa bastığını takip etme. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "yazdirma gunlukleri",
-        "yazıcı",
-        "spooler yazdirma kuyrugu",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "yazici_00006_v994",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Print Spooler Servisi",
-      "baslik": "Print Spooler Servisi & Kuyruk Sıfırlama",
-      "hizli_adimlar": [
-        "Belirtiyi sahada doğrulayın: Yazıcıda takılan belgeleri silme ve spoolsv.exe servisini temizleme.",
-        "Yönetim konsolunu veya terminali Yönetici olarak açın.",
-        "Birincil komutu uygulayın: net stop spooler && del /Q /F /S \"%systemroot%\\System32\\Spool\\Printers\\*.*\" && net start spooler",
-        "Değişiklikleri kaydedip servisi veya cihazı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Teşhis ve Uygulama Komutu",
-          "komut": "net stop spooler && del /Q /F /S \"%systemroot%\\System32\\Spool\\Printers\\*.*\" && net start spooler",
-          "aciklama": "Kilitlenen yazdırma kuyruğunu temizler."
-        }
-      ],
-      "temel_anlatim": "Print Spooler Servisi & Kuyruk Sıfırlama: Yazıcıda takılan belgeleri silme ve spoolsv.exe servisini temizleme. Sahada kararlılık ve iş sürekliliği için kritik adımdır.",
-      "derin_teknik_analiz": "Layer 2/3 protokolleri, sürücü I/O kuyrukları ve donanım kayıtları seviyesinde çalışır. net stop spooler && del /Q /F /S \"%systemroot%\\System32\\Spool\\Printers\\*.*\" && net start spooler parametresi durumu optimize eder.",
-      "kenar_durumlar": [
-        {
-          "durum": "Zaman aşımı veya erişim engeli",
-          "neden": "Yetki yetersizliği veya port başka işlem tarafından kilitli.",
-          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "yazıcı bağlanamıyor",
-        "printer offline",
-        "yazici baglanamiyor",
-        "kuyruk takildi",
-        "yazıcı",
-        "print spooler",
-        "spoolsv"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "yazici_ag_00001",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Print Spooler Servisi",
-      "baslik": "Print Spooler Servisi & Kuyruk Acil Temizliği",
-      "hizli_adimlar": [
-        "Saha arıza/kurulum belirtisini teyit edin: Yazıcıda takılan belgeleri silme ve spoolsv.exe servisini temizleme.",
-        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
-        "Birincil komutu veya eylemi uygulayın: net stop spooler && del /Q /F /S \"%systemroot%\\System32\\Spool\\Printers\\*.*\" && net start spooler",
-        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Teşhis ve Uygulama Komutu",
-          "komut": "net stop spooler && del /Q /F /S \"%systemroot%\\System32\\Spool\\Printers\\*.*\" && net start spooler",
-          "aciklama": "Askıda kalan tüm kuyruk dosyalarını temizler."
-        }
-      ],
-      "temel_anlatim": "Print Spooler Servisi & Kuyruk Acil Temizliği: Yazıcıda takılan belgeleri silme ve spoolsv.exe servisini temizleme. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
-      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. net stop spooler && del /Q /F /S \"%systemroot%\\System32\\Spool\\Printers\\*.*\" && net start spooler parametresi durumu optimize eder.",
-      "kenar_durumlar": [
-        {
-          "durum": "Zaman aşımı veya erişim engeli hatası",
-          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
-          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "kuyruk takildi",
-        "yazıcı",
-        "print spooler",
-        "yazici_ag",
-        "yazici baglanamiyor",
-        "yazıcı bağlanamıyor",
-        "spoolsv"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "prn_net_rpc_0x0000011b_fix",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Ağ Yazıcısı & Spooler",
-      "baslik": "Windows Paylaşılan Ağ Yazıcısına Bağlanırken 0x0000011b Hatası ve RPC Çözümü",
-      "hizli_adimlar": [
-        "Ana bilgisayarda regedit açın.",
-        "HKLM\\System\\CurrentControlSet\\Control\\Print yoluna gidin.",
-        "Yeni DWORD (32-bit) `RpcAuthnLevelEx` oluşturup değerini 0 yapın.",
-        "Print Spooler servisini yeniden başlatın.",
-        "İstemciden tekrar bağlanın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "0x0000011b Registry Düzeltmesi",
-          "komut": "reg add \"HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\Print\" /v RpcAuthnLevelEx /t REG_DWORD /d 0 /f & net stop spooler & net start spooler",
-          "aciklama": "RPC kısıtlamasını kaldırır."
-        }
-      ],
-      "temel_anlatim": "Ağdaki paylaşılan yazıcıya bağlanırken 'İşlem tamamlanamadı (hata 0x0000011b)' uyarısı alınması.",
-      "derin_teknik_analiz": "PrintNightmare güncellemeleri RPC doğrulama seviyesini zorunlu kılmıştır. Ana bilgisayarda RpcAuthnLevelEx 0 yapılmalıdır.",
-      "kenar_durumlar": [
-        {
-          "durum": "0x00000709 hatası veriyor",
-          "neden": "Önceki varsayılan yazıcı adı kilitlenmiştir.",
-          "cozum": "HKCU\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Windows Device anahtarını temizleyin."
-        }
-      ],
-      "etiketler": [
-        "yazici",
-        "0x0000011b",
-        "ag-yazicisi",
-        "rpc",
-        "print-spooler"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "prn_net_wsd_vs_standard_tcpip_port",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Ağ Yazıcısı & TCP/IP Port",
-      "baslik": "Windows'un Yazıcıyı 'WSD' Olarak Kurup Çevrimdışı Bırakması ve Standart TCP/IP Portuna Geçiş",
-      "hizli_adimlar": [
-        "Denetim Masası -> Aygıtlar ve Yazıcılar'a girin.",
-        "Yazıcıya sağ tıklayıp 'Yazıcı Özellikleri' -> 'Bağlantı Noktaları' (Ports) sekmesine gelin.",
-        "'Bağlantı Noktası Ekle' butonuna tıklayın -> 'Standard TCP/IP Port' seçin ve 'Yeni Bağlantı Noktası' deyin.",
-        "Yazıcının statik IP adresini (örn: 192.168.1.150) yazın.",
-        "Bağlantı noktası oluştuktan sonra 'Bağlantı Noktası Yapılandır'a tıklayın; 'SNMP Durumu Etkin' kutucuğundaki işareti KESİNLİKLE KALDIRIN.",
-        "Uygula ve Tamam diyerek kaydedin."
-      ],
-      "komutlar": [
-        {
-          "etiket": "TCP/IP Yazıcı Portu Oluştur (PowerShell)",
-          "komut": "Add-PrinterPort -Name \"IP_192.168.1.150\" -PrinterHostAddress \"192.168.1.150\"; Set-Printer -Name \"OfisYazici\" -PortName \"IP_192.168.1.150\"",
-          "aciklama": "Yazıcıyı doğrudan kararlı TCP/IP portuna bağlar."
-        }
-      ],
-      "temel_anlatim": "Ağ yazıcısının rastgele 'Çevrimdışı' (Offline) durumuna düşmesi; bilgisayarı veya yazıcıyı yeniden başlatmadan çıktı vermemesi.",
-      "derin_teknik_analiz": "Windows 'Yazıcı Ekle' tıklandığında yazıcıyı WSD (Web Services for Devices) bağlantı noktasıyla kurar. WSD portu UDP çok noktaya yayın (multicast) paketleriyle çalışır. Switch veya router IGMP Snooping yaptığında veya IP kiralama süresi dolduğunda Windows yazıcıyı çevrimdışı işaretler.",
-      "kenar_durumlar": [
-        {
-          "durum": "TCP/IP portuna geçilmesine rağmen yazıcı çevrimdışı kalıyor",
-          "neden": "'SNMP Durumu Etkin' açık kalmıştır ve yazıcı SNMP isteklerine yanıt vermemektedir.",
-          "cozum": "Port yapılandırmasında 'SNMP Durumu Etkin' işaretini kaldırın."
-        }
-      ],
-      "etiketler": [
-        "yazici",
-        "wsd",
-        "tcp-ip-port",
-        "cevrimdisi",
-        "snmp-offline",
-        "ag-yazicisi"
-      ],
-      "oncelik": 1
-    }
-  ]
-}
+[
+  {
+    "id": "prn_spooler_stuck_queue_reset",
+    "kategori": "Yazıcı",
+    "alt_kategori": "Yazdırma Biriktiricisi",
+    "baslik": "Yazıcı Kuyruğu & Spooler Sıfırlama",
+    "hizli_adimlar": [
+      "Yönetici CMD aç.",
+      "Yazdırma servisini durdur: net stop spooler",
+      "Kilitlenen yazdırma dosyalarını temizle: del /Q /F /S \"%systemroot%\\System32\\Spool\\Printers\\*.*\"",
+      "Servisi yeniden başlat: net start spooler",
+      "Kuyruk anında tertemiz açılır."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Spooler Servisini Durdur",
+        "komut": "net stop spooler",
+        "aciklama": "Yazdırma biriktiricisini askıya alır."
+      },
+      {
+        "etiket": "Kilitli Kuyruk Dosyalarını Sil",
+        "komut": "del /Q /F /S \"%systemroot%\\System32\\Spool\\Printers\\*.*\"",
+        "aciklama": "Askıda kalan .SPL ve .SHD dosyalarını siler."
+      },
+      {
+        "etiket": "Spooler Servisini Başlat",
+        "komut": "net start spooler",
+        "aciklama": "Servisi temiz kuyrukla yeniden başlatır."
+      }
+    ],
+    "temel_anlatim": "Yazıcıda bir belge takıldığında 'Siliniyor...' der fakat saatlerce silinmez ve arkasından gelen hiçbir çıktı yazdırılamaz. Bu script kilitlenen kuyruğu zorla temizler.",
+    "derin_teknik_analiz": "Yazdırma işleri Spool\\Printers klasöründe iki dosyayla tutulur: .SHD (Gölge dosya - ayarlar) ve .SPL (Yazdırma verisi). Spooler servisi çalışırken bu dosyalar kilitli olduğundan normal silinemez; önce servis durdurulmalıdır.",
+    "kenar_durumlar": [
+      {
+        "durum": "'net stop spooler' yazınca servis durdurulamıyor",
+        "neden": "Bozuk bir 3. parti yazıcı sürücüsü RPC thread'ini kilitlemiştir.",
+        "cozum": "Görev yöneticisinden 'spoolsv.exe' sürecini bulun ve 'Görevi sonlandır' yapın."
+      }
+    ],
+    "etiketler": [
+      "spooler yazici kilitlendi siliniyor printer offline yazıcı bağlanamıyor printers net stop spooler print spooler yazici kuyrugu spoolsv.exe yazici baglanamiyor yazıcıyı bağlayamıyorum"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "yaz_spooler_acil_sifirlama",
+    "kategori": "Yazıcı",
+    "alt_kategori": "Spooler & Yazdırma Kuyruğu",
+    "baslik": "Spooler Acil Sıfırlama",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: `net stop spooler && del Spool\\Printers\\*.* && net start spooler`.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Spooler Servisini Yeniden Başlat",
+        "komut": "net stop spooler && net start spooler",
+        "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Spooler Acil Sıfırlama, bilişim altyapılarında `net stop spooler && del spool\\printers\\*.* && net start spooler`. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "Spooler Acil Sıfırlama mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. `net stop spooler && del Spool\\Printers\\*.* && net start spooler`. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "spooler acil sifirlama yazıcı spooler yazdirma kuyrugu ariza onarım"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "yaz_kuyrukta_kalan_spl_shd_dosyalari",
+    "kategori": "Yazıcı",
+    "alt_kategori": "Spooler & Yazdırma Kuyruğu",
+    "baslik": "Kuyrukta Kalan (.SPL & .SHD) Dosyaları",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: Yazdırma işinin diskteki binary yapısı.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Spooler Servisini Yeniden Başlat",
+        "komut": "net stop spooler && net start spooler",
+        "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Kuyrukta Kalan (.SPL & .SHD) Dosyaları, bilişim altyapılarında yazdırma işinin diskteki binary yapısı. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "Kuyrukta Kalan (.SPL & .SHD) Dosyaları mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Yazdırma işinin diskteki binary yapısı. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "kuyrukta kalan spl shd dosyalari yazıcı spooler yazdirma kuyrugu ariza onarım"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "yaz_spooler_cokme_dongusu",
+    "kategori": "Yazıcı",
+    "alt_kategori": "Spooler & Yazdırma Kuyruğu",
+    "baslik": "Spooler Çökme Döngüsü",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: Bozuk sürücünün `spoolsv.exe` sürecini anında kapatması.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Spooler Servisini Yeniden Başlat",
+        "komut": "net stop spooler && net start spooler",
+        "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Spooler Çökme Döngüsü, bilişim altyapılarında bozuk sürücünün `spoolsv.exe` sürecini anında kapatması. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "Spooler Çökme Döngüsü mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Bozuk sürücünün `spoolsv.exe` sürecini anında kapatması. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "spooler cokme dongusu yazıcı spooler yazdirma kuyrugu ariza onarım"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "yaz_rpc_sunucusu_kullanilamiyor_hatasi",
+    "kategori": "Yazıcı",
+    "alt_kategori": "Spooler & Yazdırma Kuyruğu",
+    "baslik": "RPC Sunucusu Kullanılamıyor Hatası",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: Spooler'ın bağımlı olduğu DCOM ve RPC servisleri.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Spooler Servisini Yeniden Başlat",
+        "komut": "net stop spooler && net start spooler",
+        "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
+      }
+    ],
+    "temel_anlatim": "RPC Sunucusu Kullanılamıyor Hatası, bilişim altyapılarında spooler'ın bağımlı olduğu dcom ve rpc servisleri. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "RPC Sunucusu Kullanılamıyor Hatası mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Spooler'ın bağımlı olduğu DCOM ve RPC servisleri. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "rpc sunucusu kullanilamiyor hatasi yazıcı spooler yazdirma kuyrugu ariza onarım"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "yaz_yazdirma_i_slemcisi_print_processor",
+    "kategori": "Yazıcı",
+    "alt_kategori": "Spooler & Yazdırma Kuyruğu",
+    "baslik": "Yazdırma İşlemcisi (Print Processor)",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: winprint vs OEM işlemci çakışmaları.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Spooler Servisini Yeniden Başlat",
+        "komut": "net stop spooler && net start spooler",
+        "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Yazdırma İşlemcisi (Print Processor), bilişim altyapılarında winprint vs oem işlemci çakışmaları. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "Yazdırma İşlemcisi (Print Processor) mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. winprint vs OEM işlemci çakışmaları. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "yazdirma i slemcisi print processor yazıcı spooler yazdirma kuyrugu ariza onarım"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "yaz_spooler_klasor_i_zinleri",
+    "kategori": "Yazıcı",
+    "alt_kategori": "Spooler & Yazdırma Kuyruğu",
+    "baslik": "Spooler Klasör İzinleri",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: SYSTEM hesabının `C:\\Windows\\System32\\Spool` yetkileri.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Spooler Servisini Yeniden Başlat",
+        "komut": "net stop spooler && net start spooler",
+        "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Spooler Klasör İzinleri, bilişim altyapılarında system hesabının `c:\\windows\\system32\\spool` yetkileri. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "Spooler Klasör İzinleri mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. SYSTEM hesabının `C:\\Windows\\System32\\Spool` yetkileri. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "spooler klasor i zinleri yazıcı spooler yazdirma kuyrugu ariza onarım"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "yaz_i_zole_surucu_calistirma_driver_iso",
+    "kategori": "Yazıcı",
+    "alt_kategori": "Spooler & Yazdırma Kuyruğu",
+    "baslik": "İzole Sürücü Çalıştırma (Driver Isolation)",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: Çöken sürücünün tüm spooler'ı öldürmesini önleme.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Spooler Servisini Yeniden Başlat",
+        "komut": "net stop spooler && net start spooler",
+        "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
+      }
+    ],
+    "temel_anlatim": "İzole Sürücü Çalıştırma (Driver Isolation), bilişim altyapılarında çöken sürücünün tüm spooler'ı öldürmesini önleme. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "İzole Sürücü Çalıştırma (Driver Isolation) mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Çöken sürücünün tüm spooler'ı öldürmesini önleme. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "i zole surucu calistirma driver iso yazıcı spooler yazdirma kuyrugu ariza onarım"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "yaz_kuyrukta_siliniyor_asili_kalmasi",
+    "kategori": "Yazıcı",
+    "alt_kategori": "Spooler & Yazdırma Kuyruğu",
+    "baslik": "Kuyrukta 'Siliniyor...' Asılı Kalması",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: Yazıcının çevrimdışı olması sebebiyle işin silinememesi.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Spooler Servisini Yeniden Başlat",
+        "komut": "net stop spooler && net start spooler",
+        "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Kuyrukta 'Siliniyor...' Asılı Kalması, bilişim altyapılarında yazıcının çevrimdışı olması sebebiyle işin silinememesi. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "Kuyrukta 'Siliniyor...' Asılı Kalması mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Yazıcının çevrimdışı olması sebebiyle işin silinememesi. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "kuyrukta siliniyor asili kalmasi yazıcı spooler yazdirma kuyrugu ariza onarım"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "yaz_kullanici_yazdirma_limiti",
+    "kategori": "Yazıcı",
+    "alt_kategori": "Spooler & Yazdırma Kuyruğu",
+    "baslik": "Kullanıcı Yazdırma Limiti",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: Kotası dolan kullanıcının kuyruğunu boşaltma.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Spooler Servisini Yeniden Başlat",
+        "komut": "net stop spooler && net start spooler",
+        "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Kullanıcı Yazdırma Limiti, bilişim altyapılarında kotası dolan kullanıcının kuyruğunu boşaltma. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "Kullanıcı Yazdırma Limiti mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Kotası dolan kullanıcının kuyruğunu boşaltma. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "kullanici yazdirma limiti yazıcı spooler yazdirma kuyrugu ariza onarım"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "yaz_dogrudan_yaziciya_yazdir_spool_etme",
+    "kategori": "Yazıcı",
+    "alt_kategori": "Spooler & Yazdırma Kuyruğu",
+    "baslik": "Doğrudan Yazıcıya Yazdır (Spool Etmeden)",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: Bellek yetersizliğinde acil mod.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Spooler Servisini Yeniden Başlat",
+        "komut": "net stop spooler && net start spooler",
+        "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Doğrudan Yazıcıya Yazdır (Spool Etmeden), bilişim altyapılarında bellek yetersizliğinde acil mod. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "Doğrudan Yazıcıya Yazdır (Spool Etmeden) mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Bellek yetersizliğinde acil mod. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "dogrudan yaziciya yazdir spool etme yazıcı spooler yazdirma kuyrugu ariza onarım"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "yaz_oncelikli_yazdirma",
+    "kategori": "Yazıcı",
+    "alt_kategori": "Spooler & Yazdırma Kuyruğu",
+    "baslik": "Öncelikli Yazdırma",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: Acil faturalar için kuyrukta öncelik değeri (Priority 1-99) atama.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Spooler Servisini Yeniden Başlat",
+        "komut": "net stop spooler && net start spooler",
+        "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Öncelikli Yazdırma, bilişim altyapılarında acil faturalar için kuyrukta öncelik değeri (priority 1-99) atama. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "Öncelikli Yazdırma mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Acil faturalar için kuyrukta öncelik değeri (Priority 1-99) atama. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "oncelikli yazdirma yazıcı spooler yazdirma kuyrugu ariza onarım"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "yaz_yazdirma_kuyrugu_bekletme",
+    "kategori": "Yazıcı",
+    "alt_kategori": "Spooler & Yazdırma Kuyruğu",
+    "baslik": "Yazdırma Kuyruğu Bekletme",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: Yazıcı arızalandığında işleri kaybetmeden 'Duraklat' yapma.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Spooler Servisini Yeniden Başlat",
+        "komut": "net stop spooler && net start spooler",
+        "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Yazdırma Kuyruğu Bekletme, bilişim altyapılarında yazıcı arızalandığında işleri kaybetmeden 'duraklat' yapma. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "Yazdırma Kuyruğu Bekletme mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Yazıcı arızalandığında işleri kaybetmeden 'Duraklat' yapma. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "yazdirma kuyrugu bekletme yazıcı spooler yazdirma kuyrugu ariza onarım"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "yaz_yazdirma_sunucusu_ozellikleri",
+    "kategori": "Yazıcı",
+    "alt_kategori": "Spooler & Yazdırma Kuyruğu",
+    "baslik": "Yazdırma Sunucusu Özellikleri",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: Form tanımlama ve özel kağıt boyutu ekleme.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Spooler Servisini Yeniden Başlat",
+        "komut": "net stop spooler && net start spooler",
+        "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Yazdırma Sunucusu Özellikleri, bilişim altyapılarında form tanımlama ve özel kağıt boyutu ekleme. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "Yazdırma Sunucusu Özellikleri mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Form tanımlama ve özel kağıt boyutu ekleme. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "yazdirma sunucusu ozellikleri yazıcı spooler yazdirma kuyrugu ariza onarım"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "yaz_yazdirma_gunlukleri",
+    "kategori": "Yazıcı",
+    "alt_kategori": "Spooler & Yazdırma Kuyruğu",
+    "baslik": "Yazdırma Günlükleri",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: Olay Görüntüleyicisinde kimin kaç sayfa bastığını takip etme.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Spooler Servisini Yeniden Başlat",
+        "komut": "net stop spooler && net start spooler",
+        "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Yazdırma Günlükleri, bilişim altyapılarında olay görüntüleyicisinde kimin kaç sayfa bastığını takip etme. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "Yazdırma Günlükleri mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Olay Görüntüleyicisinde kimin kaç sayfa bastığını takip etme. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "yazdirma gunlukleri yazıcı spooler yazdirma kuyrugu ariza onarım"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "yazici_00006_v994",
+    "kategori": "Yazıcı",
+    "alt_kategori": "Print Spooler Servisi",
+    "baslik": "Print Spooler Servisi & Kuyruk Sıfırlama",
+    "hizli_adimlar": [
+      "Belirtiyi sahada doğrulayın: Yazıcıda takılan belgeleri silme ve spoolsv.exe servisini temizleme.",
+      "Yönetim konsolunu veya terminali Yönetici olarak açın.",
+      "Birincil komutu uygulayın: net stop spooler && del /Q /F /S \"%systemroot%\\System32\\Spool\\Printers\\*.*\" && net start spooler",
+      "Değişiklikleri kaydedip servisi veya cihazı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "net stop spooler && del /Q /F /S \"%systemroot%\\System32\\Spool\\Printers\\*.*\" && net start spooler",
+        "aciklama": "Kilitlenen yazdırma kuyruğunu temizler."
+      }
+    ],
+    "temel_anlatim": "Print Spooler Servisi & Kuyruk Sıfırlama: Yazıcıda takılan belgeleri silme ve spoolsv.exe servisini temizleme. Sahada kararlılık ve iş sürekliliği için kritik adımdır.",
+    "derin_teknik_analiz": "Layer 2/3 protokolleri, sürücü I/O kuyrukları ve donanım kayıtları seviyesinde çalışır. net stop spooler && del /Q /F /S \"%systemroot%\\System32\\Spool\\Printers\\*.*\" && net start spooler parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli",
+        "neden": "Yetki yetersizliği veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı bağlanamıyor printer offline yazici baglanamiyor kuyruk takildi yazıcı print spooler spoolsv"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "yazici_ag_00001",
+    "kategori": "Yazıcı",
+    "alt_kategori": "Print Spooler Servisi",
+    "baslik": "Print Spooler Servisi & Kuyruk Acil Temizliği",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: Yazıcıda takılan belgeleri silme ve spoolsv.exe servisini temizleme.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: net stop spooler && del /Q /F /S \"%systemroot%\\System32\\Spool\\Printers\\*.*\" && net start spooler",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "net stop spooler && del /Q /F /S \"%systemroot%\\System32\\Spool\\Printers\\*.*\" && net start spooler",
+        "aciklama": "Askıda kalan tüm kuyruk dosyalarını temizler."
+      }
+    ],
+    "temel_anlatim": "Print Spooler Servisi & Kuyruk Acil Temizliği: Yazıcıda takılan belgeleri silme ve spoolsv.exe servisini temizleme. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. net stop spooler && del /Q /F /S \"%systemroot%\\System32\\Spool\\Printers\\*.*\" && net start spooler parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "kuyruk takildi yazıcı print spooler yazici_ag yazici baglanamiyor yazıcı bağlanamıyor spoolsv"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "prn_net_89",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Windows Yazdırma Biriktiricisi (Print Spooler) Kilitlenmesi ve Otomatik Temizliği",
+    "hizli_adimlar": [
+      "Yönetici olarak PowerShell açın.",
+      "'Stop-Service -Name Spooler -Force' komutunu verin.",
+      "'Remove-Item -Path \"C:\\Windows\\System32\\spool\\PRINTERS\\*\" -Force' ile kuyruk dosyalarını silin.",
+      "'Start-Service -Name Spooler' komutuyla servisi tekrar ayağa kaldırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Tek Satırda Spooler Sıfırlama",
+        "komut": "net stop spooler && del /Q /F /S \"%systemroot%\\System32\\Spool\\Printers\\*.*\" && net start spooler",
+        "aciklama": "Tüm askıda kalan yazdırma kuyruğunu anında boşaltır ve servisi yeniden başlatır."
+      }
+    ],
+    "temel_anlatim": "Kuyrukta bir belgenin takılması sonucu tüm şirketin yazdırma işlerinin durması ve spoolsv.exe çökmesi.",
+    "derin_teknik_analiz": "Kök Neden: C:\\Windows\\System32\\spool\\PRINTERS klasöründeki bozuk .SHD ve .SPL dosyalarının servisi kilitlemesi. Saha Çözümü: Spooler servisini durdurup PRINTERS klasöründeki tüm geçici dosyaları silin ve servisi yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Dosyalar silinemiyor (Erişim engellendi)",
+        "neden": "spoolsv.exe işlemi tam kapanmamış ve dosyayı kilitli tutmaktadır.",
+        "cozum": "taskkill /F /IM spoolsv.exe komutuyla işlemi zorla sonlandırın."
+      }
+    ],
+    "etiketler": [
+      "yazici",
+      "spooler",
+      "kuyruk-temizleme",
+      "spoolsv",
+      "yazdirma-hatasi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_net_90",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "WSD (Web Services on Devices) Portu Yerine Standart TCP/IP Portuna Geçiş",
+    "hizli_adimlar": [
+      "Denetim Masası -> Aygıtlar ve Yazıcılar -> İlgili yazıcıya sağ tıklayıp 'Yazıcı Özellikleri'ne girin.",
+      "'Bağlantı Noktaları' (Ports) sekmesine geçin.",
+      "'Bağlantı Noktası Ekle' butonuna basıp 'Standard TCP/IP Port' seçeneğini seçin.",
+      "Yazıcının statik IP adresini (Örn: 192.168.1.200) yazıp İleri deyin.",
+      "Port protokolü olarak 'Raw' ve Port Numarası olarak '9100' seçip işlemi tamamlayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "TCP/IP Portu Oluşturma (PowerShell)",
+        "komut": "Add-PrinterPort -Name \"IP_192.168.1.200\" -PrinterHostAddress \"192.168.1.200\"",
+        "aciklama": "Windows üzerinde doğrudan statik TCP/IP portu yaratır."
+      }
+    ],
+    "temel_anlatim": "Ağ yazıcısının rastgele zamanlarda 'Çevrimdışı' (Offline) görünmesi ve yeniden başlatmadan düzelmemesi.",
+    "derin_teknik_analiz": "Kök Neden: WSD protokolü dinamik IP ve multicast kullandığı için router ve switch filtrelerinde oturum kopması yaşar. Saha Çözümü: Yazıcı özelliklerinden yeni bir 'Standart TCP/IP Portu' oluşturup yazıcının sabit yerel IP'sini tanımlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Yazıcı hala çevrimdışı görünüyor",
+        "neden": "Port özelliklerinde 'SNMP Durumu Etkin' kutusu işaretlidir ve yazıcı SNMP yanıtı vermiyordur.",
+        "cozum": "Port Yapılandır penceresinden 'SNMP Durumu Etkin' (SNMP Status Enabled) işaretini kaldırın."
+      }
+    ],
+    "etiketler": [
+      "yazici",
+      "wsd-port",
+      "tcp-ip",
+      "cevrimdici-sorunu",
+      "raw-9100"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_64_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Konica Minolta bizhub C360i: LDAP Şirket Rehberinden Adres Çekme ve TLS Zaman Aşımı",
+    "hizli_adimlar": [
+      "Konica Minolta bizhub C360i sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Active Directory LDAP portunun (389 / 636) SSL sertifikasıyla uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcıya etki alanı kök sertifikasını yükleyin ve LDAPS port 636 kullanın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Test-NetConnection -Port 636",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yazıcı ekranında rehberden kişi ararken bağlantı hatası vermesi.",
+    "derin_teknik_analiz": "Active Directory LDAP portunun (389 / 636) SSL sertifikasıyla uyuşmaması. Çözüm: Yazıcıya etki alanı kök sertifikasını yükleyin ve LDAPS port 636 kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "konica minolta bizhub c360i",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_65_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Konica Minolta bizhub C360i: Hard Disk (HDD) Şifreleme Hatası ve Cihazın Başlamaması",
+    "hizli_adimlar": [
+      "Konica Minolta bizhub C360i sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Dahili SATA diskin güvenlik şifrelemesi sırasında elektrik kesintisine uğraması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Servis modundan HDD Format ve Mantıksal Bölümleme prosedürünü çalıştırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Service Mode -> HDD Format",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Fotokopi makinesi açılırken HDD Error verip kilitlenmesi.",
+    "derin_teknik_analiz": "Dahili SATA diskin güvenlik şifrelemesi sırasında elektrik kesintisine uğraması. Çözüm: Servis modundan HDD Format ve Mantıksal Bölümleme prosedürünü çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "konica minolta bizhub c360i",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_66_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Konica Minolta bizhub C360i: Güvenli Baskı (Secure Print / Follow-Me) Kart Okuyucu Algılamama",
+    "hizli_adimlar": [
+      "Konica Minolta bizhub C360i sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: USB RFID kart okuyucunun VID/PID tanımlamasının makine belleniminde tanımlı olmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcı arayüzünden USB Card Reader modunu klavye emülasyonu (HID) olarak güncelleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "SafeQ / PaperCut Admin",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Personel kartını cihaza okuttuğunda kuyruktaki işlerin dökülmemesi.",
+    "derin_teknik_analiz": "USB RFID kart okuyucunun VID/PID tanımlamasının makine belleniminde tanımlı olmaması. Çözüm: Yazıcı arayüzünden USB Card Reader modunu klavye emülasyonu (HID) olarak güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "konica minolta bizhub c360i",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_67_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Konica Minolta bizhub C360i: Baskı Kuyruğunda (Print Queue) İşlerin Askıda Kalması (Spooler Hang)",
+    "hizli_adimlar": [
+      "Konica Minolta bizhub C360i sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kullanıcı bilgisayarındaki bozuk grafik EMF dosyasının yazıcı RIP motorunu tıkaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: PowerShell ile kuyruğu durdurup ilgili işi Remove-PrintJob ile zorla silin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Remove-PrintJob -PrinterName \"Fotokopi\" -ID 42",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Gönderilen belgenin Durum: Yazdırılıyor olarak kalıp arkadaki tüm işleri kilitlemesi.",
+    "derin_teknik_analiz": "Kullanıcı bilgisayarındaki bozuk grafik EMF dosyasının yazıcı RIP motorunu tıkaması. Çözüm: PowerShell ile kuyruğu durdurup ilgili işi Remove-PrintJob ile zorla silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "konica minolta bizhub c360i",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_68_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Ricoh IM C3500 Çok Fonksiyonlu: LDAP Şirket Rehberinden Adres Çekme ve TLS Zaman Aşımı",
+    "hizli_adimlar": [
+      "Ricoh IM C3500 Çok Fonksiyonlu sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Active Directory LDAP portunun (389 / 636) SSL sertifikasıyla uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcıya etki alanı kök sertifikasını yükleyin ve LDAPS port 636 kullanın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Test-NetConnection -Port 636",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yazıcı ekranında rehberden kişi ararken bağlantı hatası vermesi.",
+    "derin_teknik_analiz": "Active Directory LDAP portunun (389 / 636) SSL sertifikasıyla uyuşmaması. Çözüm: Yazıcıya etki alanı kök sertifikasını yükleyin ve LDAPS port 636 kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "ricoh im c3500 çok fonksiyonlu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_69_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Ricoh IM C3500 Çok Fonksiyonlu: Hard Disk (HDD) Şifreleme Hatası ve Cihazın Başlamaması",
+    "hizli_adimlar": [
+      "Ricoh IM C3500 Çok Fonksiyonlu sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Dahili SATA diskin güvenlik şifrelemesi sırasında elektrik kesintisine uğraması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Servis modundan HDD Format ve Mantıksal Bölümleme prosedürünü çalıştırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Service Mode -> HDD Format",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Fotokopi makinesi açılırken HDD Error verip kilitlenmesi.",
+    "derin_teknik_analiz": "Dahili SATA diskin güvenlik şifrelemesi sırasında elektrik kesintisine uğraması. Çözüm: Servis modundan HDD Format ve Mantıksal Bölümleme prosedürünü çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "ricoh im c3500 çok fonksiyonlu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_70_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Ricoh IM C3500 Çok Fonksiyonlu: Güvenli Baskı (Secure Print / Follow-Me) Kart Okuyucu Algılamama",
+    "hizli_adimlar": [
+      "Ricoh IM C3500 Çok Fonksiyonlu sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: USB RFID kart okuyucunun VID/PID tanımlamasının makine belleniminde tanımlı olmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcı arayüzünden USB Card Reader modunu klavye emülasyonu (HID) olarak güncelleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "SafeQ / PaperCut Admin",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Personel kartını cihaza okuttuğunda kuyruktaki işlerin dökülmemesi.",
+    "derin_teknik_analiz": "USB RFID kart okuyucunun VID/PID tanımlamasının makine belleniminde tanımlı olmaması. Çözüm: Yazıcı arayüzünden USB Card Reader modunu klavye emülasyonu (HID) olarak güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "ricoh im c3500 çok fonksiyonlu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_71_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Ricoh IM C3500 Çok Fonksiyonlu: Baskı Kuyruğunda (Print Queue) İşlerin Askıda Kalması (Spooler Hang)",
+    "hizli_adimlar": [
+      "Ricoh IM C3500 Çok Fonksiyonlu sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kullanıcı bilgisayarındaki bozuk grafik EMF dosyasının yazıcı RIP motorunu tıkaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: PowerShell ile kuyruğu durdurup ilgili işi Remove-PrintJob ile zorla silin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Remove-PrintJob -PrinterName \"Fotokopi\" -ID 42",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Gönderilen belgenin Durum: Yazdırılıyor olarak kalıp arkadaki tüm işleri kilitlemesi.",
+    "derin_teknik_analiz": "Kullanıcı bilgisayarındaki bozuk grafik EMF dosyasının yazıcı RIP motorunu tıkaması. Çözüm: PowerShell ile kuyruğu durdurup ilgili işi Remove-PrintJob ile zorla silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "ricoh im c3500 çok fonksiyonlu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_72_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Xerox AltaLink C8145: LDAP Şirket Rehberinden Adres Çekme ve TLS Zaman Aşımı",
+    "hizli_adimlar": [
+      "Xerox AltaLink C8145 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Active Directory LDAP portunun (389 / 636) SSL sertifikasıyla uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcıya etki alanı kök sertifikasını yükleyin ve LDAPS port 636 kullanın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Test-NetConnection -Port 636",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yazıcı ekranında rehberden kişi ararken bağlantı hatası vermesi.",
+    "derin_teknik_analiz": "Active Directory LDAP portunun (389 / 636) SSL sertifikasıyla uyuşmaması. Çözüm: Yazıcıya etki alanı kök sertifikasını yükleyin ve LDAPS port 636 kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "xerox altalink c8145",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_73_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Xerox AltaLink C8145: Hard Disk (HDD) Şifreleme Hatası ve Cihazın Başlamaması",
+    "hizli_adimlar": [
+      "Xerox AltaLink C8145 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Dahili SATA diskin güvenlik şifrelemesi sırasında elektrik kesintisine uğraması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Servis modundan HDD Format ve Mantıksal Bölümleme prosedürünü çalıştırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Service Mode -> HDD Format",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Fotokopi makinesi açılırken HDD Error verip kilitlenmesi.",
+    "derin_teknik_analiz": "Dahili SATA diskin güvenlik şifrelemesi sırasında elektrik kesintisine uğraması. Çözüm: Servis modundan HDD Format ve Mantıksal Bölümleme prosedürünü çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "xerox altalink c8145",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_74_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Xerox AltaLink C8145: Güvenli Baskı (Secure Print / Follow-Me) Kart Okuyucu Algılamama",
+    "hizli_adimlar": [
+      "Xerox AltaLink C8145 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: USB RFID kart okuyucunun VID/PID tanımlamasının makine belleniminde tanımlı olmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcı arayüzünden USB Card Reader modunu klavye emülasyonu (HID) olarak güncelleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "SafeQ / PaperCut Admin",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Personel kartını cihaza okuttuğunda kuyruktaki işlerin dökülmemesi.",
+    "derin_teknik_analiz": "USB RFID kart okuyucunun VID/PID tanımlamasının makine belleniminde tanımlı olmaması. Çözüm: Yazıcı arayüzünden USB Card Reader modunu klavye emülasyonu (HID) olarak güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "xerox altalink c8145",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_75_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Xerox AltaLink C8145: Baskı Kuyruğunda (Print Queue) İşlerin Askıda Kalması (Spooler Hang)",
+    "hizli_adimlar": [
+      "Xerox AltaLink C8145 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kullanıcı bilgisayarındaki bozuk grafik EMF dosyasının yazıcı RIP motorunu tıkaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: PowerShell ile kuyruğu durdurup ilgili işi Remove-PrintJob ile zorla silin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Remove-PrintJob -PrinterName \"Fotokopi\" -ID 42",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Gönderilen belgenin Durum: Yazdırılıyor olarak kalıp arkadaki tüm işleri kilitlemesi.",
+    "derin_teknik_analiz": "Kullanıcı bilgisayarındaki bozuk grafik EMF dosyasının yazıcı RIP motorunu tıkaması. Çözüm: PowerShell ile kuyruğu durdurup ilgili işi Remove-PrintJob ile zorla silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "xerox altalink c8145",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_76_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Lexmark XC4150: LDAP Şirket Rehberinden Adres Çekme ve TLS Zaman Aşımı",
+    "hizli_adimlar": [
+      "Lexmark XC4150 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Active Directory LDAP portunun (389 / 636) SSL sertifikasıyla uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcıya etki alanı kök sertifikasını yükleyin ve LDAPS port 636 kullanın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Test-NetConnection -Port 636",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yazıcı ekranında rehberden kişi ararken bağlantı hatası vermesi.",
+    "derin_teknik_analiz": "Active Directory LDAP portunun (389 / 636) SSL sertifikasıyla uyuşmaması. Çözüm: Yazıcıya etki alanı kök sertifikasını yükleyin ve LDAPS port 636 kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "lexmark xc4150",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_77_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Lexmark XC4150: Hard Disk (HDD) Şifreleme Hatası ve Cihazın Başlamaması",
+    "hizli_adimlar": [
+      "Lexmark XC4150 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Dahili SATA diskin güvenlik şifrelemesi sırasında elektrik kesintisine uğraması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Servis modundan HDD Format ve Mantıksal Bölümleme prosedürünü çalıştırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Service Mode -> HDD Format",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Fotokopi makinesi açılırken HDD Error verip kilitlenmesi.",
+    "derin_teknik_analiz": "Dahili SATA diskin güvenlik şifrelemesi sırasında elektrik kesintisine uğraması. Çözüm: Servis modundan HDD Format ve Mantıksal Bölümleme prosedürünü çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "lexmark xc4150",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_78_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Lexmark XC4150: Güvenli Baskı (Secure Print / Follow-Me) Kart Okuyucu Algılamama",
+    "hizli_adimlar": [
+      "Lexmark XC4150 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: USB RFID kart okuyucunun VID/PID tanımlamasının makine belleniminde tanımlı olmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcı arayüzünden USB Card Reader modunu klavye emülasyonu (HID) olarak güncelleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "SafeQ / PaperCut Admin",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Personel kartını cihaza okuttuğunda kuyruktaki işlerin dökülmemesi.",
+    "derin_teknik_analiz": "USB RFID kart okuyucunun VID/PID tanımlamasının makine belleniminde tanımlı olmaması. Çözüm: Yazıcı arayüzünden USB Card Reader modunu klavye emülasyonu (HID) olarak güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "lexmark xc4150",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_79_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Lexmark XC4150: Baskı Kuyruğunda (Print Queue) İşlerin Askıda Kalması (Spooler Hang)",
+    "hizli_adimlar": [
+      "Lexmark XC4150 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kullanıcı bilgisayarındaki bozuk grafik EMF dosyasının yazıcı RIP motorunu tıkaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: PowerShell ile kuyruğu durdurup ilgili işi Remove-PrintJob ile zorla silin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Remove-PrintJob -PrinterName \"Fotokopi\" -ID 42",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Gönderilen belgenin Durum: Yazdırılıyor olarak kalıp arkadaki tüm işleri kilitlemesi.",
+    "derin_teknik_analiz": "Kullanıcı bilgisayarındaki bozuk grafik EMF dosyasının yazıcı RIP motorunu tıkaması. Çözüm: PowerShell ile kuyruğu durdurup ilgili işi Remove-PrintJob ile zorla silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "lexmark xc4150",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_80_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Sharp MX-4071: LDAP Şirket Rehberinden Adres Çekme ve TLS Zaman Aşımı",
+    "hizli_adimlar": [
+      "Sharp MX-4071 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Active Directory LDAP portunun (389 / 636) SSL sertifikasıyla uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcıya etki alanı kök sertifikasını yükleyin ve LDAPS port 636 kullanın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Test-NetConnection -Port 636",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yazıcı ekranında rehberden kişi ararken bağlantı hatası vermesi.",
+    "derin_teknik_analiz": "Active Directory LDAP portunun (389 / 636) SSL sertifikasıyla uyuşmaması. Çözüm: Yazıcıya etki alanı kök sertifikasını yükleyin ve LDAPS port 636 kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "sharp mx-4071",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_81_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Sharp MX-4071: Hard Disk (HDD) Şifreleme Hatası ve Cihazın Başlamaması",
+    "hizli_adimlar": [
+      "Sharp MX-4071 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Dahili SATA diskin güvenlik şifrelemesi sırasında elektrik kesintisine uğraması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Servis modundan HDD Format ve Mantıksal Bölümleme prosedürünü çalıştırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Service Mode -> HDD Format",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Fotokopi makinesi açılırken HDD Error verip kilitlenmesi.",
+    "derin_teknik_analiz": "Dahili SATA diskin güvenlik şifrelemesi sırasında elektrik kesintisine uğraması. Çözüm: Servis modundan HDD Format ve Mantıksal Bölümleme prosedürünü çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "sharp mx-4071",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_82_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Sharp MX-4071: Güvenli Baskı (Secure Print / Follow-Me) Kart Okuyucu Algılamama",
+    "hizli_adimlar": [
+      "Sharp MX-4071 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: USB RFID kart okuyucunun VID/PID tanımlamasının makine belleniminde tanımlı olmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcı arayüzünden USB Card Reader modunu klavye emülasyonu (HID) olarak güncelleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "SafeQ / PaperCut Admin",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Personel kartını cihaza okuttuğunda kuyruktaki işlerin dökülmemesi.",
+    "derin_teknik_analiz": "USB RFID kart okuyucunun VID/PID tanımlamasının makine belleniminde tanımlı olmaması. Çözüm: Yazıcı arayüzünden USB Card Reader modunu klavye emülasyonu (HID) olarak güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "sharp mx-4071",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_83_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Sharp MX-4071: Baskı Kuyruğunda (Print Queue) İşlerin Askıda Kalması (Spooler Hang)",
+    "hizli_adimlar": [
+      "Sharp MX-4071 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kullanıcı bilgisayarındaki bozuk grafik EMF dosyasının yazıcı RIP motorunu tıkaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: PowerShell ile kuyruğu durdurup ilgili işi Remove-PrintJob ile zorla silin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Remove-PrintJob -PrinterName \"Fotokopi\" -ID 42",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Gönderilen belgenin Durum: Yazdırılıyor olarak kalıp arkadaki tüm işleri kilitlemesi.",
+    "derin_teknik_analiz": "Kullanıcı bilgisayarındaki bozuk grafik EMF dosyasının yazıcı RIP motorunu tıkaması. Çözüm: PowerShell ile kuyruğu durdurup ilgili işi Remove-PrintJob ile zorla silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "sharp mx-4071",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_84_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Toshiba e-STUDIO 3515AC: LDAP Şirket Rehberinden Adres Çekme ve TLS Zaman Aşımı",
+    "hizli_adimlar": [
+      "Toshiba e-STUDIO 3515AC sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Active Directory LDAP portunun (389 / 636) SSL sertifikasıyla uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcıya etki alanı kök sertifikasını yükleyin ve LDAPS port 636 kullanın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Test-NetConnection -Port 636",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yazıcı ekranında rehberden kişi ararken bağlantı hatası vermesi.",
+    "derin_teknik_analiz": "Active Directory LDAP portunun (389 / 636) SSL sertifikasıyla uyuşmaması. Çözüm: Yazıcıya etki alanı kök sertifikasını yükleyin ve LDAPS port 636 kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "toshiba e-studio 3515ac",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_85_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Toshiba e-STUDIO 3515AC: Hard Disk (HDD) Şifreleme Hatası ve Cihazın Başlamaması",
+    "hizli_adimlar": [
+      "Toshiba e-STUDIO 3515AC sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Dahili SATA diskin güvenlik şifrelemesi sırasında elektrik kesintisine uğraması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Servis modundan HDD Format ve Mantıksal Bölümleme prosedürünü çalıştırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Service Mode -> HDD Format",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Fotokopi makinesi açılırken HDD Error verip kilitlenmesi.",
+    "derin_teknik_analiz": "Dahili SATA diskin güvenlik şifrelemesi sırasında elektrik kesintisine uğraması. Çözüm: Servis modundan HDD Format ve Mantıksal Bölümleme prosedürünü çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "toshiba e-studio 3515ac",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_86_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Toshiba e-STUDIO 3515AC: Güvenli Baskı (Secure Print / Follow-Me) Kart Okuyucu Algılamama",
+    "hizli_adimlar": [
+      "Toshiba e-STUDIO 3515AC sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: USB RFID kart okuyucunun VID/PID tanımlamasının makine belleniminde tanımlı olmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcı arayüzünden USB Card Reader modunu klavye emülasyonu (HID) olarak güncelleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "SafeQ / PaperCut Admin",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Personel kartını cihaza okuttuğunda kuyruktaki işlerin dökülmemesi.",
+    "derin_teknik_analiz": "USB RFID kart okuyucunun VID/PID tanımlamasının makine belleniminde tanımlı olmaması. Çözüm: Yazıcı arayüzünden USB Card Reader modunu klavye emülasyonu (HID) olarak güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "toshiba e-studio 3515ac",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_87_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Toshiba e-STUDIO 3515AC: Baskı Kuyruğunda (Print Queue) İşlerin Askıda Kalması (Spooler Hang)",
+    "hizli_adimlar": [
+      "Toshiba e-STUDIO 3515AC sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kullanıcı bilgisayarındaki bozuk grafik EMF dosyasının yazıcı RIP motorunu tıkaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: PowerShell ile kuyruğu durdurup ilgili işi Remove-PrintJob ile zorla silin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Remove-PrintJob -PrinterName \"Fotokopi\" -ID 42",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Gönderilen belgenin Durum: Yazdırılıyor olarak kalıp arkadaki tüm işleri kilitlemesi.",
+    "derin_teknik_analiz": "Kullanıcı bilgisayarındaki bozuk grafik EMF dosyasının yazıcı RIP motorunu tıkaması. Çözüm: PowerShell ile kuyruğu durdurup ilgili işi Remove-PrintJob ile zorla silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "toshiba e-studio 3515ac",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_88_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Oki MC873dn A3: LDAP Şirket Rehberinden Adres Çekme ve TLS Zaman Aşımı",
+    "hizli_adimlar": [
+      "Oki MC873dn A3 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Active Directory LDAP portunun (389 / 636) SSL sertifikasıyla uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcıya etki alanı kök sertifikasını yükleyin ve LDAPS port 636 kullanın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Test-NetConnection -Port 636",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yazıcı ekranında rehberden kişi ararken bağlantı hatası vermesi.",
+    "derin_teknik_analiz": "Active Directory LDAP portunun (389 / 636) SSL sertifikasıyla uyuşmaması. Çözüm: Yazıcıya etki alanı kök sertifikasını yükleyin ve LDAPS port 636 kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "oki mc873dn a3",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_89_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Oki MC873dn A3: Hard Disk (HDD) Şifreleme Hatası ve Cihazın Başlamaması",
+    "hizli_adimlar": [
+      "Oki MC873dn A3 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Dahili SATA diskin güvenlik şifrelemesi sırasında elektrik kesintisine uğraması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Servis modundan HDD Format ve Mantıksal Bölümleme prosedürünü çalıştırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Service Mode -> HDD Format",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Fotokopi makinesi açılırken HDD Error verip kilitlenmesi.",
+    "derin_teknik_analiz": "Dahili SATA diskin güvenlik şifrelemesi sırasında elektrik kesintisine uğraması. Çözüm: Servis modundan HDD Format ve Mantıksal Bölümleme prosedürünü çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "oki mc873dn a3",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_90_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Oki MC873dn A3: Güvenli Baskı (Secure Print / Follow-Me) Kart Okuyucu Algılamama",
+    "hizli_adimlar": [
+      "Oki MC873dn A3 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: USB RFID kart okuyucunun VID/PID tanımlamasının makine belleniminde tanımlı olmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcı arayüzünden USB Card Reader modunu klavye emülasyonu (HID) olarak güncelleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "SafeQ / PaperCut Admin",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Personel kartını cihaza okuttuğunda kuyruktaki işlerin dökülmemesi.",
+    "derin_teknik_analiz": "USB RFID kart okuyucunun VID/PID tanımlamasının makine belleniminde tanımlı olmaması. Çözüm: Yazıcı arayüzünden USB Card Reader modunu klavye emülasyonu (HID) olarak güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "oki mc873dn a3",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_91_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Oki MC873dn A3: Baskı Kuyruğunda (Print Queue) İşlerin Askıda Kalması (Spooler Hang)",
+    "hizli_adimlar": [
+      "Oki MC873dn A3 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kullanıcı bilgisayarındaki bozuk grafik EMF dosyasının yazıcı RIP motorunu tıkaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: PowerShell ile kuyruğu durdurup ilgili işi Remove-PrintJob ile zorla silin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Remove-PrintJob -PrinterName \"Fotokopi\" -ID 42",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Gönderilen belgenin Durum: Yazdırılıyor olarak kalıp arkadaki tüm işleri kilitlemesi.",
+    "derin_teknik_analiz": "Kullanıcı bilgisayarındaki bozuk grafik EMF dosyasının yazıcı RIP motorunu tıkaması. Çözüm: PowerShell ile kuyruğu durdurup ilgili işi Remove-PrintJob ile zorla silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "oki mc873dn a3",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_92_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Pantum CM2200FDW: LDAP Şirket Rehberinden Adres Çekme ve TLS Zaman Aşımı",
+    "hizli_adimlar": [
+      "Pantum CM2200FDW sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Active Directory LDAP portunun (389 / 636) SSL sertifikasıyla uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcıya etki alanı kök sertifikasını yükleyin ve LDAPS port 636 kullanın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Test-NetConnection -Port 636",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yazıcı ekranında rehberden kişi ararken bağlantı hatası vermesi.",
+    "derin_teknik_analiz": "Active Directory LDAP portunun (389 / 636) SSL sertifikasıyla uyuşmaması. Çözüm: Yazıcıya etki alanı kök sertifikasını yükleyin ve LDAPS port 636 kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "pantum cm2200fdw",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_93_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Pantum CM2200FDW: Hard Disk (HDD) Şifreleme Hatası ve Cihazın Başlamaması",
+    "hizli_adimlar": [
+      "Pantum CM2200FDW sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Dahili SATA diskin güvenlik şifrelemesi sırasında elektrik kesintisine uğraması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Servis modundan HDD Format ve Mantıksal Bölümleme prosedürünü çalıştırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Service Mode -> HDD Format",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Fotokopi makinesi açılırken HDD Error verip kilitlenmesi.",
+    "derin_teknik_analiz": "Dahili SATA diskin güvenlik şifrelemesi sırasında elektrik kesintisine uğraması. Çözüm: Servis modundan HDD Format ve Mantıksal Bölümleme prosedürünü çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "pantum cm2200fdw",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_94_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Pantum CM2200FDW: Güvenli Baskı (Secure Print / Follow-Me) Kart Okuyucu Algılamama",
+    "hizli_adimlar": [
+      "Pantum CM2200FDW sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: USB RFID kart okuyucunun VID/PID tanımlamasının makine belleniminde tanımlı olmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcı arayüzünden USB Card Reader modunu klavye emülasyonu (HID) olarak güncelleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "SafeQ / PaperCut Admin",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Personel kartını cihaza okuttuğunda kuyruktaki işlerin dökülmemesi.",
+    "derin_teknik_analiz": "USB RFID kart okuyucunun VID/PID tanımlamasının makine belleniminde tanımlı olmaması. Çözüm: Yazıcı arayüzünden USB Card Reader modunu klavye emülasyonu (HID) olarak güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "pantum cm2200fdw",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_95_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Pantum CM2200FDW: Baskı Kuyruğunda (Print Queue) İşlerin Askıda Kalması (Spooler Hang)",
+    "hizli_adimlar": [
+      "Pantum CM2200FDW sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kullanıcı bilgisayarındaki bozuk grafik EMF dosyasının yazıcı RIP motorunu tıkaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: PowerShell ile kuyruğu durdurup ilgili işi Remove-PrintJob ile zorla silin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Remove-PrintJob -PrinterName \"Fotokopi\" -ID 42",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Gönderilen belgenin Durum: Yazdırılıyor olarak kalıp arkadaki tüm işleri kilitlemesi.",
+    "derin_teknik_analiz": "Kullanıcı bilgisayarındaki bozuk grafik EMF dosyasının yazıcı RIP motorunu tıkaması. Çözüm: PowerShell ile kuyruğu durdurup ilgili işi Remove-PrintJob ile zorla silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "pantum cm2200fdw",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2332",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Konica Minolta bizhub C258: SMBv2/v3 Taramada Klasöre Gönderim Yetki Hatası",
+    "hizli_adimlar": [
+      "Konica Minolta bizhub C258 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: NTLMv2 kimlik doğrulama zorunluluğu ve SMB paket imzalama uyuşmazlığı.",
+      "Saha servis prosedürünü yerine getirin: Makine web arayüzünden NTLMv2 aktif edin ve hedef sunucuda paylaşılan klasörün güvenlik sekmesine yazma hakkı verin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Konica Minolta bizhub C258 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Taranan evrakların sunucu paylaşımlı klasörüne düşmemesi ve makinede iletim hatası vermesi.",
+    "derin_teknik_analiz": "Kök Neden: NTLMv2 kimlik doğrulama zorunluluğu ve SMB paket imzalama uyuşmazlığı. Saha Çözümü: Makine web arayüzünden NTLMv2 aktif edin ve hedef sunucuda paylaşılan klasörün güvenlik sekmesine yazma hakkı verin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "konica minolta bizhub c258",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2333",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Konica Minolta bizhub C258: E-Posta ile Tarama (Scan to E-mail) TLS 1.2 ve Port 587 Hatası",
+    "hizli_adimlar": [
+      "Konica Minolta bizhub C258 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Office 365 veya Gmail SMTP sunucularının eski TLS 1.0/1.1 bağlantılarını engellemesi.",
+      "Saha servis prosedürünü yerine getirin: Yazıcı bellenimini güncelleyip SMTP portunu 587 STARTTLS olarak yapılandırın ve uygulama şifresi kullanın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Konica Minolta bizhub C258 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Taramayı PDF olarak maile gönderirken SMTP sunucusuna bağlanamaması.",
+    "derin_teknik_analiz": "Kök Neden: Office 365 veya Gmail SMTP sunucularının eski TLS 1.0/1.1 bağlantılarını engellemesi. Saha Çözümü: Yazıcı bellenimini güncelleyip SMTP portunu 587 STARTTLS olarak yapılandırın ve uygulama şifresi kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "konica minolta bizhub c258",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2334",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Konica Minolta bizhub C258: Statik IP Tanımlı Olmasına Rağmen Cihazın Ağda Donması",
+    "hizli_adimlar": [
+      "Konica Minolta bizhub C258 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Ağdaki başka bir cihazın aynı IP adresini DHCP üzerinden alması.",
+      "Saha servis prosedürünü yerine getirin: Yazıcı kablosunu çıkarıp IP adresine ping atarak çakışan cihazı tespit edin ve DHCP rezervasyonu yapın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Konica Minolta bizhub C258 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Yazıcıya ping atıldığında yanıt vermemesi ve web arayüzünün açılmaması.",
+    "derin_teknik_analiz": "Kök Neden: Ağdaki başka bir cihazın aynı IP adresini DHCP üzerinden alması. Saha Çözümü: Yazıcı kablosunu çıkarıp IP adresine ping atarak çakışan cihazı tespit edin ve DHCP rezervasyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "konica minolta bizhub c258",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2335",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Ricoh MP 2014AD: SMBv2/v3 Taramada Klasöre Gönderim Yetki Hatası",
+    "hizli_adimlar": [
+      "Ricoh MP 2014AD cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: NTLMv2 kimlik doğrulama zorunluluğu ve SMB paket imzalama uyuşmazlığı.",
+      "Saha servis prosedürünü yerine getirin: Makine web arayüzünden NTLMv2 aktif edin ve hedef sunucuda paylaşılan klasörün güvenlik sekmesine yazma hakkı verin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Ricoh MP 2014AD Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Taranan evrakların sunucu paylaşımlı klasörüne düşmemesi ve makinede iletim hatası vermesi.",
+    "derin_teknik_analiz": "Kök Neden: NTLMv2 kimlik doğrulama zorunluluğu ve SMB paket imzalama uyuşmazlığı. Saha Çözümü: Makine web arayüzünden NTLMv2 aktif edin ve hedef sunucuda paylaşılan klasörün güvenlik sekmesine yazma hakkı verin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "ricoh mp 2014ad",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2336",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Ricoh MP 2014AD: E-Posta ile Tarama (Scan to E-mail) TLS 1.2 ve Port 587 Hatası",
+    "hizli_adimlar": [
+      "Ricoh MP 2014AD cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Office 365 veya Gmail SMTP sunucularının eski TLS 1.0/1.1 bağlantılarını engellemesi.",
+      "Saha servis prosedürünü yerine getirin: Yazıcı bellenimini güncelleyip SMTP portunu 587 STARTTLS olarak yapılandırın ve uygulama şifresi kullanın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Ricoh MP 2014AD Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Taramayı PDF olarak maile gönderirken SMTP sunucusuna bağlanamaması.",
+    "derin_teknik_analiz": "Kök Neden: Office 365 veya Gmail SMTP sunucularının eski TLS 1.0/1.1 bağlantılarını engellemesi. Saha Çözümü: Yazıcı bellenimini güncelleyip SMTP portunu 587 STARTTLS olarak yapılandırın ve uygulama şifresi kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "ricoh mp 2014ad",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2337",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Ricoh MP 2014AD: Statik IP Tanımlı Olmasına Rağmen Cihazın Ağda Donması",
+    "hizli_adimlar": [
+      "Ricoh MP 2014AD cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Ağdaki başka bir cihazın aynı IP adresini DHCP üzerinden alması.",
+      "Saha servis prosedürünü yerine getirin: Yazıcı kablosunu çıkarıp IP adresine ping atarak çakışan cihazı tespit edin ve DHCP rezervasyonu yapın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Ricoh MP 2014AD Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Yazıcıya ping atıldığında yanıt vermemesi ve web arayüzünün açılmaması.",
+    "derin_teknik_analiz": "Kök Neden: Ağdaki başka bir cihazın aynı IP adresini DHCP üzerinden alması. Saha Çözümü: Yazıcı kablosunu çıkarıp IP adresine ping atarak çakışan cihazı tespit edin ve DHCP rezervasyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "ricoh mp 2014ad",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2338",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Xerox WorkCentre 3025: SMBv2/v3 Taramada Klasöre Gönderim Yetki Hatası",
+    "hizli_adimlar": [
+      "Xerox WorkCentre 3025 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: NTLMv2 kimlik doğrulama zorunluluğu ve SMB paket imzalama uyuşmazlığı.",
+      "Saha servis prosedürünü yerine getirin: Makine web arayüzünden NTLMv2 aktif edin ve hedef sunucuda paylaşılan klasörün güvenlik sekmesine yazma hakkı verin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Xerox WorkCentre 3025 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Taranan evrakların sunucu paylaşımlı klasörüne düşmemesi ve makinede iletim hatası vermesi.",
+    "derin_teknik_analiz": "Kök Neden: NTLMv2 kimlik doğrulama zorunluluğu ve SMB paket imzalama uyuşmazlığı. Saha Çözümü: Makine web arayüzünden NTLMv2 aktif edin ve hedef sunucuda paylaşılan klasörün güvenlik sekmesine yazma hakkı verin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "xerox workcentre 3025",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2339",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Xerox WorkCentre 3025: E-Posta ile Tarama (Scan to E-mail) TLS 1.2 ve Port 587 Hatası",
+    "hizli_adimlar": [
+      "Xerox WorkCentre 3025 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Office 365 veya Gmail SMTP sunucularının eski TLS 1.0/1.1 bağlantılarını engellemesi.",
+      "Saha servis prosedürünü yerine getirin: Yazıcı bellenimini güncelleyip SMTP portunu 587 STARTTLS olarak yapılandırın ve uygulama şifresi kullanın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Xerox WorkCentre 3025 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Taramayı PDF olarak maile gönderirken SMTP sunucusuna bağlanamaması.",
+    "derin_teknik_analiz": "Kök Neden: Office 365 veya Gmail SMTP sunucularının eski TLS 1.0/1.1 bağlantılarını engellemesi. Saha Çözümü: Yazıcı bellenimini güncelleyip SMTP portunu 587 STARTTLS olarak yapılandırın ve uygulama şifresi kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "xerox workcentre 3025",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2340",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Xerox WorkCentre 3025: Statik IP Tanımlı Olmasına Rağmen Cihazın Ağda Donması",
+    "hizli_adimlar": [
+      "Xerox WorkCentre 3025 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Ağdaki başka bir cihazın aynı IP adresini DHCP üzerinden alması.",
+      "Saha servis prosedürünü yerine getirin: Yazıcı kablosunu çıkarıp IP adresine ping atarak çakışan cihazı tespit edin ve DHCP rezervasyonu yapın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Xerox WorkCentre 3025 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Yazıcıya ping atıldığında yanıt vermemesi ve web arayüzünün açılmaması.",
+    "derin_teknik_analiz": "Kök Neden: Ağdaki başka bir cihazın aynı IP adresini DHCP üzerinden alması. Saha Çözümü: Yazıcı kablosunu çıkarıp IP adresine ping atarak çakışan cihazı tespit edin ve DHCP rezervasyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "xerox workcentre 3025",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2341",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Lexmark MS310dn: SMBv2/v3 Taramada Klasöre Gönderim Yetki Hatası",
+    "hizli_adimlar": [
+      "Lexmark MS310dn cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: NTLMv2 kimlik doğrulama zorunluluğu ve SMB paket imzalama uyuşmazlığı.",
+      "Saha servis prosedürünü yerine getirin: Makine web arayüzünden NTLMv2 aktif edin ve hedef sunucuda paylaşılan klasörün güvenlik sekmesine yazma hakkı verin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Lexmark MS310dn Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Taranan evrakların sunucu paylaşımlı klasörüne düşmemesi ve makinede iletim hatası vermesi.",
+    "derin_teknik_analiz": "Kök Neden: NTLMv2 kimlik doğrulama zorunluluğu ve SMB paket imzalama uyuşmazlığı. Saha Çözümü: Makine web arayüzünden NTLMv2 aktif edin ve hedef sunucuda paylaşılan klasörün güvenlik sekmesine yazma hakkı verin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "lexmark ms310dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2342",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Lexmark MS310dn: E-Posta ile Tarama (Scan to E-mail) TLS 1.2 ve Port 587 Hatası",
+    "hizli_adimlar": [
+      "Lexmark MS310dn cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Office 365 veya Gmail SMTP sunucularının eski TLS 1.0/1.1 bağlantılarını engellemesi.",
+      "Saha servis prosedürünü yerine getirin: Yazıcı bellenimini güncelleyip SMTP portunu 587 STARTTLS olarak yapılandırın ve uygulama şifresi kullanın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Lexmark MS310dn Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Taramayı PDF olarak maile gönderirken SMTP sunucusuna bağlanamaması.",
+    "derin_teknik_analiz": "Kök Neden: Office 365 veya Gmail SMTP sunucularının eski TLS 1.0/1.1 bağlantılarını engellemesi. Saha Çözümü: Yazıcı bellenimini güncelleyip SMTP portunu 587 STARTTLS olarak yapılandırın ve uygulama şifresi kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "lexmark ms310dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2343",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Lexmark MS310dn: Statik IP Tanımlı Olmasına Rağmen Cihazın Ağda Donması",
+    "hizli_adimlar": [
+      "Lexmark MS310dn cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Ağdaki başka bir cihazın aynı IP adresini DHCP üzerinden alması.",
+      "Saha servis prosedürünü yerine getirin: Yazıcı kablosunu çıkarıp IP adresine ping atarak çakışan cihazı tespit edin ve DHCP rezervasyonu yapın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Lexmark MS310dn Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Yazıcıya ping atıldığında yanıt vermemesi ve web arayüzünün açılmaması.",
+    "derin_teknik_analiz": "Kök Neden: Ağdaki başka bir cihazın aynı IP adresini DHCP üzerinden alması. Saha Çözümü: Yazıcı kablosunu çıkarıp IP adresine ping atarak çakışan cihazı tespit edin ve DHCP rezervasyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "lexmark ms310dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2344",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Sharp MX-M266N: SMBv2/v3 Taramada Klasöre Gönderim Yetki Hatası",
+    "hizli_adimlar": [
+      "Sharp MX-M266N cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: NTLMv2 kimlik doğrulama zorunluluğu ve SMB paket imzalama uyuşmazlığı.",
+      "Saha servis prosedürünü yerine getirin: Makine web arayüzünden NTLMv2 aktif edin ve hedef sunucuda paylaşılan klasörün güvenlik sekmesine yazma hakkı verin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Sharp MX-M266N Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Taranan evrakların sunucu paylaşımlı klasörüne düşmemesi ve makinede iletim hatası vermesi.",
+    "derin_teknik_analiz": "Kök Neden: NTLMv2 kimlik doğrulama zorunluluğu ve SMB paket imzalama uyuşmazlığı. Saha Çözümü: Makine web arayüzünden NTLMv2 aktif edin ve hedef sunucuda paylaşılan klasörün güvenlik sekmesine yazma hakkı verin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "sharp mx-m266n",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2345",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Sharp MX-M266N: E-Posta ile Tarama (Scan to E-mail) TLS 1.2 ve Port 587 Hatası",
+    "hizli_adimlar": [
+      "Sharp MX-M266N cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Office 365 veya Gmail SMTP sunucularının eski TLS 1.0/1.1 bağlantılarını engellemesi.",
+      "Saha servis prosedürünü yerine getirin: Yazıcı bellenimini güncelleyip SMTP portunu 587 STARTTLS olarak yapılandırın ve uygulama şifresi kullanın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Sharp MX-M266N Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Taramayı PDF olarak maile gönderirken SMTP sunucusuna bağlanamaması.",
+    "derin_teknik_analiz": "Kök Neden: Office 365 veya Gmail SMTP sunucularının eski TLS 1.0/1.1 bağlantılarını engellemesi. Saha Çözümü: Yazıcı bellenimini güncelleyip SMTP portunu 587 STARTTLS olarak yapılandırın ve uygulama şifresi kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "sharp mx-m266n",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2346",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Sharp MX-M266N: Statik IP Tanımlı Olmasına Rağmen Cihazın Ağda Donması",
+    "hizli_adimlar": [
+      "Sharp MX-M266N cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Ağdaki başka bir cihazın aynı IP adresini DHCP üzerinden alması.",
+      "Saha servis prosedürünü yerine getirin: Yazıcı kablosunu çıkarıp IP adresine ping atarak çakışan cihazı tespit edin ve DHCP rezervasyonu yapın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Sharp MX-M266N Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Yazıcıya ping atıldığında yanıt vermemesi ve web arayüzünün açılmaması.",
+    "derin_teknik_analiz": "Kök Neden: Ağdaki başka bir cihazın aynı IP adresini DHCP üzerinden alması. Saha Çözümü: Yazıcı kablosunu çıkarıp IP adresine ping atarak çakışan cihazı tespit edin ve DHCP rezervasyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "sharp mx-m266n",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2347",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Toshiba e-STUDIO 2505AC: SMBv2/v3 Taramada Klasöre Gönderim Yetki Hatası",
+    "hizli_adimlar": [
+      "Toshiba e-STUDIO 2505AC cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: NTLMv2 kimlik doğrulama zorunluluğu ve SMB paket imzalama uyuşmazlığı.",
+      "Saha servis prosedürünü yerine getirin: Makine web arayüzünden NTLMv2 aktif edin ve hedef sunucuda paylaşılan klasörün güvenlik sekmesine yazma hakkı verin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Toshiba e-STUDIO 2505AC Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Taranan evrakların sunucu paylaşımlı klasörüne düşmemesi ve makinede iletim hatası vermesi.",
+    "derin_teknik_analiz": "Kök Neden: NTLMv2 kimlik doğrulama zorunluluğu ve SMB paket imzalama uyuşmazlığı. Saha Çözümü: Makine web arayüzünden NTLMv2 aktif edin ve hedef sunucuda paylaşılan klasörün güvenlik sekmesine yazma hakkı verin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "toshiba e-studio 2505ac",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2348",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Toshiba e-STUDIO 2505AC: E-Posta ile Tarama (Scan to E-mail) TLS 1.2 ve Port 587 Hatası",
+    "hizli_adimlar": [
+      "Toshiba e-STUDIO 2505AC cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Office 365 veya Gmail SMTP sunucularının eski TLS 1.0/1.1 bağlantılarını engellemesi.",
+      "Saha servis prosedürünü yerine getirin: Yazıcı bellenimini güncelleyip SMTP portunu 587 STARTTLS olarak yapılandırın ve uygulama şifresi kullanın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Toshiba e-STUDIO 2505AC Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Taramayı PDF olarak maile gönderirken SMTP sunucusuna bağlanamaması.",
+    "derin_teknik_analiz": "Kök Neden: Office 365 veya Gmail SMTP sunucularının eski TLS 1.0/1.1 bağlantılarını engellemesi. Saha Çözümü: Yazıcı bellenimini güncelleyip SMTP portunu 587 STARTTLS olarak yapılandırın ve uygulama şifresi kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "toshiba e-studio 2505ac",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2349",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Toshiba e-STUDIO 2505AC: Statik IP Tanımlı Olmasına Rağmen Cihazın Ağda Donması",
+    "hizli_adimlar": [
+      "Toshiba e-STUDIO 2505AC cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Ağdaki başka bir cihazın aynı IP adresini DHCP üzerinden alması.",
+      "Saha servis prosedürünü yerine getirin: Yazıcı kablosunu çıkarıp IP adresine ping atarak çakışan cihazı tespit edin ve DHCP rezervasyonu yapın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Toshiba e-STUDIO 2505AC Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Yazıcıya ping atıldığında yanıt vermemesi ve web arayüzünün açılmaması.",
+    "derin_teknik_analiz": "Kök Neden: Ağdaki başka bir cihazın aynı IP adresini DHCP üzerinden alması. Saha Çözümü: Yazıcı kablosunu çıkarıp IP adresine ping atarak çakışan cihazı tespit edin ve DHCP rezervasyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "toshiba e-studio 2505ac",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2350",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Oki B432dn: SMBv2/v3 Taramada Klasöre Gönderim Yetki Hatası",
+    "hizli_adimlar": [
+      "Oki B432dn cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: NTLMv2 kimlik doğrulama zorunluluğu ve SMB paket imzalama uyuşmazlığı.",
+      "Saha servis prosedürünü yerine getirin: Makine web arayüzünden NTLMv2 aktif edin ve hedef sunucuda paylaşılan klasörün güvenlik sekmesine yazma hakkı verin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Oki B432dn Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Taranan evrakların sunucu paylaşımlı klasörüne düşmemesi ve makinede iletim hatası vermesi.",
+    "derin_teknik_analiz": "Kök Neden: NTLMv2 kimlik doğrulama zorunluluğu ve SMB paket imzalama uyuşmazlığı. Saha Çözümü: Makine web arayüzünden NTLMv2 aktif edin ve hedef sunucuda paylaşılan klasörün güvenlik sekmesine yazma hakkı verin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "oki b432dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2351",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Oki B432dn: E-Posta ile Tarama (Scan to E-mail) TLS 1.2 ve Port 587 Hatası",
+    "hizli_adimlar": [
+      "Oki B432dn cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Office 365 veya Gmail SMTP sunucularının eski TLS 1.0/1.1 bağlantılarını engellemesi.",
+      "Saha servis prosedürünü yerine getirin: Yazıcı bellenimini güncelleyip SMTP portunu 587 STARTTLS olarak yapılandırın ve uygulama şifresi kullanın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Oki B432dn Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Taramayı PDF olarak maile gönderirken SMTP sunucusuna bağlanamaması.",
+    "derin_teknik_analiz": "Kök Neden: Office 365 veya Gmail SMTP sunucularının eski TLS 1.0/1.1 bağlantılarını engellemesi. Saha Çözümü: Yazıcı bellenimini güncelleyip SMTP portunu 587 STARTTLS olarak yapılandırın ve uygulama şifresi kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "oki b432dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2352",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Oki B432dn: Statik IP Tanımlı Olmasına Rağmen Cihazın Ağda Donması",
+    "hizli_adimlar": [
+      "Oki B432dn cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Ağdaki başka bir cihazın aynı IP adresini DHCP üzerinden alması.",
+      "Saha servis prosedürünü yerine getirin: Yazıcı kablosunu çıkarıp IP adresine ping atarak çakışan cihazı tespit edin ve DHCP rezervasyonu yapın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Oki B432dn Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Yazıcıya ping atıldığında yanıt vermemesi ve web arayüzünün açılmaması.",
+    "derin_teknik_analiz": "Kök Neden: Ağdaki başka bir cihazın aynı IP adresini DHCP üzerinden alması. Saha Çözümü: Yazıcı kablosunu çıkarıp IP adresine ping atarak çakışan cihazı tespit edin ve DHCP rezervasyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "oki b432dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2353",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Pantum P3300DN: SMBv2/v3 Taramada Klasöre Gönderim Yetki Hatası",
+    "hizli_adimlar": [
+      "Pantum P3300DN cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: NTLMv2 kimlik doğrulama zorunluluğu ve SMB paket imzalama uyuşmazlığı.",
+      "Saha servis prosedürünü yerine getirin: Makine web arayüzünden NTLMv2 aktif edin ve hedef sunucuda paylaşılan klasörün güvenlik sekmesine yazma hakkı verin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Pantum P3300DN Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Taranan evrakların sunucu paylaşımlı klasörüne düşmemesi ve makinede iletim hatası vermesi.",
+    "derin_teknik_analiz": "Kök Neden: NTLMv2 kimlik doğrulama zorunluluğu ve SMB paket imzalama uyuşmazlığı. Saha Çözümü: Makine web arayüzünden NTLMv2 aktif edin ve hedef sunucuda paylaşılan klasörün güvenlik sekmesine yazma hakkı verin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "pantum p3300dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2354",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Pantum P3300DN: E-Posta ile Tarama (Scan to E-mail) TLS 1.2 ve Port 587 Hatası",
+    "hizli_adimlar": [
+      "Pantum P3300DN cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Office 365 veya Gmail SMTP sunucularının eski TLS 1.0/1.1 bağlantılarını engellemesi.",
+      "Saha servis prosedürünü yerine getirin: Yazıcı bellenimini güncelleyip SMTP portunu 587 STARTTLS olarak yapılandırın ve uygulama şifresi kullanın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Pantum P3300DN Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Taramayı PDF olarak maile gönderirken SMTP sunucusuna bağlanamaması.",
+    "derin_teknik_analiz": "Kök Neden: Office 365 veya Gmail SMTP sunucularının eski TLS 1.0/1.1 bağlantılarını engellemesi. Saha Çözümü: Yazıcı bellenimini güncelleyip SMTP portunu 587 STARTTLS olarak yapılandırın ve uygulama şifresi kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "pantum p3300dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2355",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı: Ağ & Spooler",
+    "baslik": "Pantum P3300DN: Statik IP Tanımlı Olmasına Rağmen Cihazın Ağda Donması",
+    "hizli_adimlar": [
+      "Pantum P3300DN cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Ağdaki başka bir cihazın aynı IP adresini DHCP üzerinden alması.",
+      "Saha servis prosedürünü yerine getirin: Yazıcı kablosunu çıkarıp IP adresine ping atarak çakışan cihazı tespit edin ve DHCP rezervasyonu yapın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Pantum P3300DN Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Yazıcıya ping atıldığında yanıt vermemesi ve web arayüzünün açılmaması.",
+    "derin_teknik_analiz": "Kök Neden: Ağdaki başka bir cihazın aynı IP adresini DHCP üzerinden alması. Saha Çözümü: Yazıcı kablosunu çıkarıp IP adresine ping atarak çakışan cihazı tespit edin ve DHCP rezervasyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "yazıcı: ağ & spooler",
+      "pantum p3300dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  }
+]

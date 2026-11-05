@@ -1,122 +1,1800 @@
-{
-  "versiyon": "2.5.0",
-  "toplam": 3,
-  "modul": "feed_yazici_epson.json",
-  "kayitlar": [
-    {
-      "id": "prn_epson_0x97_motherboard_fuse",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Epson EcoTank & L Serisi",
-      "baslik": "Epson EcoTank 0x97 Hatası (F1 SMD Sigorta ve Transistör Arızası)",
-      "hizli_adimlar": [
-        "Yazıcının güç kablosunu çekip kağıt yollarını kontrol edin.",
-        "Anakartı sökün; multimetre ile F1 SMD sigortasının iletkenliğini ölçün.",
-        "Kafa flex kablosunun soket pinlerinde mavi oksit olup olmadığını inceleyin.",
-        "Kafayı değiştirmeden sadece sigorta köprülenirse transistörler tekrar yanar."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Anakart Bileşenleri",
-          "komut": "F1 Sigorta: 0.5A - 1.0A Fast Blow | Transistörler: 2SA2222 / 2SC6144",
-          "aciklama": "Epson L serisi güç bileşenleri."
-        }
-      ],
-      "temel_anlatim": "Yazdırma başlatıldığı anda yazıcının aniden kapanması veya ekranda 'Hata Kodu 0x97' verip kilitlenmesi.",
-      "derin_teknik_analiz": "0x97, baskı kafasındaki nozül piezo kristallerinde sızıntı sonucu anakart üzerindeki F1 SMD sigortasının atması ve transistör çiftinin delinmesidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Sigorta değişti ama baskılar bembeyaz çıkıyor",
-          "neden": "Kafa veri kablosu ters takılmıştır veya kafa bobini bozuktur.",
-          "cozum": "Flex kabloyu düzeltin."
-        }
-      ],
-      "etiketler": [
-        "yazici",
-        "epson",
-        "0x97",
-        "ecotank",
-        "f1-sigorta",
-        "anakart"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "prn_epson_two_red_lights_alternate",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Epson EcoTank & L Serisi",
-      "baslik": "Epson L3150 / L3250 Kağıt ve Mürekkep Işıklarının Sırayla Yanıp Sönmesi (WIC Reset)",
-      "hizli_adimlar": [
-        "Epson Adjustment Program (AdjProg) veya WIC Reset aracını açın.",
-        "Yazıcıyı doğrudan USB kablo ile bağlayın.",
-        "'Waste ink pad counter' seçeneğine girin.",
-        "'Main pad counter' kutusunu işaretleyip 'Initialize' deyin.",
-        "Yazıcıyı kapatıp açın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "USB Port Kontrol",
-          "komut": "Get-PnpDevice -Class \"USB\" | findstr /i \"Epson\"",
-          "aciklama": "USB bağlantısını teyit eder."
-        }
-      ],
-      "temel_anlatim": "Yazıcı üzerindeki damla ve kağıt LED'lerinin sırayla yanıp sönmesi ve 'Hizmet Gerekiyor' uyarısı.",
-      "derin_teknik_analiz": "İki ışığın sırayla yanıp sönmesi Atık Mürekkep Pedi Sayacının (Waste Ink Pad Counter) dolduğunu gösterir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Sıfırlamadan sonra masaya mürekkep aktı",
-          "neden": "Fiziksel keçe pedler değiştirilmemiştir.",
-          "cozum": "Atık kutusunu söküp keçeleri yenileyin."
-        }
-      ],
-      "etiketler": [
-        "yazici",
-        "epson",
-        "l3150",
-        "l3250",
-        "wic-reset",
-        "adjprog"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "prn_epson_nozzle_clog_air_purge",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Epson EcoTank & L Serisi",
-      "baslik": "Epson EcoTank Mürekkep Hortumlarında Hava Boşluğu ve Damper Vakumlama Prosedürü",
-      "hizli_adimlar": [
-        "Yazıcının üst tarayıcı kapağını vidalarından sökerek kaldırın.",
-        "Kafa taşıyıcı üzerindeki damper kartuş tutucu kapağını açın.",
-        "Havası olan renk damperini tırnağına basarak yukarı doğru çıkarın.",
-        "Damperin ucundaki yuvarlak valfe iğnesiz şırınga (enjektör) ucunu sıkıca yerleştirin.",
-        "Şırınga pistonunu yavaşça çekerek hortumdaki havayı boşaltın ve mürekkep şırıngaya gelene kadar vakumlayın.",
-        "Damperi tekrar yuvasına oturtun ve sürücüden 1 kez 'Kafa Temizleme' yapın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Epson Güçlü Mürekkep Püskürtme (Power Ink Flushing)",
-          "komut": "Yazıcı kapalıyken -> Power + İptal (Kırmızı Üçgen) tuşuna 5 sn basılı tutun",
-          "aciklama": "Mürekkep borularını yüksek basınçla doldurur."
-        }
-      ],
-      "temel_anlatim": "Tankta mürekkep dolu olmasına rağmen hortumlarda hava boşlukları görünmesi ve çıktılarda bazı renklerin hiç basılmaması.",
-      "derin_teknik_analiz": "Yazıcı uzun süre kullanılmadığında veya kapak açık taşındığında şeffaf hortumlardaki mürekkep geri çekilir. Standart kafa temizleme yazılımları bu havayı çekmeye yetmez ve aşırı atık mürekkep harcar.",
-      "kenar_durumlar": [
-        {
-          "durum": "Vakumlama sonrası mürekkep tekrar geri kaçıyor",
-          "neden": "Damper içerisindeki tek yönlü plastik yaylı valf contasında hava kaçağı vardır.",
-          "cozum": "İlgili renk damperini (damper cartridge) sıfır parça ile değiştirin."
-        }
-      ],
-      "etiketler": [
-        "yazici",
-        "epson",
-        "ecotank",
-        "hava-boslugu",
-        "damper",
-        "vakumlama",
-        "nozzle"
-      ],
-      "oncelik": 2
-    }
-  ]
-}
+[
+  {
+    "id": "prn_889",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı Hata Kodları",
+    "baslik": "Epson EcoTank 0xEA Taşıyıcı Kilidi (Carriage Jam)",
+    "hizli_adimlar": [
+      "Kafanın hareket yolundaki tüm yabancı cisimleri cımbızla temizleyin.",
+      "Enkoder şeridini (şeffaf cetvel) mikrofiber bezle silin.",
+      "Kafa kayar miline 2 damla sentetik mekanizma yağı uygulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Taşıyıcı Mekanik Kontrol",
+        "komut": "Yazıcı kapalıyken kafayı elinizle en sağdan en sola kaydırın",
+        "aciklama": "Mekanik engelleri fiziksel olarak tespit eder."
+      }
+    ],
+    "temel_anlatim": "Yazıcı açılırken baskı kafasının aniden sola vurup 'Hata Kodu 0xEA' vermesi.",
+    "derin_teknik_analiz": "Yazıcı içine düşen ataş/kağıt parçası, ambalaj emniyet plastiğinin çıkarılmaması veya taşıyıcı araba sürtünmesi.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata temizlenmesine rağmen tekrar ediyor",
+        "neden": "Mekanik parçada aşınma vardır.",
+        "cozum": "İlgili sensör veya mekanik modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazici",
+      "epson",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_890",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı Hata Kodları",
+    "baslik": "Epson EcoTank 0xF1 Kafa Konum Sensörü (CR Sensor) Hatası",
+    "hizli_adimlar": [
+      "Baskı kafasının alt kısmındaki sensör yuvasına hava spreyi sıkın.",
+      "Enkoder şeridinin yuvasından çıkmadığını teyit edin.",
+      "Anakart kafa flex kablosunun yerine tam oturduğunu kontrol edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Optik Sensör Temizliği",
+        "komut": "Saf Alkol (IPA) + Hava Spreyi",
+        "aciklama": "CR sensörünün gözünü açar."
+      }
+    ],
+    "temel_anlatim": "Yazıcı kafası hareket ederken tıkırtı sesi gelmesi ve 0xF1 kodunda kilitlenmesi.",
+    "derin_teknik_analiz": "Kafa arabasının altındaki optik konum okuyucu sensörünün mürekkep tozuyla kirlenmesi.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata temizlenmesine rağmen tekrar ediyor",
+        "neden": "Mekanik parçada aşınma vardır.",
+        "cozum": "İlgili sensör veya mekanik modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazici",
+      "epson",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_891",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı Hata Kodları",
+    "baslik": "Epson EcoTank İki Kırmızı Işığın Aynı Anda Hızlı Yanıp Sönmesi",
+    "hizli_adimlar": [
+      "Arka kağıt besleme tepsisini el feneriyle aydınlatıp içine düşen bozuk para, ataş vb. yabancı cisimleri temizleyin.",
+      "Kapağı kapatıp cihazı 10 dakika soğumaya bırakın.",
+      "Tekrar açın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Hata Kodunu PC'den Oku",
+        "komut": "Epson Status Monitor 3",
+        "aciklama": "Detaylı donanım hata kodunu (0x..) ekrana basar."
+      }
+    ],
+    "temel_anlatim": "Yazıcı üzerindeki damla ve kağıt ışıklarının aynı anda hızlıca flaş yapması.",
+    "derin_teknik_analiz": "Ölümcül donanım hatası (Fatal Error); kağıt sıkışması, yabancı cisim veya motor aşırı ısınması.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata temizlenmesine rağmen tekrar ediyor",
+        "neden": "Mekanik parçada aşınma vardır.",
+        "cozum": "İlgili sensör veya mekanik modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazici",
+      "epson",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_ep_29",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank L805 / L850 / L1800: Baskı Kafası Nozül Tıkanıklığı ve Fotoğraflarda Yatay Çizgilenme",
+    "hizli_adimlar": [
+      "Sürücüden 'Püskürtme Denetimi' çıktısı alıp hangi rengin tıkalı olduğunu tespit edin.",
+      "Yazıcıyı fişten çekip kafayı orta alana alın.",
+      "Damper hortumlarını söküp şırıngaya 40 derece ılık kafa açıcı solüsyon çekin.",
+      "Nozül giriş borusuna silikon hortum takıp hafifçe vakum ve ileri geri basınç uygulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Nozül Kontrolü",
+        "komut": "Epson Printer Utility -> Nozzle Check",
+        "aciklama": "Her renge ait nozül çizgilerinin sağlamlık desenini bastırır."
+      }
+    ],
+    "temel_anlatim": "Fotoğraf çıktılarında açık ten veya gökyüzü renklerinde beyaz yatay çizgiler oluşması.",
+    "derin_teknik_analiz": "Kök Neden: Piezo elektrikli mikroskobik nozüllerin kuruyan solvent veya pigment tortusuyla tıkanması. Çözüm Detayı: Kafa açıcı solüsyon ve şırınga ile ters basınç uygulaması veya ultrasonik havuz temizliği.",
+    "kenar_durumlar": [
+      {
+        "durum": "Solüsyon basılmasına rağmen hiç renk gelmiyor",
+        "neden": "Anakart üzerindeki kafa transistörleri (A2222 / C6144) veya F1 sigortası atmıştır.",
+        "cozum": "Anakartı söküp F1 SMD sigortasını ve transistör çiftini multimetre ile test edin."
+      }
+    ],
+    "etiketler": [
+      "epson",
+      "ecotank",
+      "l805",
+      "nozul-tikanikligi",
+      "kafa-temizleme"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_ep_30",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank L3150 / L3250: Atık Mürekkep Pedi Doluluk Hatası (Waste Ink Pad Counter)",
+    "hizli_adimlar": [
+      "Yazıcıyı USB kablosuyla bilgisayara bağlayın.",
+      "Modele uygun 'Adjustment Program' yazılımını yönetici olarak başlatın.",
+      "'Particular adjustment mode' -> 'Waste ink pad counter' seçeneğine girin.",
+      "'Main pad counter' kutusunu işaretleyip 'Check' ve ardından 'Initialization' butonuna tıklayın.",
+      "Yazıcıyı güç tuşundan kapatıp tekrar açın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Sayaç Okuma",
+        "komut": "AdjProg.exe -> Waste Ink Counter -> Check",
+        "aciklama": "Mevcut atık keçe doluluk yüzdesini ve toplam sayfa sayısını gösterir."
+      }
+    ],
+    "temel_anlatim": "Yazıcı üzerindeki tüm ışıkların dönüşümlü olarak hızla yanıp sönmesi ve bilgisayarda 'Hizmet ömrü doldu' mesajı.",
+    "derin_teknik_analiz": "Kök Neden: Dahili keçe pedinin maksimum sayfa sınırına ulaştığını belirten EEPROM koruma sayacı. Çözüm Detayı: Epson Adjustment Program (AdjProg) ile EEPROM Waste Ink Pad sayacını %0'a sıfırlayın ve keçeleri yıkayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Yazılım iletişim hatası veriyor (Error 20000107)",
+        "neden": "Kuyrukta bekleyen yazdırma işi vardır veya USB kablo temassızdır.",
+        "cozum": "Print Spooler kuyruğunu temizleyip doğrudan arka anakart USB portuna takın."
+      }
+    ],
+    "etiketler": [
+      "epson",
+      "ecotank",
+      "l3150",
+      "atik-murekkep",
+      "adjprog",
+      "sayac-sifirlama"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_ep_31",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank L3150: 0x9A Taşıyıcı Kafa Motor Sıkışması Hatası",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişi çekin.",
+      "Mekanik rayları temizleyin ve sensör tozlarını arındırın.",
+      "Gerekirse reset programıyla kalibre edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Epson Utility",
+        "komut": "epsonnet config / adjprog",
+        "aciklama": "Yazıcı bellenim ve mekanizma ayarlarını yönetir."
+      }
+    ],
+    "temel_anlatim": "Kafanın sola giderken durup mekanik sıkışma vermesi.",
+    "derin_teknik_analiz": "Kök Neden: Baskı kafası taşıyıcı mili üzerindeki toz ve kurumuş gres tortusu. Çözüm Detayı: Epson saha servis prosedürüne göre parçayı temizleyin veya yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Anakart mainboard işlemci kontrolörü arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "epson",
+      "ecotank",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_ep_32",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson WorkForce WF-C5790: 0x034004 Kağıt Besleme Sensörü Zaman Aşımı",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişi çekin.",
+      "Mekanik rayları temizleyin ve sensör tozlarını arındırın.",
+      "Gerekirse reset programıyla kalibre edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Epson Utility",
+        "komut": "epsonnet config / adjprog",
+        "aciklama": "Yazıcı bellenim ve mekanizma ayarlarını yönetir."
+      }
+    ],
+    "temel_anlatim": "Kağıdın kasette durup besleme motorunun boşta dönmesi.",
+    "derin_teknik_analiz": "Kök Neden: Giriş paten lastiklerinin aşınması ve gecikme sensörünün tozlanması. Çözüm Detayı: Epson saha servis prosedürüne göre parçayı temizleyin veya yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Anakart mainboard işlemci kontrolörü arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "epson",
+      "ecotank",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_ep_33",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank M1120: Kağıt Boyutu Uyuşmazlığı ve Hata Işığı Yanması",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişi çekin.",
+      "Mekanik rayları temizleyin ve sensör tozlarını arındırın.",
+      "Gerekirse reset programıyla kalibre edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Epson Utility",
+        "komut": "epsonnet config / adjprog",
+        "aciklama": "Yazıcı bellenim ve mekanizma ayarlarını yönetir."
+      }
+    ],
+    "temel_anlatim": "Yazdırma başladığında kağıdın yarısında durup iptal olması.",
+    "derin_teknik_analiz": "Kök Neden: Windows sürücüsünde Letter, kasette A4 kağıt seçili olması. Çözüm Detayı: Epson saha servis prosedürüne göre parçayı temizleyin veya yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Anakart mainboard işlemci kontrolörü arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "epson",
+      "ecotank",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_ep_34",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson L1800: 0xF1 Kafa Voltajı Tepe Akım Hatası",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişi çekin.",
+      "Mekanik rayları temizleyin ve sensör tozlarını arındırın.",
+      "Gerekirse reset programıyla kalibre edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Epson Utility",
+        "komut": "epsonnet config / adjprog",
+        "aciklama": "Yazıcı bellenim ve mekanizma ayarlarını yönetir."
+      }
+    ],
+    "temel_anlatim": "Yazıcı açılır açılmaz anında tüm ışıkların kırmızıya dönmesi.",
+    "derin_teknik_analiz": "Kök Neden: Baskı kafası flex kablosuna mürekkep sızarak kısa devre yapması. Çözüm Detayı: Epson saha servis prosedürüne göre parçayı temizleyin veya yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Anakart mainboard işlemci kontrolörü arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "epson",
+      "ecotank",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_ep_35",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank L850: Kağıt Alma Tepsisinin İki Sayfayı Birden Çekmesi",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişi çekin.",
+      "Mekanik rayları temizleyin ve sensör tozlarını arındırın.",
+      "Gerekirse reset programıyla kalibre edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Epson Utility",
+        "komut": "epsonnet config / adjprog",
+        "aciklama": "Yazıcı bellenim ve mekanizma ayarlarını yönetir."
+      }
+    ],
+    "temel_anlatim": "Fotoğraf kağıdı beslerken sayfaların üst üste binip kayması.",
+    "derin_teknik_analiz": "Kök Neden: Ayrıştırma pedi (Retard Roller) yayının esnekliğini kaybetmesi. Çözüm Detayı: Epson saha servis prosedürüne göre parçayı temizleyin veya yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Anakart mainboard işlemci kontrolörü arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "epson",
+      "ecotank",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_ep_36",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank L3250: Wi-Fi Bağlantısının Kopması ve Ağ Raporu Hata Kodu",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişi çekin.",
+      "Mekanik rayları temizleyin ve sensör tozlarını arındırın.",
+      "Gerekirse reset programıyla kalibre edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Epson Utility",
+        "komut": "epsonnet config / adjprog",
+        "aciklama": "Yazıcı bellenim ve mekanizma ayarlarını yönetir."
+      }
+    ],
+    "temel_anlatim": "Ağ durum sayfasında 'Connection: Fail (Error code: TS-01)' yazması.",
+    "derin_teknik_analiz": "Kök Neden: Modem 5 GHz bandında iken yazıcının sadece 2.4 GHz desteklemesi. Çözüm Detayı: Epson saha servis prosedürüne göre parçayı temizleyin veya yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Anakart mainboard işlemci kontrolörü arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "epson",
+      "ecotank",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_ep_37",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank M2140: Dublex Çift Taraflı Yazdırmada Kağıt Katlanması",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişi çekin.",
+      "Mekanik rayları temizleyin ve sensör tozlarını arındırın.",
+      "Gerekirse reset programıyla kalibre edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Epson Utility",
+        "komut": "epsonnet config / adjprog",
+        "aciklama": "Yazıcı bellenim ve mekanizma ayarlarını yönetir."
+      }
+    ],
+    "temel_anlatim": "İkinci yüzü basarken kağıdın fırın çıkışında akordeon olması.",
+    "derin_teknik_analiz": "Kök Neden: Çift taraflı çevirme ünitesinin (Duplexer) plastik tırnaklarının kırılması. Çözüm Detayı: Epson saha servis prosedürüne göre parçayı temizleyin veya yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Anakart mainboard işlemci kontrolörü arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "epson",
+      "ecotank",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_ep_38",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson L805: CD/DVD Baskı Tepsisi Yükleme Hatası",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişi çekin.",
+      "Mekanik rayları temizleyin ve sensör tozlarını arındırın.",
+      "Gerekirse reset programıyla kalibre edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Epson Utility",
+        "komut": "epsonnet config / adjprog",
+        "aciklama": "Yazıcı bellenim ve mekanizma ayarlarını yönetir."
+      }
+    ],
+    "temel_anlatim": "CD tepsisini içeri çekerken 'Tepsi yerleştirilmedi' uyarısı vermesi.",
+    "derin_teknik_analiz": "Kök Neden: CD tepsisi optik algılama sensörünün reflektörünün kirlenmesi. Çözüm Detayı: Epson saha servis prosedürüne göre parçayı temizleyin veya yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Anakart mainboard işlemci kontrolörü arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "epson",
+      "ecotank",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_ep_39",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank L6190: 0xEA Fırın / Kağıt Çıkış Ters Çevirici Hatası",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişi çekin.",
+      "Mekanik rayları temizleyin ve sensör tozlarını arındırın.",
+      "Gerekirse reset programıyla kalibre edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Epson Utility",
+        "komut": "epsonnet config / adjprog",
+        "aciklama": "Yazıcı bellenim ve mekanizma ayarlarını yönetir."
+      }
+    ],
+    "temel_anlatim": "Yazdırma sonunda sayfanın çıkış tepsisine düşmeyip fırında kalması.",
+    "derin_teknik_analiz": "Kök Neden: Çıkış fotosensör bayrağının yerinden fırlaması. Çözüm Detayı: Epson saha servis prosedürüne göre parçayı temizleyin veya yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Anakart mainboard işlemci kontrolörü arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "epson",
+      "ecotank",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_ep_40",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson WorkForce Pro WF-C5290: Mürekkep Paketi Besleme Hortumu Hava Yapması",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişi çekin.",
+      "Mekanik rayları temizleyin ve sensör tozlarını arındırın.",
+      "Gerekirse reset programıyla kalibre edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Epson Utility",
+        "komut": "epsonnet config / adjprog",
+        "aciklama": "Yazıcı bellenim ve mekanizma ayarlarını yönetir."
+      }
+    ],
+    "temel_anlatim": "Kartuş dolu olmasına rağmen nozül testinin tamamen boş çıkması.",
+    "derin_teknik_analiz": "Kök Neden: Mürekkep besleme vanasının (Solenoid Valve) contasının hava kaçırması. Çözüm Detayı: Epson saha servis prosedürüne göre parçayı temizleyin veya yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Anakart mainboard işlemci kontrolörü arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "epson",
+      "ecotank",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "epson_exp_26",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank L3110 / L3151: Kırmızı Kağıt ve Damla Işıklarının Birlikte Yanması (Kağıt Sıkışması)",
+    "hizli_adimlar": [
+      "Epson EcoTank L3110 / L3151 cihazının kapağını açın ve taşıyıcı mekanizmayı inceleyin.",
+      "Kök neden analizini uygulayın: Kağıt algılama optik sensör tırnağının arasına yabancı cisim veya kağıt parçası kaçması.",
+      "Epson yetkili servis prosedürünü yerine getirin: Yazıcının arka tepsisinden aşağı fenerle bakıp sensör tırnağını cımbızla serbest bırakın.",
+      "Nozül kontrol deseni bastırarak tüm renklerin eksiksiz bastığını teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Epson BIST",
+        "komut": "Epson Adjustment Program / Nozzle Check",
+        "aciklama": "Baskı kafası ve mekanik donanımı test eder."
+      }
+    ],
+    "temel_anlatim": "Yazıcı içinde hiç kağıt olmamasına rağmen kağıt sıkıştı uyarısı vermesi.",
+    "derin_teknik_analiz": "Kağıt algılama optik sensör tırnağının arasına yabancı cisim veya kağıt parçası kaçması. Çözüm: Yazıcının arka tepsisinden aşağı fenerle bakıp sensör tırnağını cımbızla serbest bırakın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Nozüller açılmıyor",
+        "neden": "Kafa piezo kristalleri yanmıştır.",
+        "cozum": "Kafayı yenileyin."
+      }
+    ],
+    "etiketler": [
+      "epson",
+      "ecotank",
+      "epson ecotank l3110   l3151",
+      "nozul-temizleme"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "epson_exp_27",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank L4160 / L5190: 0x031008 Dublex Çift Taraflı Ünitesi Motor Hatası",
+    "hizli_adimlar": [
+      "Epson EcoTank L4160 / L5190 cihazının kapağını açın ve taşıyıcı mekanizmayı inceleyin.",
+      "Kök neden analizini uygulayın: Çift taraflı çevirme mekanizması dişlilerinin arasına kırık parça girmesi.",
+      "Epson yetkili servis prosedürünü yerine getirin: Arka dublex kapağını çıkarıp dişli grubunu elle çevirerek kontrol edin.",
+      "Nozül kontrol deseni bastırarak tüm renklerin eksiksiz bastığını teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Epson BIST",
+        "komut": "Epson Adjustment Program / Nozzle Check",
+        "aciklama": "Baskı kafası ve mekanik donanımı test eder."
+      }
+    ],
+    "temel_anlatim": "Arkasına basarken tıkırtı sesi gelip yazıcının durması.",
+    "derin_teknik_analiz": "Çift taraflı çevirme mekanizması dişlilerinin arasına kırık parça girmesi. Çözüm: Arka dublex kapağını çıkarıp dişli grubunu elle çevirerek kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Nozüller açılmıyor",
+        "neden": "Kafa piezo kristalleri yanmıştır.",
+        "cozum": "Kafayı yenileyin."
+      }
+    ],
+    "etiketler": [
+      "epson",
+      "ecotank",
+      "epson ecotank l4160   l5190",
+      "nozul-temizleme"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "epson_exp_28",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson SureColor SC-T3100 Plotter: Baskı Kafası Nozül Eksikliği ve Otomatik Nozül Kontrolü Hatası",
+    "hizli_adimlar": [
+      "Epson SureColor SC-T3100 Plotter cihazının kapağını açın ve taşıyıcı mekanizmayı inceleyin.",
+      "Kök neden analizini uygulayın: Kafa nozüllerinin kuruması ve Auto Nozzle Check sensörünün hata vermesi.",
+      "Epson yetkili servis prosedürünü yerine getirin: Bakım menüsünden 'Derin Temizleme' çalıştırın veya servis istasyonu contasını temizleyin.",
+      "Nozül kontrol deseni bastırarak tüm renklerin eksiksiz bastığını teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Epson BIST",
+        "komut": "Epson Adjustment Program / Nozzle Check",
+        "aciklama": "Baskı kafası ve mekanik donanımı test eder."
+      }
+    ],
+    "temel_anlatim": "Geniş format mimari çizimlerde çizgilerin kesik çıkması.",
+    "derin_teknik_analiz": "Kafa nozüllerinin kuruması ve Auto Nozzle Check sensörünün hata vermesi. Çözüm: Bakım menüsünden 'Derin Temizleme' çalıştırın veya servis istasyonu contasını temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Nozüller açılmıyor",
+        "neden": "Kafa piezo kristalleri yanmıştır.",
+        "cozum": "Kafayı yenileyin."
+      }
+    ],
+    "etiketler": [
+      "epson",
+      "ecotank",
+      "epson surecolor sc-t3100 plotter",
+      "nozul-temizleme"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "epson_exp_29",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank L14150 A3+: 0x034004 Kağıt Besleme Asansör Sensörü Zaman Aşımı",
+    "hizli_adimlar": [
+      "Epson EcoTank L14150 A3+ cihazının kapağını açın ve taşıyıcı mekanizmayı inceleyin.",
+      "Kök neden analizini uygulayın: Tepsi kaldırma motorunun kayışının gevşemesi veya sensörün tozlanması.",
+      "Epson yetkili servis prosedürünü yerine getirin: Kaldırma motoru kayış gerginliğini ayarlayın ve fotosensörü alkolle silin.",
+      "Nozül kontrol deseni bastırarak tüm renklerin eksiksiz bastığını teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Epson BIST",
+        "komut": "Epson Adjustment Program / Nozzle Check",
+        "aciklama": "Baskı kafası ve mekanik donanımı test eder."
+      }
+    ],
+    "temel_anlatim": "A3 kağıt beslerken tepsinin yukarı kalkamaması.",
+    "derin_teknik_analiz": "Tepsi kaldırma motorunun kayışının gevşemesi veya sensörün tozlanması. Çözüm: Kaldırma motoru kayış gerginliğini ayarlayın ve fotosensörü alkolle silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Nozüller açılmıyor",
+        "neden": "Kafa piezo kristalleri yanmıştır.",
+        "cozum": "Kafayı yenileyin."
+      }
+    ],
+    "etiketler": [
+      "epson",
+      "ecotank",
+      "epson ecotank l14150 a3+",
+      "nozul-temizleme"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "epson_exp_30",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson WorkForce WF-7710: 0x9E Kafa Sıcaklık Sensörü Aşırı Isınma Hatası",
+    "hizli_adimlar": [
+      "Epson WorkForce WF-7710 cihazının kapağını açın ve taşıyıcı mekanizmayı inceleyin.",
+      "Kök neden analizini uygulayın: Baskı kafası üzerindeki termistörün flex kablo kısa devresi nedeniyle aşırı akım okuması.",
+      "Epson yetkili servis prosedürünü yerine getirin: Kafa flex kablosunu söküp mürekkep teması olup olmadığını kontrol edin.",
+      "Nozül kontrol deseni bastırarak tüm renklerin eksiksiz bastığını teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Epson BIST",
+        "komut": "Epson Adjustment Program / Nozzle Check",
+        "aciklama": "Baskı kafası ve mekanik donanımı test eder."
+      }
+    ],
+    "temel_anlatim": "Yazıcı açılır açılmaz ekranda 0x9E çıkıp hiçbir işlem yaptırmaması.",
+    "derin_teknik_analiz": "Baskı kafası üzerindeki termistörün flex kablo kısa devresi nedeniyle aşırı akım okuması. Çözüm: Kafa flex kablosunu söküp mürekkep teması olup olmadığını kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Nozüller açılmıyor",
+        "neden": "Kafa piezo kristalleri yanmıştır.",
+        "cozum": "Kafayı yenileyin."
+      }
+    ],
+    "etiketler": [
+      "epson",
+      "ecotank",
+      "epson workforce wf-7710",
+      "nozul-temizleme"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_64",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank L6270 Dublex: Mürekkep Besleme Damperlerinin Hava Yapması (Damper De-airing)",
+    "hizli_adimlar": [
+      "Epson EcoTank L6270 Dublex cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Damper filtre haznelerine hava dolması sonucu mürekkebin kafaya akamaması.",
+      "Saha servis prosedürünü yürütün: Damperleri çıkarıp şırıngayla hava kalmayana kadar mürekkep çekin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "AdjProg -> Ink Charge",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Nozül temizleme yapılmasına rağmen çıktılarda renklerin kesilmesi.",
+    "derin_teknik_analiz": "Damper filtre haznelerine hava dolması sonucu mürekkebin kafaya akamaması. Çözüm: Damperleri çıkarıp şırıngayla hava kalmayana kadar mürekkep çekin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson ecotank l6270 dublex",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_65",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank L6270 Dublex: CR Optik Lineer Cetvel (Encoder Strip) Yağlanması ve Kafa Vurması",
+    "hizli_adimlar": [
+      "Epson EcoTank L6270 Dublex cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Baskı kafası arkasındaki şeffaf cetvele yağ ve mürekkep sıçraması.",
+      "Saha servis prosedürünü yürütün: Encoder şeridini pamuklu çubuk ve saf su ile nazikçe temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "AdjProg -> CR Motor Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kafanın sağa sola giderken hızla çarpması ve 0x9A hatası.",
+    "derin_teknik_analiz": "Baskı kafası arkasındaki şeffaf cetvele yağ ve mürekkep sıçraması. Çözüm: Encoder şeridini pamuklu çubuk ve saf su ile nazikçe temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson ecotank l6270 dublex",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_66",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank L6270 Dublex: Kağıt Ayırma Pedi (Retard Roller) Sürtünme Kaybı",
+    "hizli_adimlar": [
+      "Epson EcoTank L6270 Dublex cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Ayırma silindirinin kauçuk yüzeyinin pürüzsüzleşmesi.",
+      "Saha servis prosedürünü yürütün: Retard silindirini söküp yenisiyle değiştirin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Printer Utility -> Paper Feed Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kasetten aynı anda 3-4 sayfanın birden çekilip sıkışması.",
+    "derin_teknik_analiz": "Ayırma silindirinin kauçuk yüzeyinin pürüzsüzleşmesi. Çözüm: Retard silindirini söküp yenisiyle değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson ecotank l6270 dublex",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_67",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank L6270 Dublex: Atık Mürekkep Kutusu (Maintenance Box T04D1) Doluluk Uyarısı",
+    "hizli_adimlar": [
+      "Epson EcoTank L6270 Dublex cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Bakım kutusu mikroçipinin sayfa sayacının dolması.",
+      "Saha servis prosedürünü yürütün: T04D1 bakım kutusunu yenisiyle değiştirin veya çipini sıfırlayın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Epson Status Monitor 3",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Ekranda bakım kutusunun hizmet ömrünün bittiğini belirten mesaj.",
+    "derin_teknik_analiz": "Bakım kutusu mikroçipinin sayfa sayacının dolması. Çözüm: T04D1 bakım kutusunu yenisiyle değiştirin veya çipini sıfırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson ecotank l6270 dublex",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_68",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank L15150 A3: Mürekkep Besleme Damperlerinin Hava Yapması (Damper De-airing)",
+    "hizli_adimlar": [
+      "Epson EcoTank L15150 A3 cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Damper filtre haznelerine hava dolması sonucu mürekkebin kafaya akamaması.",
+      "Saha servis prosedürünü yürütün: Damperleri çıkarıp şırıngayla hava kalmayana kadar mürekkep çekin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "AdjProg -> Ink Charge",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Nozül temizleme yapılmasına rağmen çıktılarda renklerin kesilmesi.",
+    "derin_teknik_analiz": "Damper filtre haznelerine hava dolması sonucu mürekkebin kafaya akamaması. Çözüm: Damperleri çıkarıp şırıngayla hava kalmayana kadar mürekkep çekin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson ecotank l15150 a3",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_69",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank L15150 A3: CR Optik Lineer Cetvel (Encoder Strip) Yağlanması ve Kafa Vurması",
+    "hizli_adimlar": [
+      "Epson EcoTank L15150 A3 cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Baskı kafası arkasındaki şeffaf cetvele yağ ve mürekkep sıçraması.",
+      "Saha servis prosedürünü yürütün: Encoder şeridini pamuklu çubuk ve saf su ile nazikçe temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "AdjProg -> CR Motor Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kafanın sağa sola giderken hızla çarpması ve 0x9A hatası.",
+    "derin_teknik_analiz": "Baskı kafası arkasındaki şeffaf cetvele yağ ve mürekkep sıçraması. Çözüm: Encoder şeridini pamuklu çubuk ve saf su ile nazikçe temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson ecotank l15150 a3",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_70",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank L15150 A3: Kağıt Ayırma Pedi (Retard Roller) Sürtünme Kaybı",
+    "hizli_adimlar": [
+      "Epson EcoTank L15150 A3 cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Ayırma silindirinin kauçuk yüzeyinin pürüzsüzleşmesi.",
+      "Saha servis prosedürünü yürütün: Retard silindirini söküp yenisiyle değiştirin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Printer Utility -> Paper Feed Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kasetten aynı anda 3-4 sayfanın birden çekilip sıkışması.",
+    "derin_teknik_analiz": "Ayırma silindirinin kauçuk yüzeyinin pürüzsüzleşmesi. Çözüm: Retard silindirini söküp yenisiyle değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson ecotank l15150 a3",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_71",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank L15150 A3: Atık Mürekkep Kutusu (Maintenance Box T04D1) Doluluk Uyarısı",
+    "hizli_adimlar": [
+      "Epson EcoTank L15150 A3 cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Bakım kutusu mikroçipinin sayfa sayacının dolması.",
+      "Saha servis prosedürünü yürütün: T04D1 bakım kutusunu yenisiyle değiştirin veya çipini sıfırlayın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Epson Status Monitor 3",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Ekranda bakım kutusunun hizmet ömrünün bittiğini belirten mesaj.",
+    "derin_teknik_analiz": "Bakım kutusu mikroçipinin sayfa sayacının dolması. Çözüm: T04D1 bakım kutusunu yenisiyle değiştirin veya çipini sıfırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson ecotank l15150 a3",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_72",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank Pro ET-M16600: Mürekkep Besleme Damperlerinin Hava Yapması (Damper De-airing)",
+    "hizli_adimlar": [
+      "Epson EcoTank Pro ET-M16600 cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Damper filtre haznelerine hava dolması sonucu mürekkebin kafaya akamaması.",
+      "Saha servis prosedürünü yürütün: Damperleri çıkarıp şırıngayla hava kalmayana kadar mürekkep çekin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "AdjProg -> Ink Charge",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Nozül temizleme yapılmasına rağmen çıktılarda renklerin kesilmesi.",
+    "derin_teknik_analiz": "Damper filtre haznelerine hava dolması sonucu mürekkebin kafaya akamaması. Çözüm: Damperleri çıkarıp şırıngayla hava kalmayana kadar mürekkep çekin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson ecotank pro et-m16600",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_73",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank Pro ET-M16600: CR Optik Lineer Cetvel (Encoder Strip) Yağlanması ve Kafa Vurması",
+    "hizli_adimlar": [
+      "Epson EcoTank Pro ET-M16600 cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Baskı kafası arkasındaki şeffaf cetvele yağ ve mürekkep sıçraması.",
+      "Saha servis prosedürünü yürütün: Encoder şeridini pamuklu çubuk ve saf su ile nazikçe temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "AdjProg -> CR Motor Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kafanın sağa sola giderken hızla çarpması ve 0x9A hatası.",
+    "derin_teknik_analiz": "Baskı kafası arkasındaki şeffaf cetvele yağ ve mürekkep sıçraması. Çözüm: Encoder şeridini pamuklu çubuk ve saf su ile nazikçe temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson ecotank pro et-m16600",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_74",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank Pro ET-M16600: Kağıt Ayırma Pedi (Retard Roller) Sürtünme Kaybı",
+    "hizli_adimlar": [
+      "Epson EcoTank Pro ET-M16600 cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Ayırma silindirinin kauçuk yüzeyinin pürüzsüzleşmesi.",
+      "Saha servis prosedürünü yürütün: Retard silindirini söküp yenisiyle değiştirin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Printer Utility -> Paper Feed Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kasetten aynı anda 3-4 sayfanın birden çekilip sıkışması.",
+    "derin_teknik_analiz": "Ayırma silindirinin kauçuk yüzeyinin pürüzsüzleşmesi. Çözüm: Retard silindirini söküp yenisiyle değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson ecotank pro et-m16600",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_75",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank Pro ET-M16600: Atık Mürekkep Kutusu (Maintenance Box T04D1) Doluluk Uyarısı",
+    "hizli_adimlar": [
+      "Epson EcoTank Pro ET-M16600 cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Bakım kutusu mikroçipinin sayfa sayacının dolması.",
+      "Saha servis prosedürünü yürütün: T04D1 bakım kutusunu yenisiyle değiştirin veya çipini sıfırlayın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Epson Status Monitor 3",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Ekranda bakım kutusunun hizmet ömrünün bittiğini belirten mesaj.",
+    "derin_teknik_analiz": "Bakım kutusu mikroçipinin sayfa sayacının dolması. Çözüm: T04D1 bakım kutusunu yenisiyle değiştirin veya çipini sıfırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson ecotank pro et-m16600",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_76",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson WorkForce WF-7840DTWF: Mürekkep Besleme Damperlerinin Hava Yapması (Damper De-airing)",
+    "hizli_adimlar": [
+      "Epson WorkForce WF-7840DTWF cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Damper filtre haznelerine hava dolması sonucu mürekkebin kafaya akamaması.",
+      "Saha servis prosedürünü yürütün: Damperleri çıkarıp şırıngayla hava kalmayana kadar mürekkep çekin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "AdjProg -> Ink Charge",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Nozül temizleme yapılmasına rağmen çıktılarda renklerin kesilmesi.",
+    "derin_teknik_analiz": "Damper filtre haznelerine hava dolması sonucu mürekkebin kafaya akamaması. Çözüm: Damperleri çıkarıp şırıngayla hava kalmayana kadar mürekkep çekin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson workforce wf-7840dtwf",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_77",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson WorkForce WF-7840DTWF: CR Optik Lineer Cetvel (Encoder Strip) Yağlanması ve Kafa Vurması",
+    "hizli_adimlar": [
+      "Epson WorkForce WF-7840DTWF cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Baskı kafası arkasındaki şeffaf cetvele yağ ve mürekkep sıçraması.",
+      "Saha servis prosedürünü yürütün: Encoder şeridini pamuklu çubuk ve saf su ile nazikçe temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "AdjProg -> CR Motor Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kafanın sağa sola giderken hızla çarpması ve 0x9A hatası.",
+    "derin_teknik_analiz": "Baskı kafası arkasındaki şeffaf cetvele yağ ve mürekkep sıçraması. Çözüm: Encoder şeridini pamuklu çubuk ve saf su ile nazikçe temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson workforce wf-7840dtwf",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_78",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson WorkForce WF-7840DTWF: Kağıt Ayırma Pedi (Retard Roller) Sürtünme Kaybı",
+    "hizli_adimlar": [
+      "Epson WorkForce WF-7840DTWF cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Ayırma silindirinin kauçuk yüzeyinin pürüzsüzleşmesi.",
+      "Saha servis prosedürünü yürütün: Retard silindirini söküp yenisiyle değiştirin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Printer Utility -> Paper Feed Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kasetten aynı anda 3-4 sayfanın birden çekilip sıkışması.",
+    "derin_teknik_analiz": "Ayırma silindirinin kauçuk yüzeyinin pürüzsüzleşmesi. Çözüm: Retard silindirini söküp yenisiyle değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson workforce wf-7840dtwf",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_79",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson WorkForce WF-7840DTWF: Atık Mürekkep Kutusu (Maintenance Box T04D1) Doluluk Uyarısı",
+    "hizli_adimlar": [
+      "Epson WorkForce WF-7840DTWF cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Bakım kutusu mikroçipinin sayfa sayacının dolması.",
+      "Saha servis prosedürünü yürütün: T04D1 bakım kutusunu yenisiyle değiştirin veya çipini sıfırlayın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Epson Status Monitor 3",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Ekranda bakım kutusunun hizmet ömrünün bittiğini belirten mesaj.",
+    "derin_teknik_analiz": "Bakım kutusu mikroçipinin sayfa sayacının dolması. Çözüm: T04D1 bakım kutusunu yenisiyle değiştirin veya çipini sıfırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson workforce wf-7840dtwf",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_80",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank L3251 Wi-Fi: Mürekkep Besleme Damperlerinin Hava Yapması (Damper De-airing)",
+    "hizli_adimlar": [
+      "Epson EcoTank L3251 Wi-Fi cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Damper filtre haznelerine hava dolması sonucu mürekkebin kafaya akamaması.",
+      "Saha servis prosedürünü yürütün: Damperleri çıkarıp şırıngayla hava kalmayana kadar mürekkep çekin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "AdjProg -> Ink Charge",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Nozül temizleme yapılmasına rağmen çıktılarda renklerin kesilmesi.",
+    "derin_teknik_analiz": "Damper filtre haznelerine hava dolması sonucu mürekkebin kafaya akamaması. Çözüm: Damperleri çıkarıp şırıngayla hava kalmayana kadar mürekkep çekin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson ecotank l3251 wi-fi",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_81",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank L3251 Wi-Fi: CR Optik Lineer Cetvel (Encoder Strip) Yağlanması ve Kafa Vurması",
+    "hizli_adimlar": [
+      "Epson EcoTank L3251 Wi-Fi cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Baskı kafası arkasındaki şeffaf cetvele yağ ve mürekkep sıçraması.",
+      "Saha servis prosedürünü yürütün: Encoder şeridini pamuklu çubuk ve saf su ile nazikçe temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "AdjProg -> CR Motor Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kafanın sağa sola giderken hızla çarpması ve 0x9A hatası.",
+    "derin_teknik_analiz": "Baskı kafası arkasındaki şeffaf cetvele yağ ve mürekkep sıçraması. Çözüm: Encoder şeridini pamuklu çubuk ve saf su ile nazikçe temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson ecotank l3251 wi-fi",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_82",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank L3251 Wi-Fi: Kağıt Ayırma Pedi (Retard Roller) Sürtünme Kaybı",
+    "hizli_adimlar": [
+      "Epson EcoTank L3251 Wi-Fi cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Ayırma silindirinin kauçuk yüzeyinin pürüzsüzleşmesi.",
+      "Saha servis prosedürünü yürütün: Retard silindirini söküp yenisiyle değiştirin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Printer Utility -> Paper Feed Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kasetten aynı anda 3-4 sayfanın birden çekilip sıkışması.",
+    "derin_teknik_analiz": "Ayırma silindirinin kauçuk yüzeyinin pürüzsüzleşmesi. Çözüm: Retard silindirini söküp yenisiyle değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson ecotank l3251 wi-fi",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_83",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank L3251 Wi-Fi: Atık Mürekkep Kutusu (Maintenance Box T04D1) Doluluk Uyarısı",
+    "hizli_adimlar": [
+      "Epson EcoTank L3251 Wi-Fi cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Bakım kutusu mikroçipinin sayfa sayacının dolması.",
+      "Saha servis prosedürünü yürütün: T04D1 bakım kutusunu yenisiyle değiştirin veya çipini sıfırlayın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Epson Status Monitor 3",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Ekranda bakım kutusunun hizmet ömrünün bittiğini belirten mesaj.",
+    "derin_teknik_analiz": "Bakım kutusu mikroçipinin sayfa sayacının dolması. Çözüm: T04D1 bakım kutusunu yenisiyle değiştirin veya çipini sıfırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson ecotank l3251 wi-fi",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_84",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank L8180 Fotoğraf: Mürekkep Besleme Damperlerinin Hava Yapması (Damper De-airing)",
+    "hizli_adimlar": [
+      "Epson EcoTank L8180 Fotoğraf cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Damper filtre haznelerine hava dolması sonucu mürekkebin kafaya akamaması.",
+      "Saha servis prosedürünü yürütün: Damperleri çıkarıp şırıngayla hava kalmayana kadar mürekkep çekin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "AdjProg -> Ink Charge",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Nozül temizleme yapılmasına rağmen çıktılarda renklerin kesilmesi.",
+    "derin_teknik_analiz": "Damper filtre haznelerine hava dolması sonucu mürekkebin kafaya akamaması. Çözüm: Damperleri çıkarıp şırıngayla hava kalmayana kadar mürekkep çekin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson ecotank l8180 fotoğraf",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_85",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank L8180 Fotoğraf: CR Optik Lineer Cetvel (Encoder Strip) Yağlanması ve Kafa Vurması",
+    "hizli_adimlar": [
+      "Epson EcoTank L8180 Fotoğraf cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Baskı kafası arkasındaki şeffaf cetvele yağ ve mürekkep sıçraması.",
+      "Saha servis prosedürünü yürütün: Encoder şeridini pamuklu çubuk ve saf su ile nazikçe temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "AdjProg -> CR Motor Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kafanın sağa sola giderken hızla çarpması ve 0x9A hatası.",
+    "derin_teknik_analiz": "Baskı kafası arkasındaki şeffaf cetvele yağ ve mürekkep sıçraması. Çözüm: Encoder şeridini pamuklu çubuk ve saf su ile nazikçe temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson ecotank l8180 fotoğraf",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_86",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank L8180 Fotoğraf: Kağıt Ayırma Pedi (Retard Roller) Sürtünme Kaybı",
+    "hizli_adimlar": [
+      "Epson EcoTank L8180 Fotoğraf cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Ayırma silindirinin kauçuk yüzeyinin pürüzsüzleşmesi.",
+      "Saha servis prosedürünü yürütün: Retard silindirini söküp yenisiyle değiştirin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Printer Utility -> Paper Feed Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kasetten aynı anda 3-4 sayfanın birden çekilip sıkışması.",
+    "derin_teknik_analiz": "Ayırma silindirinin kauçuk yüzeyinin pürüzsüzleşmesi. Çözüm: Retard silindirini söküp yenisiyle değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson ecotank l8180 fotoğraf",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_87",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank L8180 Fotoğraf: Atık Mürekkep Kutusu (Maintenance Box T04D1) Doluluk Uyarısı",
+    "hizli_adimlar": [
+      "Epson EcoTank L8180 Fotoğraf cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Bakım kutusu mikroçipinin sayfa sayacının dolması.",
+      "Saha servis prosedürünü yürütün: T04D1 bakım kutusunu yenisiyle değiştirin veya çipini sıfırlayın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Epson Status Monitor 3",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Ekranda bakım kutusunun hizmet ömrünün bittiğini belirten mesaj.",
+    "derin_teknik_analiz": "Bakım kutusu mikroçipinin sayfa sayacının dolması. Çözüm: T04D1 bakım kutusunu yenisiyle değiştirin veya çipini sıfırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson ecotank l8180 fotoğraf",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_88",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson SureColor SC-P700: Mürekkep Besleme Damperlerinin Hava Yapması (Damper De-airing)",
+    "hizli_adimlar": [
+      "Epson SureColor SC-P700 cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Damper filtre haznelerine hava dolması sonucu mürekkebin kafaya akamaması.",
+      "Saha servis prosedürünü yürütün: Damperleri çıkarıp şırıngayla hava kalmayana kadar mürekkep çekin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "AdjProg -> Ink Charge",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Nozül temizleme yapılmasına rağmen çıktılarda renklerin kesilmesi.",
+    "derin_teknik_analiz": "Damper filtre haznelerine hava dolması sonucu mürekkebin kafaya akamaması. Çözüm: Damperleri çıkarıp şırıngayla hava kalmayana kadar mürekkep çekin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson surecolor sc-p700",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_89",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson SureColor SC-P700: CR Optik Lineer Cetvel (Encoder Strip) Yağlanması ve Kafa Vurması",
+    "hizli_adimlar": [
+      "Epson SureColor SC-P700 cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Baskı kafası arkasındaki şeffaf cetvele yağ ve mürekkep sıçraması.",
+      "Saha servis prosedürünü yürütün: Encoder şeridini pamuklu çubuk ve saf su ile nazikçe temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "AdjProg -> CR Motor Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kafanın sağa sola giderken hızla çarpması ve 0x9A hatası.",
+    "derin_teknik_analiz": "Baskı kafası arkasındaki şeffaf cetvele yağ ve mürekkep sıçraması. Çözüm: Encoder şeridini pamuklu çubuk ve saf su ile nazikçe temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson surecolor sc-p700",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_90",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson SureColor SC-P700: Kağıt Ayırma Pedi (Retard Roller) Sürtünme Kaybı",
+    "hizli_adimlar": [
+      "Epson SureColor SC-P700 cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Ayırma silindirinin kauçuk yüzeyinin pürüzsüzleşmesi.",
+      "Saha servis prosedürünü yürütün: Retard silindirini söküp yenisiyle değiştirin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Printer Utility -> Paper Feed Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kasetten aynı anda 3-4 sayfanın birden çekilip sıkışması.",
+    "derin_teknik_analiz": "Ayırma silindirinin kauçuk yüzeyinin pürüzsüzleşmesi. Çözüm: Retard silindirini söküp yenisiyle değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson surecolor sc-p700",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_91",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson SureColor SC-P700: Atık Mürekkep Kutusu (Maintenance Box T04D1) Doluluk Uyarısı",
+    "hizli_adimlar": [
+      "Epson SureColor SC-P700 cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Bakım kutusu mikroçipinin sayfa sayacının dolması.",
+      "Saha servis prosedürünü yürütün: T04D1 bakım kutusunu yenisiyle değiştirin veya çipini sıfırlayın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Epson Status Monitor 3",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Ekranda bakım kutusunun hizmet ömrünün bittiğini belirten mesaj.",
+    "derin_teknik_analiz": "Bakım kutusu mikroçipinin sayfa sayacının dolması. Çözüm: T04D1 bakım kutusunu yenisiyle değiştirin veya çipini sıfırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson surecolor sc-p700",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_92",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank M3170 Mono: Mürekkep Besleme Damperlerinin Hava Yapması (Damper De-airing)",
+    "hizli_adimlar": [
+      "Epson EcoTank M3170 Mono cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Damper filtre haznelerine hava dolması sonucu mürekkebin kafaya akamaması.",
+      "Saha servis prosedürünü yürütün: Damperleri çıkarıp şırıngayla hava kalmayana kadar mürekkep çekin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "AdjProg -> Ink Charge",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Nozül temizleme yapılmasına rağmen çıktılarda renklerin kesilmesi.",
+    "derin_teknik_analiz": "Damper filtre haznelerine hava dolması sonucu mürekkebin kafaya akamaması. Çözüm: Damperleri çıkarıp şırıngayla hava kalmayana kadar mürekkep çekin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson ecotank m3170 mono",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_93",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank M3170 Mono: CR Optik Lineer Cetvel (Encoder Strip) Yağlanması ve Kafa Vurması",
+    "hizli_adimlar": [
+      "Epson EcoTank M3170 Mono cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Baskı kafası arkasındaki şeffaf cetvele yağ ve mürekkep sıçraması.",
+      "Saha servis prosedürünü yürütün: Encoder şeridini pamuklu çubuk ve saf su ile nazikçe temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "AdjProg -> CR Motor Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kafanın sağa sola giderken hızla çarpması ve 0x9A hatası.",
+    "derin_teknik_analiz": "Baskı kafası arkasındaki şeffaf cetvele yağ ve mürekkep sıçraması. Çözüm: Encoder şeridini pamuklu çubuk ve saf su ile nazikçe temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson ecotank m3170 mono",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_94",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank M3170 Mono: Kağıt Ayırma Pedi (Retard Roller) Sürtünme Kaybı",
+    "hizli_adimlar": [
+      "Epson EcoTank M3170 Mono cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Ayırma silindirinin kauçuk yüzeyinin pürüzsüzleşmesi.",
+      "Saha servis prosedürünü yürütün: Retard silindirini söküp yenisiyle değiştirin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Printer Utility -> Paper Feed Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kasetten aynı anda 3-4 sayfanın birden çekilip sıkışması.",
+    "derin_teknik_analiz": "Ayırma silindirinin kauçuk yüzeyinin pürüzsüzleşmesi. Çözüm: Retard silindirini söküp yenisiyle değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson ecotank m3170 mono",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_95",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Epson EcoTank & L Serisi",
+    "baslik": "Epson EcoTank M3170 Mono: Atık Mürekkep Kutusu (Maintenance Box T04D1) Doluluk Uyarısı",
+    "hizli_adimlar": [
+      "Epson EcoTank M3170 Mono cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Bakım kutusu mikroçipinin sayfa sayacının dolması.",
+      "Saha servis prosedürünü yürütün: T04D1 bakım kutusunu yenisiyle değiştirin veya çipini sıfırlayın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Epson Status Monitor 3",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Ekranda bakım kutusunun hizmet ömrünün bittiğini belirten mesaj.",
+    "derin_teknik_analiz": "Bakım kutusu mikroçipinin sayfa sayacının dolması. Çözüm: T04D1 bakım kutusunu yenisiyle değiştirin veya çipini sıfırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "epson ecotank & l serisi",
+      "epson ecotank m3170 mono",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  }
+]

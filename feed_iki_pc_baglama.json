@@ -1,283 +1,1545 @@
-{
-  "versiyon": "2.5.0",
-  "toplam": 6,
-  "modul": "feed_iki_pc_baglama.json",
-  "kayitlar": [
-    {
-      "id": "twopc_direct_cross_gigabit",
-      "kategori": "İki PC Bağlama",
-      "alt_kategori": "Doğrudan Kablo",
-      "baslik": "İki Bilgisayarı Doğrudan Ethernet Kablosuyla Gigabit Hızda Bağlama",
-      "hizli_adimlar": [
-        "CAT6 kabloyu iki bilgisayarın ethernet portlarına takın (Port LED'lerinin yandığını teyit edin).",
-        "1. PC'ye IP: 192.168.99.1, Alt Ağ Maskesi: 255.255.255.0 verin (Ağ geçidini BOŞ bırakın).",
-        "2. PC'ye IP: 192.168.99.2, Alt Ağ Maskesi: 255.255.255.0 verin (Ağ geçidini BOŞ bırakın).",
-        "Ağ profilini 'Özel Ağ' (Private) yapın ve SMB dosya paylaşımını açın.",
-        "2. PC'den Çalıştır'a (Win+R) `\\\\192.168.99.1` yazarak paylaşıma girin."
-      ],
-      "komutlar": [
-        {
-          "etiket": "PC 1 Statik IP Ayarı (PowerShell)",
-          "komut": "New-NetIPAddress -InterfaceAlias 'Ethernet' -IPAddress 192.168.99.1 -PrefixLength 24; Set-NetConnectionProfile -InterfaceAlias 'Ethernet' -NetworkCategory Private",
-          "aciklama": "PC 1'e 192.168.99.1 IP atar ve profili Özel yapar."
-        },
-        {
-          "etiket": "PC 2 Statik IP Ayarı (PowerShell)",
-          "komut": "New-NetIPAddress -InterfaceAlias 'Ethernet' -IPAddress 192.168.99.2 -PrefixLength 24; Set-NetConnectionProfile -InterfaceAlias 'Ethernet' -NetworkCategory Private",
-          "aciklama": "PC 2'ye 192.168.99.2 IP atar ve profili Özel yapar."
-        },
-        {
-          "etiket": "Bağlantı & Ping Testi",
-          "komut": "ping 192.168.99.1 -n 4",
-          "aciklama": "PC 2'den PC 1'e gecikme ve erişim testi yapar."
-        }
-      ],
-      "temel_anlatim": "Ağ anahtarı (switch) veya modem olmadan, iki bilgisayarı doğrudan CAT6 ethernet kablosu ile bağlayıp 1000 Mbps hızında dosya aktarımı sağlama.",
-      "derin_teknik_analiz": "Modern Gigabit Ethernet (1000BASE-T) kartlarında Auto-MDIX (Automatic Medium-Dependent Interface Crossover) donanımsal olarak bulunur. Bu nedenle klasik çapraz (crossover) kablo yerine standart düz T568B CAT6 kablo yeterlidir. Her iki bilgisayara aynı alt ağdan (subnet) ağ geçitsiz statik IP verilmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Tanımlanamayan Ağ (Unidentified Network) uyarısı çıkıyor",
-          "neden": "Ağ geçidi boş bırakıldığı için Windows ağı varsayılan olarak 'Public' (Ortak) kilitler ve ping/SMB'yi engeller.",
-          "cozum": "PowerShell ile `Set-NetConnectionProfile -NetworkCategory Private` çalıştırarak güvenlik duvarını açın."
-        }
-      ],
-      "etiketler": [
-        "iki-pc",
-        "dogrudan-baglanti",
-        "cat6",
-        "auto-mdix",
-        "gigabit",
-        "ethernet"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "twopc_lan_smb_sharing",
-      "kategori": "İki PC Bağlama",
-      "alt_kategori": "Ortak Yerel Ağ (LAN/Wi-Fi)",
-      "baslik": "Aynı Yerel Ağ / Wi-Fi Üzerindeki İki PC Arasında Klasör Paylaşımı (SMBv3)",
-      "hizli_adimlar": [
-        "Paylaşılacak klasöre sağ tıklayın -> Özellikler -> Paylaşım -> Gelişmiş Paylaşım -> 'Bu klasörü paylaş' kutusunu işaretleyin.",
-        "İzinler butonuna basıp 'Everyone' (Herkes) grubuna 'Tam Denetim' veya 'Okuma' verin.",
-        "Güvenlik sekmesinden de 'Everyone' kullanıcısını ekleyip NTFS okuma/yazma izinlerini tanımlayın.",
-        "Diğer PC'den `\\\\HedefPC_IP\\KlasorAdi` yazarak bağlanın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Klasörü Paylaşıma Aç (PowerShell)",
-          "komut": "New-SmbShare -Name 'Depo' -Path 'C:\\Paylasim' -FullAccess 'Everyone'",
-          "aciklama": "C:\\Paylasim klasörünü 'Depo' adıyla paylaşıma açar."
-        },
-        {
-          "etiket": "SMB Konuk Erişim İznini Aç (Win11)",
-          "komut": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\" /v \"AllowInsecureGuestAuth\" /t REG_DWORD /d 1 /f",
-          "aciklama": "Windows 11'de parolasız paylaşıma erişim engelini kaldırır."
-        },
-        {
-          "etiket": "Güvenlik Duvarı SMB İzni",
-          "komut": "netsh advfirewall firewall set rule group=\"Dosya ve Yazıcı Paylaşımı\" new enable=Yes",
-          "aciklama": "Windows Güvenlik Duvarında dosya paylaşım portlarını açar."
-        }
-      ],
-      "temel_anlatim": "Aynı ofis modemi veya Wi-Fi ağına bağlı iki bilgisayar arasında parola korumalı veya parolasız güvenli dosya paylaşımı açma.",
-      "derin_teknik_analiz": "Windows SMB (Server Message Block v3.1.1) protokolü TCP 445 portunu kullanır. Windows 11 22H2 ve sonrası güncellemelerde güvenlik gerekçesiyle şifresiz konuk (guest) oturumları varsayılan olarak engellenmiştir.",
-      "kenar_durumlar": [
-        {
-          "durum": "0x80070035 'Ağ yolu bulunamadı' hatası",
-          "neden": "Ağ Bulma (Network Discovery) veya TCP 445 portu güvenlik duvarında kapalıdır.",
-          "cozum": "services.msc altından 'İşlev Bulma Kaynak Dağıtımı' (Function Discovery) servisini 'Otomatik' yapıp başlatın."
-        }
-      ],
-      "etiketler": [
-        "iki-pc",
-        "smb",
-        "dosya-paylasimi",
-        "yerel-ag",
-        "wifi",
-        "win11-guest"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "twopc_different_subnet_vlan",
-      "kategori": "İki PC Bağlama",
-      "alt_kategori": "Farklı Alt Ağlar & VLAN",
-      "baslik": "Farklı Alt Ağlarda (VLAN / Subnet) Bulunan İki PC Arasında Rotalama ve Erişim",
-      "hizli_adimlar": [
-        "Her iki PC'nin kendi ağ geçidine (Gateway) sorunsuz ping attığını teyit edin.",
-        "Router/L3 Switch üzerinde VLAN'lar arası yönlendirmenin (Inter-VLAN Routing) açık olduğunu doğrulayın.",
-        "Hedef PC'de Windows Güvenlik Duvarını açın -> Gelişmiş Güvenlik -> Gelen Kurallar -> 'Dosya ve Yazıcı Paylaşımı (SMB-Gelen)'.",
-        "Özellikler -> Kapsam (Scope) sekmesine gelin; Uzak IP Adresi kısmını 'Herhangi bir IP adresi' veya diğer alt ağın IP bloğu (192.168.20.0/24) yapın.",
-        "Kaynak PC'den IP üzerinden erişimi test edin: `ping 192.168.20.50`."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Statik Rota Ekle (Windows)",
-          "komut": "route add 192.168.20.0 mask 255.255.255.0 192.168.1.1 -p",
-          "aciklama": "192.168.20.x ağına gidiş için statik kalıcı rota tanımlar."
-        },
-        {
-          "etiket": "Güvenlik Duvarı Subnet Sınırını Kaldır",
-          "komut": "netsh advfirewall firewall set rule name=\"Dosya ve Yazıcı Paylaşımı (SMB-Gelen)\" new remoteip=any",
-          "aciklama": "Tüm alt ağlardan gelen SMB isteklerine izin verir."
-        },
-        {
-          "etiket": "Yol İzleme (Traceroute)",
-          "komut": "tracert -d 192.168.20.50",
-          "aciklama": "Paketlerin hangi router geçidinden geçtiğini gösterir."
-        }
-      ],
-      "temel_anlatim": "Biri 192.168.1.x (Ofis), diğeri 192.168.20.x (Fabrika/Sunucu) alt ağında olan iki bilgisayarın Layer 3 Switch veya Router üzerinden haberleşmesi.",
-      "derin_teknik_analiz": "Farklı alt ağlar arasındaki paketler doğrudan Layer 2 anahtarlanamaz; varsayılan ağ geçidi (Default Gateway) üzerinden Layer 3 yönlendirilir. Windows Güvenlik Duvarı varsayılan olarak SMB dosya paylaşımını ve ICMP ping'i 'LocalSubnet' (Sadece Yerel Alt Ağ) ile sınırlar. Farklı subnetten gelen istekler Windows tarafından sessizce düşürülür.",
-      "kenar_durumlar": [
-        {
-          "durum": "Ping gidiyor ama dosya paylaşımı açılmıyor",
-          "neden": "Ağ geçidindeki firewall cihazı (FortiGate/Sophos vb.) TCP 445 portunu zone'lar arasında filtrelemektedir.",
-          "cozum": "Firewall üzerinde VLAN1'den VLAN20'ye TCP 445 ve 139 servislerine izin veren Security Policy yazın."
-        }
-      ],
-      "etiketler": [
-        "iki-pc",
-        "vlan",
-        "farkli-subnet",
-        "inter-vlan",
-        "routing",
-        "firewall-scope"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "twopc_remote_vpn_tailscale",
-      "kategori": "İki PC Bağlama",
-      "alt_kategori": "Uzak İnternet Üzerinden (VPN Mesh)",
-      "baslik": "Farklı Şehir/İnternetteki İki PC'yi Port Açmadan Bağlama (Tailscale Mesh VPN)",
-      "hizli_adimlar": [
-        "Her iki bilgisayara da Tailscale istemcisini kurun (tailscale.com).",
-        "Aynı e-posta veya GitHub/Google hesabı ile her iki bilgisayarda oturum açın.",
-        "Tailscale arayüzünde her iki cihazın 'Connected' ve yeşil yandığını teyit edin.",
-        "1. PC'nin Tailscale IP'sini (örn: 100.85.12.34) kopyalayın.",
-        "2. PC'den `\\\\100.85.12.34\\Paylasim` yazarak bağlanın veya Uzak Masaüstü (RDP) yapın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Tailscale Durumunu Sorgula",
-          "komut": "tailscale status",
-          "aciklama": "Bağlı cihazları, Tailscale IP'lerini ve doğrudan/aktarmalı durumunu listeler."
-        },
-        {
-          "etiket": "Tailscale Ping Testi",
-          "komut": "tailscale ping 100.85.12.34",
-          "aciklama": "Doğrudan P2P WireGuard gecikmesini ölçer."
-        },
-        {
-          "etiket": "Tünel Arayüz IP'sini Doğrula",
-          "komut": "ipconfig | findstr /i \"100.\"",
-          "aciklama": "Windows'taki sanal Tailscale adaptör IP'sini döküm eder."
-        }
-      ],
-      "temel_anlatim": "Statik IP ve modem port yönlendirmesi olmadan, evdeki ve işteki iki bilgisayarı güvenli WireGuard protokolüyle aynı sanal yerel ağdaymış gibi bağlama.",
-      "derin_teknik_analiz": "Tailscale, DERP röle sunucuları ve NAT Traversal (STUN/ICE) tekniklerini kullanarak CGNAT arkasında dahi uçtan uca doğrudan (P2P WireGuard) tünel açar. Her cihaza 100.x.x.x bloğundan sabit sanal IP tahsis edilir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Hız 1 Mbps seviyesine düşüyor (Relayed via DERP)",
-          "neden": "Her iki tarafın kurumsal güvenlik duvarı UDP trafiğini engellediği için P2P kurulamamış ve aktarma sunucusuna düşmüştür.",
-          "cozum": "Firewall'da UDP 41641 portuna dışa doğru çıkış izni verin."
-        }
-      ],
-      "etiketler": [
-        "iki-pc",
-        "tailscale",
-        "mesh-vpn",
-        "wireguard",
-        "cgnat",
-        "uzak-baglanti"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "twopc_robocopy_fast_transfer",
-      "kategori": "İki PC Bağlama",
-      "alt_kategori": "Yüksek Hızlı Veri Taşıma",
-      "baslik": "İki PC Arasında Robocopy Çoklu İş Parçacığı (/MT:16) ile Terabaytlarca Veri Aktarımı",
-      "hizli_adimlar": [
-        "Kaynak bilgisayardaki klasörü paylaşıma açın veya hedef PC'den kaynak PC'ye ağ sürücüsü (Z:) olarak bağlayın.",
-        "Yönetici olarak Komut İstemi (CMD) açın.",
-        "Robocopy komutunu `/E /ZB /MT:16 /R:2 /W:3` parametreleriyle çalıştırın.",
-        "Aktarım bittiğinde özet rapor tablosundan aktarılan, atlanan ve hatalı dosyaları inceleyin."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Çoklu Thread ile Ağdan Veri Çek",
-          "komut": "robocopy \"\\\\192.168.1.50\\C$\\Data\" \"D:\\YedekData\" /E /ZB /MT:16 /R:2 /W:2 /NP /LOG:C:\\transfer.log",
-          "aciklama": "16 kanaldan kopyalar, takılan dosyada 2 saniye bekler, log dosyası tutar."
-        },
-        {
-          "etiket": "İzinlerle (NTFS ACL) Birlikte Taşı",
-          "komut": "robocopy \"\\\\192.168.1.50\\Paylasim\" \"D:\\Paylasim\" /MIR /COPYALL /ZB /MT:16",
-          "aciklama": "Klasör yapısını, dosya izinlerini ve sahipliklerini birebir kopyalar."
-        }
-      ],
-      "temel_anlatim": "Windows Gezgini'nin kopyalama penceresi yerine çoklu thread kullanarak iki bilgisayar arasında ağ hattını sonuna kadar zorlayıp veri taşıma.",
-      "derin_teknik_analiz": "Windows Gezgini tek thread çalışır ve binlerce küçük dosyada her dosya için SMB Create/Close el sıkışması yaparak aktarım hızını 1-2 MB/sn'ye düşürür. Robocopy `/MT:16` veya `/MT:32` aynı anda 16/32 dosya transfer ederek Gigabit hattı tam 112 MB/sn kapasiteyle doyurur.",
-      "kenar_durumlar": [
-        {
-          "durum": "Yönetici paylaşımına (C$) erişimde 'Erişim Engellendi' uyarısı",
-          "neden": "Windows'ta LocalAccountTokenFilterPolicy kısıtlaması nedeniyle yerel yönetici hesabı ağdan tam yetki alamaz.",
-          "cozum": "reg add HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v LocalAccountTokenFilterPolicy /t REG_DWORD /d 1 /f komutunu çalıştırın."
-        }
-      ],
-      "etiketler": [
-        "iki-pc",
-        "robocopy",
-        "hizli-kopyalama",
-        "smb",
-        "mt16",
-        "veri-aktarimi"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "twopc_jumbo_frames_10gbe",
-      "kategori": "İki PC Bağlama",
-      "alt_kategori": "Yüksek Hızlı Veri Taşıma",
-      "baslik": "İki PC Arasında Jumbo Frames (9000 MTU) ile 2.5G / 10G Doğrudan Hat Yapılandırması",
-      "hizli_adimlar": [
-        "Her iki PC'de Aygıt Yöneticisi -> Ağ Bağdaştırıcıları -> 10G/2.5G karta sağ tıklayıp Özellikler'e girin.",
-        "Gelişmiş sekmesine gelin -> 'Jumbo Packet' veya 'Jumbo Frame' ayarını bulun.",
-        "Değeri 9KB MTU veya 9014 Bytes olarak seçin.",
-        "Aynı işlemi 2. PC'deki ağ kartında da birebir aynı değerle yapın.",
-        "CMD'den `ping -f -l 8972 <Hedef_IP>` ile paket parçalanmadan geçtiğini doğrulayın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Jumbo Frame Ping Testi",
-          "komut": "ping 192.168.10.2 -f -l 8972",
-          "aciklama": "9000 MTU'luk paketlerin parçalanmadan ulaştığını test eder (8972 + 28 = 9000)."
-        },
-        {
-          "etiket": "Ağ Kartı MTU Kontrolü",
-          "komut": "netsh interface ipv4 show subinterfaces",
-          "aciklama": "Ağ kartlarının geçerli MTU değerlerini döker."
-        }
-      ],
-      "temel_anlatim": "İki bilgisayar arasına takılan 2.5 Gbps veya 10 Gbps ağ kartlarında MTU'yu 9000 bayta çıkararak CPU yükünü düşürme ve 1000 MB/sn transfer hızına ulaşma.",
-      "derin_teknik_analiz": "Standart MTU 1500 bayttır. 10 Gbps hat tam kapasite çalıştığında saniyede yaklaşık 800.000 paket CPU kesmesi (interrupt) üretir. Jumbo Frame (9014 bayt) kullanıldığında paket sayısı saniyede 130.000'e düşer; CPU üzerindeki DPC/ISR yükü %80 azalır.",
-      "kenar_durumlar": [
-        {
-          "durum": "Jumbo Frame açılınca ping tamamen kesiliyor",
-          "neden": "Araya takılan switch Jumbo Frame desteklemiyor veya karşı PC'deki MTU 1500'de unutulmuştur.",
-          "cozum": "İki tarafın ve aradaki switch'in MTU değerlerinin birebir 9000 bayta eşit olduğundan emin olun."
-        }
-      ],
-      "etiketler": [
-        "iki-pc",
-        "jumbo-frames",
-        "10gbe",
-        "2.5gbe",
-        "mtu9000",
-        "performans"
-      ],
-      "oncelik": 2
-    }
-  ]
-}
+[
+  {
+    "id": "infra_900",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "Saha Teşhisi",
+    "baslik": "Çift Ağ Kartlı PC'de Ağ Köprüsü (Network Bridge) ile Diğer PC'yi İnternete Çıkarma",
+    "hizli_adimlar": [
+      "ncpa.cpl açın.",
+      "Wi-Fi ve Ethernet bağdaştırıcılarını Ctrl ile seçin.",
+      "Sağ tıklayıp 'Köprü Bağlantıları' seçin.",
+      "İkinci bilgisayarı otomatik IP moduna alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Ağ Köprüsü Kur",
+        "komut": "ncpa.cpl -> Wi-Fi ve Ethernet'i seç -> Sağ tık -> Köprü Bağlantıları",
+        "aciklama": "Layer 2 köprü oluşturur."
+      }
+    ],
+    "temel_anlatim": "Ana bilgisayarın Wi-Fi'dan internet alıp, ethernet portuna bağlı ikinci bilgisayara internet vermesi.",
+    "derin_teknik_analiz": "Windows Network Bridge iki adaptörü tek bir sanal MAC anahtarlama katmanında birleştirir.",
+    "kenar_durumlar": [
+      {
+        "durum": "İlk adımda sonuç alınamadı",
+        "neden": "Ağ gecikmesi veya izin kısıtlaması vardır.",
+        "cozum": "Güvenlik duvarı ve izinleri kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "altyapi",
+      "saha",
+      "teknik-cozum"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "infra_901",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "Saha Teşhisi",
+    "baslik": "Windows İnternet Bağlantısı Paylaşımı (ICS) ve 192.168.137.1 Çakışması",
+    "hizli_adimlar": [
+      "İnterneti olan adaptörün Paylaşım sekmesinde 'Diğer ağ kullanıcılarının bağlanmasına izin ver' deyin.",
+      "İkinci PC'de IP'yi 192.168.137.2 yapın.",
+      "Ağ geçidini 192.168.137.1 olarak girin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "ICS IP Yapılandırmasını Doğrula",
+        "komut": "ipconfig | findstr 192.168.137",
+        "aciklama": "ICS ağ geçidini teyit eder."
+      }
+    ],
+    "temel_anlatim": "ICS açıldığında yerel ethernet kartının zorunlu olarak 192.168.137.1 IP'sine geçmesi.",
+    "derin_teknik_analiz": "Windows ICS dahili bir mini DHCP ve NAT sunucusu başlatır; hedef ağda 192.168.137.x bloğu varsa yönlendirme bozulur.",
+    "kenar_durumlar": [
+      {
+        "durum": "İlk adımda sonuç alınamadı",
+        "neden": "Ağ gecikmesi veya izin kısıtlaması vardır.",
+        "cozum": "Güvenlik duvarı ve izinleri kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "altyapi",
+      "saha",
+      "teknik-cozum"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "infra_902",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "Saha Teşhisi",
+    "baslik": "İki PC Arasında iPerf3 ile Gerçek Ağ Bant Genişliği ve Jitter Testi",
+    "hizli_adimlar": [
+      "PC1'de `iperf3 -s` çalıştırın.",
+      "PC2'den `iperf3 -c <PC1_IP>` komutunu verin.",
+      "Gelen 'Bandwidth' değerinin 940-950 Mbits/sec olduğunu teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Sunucu Modu (PC 1)",
+        "komut": "iperf3.exe -s",
+        "aciklama": "Port 5201 üzerinde dinlemeye geçer."
+      },
+      {
+        "etiket": "İstemci Modu (PC 2)",
+        "komut": "iperf3.exe -c 192.168.1.50 -t 10 -P 4",
+        "aciklama": "4 kanaldan 10 saniye boyunca hız testi yapar."
+      }
+    ],
+    "temel_anlatim": "Dosya aktarım hızının düşük olduğu durumlarda diski aradan çıkarıp saf hat hızını ölçme.",
+    "derin_teknik_analiz": "Windows Gezgini disk I/O hızına takılır; iPerf3 RAM'den RAM'e TCP/UDP paketleri basarak gerçek kablo/switch hızını gösterir.",
+    "kenar_durumlar": [
+      {
+        "durum": "İlk adımda sonuç alınamadı",
+        "neden": "Ağ gecikmesi veya izin kısıtlaması vardır.",
+        "cozum": "Güvenlik duvarı ve izinleri kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "altyapi",
+      "saha",
+      "teknik-cozum"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "infra_903",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "Saha Teşhisi",
+    "baslik": "İki PC Arasında IPv6 Link-Local (fe80::) ile IP Vermeden Doğrudan Bağlantı",
+    "hizli_adimlar": [
+      "Her iki PC'de `ipconfig` yazıp Link-local IPv6 adresini kopyalayın.",
+      "Hedef PC'ye bağlanırken `\\\\fe80--...s5.ipv6-literal.net\\Paylasim` formatını kullanın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "IPv6 Link-Local Adresini Öğren",
+        "komut": "Get-NetIPAddress -InterfaceAlias 'Ethernet' -AddressFamily IPv6 | Select-Object IPAddress",
+        "aciklama": "fe80:: ile başlayan adresi döker."
+      }
+    ],
+    "temel_anlatim": "Statik IPv4 adresi vermeden iki bilgisayarı kabloyla bağlayıp anında dosya paylaşımına erişme.",
+    "derin_teknik_analiz": "IPv6 Link-Local adresleri ethernet kablosu takıldığı anda EUI-64 / DAD ile otomatik oluşturulur.",
+    "kenar_durumlar": [
+      {
+        "durum": "İlk adımda sonuç alınamadı",
+        "neden": "Ağ gecikmesi veya izin kısıtlaması vardır.",
+        "cozum": "Güvenlik duvarı ve izinleri kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "altyapi",
+      "saha",
+      "teknik-cozum"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "twopc_mat_1",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "Doğrudan CAT6 Kablo ile İki PC Arasında Gigabit Bağlantı",
+    "hizli_adimlar": [
+      "İki PC'nin ethernet portlarını düz CAT6 kabloyla birbirine takın.",
+      "PC-1 IPv4 ayarlarına girip IP: 192.168.100.1, Ağ Maskesi: 255.255.255.0 verin (Ağ geçidi boş bırakın).",
+      "PC-2 IPv4 ayarlarına girip IP: 192.168.100.2, Ağ Maskesi: 255.255.255.0 verin.",
+      "PowerShell'i yönetici olarak açıp 'Set-NetConnectionProfile -NetworkCategory Private' komutuyla ağı Özel yapın.",
+      "Gelişmiş paylaşım ayarlarından 'Ağ Bulma' ve 'Dosya ve Yazıcı Paylaşımı'nı açın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Ping Testi",
+        "komut": "ping 192.168.100.2 -t",
+        "aciklama": "İki bilgisayar arasında fiziksel ve mantıksal bağlantıyı doğrular."
+      },
+      {
+        "etiket": "Ağ Profilini Özel Yap",
+        "komut": "Get-NetConnectionProfile | Set-NetConnectionProfile -NetworkCategory Private",
+        "aciklama": "Windows Güvenlik Duvarı'nın dosya paylaşımını engellemesini önler."
+      }
+    ],
+    "temel_anlatim": "İki bilgisayarı switch veya modem olmadan tek bir CAT6 ethernet kablosuyla doğrudan birbirine bağlamak.",
+    "derin_teknik_analiz": "Gigabit ethernet kartları Auto-MDIX desteklediği için çapraz (crossover) kabloya gerek yoktur, düz CAT6 yeterlidir. Saha mühendisliği çözümü: 192.168.100.1 ve 192.168.100.2 statik IP adresleri verip ağ profillerini 'Özel Ağ' yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Ping yanıt vermiyor (İstek zaman aşımına uğradı)",
+        "neden": "Windows Güvenlik Duvarı ICMP Echo isteklerini engelliyor.",
+        "cozum": "netsh advfirewall firewall add rule name=\"ICMPv4 Allow\" protocol=icmpv4:8,any dir=in action=allow komutunu çalıştırın."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "ethernet",
+      "cat6",
+      "dogrudan-baglanti",
+      "statik-ip"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "twopc_mat_2",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "APIPA (169.254.X.X) Adresleme ile Sıfır Ayar İki PC Bağlantısı",
+    "hizli_adimlar": [
+      "Kabloyu iki PC arasına takın ve 30 saniye bekleyin.",
+      "İki bilgisayarda da 'ipconfig' çalıştırıp 169.254 ile başlayan 'Otomatik Yapılandırma IPv4 Adresi'ni not edin.",
+      "PC-1'den PC-2'nin APIPA adresine ping atarak bağlantıyı test edin.",
+      "Çalıştır penceresine \\\\169.254.X.X yazarak paylaşılan klasörlere erişin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "APIPA IP Tespiti",
+        "komut": "ipconfig | findstr /i \"169.254\"",
+        "aciklama": "Atanan yerel APIPA adresini gösterir."
+      }
+    ],
+    "temel_anlatim": "İki bilgisayarı kabloyla bağlayıp statik IP vermeden otomatik yerel adreslerle konuşturmak.",
+    "derin_teknik_analiz": "DHCP sunucusu bulunmadığında Windows işletim sistemi otomatik olarak 169.254.0.0/16 bloğundan rastgele APIPA IP atar. Saha mühendisliği çözümü: İki cihaz da APIPA aldığında birbirinin 169.254.X.X adresini öğrenerek paylaşıma erişebilir.",
+    "kenar_durumlar": [
+      {
+        "durum": "APIPA adresi atanmıyor (0.0.0.0 kalıyor)",
+        "neden": "Ağ kartında 'Otomatik IP Al' seçeneği kapalıdır veya kablo temassızdır.",
+        "cozum": "Ağ bağdaştırıcısı özelliklerinden TCP/IPv4'ü otomatik yapın ve kablo LED'lerini kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "apipa",
+      "otomatik-ip",
+      "sifir-yapilandirma"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "twopc_mat_3",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "Windows 10 ve 11 Arasında Parola Korumalı Paylaşımı Kapatma",
+    "hizli_adimlar": [
+      "Denetim Masası -> Ağ ve Paylaşım Merkezi -> Gelişmiş Paylaşım Ayarları'na gidin.",
+      "'Tüm Ağlar' sekmesini genişletip 'Parola korumalı paylaşımı kapat' seçeneğini işaretleyin.",
+      "Paylaşmak istediğiniz klasöre sağ tıklayıp Özellikler -> Paylaşım -> Gelişmiş Paylaşım'a girin.",
+      "'Bu klasörü paylaş' kutusunu işaretleyip İzinler butonuna tıklayın, 'Everyone' kullanıcısına Tam Denetim verin.",
+      "Güvenlik (NTFS) sekmesine de geçip Düzenle -> Ekle -> Everyone ekleyip Tam Denetim verin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Paylaşım Durumunu Listele",
+        "komut": "net share",
+        "aciklama": "Sistemde aktif olan tüm paylaşılan klasörleri ve yollarını listeler."
+      }
+    ],
+    "temel_anlatim": "İki PC arasında dosya aktarırken parola sormadan herkesin erişebileceği ortak klasör açma.",
+    "derin_teknik_analiz": "Windows varsayılan olarak paylaşılan klasörler için karşı tarafın kullanıcı adı ve şifresini zorunlu tutar. Saha mühendisliği çözümü: Gelişmiş paylaşım ayarlarından parola korumasını kapatıp NTFS izinlerine 'Everyone' ekleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Erişim Reddedildi hatası veriyor",
+        "neden": "Paylaşım izni verilmiş ancak Güvenlik (NTFS) sekmesinde Everyone eklenmemiştir.",
+        "cozum": "Klasör Özellikleri -> Güvenlik sekmesinden Everyone kullanıcısına Okuma/Yazma izni tanımlayın."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "dosya-paylasimi",
+      "parola-korumali-paylasim",
+      "everyone-izni"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "twopc_mat_4",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "Windows 11 SMBv1 İstemci Protokolü Eksikliği Nedeniyle Eski PC'yi Görememe",
+    "hizli_adimlar": [
+      "Windows Tuşu + X -> Terminal (Yönetici) veya PowerShell (Yönetici) açın.",
+      "'Enable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol-Client -NoRestart' komutunu çalıştırın.",
+      "İşlem tamamlandıktan sonra bilgisayarı yeniden başlatın.",
+      "İkinci PC'ye erişmek için Çalıştır penceresine doğrudan IP adresini yazın (Örn: \\\\192.168.1.50)."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SMB1 İstemcisini Aç",
+        "komut": "Enable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol-Client -All",
+        "aciklama": "Eski Windows veya NAS cihazlarına bağlanmak için SMBv1 protokolünü kurar."
+      },
+      {
+        "etiket": "SMB Sürüm Kontrolü",
+        "komut": "Get-SmbServerConfiguration | Select EnableSMB1Protocol, EnableSMB2Protocol",
+        "aciklama": "Sistemdeki aktif SMB protokollerini gösterir."
+      }
+    ],
+    "temel_anlatim": "Yeni Windows 11 bilgisayardan Windows 7 veya XP yüklü ikinci PC'nin paylaşımlarına erişememe sorunu.",
+    "derin_teknik_analiz": "Windows 11 güvenlik nedeniyle güvensiz olan SMBv1 protokolünü varsayılan olarak devre dışı bırakır ve siler. Saha mühendisliği çözümü: PowerShell üzerinden SMBv1 istemci bileşenini (SMB1Protocol-Client) aktif edin veya eski PC'yi SMBv2'ye yükseltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sistem güvenlik uyarısı veriyor",
+        "neden": "SMBv1 fidye yazılımlarına (WannaCry) karşı savunmasızdır.",
+        "cozum": "Dosya aktarımı bittikten sonra 'Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol' ile kapatın."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "smbv1",
+      "windows-11",
+      "dosya-erisimi",
+      "legacy-lan"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "twopc_mat_5",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "İki PC Arasında Windows Kimlik Bilgilerini (Credential Manager) Sıfırlama",
+    "hizli_adimlar": [
+      "Komut İstemini (CMD) yönetici olarak açın.",
+      "'net use * /delete /y' komutunu çalıştırarak tüm mevcut SMB oturumlarını kesin.",
+      "Denetim Masası -> Kullanıcı Hesapları -> Kimlik Bilgileri Yöneticisi'ne gidin.",
+      "'Windows Kimlik Bilgileri' sekmesi altındaki ikinci PC'nin adına veya IP'sine ait girdileri bulup 'Kaldır' deyin.",
+      "Çalıştır'a \\\\Hedef_PC_IP yazıp tekrar bağlanın ve yeni kullanıcı adı/şifreyi girin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Ağ Oturumlarını Temizle",
+        "komut": "net use * /delete /y",
+        "aciklama": "Açık kalan tüm askıdaki ağ kimlik doğrulama oturumlarını anında sonlandırır."
+      },
+      {
+        "etiket": "Kimlik Bilgisi Ekle",
+        "komut": "cmdkey /add:192.168.1.100 /user:Administrator /pass:Sifre123",
+        "aciklama": "Hedef PC için kimlik bilgisini hafızaya kalıcı olarak yazar."
+      }
+    ],
+    "temel_anlatim": "İkinci PC'ye bağlanırken 'Ağ parolası yanlış' veya 'Hesap kilitlendi' hatası döngüsüne girmesi.",
+    "derin_teknik_analiz": "Windows Credential Manager eski veya hatalı parola kaydettiğinde yeni parolayı sormadan eski oturumu dayatır. Saha mühendisliği çözümü: Denetim Masası Kimlik Bilgileri Yöneticisi'nden eski ağ hedefini silin veya 'net use * /delete' çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Aynı kullanıcıyla birden çok bağlantı yapılamaz hatası (Error 1219)",
+        "neden": "Hedef sunucuya zaten farklı bir hesapla açık oturum vardır.",
+        "cozum": "'net stop workstation /y' ve ardından 'net start workstation' çalıştırarak SMB istemci servisini sıfırlayın."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "credential-manager",
+      "kimlik-bilgisi",
+      "net-use",
+      "parola-dongusu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "twopc_mat_6",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "Windows Ağ Köprüsü (Network Bridge) ile İkinci PC'ye İnternet Dağıtımı",
+    "hizli_adimlar": [
+      "ncpa.cpl yazıp Ağ Bağlantıları penceresini açın.",
+      "İnternete bağlı olan 'Wi-Fi' ve ikinci PC'ye bağlı olan 'Ethernet' kartlarını Ctrl tuşuna basılı tutarak seçin.",
+      "Seçili kartlardan birine sağ tıklayıp 'Bağlantıları Köprüle' seçeneğini seçin.",
+      "Windows bir 'Ağ Köprüsü' sanal adaptörü oluşturacaktır.",
+      "İkinci PC birkaç saniye içinde ana modemin DHCP sunucusundan doğrudan IP alacaktır."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Ağ Kartlarını Listele",
+        "komut": "Get-NetAdapter | Select Name, InterfaceDescription, Status, LinkSpeed",
+        "aciklama": "Sistemdeki tüm fiziksel ve köprülenmiş ağ bağdaştırıcılarını gösterir."
+      }
+    ],
+    "temel_anlatim": "Tek bir ethernet portu ve Wi-Fi olan ana PC üzerinden kabloyla ikinci PC'ye internet ve yerel ağ geçidi sağlama.",
+    "derin_teknik_analiz": "Windows Ağ Köprüsü, Wi-Fi bağdaştırıcısı ile yerel Ethernet bağdaştırıcısını katman 2 (Layer 2) seviyesinde birleştirir. Saha mühendisliği çözümü: Ağ Bağlantıları penceresinde Wi-Fi ve Ethernet'i seçip sağ tıklayarak 'Köprü Bağlantıları' oluşturun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Köprü kurulduktan sonra ana PC interneti kaybediyor",
+        "neden": "Köprü bağdaştırıcısı IP alamamıştır.",
+        "cozum": "Köprü bağdaştırıcısına sağ tıklayıp 'Devre Dışı Bırak' ve tekrar 'Etkinleştir' yapın veya 'ipconfig /renew' çalıştırın."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "ag-koprusu",
+      "network-bridge",
+      "internet-paylasimi",
+      "layer2"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "twopc_mat_7",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "İnternet Bağlantı Paylaşımı (ICS - NAT) ile İkinci PC'ye Ayrı Ağ Kurma",
+    "hizli_adimlar": [
+      "ncpa.cpl ile Ağ Bağlantılarını açın.",
+      "İnternetin geldiği adaptöre (Örn: Wi-Fi) sağ tıklayıp Özellikler'e girin.",
+      "'Paylaşım' sekmesine geçin.",
+      "'Diğer ağ kullanıcılarının bu bilgisayarın internet bağlantısı üzerinden bağlanmasına izin ver' kutusunu işaretleyin.",
+      "Açılan listeden ikinci PC'nin takılı olduğu 'Ethernet' kartını seçip Tamam'a basın.",
+      "İkinci PC'de IP ayarlarını otomatik yapın; 192.168.137.X bloğundan IP alıp internete çıkacaktır."
+    ],
+    "komutlar": [
+      {
+        "etiket": "ICS Servisini Kontrol Et",
+        "komut": "Get-Service SharedAccess | Select Status, StartType",
+        "aciklama": "İnternet Bağlantı Paylaşımı servisinin çalışma durumunu gösterir."
+      }
+    ],
+    "temel_anlatim": "Ana PC'nin hücresel veya Wi-Fi internetini ikinci PC'ye yerel bir NAT alt ağı (192.168.137.X) olarak dağıtma.",
+    "derin_teknik_analiz": "Windows ICS servisi ikinci ağ kartında otomatik bir mini DHCP ve DNS sunucusu başlatarak 192.168.137.1 IP'si atar. Saha mühendisliği çözümü: Kaynak adaptör özelliklerinden 'Paylaşım' sekmesini açıp hedef ethernet kartını seçin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Bağımlılık hizmeti başlatılamadı hatası (SharedAccess)",
+        "neden": "Windows Güvenlik Duvarı servisi devre dışı bırakılmıştır.",
+        "cozum": "'Set-Service mpssvc -StartupType Automatic; Start-Service mpssvc' komutuyla güvenlik duvarı servisini açın."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "ics",
+      "internet-paylasimi",
+      "nat",
+      "192.168.137.1"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "twopc_mat_8",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "İki PC Arasında iPerf3 ile Gerçek Ağ Aktarım Hızını (Throughput) Ölçme",
+    "hizli_adimlar": [
+      "iperf3.exe dosyasını iki bilgisayara da indirin.",
+      "PC-1'de CMD açıp 'iperf3.exe -s' komutuyla sunucuyu dinlemeye alın (Varsayılan port: 5201).",
+      "PC-2'de CMD açıp 'iperf3.exe -c 192.168.100.1 -t 10 -P 4' komutunu çalıştırın.",
+      "Ekranda her saniye transfer edilen veri ve saniyedeki megabit (Mbits/sec) hızını inceleyin.",
+      "CAT6 kablo ile Gigabit kartlarda sonuç 940 - 980 Mbits/sec civarında olmalıdır."
+    ],
+    "komutlar": [
+      {
+        "etiket": "iPerf3 Sunucu Modu",
+        "komut": "iperf3 -s",
+        "aciklama": "Gelen hız testi bağlantılarını dinlemeye başlar."
+      },
+      {
+        "etiket": "iPerf3 İstemci Testi",
+        "komut": "iperf3 -c 192.168.100.1 -i 1 -t 10",
+        "aciklama": "10 saniye boyunca 1 saniyelik aralıklarla bant genişliğini test eder."
+      }
+    ],
+    "temel_anlatim": "İki bilgisayar arasındaki kablo veya ağ kartının gerçek gigabit (1000 Mbps) bant genişliğini test etme.",
+    "derin_teknik_analiz": "Dosya kopyalama hızları disk hızı ve SMB protokol yüküyle kısıtlıdır; iPerf3 ise doğrudan TCP/UDP ham aktarımını ölçer. Saha mühendisliği çözümü: Birinci PC'de 'iperf3 -s' sunucu modunda çalıştırılır, ikinci PC'den 'iperf3 -c IP' ile bant genişliği ölçülür.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hız 100 Mbits/sec üzerine çıkmıyor",
+        "neden": "Ethernet kablosunun 4 çiftinden biri kopuktur veya RJ45 jakı yanlış basılmıştır.",
+        "cozum": "Kabloyu kablo test cihazıyla 8 telin de yandığından emin olarak test edin veya CAT6 kabloyu yenileyin."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "iperf3",
+      "hiz-testi",
+      "gigabit",
+      "throughput",
+      "bant-genisligi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "twopc_mat_9",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "Robocopy ile İki PC Arasında Milyonlarca Dosyayı Kesintisiz ve Çoklu İş Parçacığıyla Aktarma",
+    "hizli_adimlar": [
+      "İkinci PC'deki hedef klasörü paylaşıma açın ve ana PC'de Z: sürücüsü olarak bağlayın (net use Z: \\\\PC2\\Paylasim).",
+      "CMD'yi açıp kopyalama komutunu hazırlayın.",
+      "Komutu çalıştırın: robocopy \"C:\\KaynakKlasor\" \"Z:\\HedefKlasor\" /E /ZB /MT:16 /R:1 /W:1 /NP /V",
+      "Bağlantı kopsa dahi /ZB parametresi sayesinde kaldığı yerden devam edecektir.",
+      "İşlem bittiğinde ekrana gelen özet tablosunda kopyalanan, atlanan ve hatalı dosya sayılarını doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Robocopy Çoklu İş Parçacıklı Aktarım",
+        "komut": "robocopy \"D:\\Yedek\" \"\\\\192.168.100.2\\Depo\" /MIR /MT:16 /R:2 /W:2 /V /LOG:\"C:\\aktarim.log\"",
+        "aciklama": "16 kanaldan eşzamanlı kopyalama yapar, hatalı dosyayı 2 sn bekleyip tekrar dener."
+      },
+      {
+        "etiket": "Ağ Sürücüsü Bağlama",
+        "komut": "net use Z: \\\\192.168.100.2\\Depo /persistent:no",
+        "aciklama": "Uzak paylaşıma tek harfli sanal sürücü harfi bağlar."
+      }
+    ],
+    "temel_anlatim": "Windows Gezgini ile sürükle bırak yaparken donma veya kopyalama durma sorunlarına karşı profesyonel aktarım.",
+    "derin_teknik_analiz": "Gezgin tek iş parçacığıyla çalışır ve küçük dosyalarda tıkanır; Robocopy çoklu iş parçacığı (/MT) ve yeniden deneme (/R /W) kullanır. Saha mühendisliği çözümü: Paylaşılan ağ sürücüsü üzerinden '/MT:16 /Z /R:1 /W:1 /ETA' parametreleriyle aktarım başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sistem hata 5 verdi (Erişim Engellendi)",
+        "neden": "Hedef klasörün NTFS izinlerinde yazma yetkisi yoktur.",
+        "cozum": "Hedef PC'deki klasör güvenlik ayarlarına bağlanılan kullanıcı için 'Yazma' ve 'Değiştirme' izni verin."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "robocopy",
+      "hizli-kopyalama",
+      "coklu-is-parcacigi",
+      "ag-aktarimi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "twopc_mat_10",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "Wi-Fi Direct ile Kablosuz İki Bilgisayar Arasında Eşler Arası (P2P) Bağlantı",
+    "hizli_adimlar": [
+      "İki bilgisayarda da Wi-Fi ve Bluetooth'u açın.",
+      "Ayarlar -> Sistem -> 'Yakındaki kişilerle paylaşım' bölümüne gidin.",
+      "Ayarı 'Yakındaki herkes' olarak seçin.",
+      "Göndermek istediğiniz dosyaya sağ tıklayıp 'Paylaş' deyin.",
+      "Listeden ikinci bilgisayarın adını seçin ve ikinci bilgisayarda 'Kaydet ve Aç' butonuna basın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Wi-Fi Direct Durum Kontrolü",
+        "komut": "netsh wlan show drivers | findstr /i \"Direct Hosted\"",
+        "aciklama": "Kablosuz ağ kartının Wi-Fi Direct ve Hosted Network desteklerini listeler."
+      }
+    ],
+    "temel_anlatim": "Ortamda hiçbir modem, router veya kablo yokken iki laptop arasında doğrudan Wi-Fi üzerinden ağ kurma.",
+    "derin_teknik_analiz": "Wi-Fi Direct teknolojisi cihazlardan birini 'Yazılımsal Erişim Noktası' (Virtual AP) haline getirerek WPA2 ile doğrudan bağlar. Saha mühendisliği çözümü: Windows 'Yakındaki Kişilerle Paylaşım' (Nearby Sharing) veya Wi-Fi Direct sanal bağdaştırıcısını kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "İkinci bilgisayar listede görünmüyor",
+        "neden": "Ağ profili Ortak olarak kalmıştır veya Bluetooth kapalıdır.",
+        "cozum": "Bluetooth'u açın ve iki cihazın da aynı saat/tarih diliminde olduğunu kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "wifi-direct",
+      "nearby-sharing",
+      "kablosuz-aktarim",
+      "p2p"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "twopc_mat_11",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "Tailscale Mesh VPN ile Farklı Şehirlerdeki İki PC'yi Aynı Yerel Ağdaymış Gibi Bağlama",
+    "hizli_adimlar": [
+      "İki bilgisayara da tailscale.com üzerinden istemciyi indirip kurun.",
+      "Aynı Google veya Microsoft hesabıyla giriş yapın.",
+      "Her bilgisayara 100.64.0.0/10 bloğundan sabit sanal bir IP verilecektir (Örn: 100.80.20.10).",
+      "İkinci PC'de 'tailscale ping 100.80.20.10' çalıştırıp doğrudan bağlantı sağlandığını (direct connection) teyit edin.",
+      "Çalıştır penceresine \\\\100.80.20.10 yazarak binlerce kilometre uzaktaki PC'nin paylaşımlarını açın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Tailscale Durumunu Göster",
+        "komut": "tailscale status",
+        "aciklama": "Bağlı tüm düğümleri, sanal IP'lerini ve doğrudan/aktarmalı bağlantı durumlarını listeler."
+      },
+      {
+        "etiket": "Doğrudan P2P Ping Testi",
+        "komut": "tailscale ping 100.80.20.10",
+        "aciklama": "İki cihaz arasındaki bağlantının DERP aktarması mı yoksa doğrudan WireGuard UDP mi olduğunu gösterir."
+      }
+    ],
+    "temel_anlatim": "Farklı internet hatlarında veya CGNAT arkasındaki iki bilgisayarı modemden port açmadan doğrudan LAN gibi konuşturma.",
+    "derin_teknik_analiz": "Tailscale, WireGuard protokolünü kullanarak iki bilgisayar arasında uçtan uca şifreli doğrudan P2P tünel açar. Saha mühendisliği çözümü: İki bilgisayara da Tailscale kurup aynı hesapla oturum açın; atanan 100.X.X.X IP'leri ile doğrudan bağlanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Bağlantı 'relay (DERP)' olarak kalıyor, doğrudan bağlanmıyor",
+        "neden": "Simetrik NAT veya kurumsal güvenlik duvarı UDP trafiğini bloklamaktadır.",
+        "cozum": "Modem üzerinde UPnP'yi açın veya UDP 41641 portunu yönlendirin."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "tailscale",
+      "wireguard",
+      "mesh-vpn",
+      "cgnat-bypass",
+      "uzak-baglanti"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "twopc_mat_12",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "Barrier / Synergy ile İki PC'yi Tek Klavye ve Fare ile Yönetme",
+    "hizli_adimlar": [
+      "İki bilgisayara da açık kaynaklı 'Barrier' (veya Input Leap) programını kurun.",
+      "Faresi kullanılacak ana bilgisayarda 'Sunucu (Server)' seçeneğini işaretleyin.",
+      "'Sunucuyu Yapılandır' butonuna basıp ikinci bilgisayarın ekranını ana ekranın sağına sürükleyip bırakın.",
+      "İkinci bilgisayarda 'İstemci (Client)' seçip ana bilgisayarın yerel IP adresini (Örn: 192.168.1.10) yazın.",
+      "'Başlat' butonuna basın; imleci ekranın sağına kaydırdığınızda imleç ikinci bilgisayara geçecektir."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Barrier Güvenlik Duvarı Kuralı Aç",
+        "komut": "netsh advfirewall firewall add rule name=\"Barrier Port\" dir=in action=allow protocol=TCP localport=24800",
+        "aciklama": "Barrier yazılımının kullandığı 24800 TCP portunu güvenlik duvarından geçirir."
+      }
+    ],
+    "temel_anlatim": "Yan yana duran masaüstü ve laptop bilgisayarları fazladan klavye-fare kullanmadan tek mouse ile kontrol etme.",
+    "derin_teknik_analiz": "Barrier yazılımı bir PC'yi sunucu (Server) yapar; farenin imleci ekranın kenarından çıkınca diğer PC'nin ekranına geçer. Saha mühendisliği çözümü: Ana PC'de Barrier Server, ikinci PC'de Barrier Client kurup yerel IP üzerinden eşleştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "İstemci sunucuya bağlanamıyor (Connection refused)",
+        "neden": "SSL parmak izi onaylanmamıştır veya 24800 portu engellidir.",
+        "cozum": "Barrier ayarlarından 'Enable SSL' kutusunu iki tarafta da kapatın veya parmak izini manuel onaylayın."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "barrier",
+      "synergy",
+      "yazilimsal-kvm",
+      "klavye-fare-paylasimi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "twopc_mat_13",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "İki Bilgisayar Arasında SSH ve SFTP ile Güvenli Dosya Sunucusu Kurma",
+    "hizli_adimlar": [
+      "PC-2'de PowerShell'i yönetici olarak açın.",
+      "'Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0' komutuyla SSH sunucusunu kurun.",
+      "'Start-Service sshd; Set-Service -Name sshd -StartupType 'Automatic'' komutlarıyla servisi başlatın.",
+      "Windows Güvenlik Duvarı kuralını doğrulayın: Port 22 açık olmalıdır.",
+      "PC-1'den FileZilla açıp Protokol: SFTP, Sunucu: PC-2_IP, Port: 22 yazarak bağlanın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "OpenSSH Server Kurulumu",
+        "komut": "Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0",
+        "aciklama": "Windows yerleşik OpenSSH sunucu bileşenini indirip sisteme ekler."
+      },
+      {
+        "etiket": "SSH Servisini Başlat",
+        "komut": "Start-Service sshd; Set-Service sshd -StartupType Automatic",
+        "aciklama": "SSH servisini başlatır ve Windows açılışında otomatik başlamasını sağlar."
+      }
+    ],
+    "temel_anlatim": "Windows yerel dosya paylaşımı protokolü (SMB) yerine OpenSSH ile güvenli, şifreli ve komut satırından dosya aktarımı.",
+    "derin_teknik_analiz": "Windows 10/11 yerleşik OpenSSH Server servisi barındırır; SFTP portu (TCP 22) üzerinden erişim sağlar. Saha mühendisliği çözümü: İkinci PC'de OpenSSH Server özelliğini kurup servisi başlatın, WinSCP veya FileZilla ile bağlanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Bağlantı reddedildi (Connection refused)",
+        "neden": "sshd servisi çalışmıyordur veya güvenlik duvarı 22 portunu engellemektedir.",
+        "cozum": "Get-Service sshd ile servis durumunu kontrol edin ve port 22 gelen kuralını oluşturun."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "ssh",
+      "sftp",
+      "openssh",
+      "guvenli-dosya-aktarimi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "twopc_mat_14",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "Farklı Alt Ağlardaki (Subnet) İki PC Arasına Statik Rota (Route Add) Tanımlama",
+    "hizli_adimlar": [
+      "CMD'yi yönetici olarak açın.",
+      "'route print' komutuyla mevcut yönlendirme tablosunu ve bağdaştırıcı liste numaralarını (Interface List) inceleyin.",
+      "Komutu yazın: route -p add 10.0.0.0 mask 255.255.255.0 192.168.1.254 metric 1",
+      "-p parametresi bilgisayar yeniden başlatıldığında rotanın silinmesini engeller.",
+      "'ping 10.0.0.50' atarak paketin yönlendirici üzerinden hedef PC'ye ulaştığını doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Statik Rota Ekle",
+        "komut": "route -p add 10.0.0.0 mask 255.255.255.0 192.168.1.254",
+        "aciklama": "10.0.0.X ağına gidecek paketleri 192.168.1.254 nolu geçide yönlendirir."
+      },
+      {
+        "etiket": "Statik Rotayı Sil",
+        "komut": "route delete 10.0.0.0",
+        "aciklama": "Eklenen statik yönlendirme kuralını tablodan kaldırır."
+      }
+    ],
+    "temel_anlatim": "192.168.1.0/24 ağındaki bir bilgisayar ile 10.0.0.0/24 ağındaki bir bilgisayarın aradaki yönlendirici üzerinden konuşması.",
+    "derin_teknik_analiz": "Ağ geçidi hedef alt ağı tanımıyorsa paketler varsayılan ağ geçidinde takılır veya internete fırlatılır. Saha mühendisliği çözümü: Windows IP yönlendirme tablosuna 'route -p add' komutuyla kalıcı statik rota ekleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Rota eklenemedi: İstenen rota ağ geçidi yanlış",
+        "neden": "Belirtilen ağ geçidi IP'si yerel adaptörün alt ağında değildir.",
+        "cozum": "Ağ geçidi olarak kendi yerel ağınızdaki router bacağının IP adresini yazın."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "statik-rota",
+      "route-add",
+      "farkli-subnet",
+      "yonlendirme"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "twopc_mat_15",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "İki PC Arasında Wake-on-LAN (WoL) ile Kapalı Bilgisayarı Uzaktan Başlatma",
+    "hizli_adimlar": [
+      "Hedef bilgisayarın BIOS/UEFI menüsüne girip 'Wake on LAN' veya 'Power on by PCIe Devices' ayarını Enabled yapın.",
+      "Windows Aygıt Yöneticisi -> Ağ Bağdaştırıcıları -> Ethernet kartı özelliklerine girin.",
+      "'Güç Yönetimi' sekmesinde 'Bu aygıtın bilgisayarı başlatmasına izin ver' ve 'Yalnızca sihirli paketin...' kutularını işaretleyin.",
+      "'Gelişmiş' sekmesinde 'Wake on Magic Packet' ayarını Enabled yapın.",
+      "Birinci PC'den PowerShell veya WoL aracı ile hedef MAC adresine UDP 9 portundan paket gönderin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Hedef PC MAC Adresini Bul",
+        "komut": "getmac /v",
+        "aciklama": "Yerel ethernet kartının fiziksel MAC adresini listeler."
+      },
+      {
+        "etiket": "PowerShell Magic Packet Gönder",
+        "komut": "$mac=[byte[]]('D8-5E-D3-12-34-56'.split('-')|%{iex \"0x$_\"});$p=[byte[]](@(255)*6+$mac*16);$c=new-object System.Net.Sockets.UdpClient;$c.Connect(([System.Net.IPAddress]::Broadcast),9);$c.Send($p,$p.Length)",
+        "aciklama": "Hedef MAC adresine standart Wake-on-LAN sihirli paketini fırlatır."
+      }
+    ],
+    "temel_anlatim": "Aynı yerel ağda bulunan kapalı ikinci bilgisayarı ethernet kartına 'Magic Packet' göndererek uzaktan açma.",
+    "derin_teknik_analiz": "Ethernet kartı bilgisayar kapalıyken bile bekleme gücü (Standby Power) tüketir ve MAC adresine gelen FF:FF:FF:FF:FF:FF paketini dinler. Saha mühendisliği çözümü: BIOS ve Windows Ağ Kartı ayarlarından WoL'u aktif edin, MAC adresine Magic Packet fırlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Paket gönderiliyor ancak bilgisayar açılmıyor",
+        "neden": "Windows 'Hızlı Başlatma' (Fast Startup) devrededir ve kartı derin uykuya almıştır.",
+        "cozum": "Denetim Masası Güç Seçenekleri'nden 'Hızlı Başlatmayı Aç' tikini kaldırın."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "wake-on-lan",
+      "wol",
+      "magic-packet",
+      "uzaktan-acma"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "twopc_exp_0",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "Windows 11 ile Windows 7 Arasında 'SMB1 Güvenlik Bloğu' Nedeniyle Dosya Paylaşamama",
+    "hizli_adimlar": [
+      "Windows 11'de PowerShell'i yönetici olarak açın.",
+      "Enable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol-Client -All çalıştırın.",
+      "Bilgisayarı yeniden başlatın.",
+      "Windows 7 tarafında 'sc.exe config lanmanworkstation depend= bowser/mrxsmb10/mrxsmb20/nsi' ile SMB2'yi açın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SMB1 İstemci Kurulumu",
+        "komut": "Enable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol-Client -All",
+        "aciklama": "Eski Windows cihazlarına erişim protokolünü kurar."
+      }
+    ],
+    "temel_anlatim": "Windows 11 bilgisayardan Windows 7 paylaşımlarına girmeye çalışırken 'Erişilemiyor' ve '0x80070035' hatası.",
+    "derin_teknik_analiz": "Windows 7'nin eski SMBv1 kullanması ve Windows 11'in SMBv1 istemcisini güvenlik gerekçesiyle kapatmış olması. Çözüm: Windows 11'de PowerShell ile SMB1Protocol-Client özelliğini açın veya Windows 7'ye KB2696547 güncellemesini kurup SMB2'yi aktifleştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Bağlantı kurulamadı",
+        "neden": "Ağ profili Ortak Ağ olarak kalmıştır.",
+        "cozum": "Set-NetConnectionProfile ile Özel Ağ yapın."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "windows-11",
+      "windows-7",
+      "smbv1",
+      "0x80070035"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "twopc_exp_1",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "İki Bilgisayar Arasında 2.5 Gbps USB-C Ethernet Adaptörü ile Yüksek Hızlı Dosya Aktarımı",
+    "hizli_adimlar": [
+      "2.5G adaptörleri iki bilgisayarın USB 3.2 Gen2 (10Gbps) Type-C portlarına takın.",
+      "Aygıt Yöneticisi -> Ağ Bağdaştırıcıları -> Realtek 2.5G Family Controller özelliklerine girin.",
+      "Gelişmiş sekmesinden 'Jumbo Frame' (Büyük Çerçeve) ayarını '9KB MTU' yapın.",
+      "Büyük boyutlu ISO aktarımında hızın 280 MB/s seviyesine ulaştığını gözlemleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Jumbo Frame MTU Ayarı",
+        "komut": "netsh interface ipv4 set subinterface \"Ethernet 2\" mtu=9000 store=persistent",
+        "aciklama": "Ağ kartının maksimum paket boyutunu 9000 byte yapar."
+      }
+    ],
+    "temel_anlatim": "İki laptop arasında standart gigabit (110 MB/s) sınırını aşıp 280 MB/s NVMe transfer hızına ulaşma.",
+    "derin_teknik_analiz": "Realtek RTL8156B yongalı 2.5G USB adaptörlerinin Jumbo Frame 9K desteği olmadan tam hıza çıkamaması. Çözüm: İki adaptörün Aygıt Yöneticisi gelişmiş ayarlarından 'Jumbo Frame' değerini 9KB (9014 Bytes) olarak sabitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Bağlantı kurulamadı",
+        "neden": "Ağ profili Ortak Ağ olarak kalmıştır.",
+        "cozum": "Set-NetConnectionProfile ile Özel Ağ yapın."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "2.5g",
+      "jumbo-frame",
+      "type-c",
+      "nvme-aktarim"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "twopc_exp_2",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "Thunderbolt 4 / USB4 Kablosu ile İki PC Arasında 20 Gbps Doğrudan Ağ Köprüsü",
+    "hizli_adimlar": [
+      "Thunderbolt 4 kablosunu iki bilgisayarın şimşek simgeli portlarına takın.",
+      "Ağ Bağlantıları penceresinde 'Thunderbolt(TM) Networking' adaptörünün belirdiğini teyit edin.",
+      "PC-1'e 10.10.10.1, PC-2'ye 10.10.10.2 IP adreslerini verin.",
+      "SSD'ler arası kopyalama hızının 1.5 GB/s (1500 MB/s) seviyesine çıktığını doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Thunderbolt Ağ Durumu",
+        "komut": "Get-NetAdapter | Where-Object {$_.InterfaceDescription -like '*Thunderbolt*'}",
+        "aciklama": "Thunderbolt ağ adaptörünün bağlantı hızını gösterir."
+      }
+    ],
+    "temel_anlatim": "İki modern laptopu tek bir pasif Thunderbolt 4 kablosuyla bağlayıp 20 Gbps yerel ağ kurma.",
+    "derin_teknik_analiz": "Windows'un Thunderbolt Networking sanal ağ sürücüsünü otomatik başlatmaması. Çözüm: Thunderbolt Kontrol Merkezi üzerinden eşler arası ağı (P2P Networking) etkinleştirin ve statik IP atayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Bağlantı kurulamadı",
+        "neden": "Ağ profili Ortak Ağ olarak kalmıştır.",
+        "cozum": "Set-NetConnectionProfile ile Özel Ağ yapın."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "thunderbolt",
+      "usb4",
+      "20gbps",
+      "p2p-networking"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "twopc_exp_3",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "Windows ile Ubuntu Linux Arasında Samba (SMB) Paylaşımı Yetkilendirme Sorunu",
+    "hizli_adimlar": [
+      "Ubuntu terminalinde 'sudo smbpasswd -a $USER' komutunu çalıştırın.",
+      "Samba için kullanmak istediğiniz parolayı belirleyin.",
+      "'sudo systemctl restart smbd nmbd' ile servisleri tazeleyin.",
+      "Windows Çalıştır penceresine \\\\Ubuntu_IP yazıp belirlenen kullanıcı adı ve Samba şifresiyle giriş yapın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Samba Şifresi Ekleme",
+        "komut": "sudo smbpasswd -a $USER && sudo systemctl restart smbd",
+        "aciklama": "Linux kullanıcısını Samba paylaşım yetkilendirmesine tanımlar."
+      }
+    ],
+    "temel_anlatim": "Windows PC'den Ubuntu yüklü ikinci PC'nin paylaşılan klasörüne girerken 'Parola Yanlış' hatası.",
+    "derin_teknik_analiz": "Linux sistem kullanıcısının Samba veritabanına (smbpasswd) eklenmemiş olması. Çözüm: Ubuntu terminalinde 'sudo smbpasswd -a [kullanici]' komutuyla Samba için özel şifre belirleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Bağlantı kurulamadı",
+        "neden": "Ağ profili Ortak Ağ olarak kalmıştır.",
+        "cozum": "Set-NetConnectionProfile ile Özel Ağ yapın."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "ubuntu",
+      "linux",
+      "samba",
+      "smbpasswd",
+      "dosya-paylasimi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "twopc_exp_4",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "Mac (macOS) ile Windows PC Arasında SMB Dosya Paylaşımı ve Ağda Görünürlük",
+    "hizli_adimlar": [
+      "Windows PC'de klasörü paylaşıma açıp yerel IP'sini (ipconfig) öğrenin.",
+      "MacBook'ta Finder açıkken Command + K tuşlarına basın.",
+      "Sunucu Adresi kutusuna 'smb://192.168.1.100' yazıp Bağlan deyin.",
+      "Windows kullanıcı adı ve şifresini yazıp paylaşılacak birimi seçin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Mac SMB Bağlantı Komutu",
+        "komut": "mount_smbfs //kullanici:sifre@192.168.1.100/Paylasim /Volumes/WindowsPaylasim",
+        "aciklama": "macOS terminalinden doğrudan Windows paylaşımını bağlar."
+      }
+    ],
+    "temel_anlatim": "MacBook ile Windows masaüstü bilgisayarı aynı yerel ağda birbirine bağlayıp dosya aktarma.",
+    "derin_teknik_analiz": "macOS Finder'ın Windows NetBIOS adlarını ararken gecikmesi ve SMB imzalama protokol uyuşmazlığı. Çözüm: Mac Finder'da 'Sunucuya Bağlan' (Cmd + K) açıp 'smb://Windows_IP' protokolüyle doğrudan bağlanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Bağlantı kurulamadı",
+        "neden": "Ağ profili Ortak Ağ olarak kalmıştır.",
+        "cozum": "Set-NetConnectionProfile ile Özel Ağ yapın."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "macos",
+      "macbook",
+      "windows",
+      "smb",
+      "finder"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "twopc_exp_5",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "İki Bilgisayar Arasında Çapraz (Crossover) Kablo ile 100 Mbps Eski Kart Bağlantısı",
+    "hizli_adimlar": [
+      "Kablo pensesi ile CAT5e kablonun bir ucunu T-568A sırasına göre (Yeşil-Beyaz, Yeşil, Turuncu-Beyaz, Mavi, Mavi-Beyaz, Turuncu, Kahve-Beyaz, Kahve) çakın.",
+      "Diğer ucunu T-568B sırasına göre (Turuncu-Beyaz, Turuncu, Yeşil-Beyaz, Mavi, Mavi-Beyaz, Yeşil, Kahve-Beyaz, Kahve) çakın.",
+      "Kabloyu iki eski PC arasına takarak yeşil LINK LED'inin yandığını doğrulayın.",
+      "İki bilgisayara aynı bloktan statik IP verin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Crossover Standartları",
+        "komut": "Uç 1: T568A | Uç 2: T568B (TX/RX Çaprazlama)",
+        "aciklama": "Eski donanımlarda doğrudan PC-PC bağlantı kablo şemasıdır."
+      }
+    ],
+    "temel_anlatim": "Auto-MDIX desteği olmayan eski bilgisayarların düz ethernet kablosu takıldığında link ışığı yakmaması.",
+    "derin_teknik_analiz": "Eski ağ kartlarında TX (gönderme) ve RX (alma) pinlerinin düz kabloda birbiriyle çakışması. Çözüm: Bir ucu T568A, diğer ucu T568B standardında çakılmış çapraz (crossover) ethernet kablosu kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Bağlantı kurulamadı",
+        "neden": "Ağ profili Ortak Ağ olarak kalmıştır.",
+        "cozum": "Set-NetConnectionProfile ile Özel Ağ yapın."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "crossover",
+      "capraz-kablo",
+      "t568a",
+      "t568b",
+      "auto-mdix"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "twopc_exp_6",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "Windows Mobil Etkin Nokta (Mobile Hotspot) ile Kablosuz İki PC Arasında Ağ Kurma",
+    "hizli_adimlar": [
+      "Birinci bilgisayarda Ayarlar -> Ağ ve İnternet -> Mobil Etkin Nokta menüsüne gidin.",
+      "'İnternet bağlantımı diğer cihazlarla paylaş' seçeneğini Açık yapın.",
+      "Ağ adı ve şifresini belirleyin.",
+      "İkinci bilgisayardan Wi-Fi listesinde bu ağı bulup bağlanın.",
+      "Birinci bilgisayarın yerel IP'sine (genellikle 192.168.137.1) dosya paylaşımı üzerinden erişin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Mobil Hotspot Başlat (CMD)",
+        "komut": "netsh wlan set hostednetwork mode=allow ssid=OzelAg key=Sifre123456\nnetsh wlan start hostednetwork",
+        "aciklama": "Komut satırından sanal Wi-Fi erişim noktası oluşturur."
+      }
+    ],
+    "temel_anlatim": "Ortamda hiçbir modem veya kablo yokken ana laptopun Wi-Fi kartını router gibi kullanarak ağ oluşturma.",
+    "derin_teknik_analiz": "Windows Mobil Etkin Nokta özelliğinin sanal Wi-Fi Direct adaptörü üzerinde DHCP ve NAT çalıştırması. Çözüm: Ayarlar -> Ağ ve İnternet -> Mobil Etkin Nokta'yı açın, ikinci PC'yi bu kablosuz ağa bağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Bağlantı kurulamadı",
+        "neden": "Ağ profili Ortak Ağ olarak kalmıştır.",
+        "cozum": "Set-NetConnectionProfile ile Özel Ağ yapın."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "mobile-hotspot",
+      "kablosuz-ag",
+      "wifi",
+      "virtual-router"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "twopc_exp_7",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "İki Bilgisayar Arasında FTP Sunucusu Kurarak Dev Arşiv Aktarımı",
+    "hizli_adimlar": [
+      "Ana PC'ye açık kaynaklı FileZilla Server kurun.",
+      "Kullanıcı oluşturup paylaşılacak klasöre Okuma/Yazma yetkisi verin.",
+      "Windows Güvenlik Duvarı'nda TCP 21 ve pasif port aralığına izin verin.",
+      "İkinci PC'de FileZilla Client açıp Ana_PC_IP, Port 21 yazarak hızlı bağlanın ve dosyaları sıraya koyun."
+    ],
+    "komutlar": [
+      {
+        "etiket": "FTP Güvenlik Duvarı Kuralı",
+        "komut": "netsh advfirewall firewall add rule name=\"FTP Port 21\" dir=in action=allow protocol=TCP localport=21",
+        "aciklama": "FTP sunucusu bağlantı portunu açar."
+      }
+    ],
+    "temel_anlatim": "SMB dosya paylaşımının binlerce küçük dosyada kilitlenmesi veya bağlantı kopmasında sıfırdan başlaması.",
+    "derin_teknik_analiz": "FTP protokolünün transferi duraklatma, devam ettirme (Resume) ve çoklu dosya kuyruğu desteği sunması. Çözüm: Ana PC'de FileZilla Server veya IIS FTP kurup port 21 üzerinden ikinci PC'deki FileZilla Client ile bağlanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Bağlantı kurulamadı",
+        "neden": "Ağ profili Ortak Ağ olarak kalmıştır.",
+        "cozum": "Set-NetConnectionProfile ile Özel Ağ yapın."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "ftp",
+      "filezilla",
+      "kesintisiz-aktarim",
+      "arsiv-kopyalama"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "disc_10",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "Windows 10 ve 11 Arasında Gizli Yönetici Paylaşımlarına (C$) Bağlanma",
+    "hizli_adimlar": [
+      "Mevcut çalışma ortamında teşhis adımlarını yürütün.",
+      "Kök neden analizini uygulayın: UAC Uzaktan Kısıtlamaları (LocalAccountTokenFilterPolicy) nedeniyle yönetici yetkisinin düşürülmesi.",
+      "Saha servis prosedürünü yerine getirin: Kayıt Defteri'nde LocalAccountTokenFilterPolicy DWORD değerini 1 yapın.",
+      "Doğrulama testini çalıştırarak sistemin kararlı çalıştığını teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis Komutu",
+        "komut": "net use Z: \\\\Hedef_PC\\C$ /user:Administrator",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "İkinci bilgisayarın C$ sürücüsüne bağlanırken 'Erişim Engellendi' hatası.",
+    "derin_teknik_analiz": "UAC Uzaktan Kısıtlamaları (LocalAccountTokenFilterPolicy) nedeniyle yönetici yetkisinin düşürülmesi. Çözüm: Kayıt Defteri'nde LocalAccountTokenFilterPolicy DWORD değerini 1 yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Fiziksel donanım veya hat arızası vardır.",
+        "cozum": "Fiziksel hattı ve parçayı yenileyin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "i̇ki pc bağlama & paylaşım",
+      "muhendislik-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "disc_11",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "İki Bilgisayar Arasında Çevrimdışı Dosyalar (Offline Files) Senkronizasyon Kilitlenmesi",
+    "hizli_adimlar": [
+      "Mevcut çalışma ortamında teşhis adımlarını yürütün.",
+      "Kök neden analizini uygulayın: Windows Eşitleme Merkezi önbellek veritabanının (CSC Cache) bozulması.",
+      "Saha servis prosedürünü yerine getirin: FormatDatabase DWORD değerini 1 yaparak CSC önbelleğini sıfırlayın.",
+      "Doğrulama testini çalıştırarak sistemin kararlı çalıştığını teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis Komutu",
+        "komut": "net stop csc service",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kullanıcının paylaşılan klasörde yaptığı değişikliklerin diğer PC'ye yansımamaması.",
+    "derin_teknik_analiz": "Windows Eşitleme Merkezi önbellek veritabanının (CSC Cache) bozulması. Çözüm: FormatDatabase DWORD değerini 1 yaparak CSC önbelleğini sıfırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Fiziksel donanım veya hat arızası vardır.",
+        "cozum": "Fiziksel hattı ve parçayı yenileyin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "i̇ki pc bağlama & paylaşım",
+      "muhendislik-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "disc_12",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "İki PC Arasında Windows Uzak Masaüstü (RDP) NLA Kimlik Doğrulama Hatası",
+    "hizli_adimlar": [
+      "Mevcut çalışma ortamında teşhis adımlarını yürütün.",
+      "Kök neden analizini uygulayın: Hedef bilgisayar ile istemcinin CredSSP şifreleme güncelleme seviyelerinin uyuşmaması.",
+      "Saha servis prosedürünü yerine getirin: Kayıt defterinden AllowEncryptionOracle değerini geçici olarak 2 (Vulnerable) yapın.",
+      "Doğrulama testini çalıştırarak sistemin kararlı çalıştığını teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis Komutu",
+        "komut": "mstsc /v:192.168.100.2",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "RDP bağlantısı başlatıldığında 'Ağ Düzeyinde Kimlik Doğrulama' uyarısıyla oturumun açılmaması.",
+    "derin_teknik_analiz": "Hedef bilgisayar ile istemcinin CredSSP şifreleme güncelleme seviyelerinin uyuşmaması. Çözüm: Kayıt defterinden AllowEncryptionOracle değerini geçici olarak 2 (Vulnerable) yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Fiziksel donanım veya hat arızası vardır.",
+        "cozum": "Fiziksel hattı ve parçayı yenileyin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "i̇ki pc bağlama & paylaşım",
+      "muhendislik-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "disc_13",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "İki Bilgisayar Arasında NetBIOS İsim Çözümleme Eksikliği",
+    "hizli_adimlar": [
+      "Mevcut çalışma ortamında teşhis adımlarını yürütün.",
+      "Kök neden analizini uygulayın: WINS sunucusu veya LLMNR/NetBIOS broadcast paketlerinin güvenlik duvarında kapalı olması.",
+      "Saha servis prosedürünü yerine getirin: lmhosts dosyasına IP ve bilgisayar adını ekleyin veya hosts dosyasına yazın.",
+      "Doğrulama testini çalıştırarak sistemin kararlı çalıştığını teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis Komutu",
+        "komut": "nbtstat -A 192.168.100.2",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "İkinci PC'ye IP ile erişilebilmesi ancak bilgisayar adıyla (\\\\MUHASEBE-PC) erişilememesi.",
+    "derin_teknik_analiz": "WINS sunucusu veya LLMNR/NetBIOS broadcast paketlerinin güvenlik duvarında kapalı olması. Çözüm: lmhosts dosyasına IP ve bilgisayar adını ekleyin veya hosts dosyasına yazın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Fiziksel donanım veya hat arızası vardır.",
+        "cozum": "Fiziksel hattı ve parçayı yenileyin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "i̇ki pc bağlama & paylaşım",
+      "muhendislik-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "disc_14",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "İki Bilgisayar Arasında Güvenlik Duvarı ICMP Yankı İsteği (Echo Request) Engeli",
+    "hizli_adimlar": [
+      "Mevcut çalışma ortamında teşhis adımlarını yürütün.",
+      "Kök neden analizini uygulayın: Windows Güvenlik Duvarı'nın varsayılan olarak gelen ping paketlerini engellemesi.",
+      "Saha servis prosedürünü yerine getirin: PowerShell ile 'Dosya ve Yazıcı Paylaşımı (Yankı İsteği - ICMPv4-In)' kuralını etkinleştirin.",
+      "Doğrulama testini çalıştırarak sistemin kararlı çalıştığını teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis Komutu",
+        "komut": "netsh advfirewall firewall set rule name=\"Dosya ve Yazıcı Paylaşımı (Yankı İsteği - ICMPv4-In)\" new enable=yes",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kablo sağlam ve IP'ler doğru olmasına rağmen 'İstek zaman aşımına uğradı' demesi.",
+    "derin_teknik_analiz": "Windows Güvenlik Duvarı'nın varsayılan olarak gelen ping paketlerini engellemesi. Çözüm: PowerShell ile 'Dosya ve Yazıcı Paylaşımı (Yankı İsteği - ICMPv4-In)' kuralını etkinleştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Fiziksel donanım veya hat arızası vardır.",
+        "cozum": "Fiziksel hattı ve parçayı yenileyin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "i̇ki pc bağlama & paylaşım",
+      "muhendislik-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "disc_15",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "İki Bilgisayar Arasında Hyper-V Sanal Ağ Anahtarı (vSwitch) ile İletişim",
+    "hizli_adimlar": [
+      "Mevcut çalışma ortamında teşhis adımlarını yürütün.",
+      "Kök neden analizini uygulayın: Hyper-V Sanal Anahtarının 'Özel' modda kalması sonucu dış fiziksel adaptöre bağlanamaması.",
+      "Saha servis prosedürünü yerine getirin: Sanal Anahtar Yöneticisi'nden türü 'Dış' (External) olarak değiştirip fiziksel etherneti bağlayın.",
+      "Doğrulama testini çalıştırarak sistemin kararlı çalıştığını teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis Komutu",
+        "komut": "Get-VMSwitch",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ana makine ile üzerindeki sanal makine veya ikinci PC arasında dosya paylaşımı kurma.",
+    "derin_teknik_analiz": "Hyper-V Sanal Anahtarının 'Özel' modda kalması sonucu dış fiziksel adaptöre bağlanamaması. Çözüm: Sanal Anahtar Yöneticisi'nden türü 'Dış' (External) olarak değiştirip fiziksel etherneti bağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Fiziksel donanım veya hat arızası vardır.",
+        "cozum": "Fiziksel hattı ve parçayı yenileyin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "i̇ki pc bağlama & paylaşım",
+      "muhendislik-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "disc_16",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "İki Bilgisayar Arasında Güvenlik İlkesi: Boş Parola Kısıtlaması (Blank Password)",
+    "hizli_adimlar": [
+      "Mevcut çalışma ortamında teşhis adımlarını yürütün.",
+      "Kök neden analizini uygulayın: Windows yerel güvenlik ilkesinin konsol harici boş parolayla ağ oturumu açmayı yasaklaması.",
+      "Saha servis prosedürünü yerine getirin: secpol.msc -> Güvenlik Seçenekleri -> 'Yalnızca konsol oturumu için boş parolalara izin ver' kuralını kapatın.",
+      "Doğrulama testini çalıştırarak sistemin kararlı çalıştığını teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis Komutu",
+        "komut": "secpol.msc",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Şifresiz bir kullanıcı hesabıyla paylaşılan klasöre bağlanırken erişim engellenmesi.",
+    "derin_teknik_analiz": "Windows yerel güvenlik ilkesinin konsol harici boş parolayla ağ oturumu açmayı yasaklaması. Çözüm: secpol.msc -> Güvenlik Seçenekleri -> 'Yalnızca konsol oturumu için boş parolalara izin ver' kuralını kapatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Fiziksel donanım veya hat arızası vardır.",
+        "cozum": "Fiziksel hattı ve parçayı yenileyin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "i̇ki pc bağlama & paylaşım",
+      "muhendislik-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "disc_17",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "İki Bilgisayar Arasında MTU Uyuşmazlığı Nedeniyle Dosya Transferinde Donma",
+    "hizli_adimlar": [
+      "Mevcut çalışma ortamında teşhis adımlarını yürütün.",
+      "Kök neden analizini uygulayın: Bir ağ kartının MTU 9000 Jumbo, diğerinin MTU 1500 standart modda çalışması.",
+      "Saha servis prosedürünü yerine getirin: Her iki ağ adaptörünün MTU boyutunu netsh komutuyla 1500 olarak eşitleyin.",
+      "Doğrulama testini çalıştırarak sistemin kararlı çalıştığını teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis Komutu",
+        "komut": "ping 192.168.100.2 -f -l 1472",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Küçük metin dosyalarının aktarılması ancak büyük video dosyalarında kopyalamanın durması.",
+    "derin_teknik_analiz": "Bir ağ kartının MTU 9000 Jumbo, diğerinin MTU 1500 standart modda çalışması. Çözüm: Her iki ağ adaptörünün MTU boyutunu netsh komutuyla 1500 olarak eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Fiziksel donanım veya hat arızası vardır.",
+        "cozum": "Fiziksel hattı ve parçayı yenileyin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "i̇ki pc bağlama & paylaşım",
+      "muhendislik-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "disc_18",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "İki Bilgisayar Arasında KVM Switch Kullanırken USB Klavye ve Fare Gecikmesi",
+    "hizli_adimlar": [
+      "Mevcut çalışma ortamında teşhis adımlarını yürütün.",
+      "Kök neden analizini uygulayın: KVM cihazının USB emülasyonu yapmaması ve her geçişte Windows'un cihazı yeniden yüklemesi.",
+      "Saha servis prosedürünü yerine getirin: True DDM (Dynamic Device Mapping) destekli donanımsal KVM switch kullanın.",
+      "Doğrulama testini çalıştırarak sistemin kararlı çalıştığını teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis Komutu",
+        "komut": "devmgmt.msc",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Donanımsal KVM anahtarı üzerinden PC değiştirirken klavyenin 5 saniye sonra algılanması.",
+    "derin_teknik_analiz": "KVM cihazının USB emülasyonu yapmaması ve her geçişte Windows'un cihazı yeniden yüklemesi. Çözüm: True DDM (Dynamic Device Mapping) destekli donanımsal KVM switch kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Fiziksel donanım veya hat arızası vardır.",
+        "cozum": "Fiziksel hattı ve parçayı yenileyin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "i̇ki pc bağlama & paylaşım",
+      "muhendislik-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "disc_19",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "İki Bilgisayar Arasında Windows Sandbox ile İzolasyonlu Dosya Test Paylaşımı",
+    "hizli_adimlar": [
+      "Mevcut çalışma ortamında teşhis adımlarını yürütün.",
+      "Kök neden analizini uygulayın: Windows Sandbox sanal makinesinin yerel klasör paylaşım yapılandırması.",
+      "Saha servis prosedürünü yerine getirin: Özel .wsb konfigürasyon XML dosyası oluşturup ReadOnly klasör eşlemesi tanımlayın.",
+      "Doğrulama testini çalıştırarak sistemin kararlı çalıştığını teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis Komutu",
+        "komut": "WindowsSandbox.exe config.wsb",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Şüpheli bir dosyayı ikinci bilgisayardan alıp ana sisteme bulaşmadan izole ortamda açma.",
+    "derin_teknik_analiz": "Windows Sandbox sanal makinesinin yerel klasör paylaşım yapılandırması. Çözüm: Özel .wsb konfigürasyon XML dosyası oluşturup ReadOnly klasör eşlemesi tanımlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun çözülmedi",
+        "neden": "Fiziksel donanım veya hat arızası vardır.",
+        "cozum": "Fiziksel hattı ve parçayı yenileyin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "i̇ki pc bağlama & paylaşım",
+      "muhendislik-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "fin_twopc_0",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "İki Bilgisayar Arasında 10G SFP+ DAC Kablosu ile Doğrudan SAN Hızında Bağlantı",
+    "hizli_adimlar": [
+      "İki bilgisayar arasındaki kablo ve donanım bağlantısını doğrulayın.",
+      "Kök neden analizini uygulayın: SFP+ ağ kartlarında Auto-Negotiation açıkken iki ucun hızda (10G vs 1G) el sıkışamaması.",
+      "Saha servis prosedürünü yerine getirin: Her iki ağ kartının gelişmiş ayarlarından hızı sabit '10 Gbps Full Duplex' olarak kilitleyin ve MTU 9000 yapın.",
+      "Ping ve dosya erişim testi yaparak bağlantıyı onaylayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "netsh interface ipv4 set subinterface \"10G-NIC\" mtu=9000 store=persistent",
+        "aciklama": "Doğrudan bağlantı yapılandırma komutu."
+      }
+    ],
+    "temel_anlatim": "İki sunucu veya iş istasyonu arasına switch olmadan doğrudan 10G SFP+ pasif DAC bakır kablo takıldığında linkin düşmesi.",
+    "derin_teknik_analiz": "SFP+ ağ kartlarında Auto-Negotiation açıkken iki ucun hızda (10G vs 1G) el sıkışamaması. Çözüm: Her iki ağ kartının gelişmiş ayarlarından hızı sabit '10 Gbps Full Duplex' olarak kilitleyin ve MTU 9000 yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Erişim sağlanamıyor",
+        "neden": "Ağ profili Ortak Ağ olarak kalmıştır.",
+        "cozum": "Set-NetConnectionProfile ile Özel Ağ yapın."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "dogrudan-baglanti",
+      "ag-paylasimi",
+      "muhendislik"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "fin_twopc_1",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "İki Bilgisayar Arasında USB 3.0 Host-to-Host Veri Aktarım Kablosu Sürücü Hatası",
+    "hizli_adimlar": [
+      "İki bilgisayar arasındaki kablo ve donanım bağlantısını doğrulayın.",
+      "Kök neden analizini uygulayın: Prolific PL25A1 veya OTi yongalı köprü kablosunun Windows 11 Çekirdek İzolasyon (HVCI) korumasına takılması.",
+      "Saha servis prosedürünü yerine getirin: Üreticinin WHQL imzalı en güncel köprü sürücüsünü kurun veya sanal ağ emülasyonunu etkinleştirin.",
+      "Ping ve dosya erişim testi yaparak bağlantıyı onaylayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "devmgmt.msc",
+        "aciklama": "Doğrudan bağlantı yapılandırma komutu."
+      }
+    ],
+    "temel_anlatim": "Smart KM veya veri transfer kablosu takıldığında bilgisayarın aygıtı tanımaması.",
+    "derin_teknik_analiz": "Prolific PL25A1 veya OTi yongalı köprü kablosunun Windows 11 Çekirdek İzolasyon (HVCI) korumasına takılması. Çözüm: Üreticinin WHQL imzalı en güncel köprü sürücüsünü kurun veya sanal ağ emülasyonunu etkinleştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Erişim sağlanamıyor",
+        "neden": "Ağ profili Ortak Ağ olarak kalmıştır.",
+        "cozum": "Set-NetConnectionProfile ile Özel Ağ yapın."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "dogrudan-baglanti",
+      "ag-paylasimi",
+      "muhendislik"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "fin_twopc_2",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "İki PC Arasında Windows Paylaşımında 'Konuk Hesabı ile Oturum Açılamıyor' Engeli",
+    "hizli_adimlar": [
+      "İki bilgisayar arasındaki kablo ve donanım bağlantısını doğrulayın.",
+      "Kök neden analizini uygulayın: Windows 10/11'de LanmanWorkstation altında EnableInsecureGuestAuth kuralının kapalı olması.",
+      "Saha servis prosedürünü yerine getirin: PowerShell veya regedit ile EnableInsecureGuestAuth DWORD değerini 1 yapın.",
+      "Ping ve dosya erişim testi yaparak bağlantıyı onaylayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "reg add \"HKLM\\SYSTEM\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\" /v EnableInsecureGuestAuth /t REG_DWORD /d 1 /f",
+        "aciklama": "Doğrudan bağlantı yapılandırma komutu."
+      }
+    ],
+    "temel_anlatim": "Parolasız klasöre bağlanırken 'Güvenlik ilkeleriniz kimliği doğrulanmamış konuk erişimini engelliyor' hatası.",
+    "derin_teknik_analiz": "Windows 10/11'de LanmanWorkstation altında EnableInsecureGuestAuth kuralının kapalı olması. Çözüm: PowerShell veya regedit ile EnableInsecureGuestAuth DWORD değerini 1 yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Erişim sağlanamıyor",
+        "neden": "Ağ profili Ortak Ağ olarak kalmıştır.",
+        "cozum": "Set-NetConnectionProfile ile Özel Ağ yapın."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "dogrudan-baglanti",
+      "ag-paylasimi",
+      "muhendislik"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "fin_twopc_3",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "İki Bilgisayar Arasında IPv6 Link-Local (fe80::) ile Sıfır Ayar İletişim",
+    "hizli_adimlar": [
+      "İki bilgisayar arasındaki kablo ve donanım bağlantısını doğrulayın.",
+      "Kök neden analizini uygulayın: IPv6 Link-Local adreslerinde hedef belirtirken Scope ID (%arayüz numarası) belirtilmemesi.",
+      "Saha servis prosedürünü yerine getirin: ipconfig ile ethernet kartının Scope ID numarasını (Örn: %12) öğrenip ping fe80::X:X:X:X%12 şeklinde bağlanın.",
+      "Ping ve dosya erişim testi yaparak bağlantıyı onaylayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "ping fe80::1%12",
+        "aciklama": "Doğrudan bağlantı yapılandırma komutu."
+      }
+    ],
+    "temel_anlatim": "IPv4 kapalı veya statik IP verilmeden iki bilgisayarın IPv6 adresleri üzerinden konuşturulması.",
+    "derin_teknik_analiz": "IPv6 Link-Local adreslerinde hedef belirtirken Scope ID (%arayüz numarası) belirtilmemesi. Çözüm: ipconfig ile ethernet kartının Scope ID numarasını (Örn: %12) öğrenip ping fe80::X:X:X:X%12 şeklinde bağlanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Erişim sağlanamıyor",
+        "neden": "Ağ profili Ortak Ağ olarak kalmıştır.",
+        "cozum": "Set-NetConnectionProfile ile Özel Ağ yapın."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "dogrudan-baglanti",
+      "ag-paylasimi",
+      "muhendislik"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "fin_twopc_4",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "İki PC Bağlama & Paylaşım",
+    "baslik": "İki Bilgisayar Arasında SSHFS (SSH File System) ile Uzak Klasörü Sürücü Harfi (Z:) Yapma",
+    "hizli_adimlar": [
+      "İki bilgisayar arasındaki kablo ve donanım bağlantısını doğrulayın.",
+      "Kök neden analizini uygulayın: Windows üzerinde WinFsp ve SSHFS-Win bileşenlerinin eksik olması.",
+      "Saha servis prosedürünü yerine getirin: WinFsp ve SSHFS-Win araçlarını kurup Çalıştır'a \\\\sshfs\\kullanici@192.168.100.2 yazarak sürücü bağlayın.",
+      "Ping ve dosya erişim testi yaparak bağlantıyı onaylayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "net use Z: \\\\sshfs\\root@192.168.100.2",
+        "aciklama": "Doğrudan bağlantı yapılandırma komutu."
+      }
+    ],
+    "temel_anlatim": "Linux veya ikinci Windows PC üzerindeki klasörü yerel bir sabit disk gibi harici harfe bağlama.",
+    "derin_teknik_analiz": "Windows üzerinde WinFsp ve SSHFS-Win bileşenlerinin eksik olması. Çözüm: WinFsp ve SSHFS-Win araçlarını kurup Çalıştır'a \\\\sshfs\\kullanici@192.168.100.2 yazarak sürücü bağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Erişim sağlanamıyor",
+        "neden": "Ağ profili Ortak Ağ olarak kalmıştır.",
+        "cozum": "Set-NetConnectionProfile ile Özel Ağ yapın."
+      }
+    ],
+    "etiketler": [
+      "iki-pc",
+      "dogrudan-baglanti",
+      "ag-paylasimi",
+      "muhendislik"
+    ],
+    "oncelik": 1
+  }
+]

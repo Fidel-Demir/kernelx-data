@@ -1,120 +1,1982 @@
-{
-  "versiyon": "2.5.0",
-  "toplam": 3,
-  "modul": "feed_yazici_canon.json",
-  "kayitlar": [
-    {
-      "id": "prn_canon_e000_fuser_reset",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Canon imageRUNNER",
-      "baslik": "Canon imageRUNNER E000 / E002 Fuser Hatası ve Servis Modundan Sıfırlama",
-      "hizli_adimlar": [
-        "Panelden [*] tuşuna basın, ardından [2] ve [8] tuşlarına birlikte basın, tekrar [*] tuşuna basın.",
-        "Ekranda 'SERVICE MODE' belirdiğinde COPIER seçeneğine dokunun.",
-        "FUNCTION -> CLEAR menüsüne girin.",
-        "ERR seçeneğini seçip 'OK' butonuna basın.",
-        "Ana güç anahtarını kapatıp 10 saniye sonra açın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Servis Modu Giriş",
-          "komut": "[*] -> [2]+[8] -> [*] -> COPIER > FUNCTION > CLEAR > ERR -> OK",
-          "aciklama": "imageRUNNER serisi hata bayrağı temizleme."
-        }
-      ],
-      "temel_anlatim": "Fotokopi makinesi açıldığında E000 veya E002 hata kodunda kalması; açıp kapatmaya rağmen hatanın gitmemesi.",
-      "derin_teknik_analiz": "Canon kurumsal serisinde Fuser aşırı ısınma veya ısınamama durumlarında yangın güvenliği amacıyla makineyi kalıcı kilitler. Bu kilit servis modundan 'Error Clear' yapılmadan asla açılmaz.",
-      "kenar_durumlar": [
-        {
-          "durum": "Sıfırlamadan hemen sonra E000 tekrar çıkıyor",
-          "neden": "Fırın içindeki termik sigorta atmıştır.",
-          "cozum": "Fuser ünitesini söküp termik sigortanın sürekliliğini ölçün."
-        }
-      ],
-      "etiketler": [
-        "yazici",
-        "canon",
-        "imagerunner",
-        "e000",
-        "e002",
-        "servis-modu"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "prn_canon_waste_ink_5b00",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Canon MegaTank & PIXMA",
-      "baslik": "Canon G Serisi (G2411 / G3411) 5B00 / 1700 Atık Mürekkep Pedi Dolu Hatası",
-      "hizli_adimlar": [
-        "Yazıcı kapalıyken Power'a basılı tutun, Stop'a 5 kez basın, Power'ı bırakın (Servis Modu).",
-        "Canon Service Tool v3400/v4905 aracını PC'de açın.",
-        "'Ink Absorber Counter' altındaki 'Main' seçeneğini seçip 'Set' butonuna basın.",
-        "Yazıcıyı kapatıp açın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Servis Modu Kombinasyonu",
-          "komut": "Power Basılı -> Stop'a 5 Kez Bas -> Power Bırak -> Service Tool 'Ink Absorber Counter Set'",
-          "aciklama": "Atık mürekkep sayacı sıfırlama."
-        }
-      ],
-      "temel_anlatim": "Yazıcının alarm ve güç ışığının sırayla 7-8 kez yanıp sönmesi, bilgisayarda 'Destek Kodu 5B00' çıkıp yazdırmanın durması.",
-      "derin_teknik_analiz": "EEPROM'daki atık mürekkep sayacı maksimum limite ulaştığında taşma riskini önlemek için anakart kilitlenir. Canon Service Tool ile sıfırlanmalıdır.",
-      "kenar_durumlar": [
-        {
-          "durum": "Servis Moduna girmiyor, turuncu ışık sabit kalıyor",
-          "neden": "Anakart EEPROM kilitlenmiştir.",
-          "cozum": "EEPROM çipinin harici programlayıcı ile flaşlanması gerekir."
-        }
-      ],
-      "etiketler": [
-        "yazici",
-        "canon",
-        "5b00",
-        "megatank",
-        "g2411",
-        "atik-murekkep"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "prn_canon_b200_head_voltage",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Canon PIXMA & MegaTank",
-      "baslik": "Canon B200 Hata Kodu (Baskı Kafası Voltaj ve Termal Aşırı Isınma Arızası)",
-      "hizli_adimlar": [
-        "Yazıcının kapağını açın; taşıyıcı ortaya geldiğinde elektrik fişini çekin.",
-        "Baskı kafası mandalını kaldırıp kafayı ve kartuşları dışarı çıkarın.",
-        "Kafanın arkasındaki altın sarısı temas noktalarını saf alkolle temizleyin.",
-        "Kafa takılı değilken elektriği takıp açın; eğer 'Kafa Takılı Değil' diyorsa anakart sağlamdır ve kafa arızalıdır.",
-        "Yeni orijinal kafa takıp tank hortumlarını mürekkeple doldurun."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Kafa Kontak Temizliği",
-          "komut": "İzopropil Alkol (IPA %99) + Tüy Bırakmayan Mikrofiber Bez",
-          "aciklama": "Kafa soket pinlerindeki mürekkep kısa devrelerini temizler."
-        }
-      ],
-      "temel_anlatim": "Yazıcı açılırken yeşil ve turuncu ışıkların 10 kez art arda yanıp sönmesi ve ekranda 'B200 Servis Hatası' çıkması.",
-      "derin_teknik_analiz": "B200 hatası baskı kafasındaki termal püskürtme rezistanslarının kısa devre yapması sonucu anakarttan çekilen akımın güvenlik sınırını aşmasıdır. Mürekkepsiz yazdırma kafanın aşırı ısınmasına ve seramik tabanın çatlamasına yol açar.",
-      "kenar_durumlar": [
-        {
-          "durum": "Kafa takılı değilken bile B200 veriyor",
-          "neden": "Kısa devre anakart üzerindeki güç transistörlerini de yakmıştır.",
-          "cozum": "Anakartın da değiştirilmesi veya onarılması gerekir."
-        }
-      ],
-      "etiketler": [
-        "yazici",
-        "canon",
-        "b200",
-        "pixma",
-        "baski-kafasi",
-        "kisa-devre"
-      ],
-      "oncelik": 2
-    }
-  ]
-}
+[
+  {
+    "id": "prn_885",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı Hata Kodları",
+    "baslik": "Canon imageRUNNER E010 / E014 Ana Motor Dönüş Hatası",
+    "hizli_adimlar": [
+      "Ön kapağı açıp drum ve toner ünitelerini çıkarın; elinizle dişlileri çevirin.",
+      "Mekanik sıkışma yapan dişli grubunu temizleyin.",
+      "Motor soketini ve kablo demetini kontrol edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Modu Motor Testi",
+        "komut": "[* 2 8 *] -> COPIER -> FUNCTION -> PART-CHK -> MTR",
+        "aciklama": "Ana motoru servis modunda bağımsız döndürür."
+      }
+    ],
+    "temel_anlatim": "Fotokopi makinesinden motor sesi gelmeden anında E010-0000 vermesi.",
+    "derin_teknik_analiz": "Ana tahrik motorunun (Main Drive Motor) aşırı yüklenmesi veya tahrik dişlilerinin toner tozuyla sıkışması.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata temizlenmesine rağmen tekrar ediyor",
+        "neden": "Mekanik parçada aşınma vardır.",
+        "cozum": "İlgili sensör veya mekanik modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazici",
+      "canon",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_886",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı Hata Kodları",
+    "baslik": "Canon imageRUNNER E020 / E025 Toner Besleme Vidası Kırılması",
+    "hizli_adimlar": [
+      "Toner kartuşunu çıkarıp içerideki taşıyıcı plastik şaftın sağlamlığını kontrol edin.",
+      "Geliştirici (Developer) haznesini temizleyin.",
+      "Yoğunluk sensörünü kuru pamuklu çubukla silin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Toner Yoğunluk Sensörü Okuması",
+        "komut": "COPIER -> DISPLAY -> DENS -> D-LEVEL",
+        "aciklama": "Toner yoğunluk sinyal seviyesini döker."
+      }
+    ],
+    "temel_anlatim": "Ekranda E020-0000 çıkması ve tonerin drum ünitesine aktarılamaması.",
+    "derin_teknik_analiz": "Toner haznesindeki helezon vidasının (Auger) plastik tırnağının kırılması veya yoğunluk sensörünün körleşmesi.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata temizlenmesine rağmen tekrar ediyor",
+        "neden": "Mekanik parçada aşınma vardır.",
+        "cozum": "İlgili sensör veya mekanik modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazici",
+      "canon",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_887",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı Hata Kodları",
+    "baslik": "Canon imageRUNNER E202 / E225 Tarayıcı CIS Başlangıç Hatası",
+    "hizli_adimlar": [
+      "Tarama camının altındaki beyaz referans şeridini temizleyin.",
+      "Kafanın üzerinde kaydığı metal mili temizleyip 1 damla yağ damlatın.",
+      "CIS flex kablosunu kontrol edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Tarayıcı Lamba Kalibrasyonu",
+        "komut": "COPIER -> FUNCTION -> CCD -> WHITE-LVL",
+        "aciklama": "Beyaz referans plakasını yeniden kalibre eder."
+      }
+    ],
+    "temel_anlatim": "Fotokopi çekilirken tarayıcı lambasının sola çarpıp tıkırtı yapması ve E202 vermesi.",
+    "derin_teknik_analiz": "CIS okuma kafasının başlangıç sensörünü (Home Position Sensor) görememesi veya tarayıcı motor kayışının gevşemesi.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata temizlenmesine rağmen tekrar ediyor",
+        "neden": "Mekanik parçada aşınma vardır.",
+        "cozum": "İlgili sensör veya mekanik modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazici",
+      "canon",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_888",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı Hata Kodları",
+    "baslik": "Canon imageRUNNER E602 Sabit Disk (HDD) Boot Sektörü Bozulması",
+    "hizli_adimlar": [
+      "Açılışta 2 ve 8 tuşlarına basılı tutarak güvenli kurtarma moduna girin.",
+      "HDFormat menüsünden önbellek ve veri bölüntülerini formatlayın.",
+      "Düzelmezse diski sıfır bir 2.5 inç SSD ile değiştirip SST (Service Support Tool) ile firmware flaşlayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "HDD Sektör Kurtarma ve Format (Servis Modu)",
+        "komut": "Açılışta '2' ve '8' tuşlarına basılı tutun -> HDFormat -> ALL",
+        "aciklama": "Diski formatlayıp bozuk sektörleri izole eder."
+      }
+    ],
+    "temel_anlatim": "Fotokopi açılırken 'E602-0001' veya 'E602-0002' verip sistemin açılmaması.",
+    "derin_teknik_analiz": "Makinenin dahili 2.5 inç SATA sabit diskinin bad sector üretmesi veya ani elektrik kesintisiyle boot sektörünün hasar görmesi.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata temizlenmesine rağmen tekrar ediyor",
+        "neden": "Mekanik parçada aşınma vardır.",
+        "cozum": "İlgili sensör veya mekanik modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazici",
+      "canon",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_cn_16",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER 2206 / 2520: Drum Ünitesi Çizilmesi ve Çıktılarda Dikey Siyah Çizgiler",
+    "hizli_adimlar": [
+      "Ön kapağı açıp kilit mandalını çevirerek drum ünitesini dışarı çekin.",
+      "Tambur silindiri üzerindeki dikey çizikleri parlak ışık altında inceleyin.",
+      "OPC tambur ve wiper blade bıçağını söküp yerine yenilerini takın.",
+      "Tambur yüzeyine montaj pudrası (Katter pudrası) sürerek bıçağın tambura yapışmasını önleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Sayaç Sıfırlama",
+        "komut": "Servis Modu -> COPIER -> COUNTER -> DRBL-1 -> Drum sayacını sıfırla",
+        "aciklama": "Drum ömrünü sıfırlayarak baskı voltajını optimize eder."
+      }
+    ],
+    "temel_anlatim": "Sayfanın kenarı boyunca baştan aşağı düzenli siyah şerit veya dikey çizgi inmesi.",
+    "derin_teknik_analiz": "Kök Neden: OPC Drum tamburunu temizleyen Wiper Blade bıçağının sertleşip tambur kaplamasını çizmesi. Saha Prosedürü: C-EXV 33 / C-EXV 42 Drum silindiri ve temizleme bıçağını birlikte yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Yeni parça takıldıktan sonra sayfa gri basıyor",
+        "neden": "Şarj silindiri (PCR) kontak yayına iletken gres sürülmemiştir.",
+        "cozum": "PCR metal mil yataklarına az miktarda iletken karbon gres sürün."
+      }
+    ],
+    "etiketler": [
+      "canon",
+      "imagerunner",
+      "drum",
+      "cizgi-sorunu",
+      "wiper-blade"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_cn_17",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER ADVANCE C3520i / C3530i: Fuser Film Yırtılması ve Kağıdın Fırına Sarılması",
+    "hizli_adimlar": [
+      "Arka kapağı açıp iki adet mavi sabitleme vidasını sökerek fırın ünitesini çekip alın.",
+      "Fırın üst kapağını ve baskı yaylarını sökerek hasarlı teflon filmi çıkarın.",
+      "Seramik ısıtıcı üzerindeki yanmış eski yağ tabakasını alkolle temizleyin.",
+      "Orijinal Canon yüksek ısı fuser gresini homojen sürün ve yeni filmi takın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Hata Sıfırlama",
+        "komut": "Servis Modu (* 2 8 *) -> COPIER -> FUNCTION -> CLEAR -> ERR",
+        "aciklama": "Fırın termistör kilitlenmesini (E000 / E001) hafızadan siler."
+      }
+    ],
+    "temel_anlatim": "Arka kapaktan koku gelmesi, kağıdın fırın silindirine yapışarak akordeon şeklinde sıkışması.",
+    "derin_teknik_analiz": "Kök Neden: Teflon fuser sabitleme filminin kuruması veya kağıttaki zımba teli nedeniyle delinmesi. Saha Prosedürü: FM1-B266 Fuser Film ve termal seramik rezistans gresini yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "E000 hatası gitmiyor",
+        "neden": "Termal sigorta (Thermo-switch) aşırı ısıdan devreyi açmıştır.",
+        "cozum": "Termik sigortayı masaya hafifçe vurarak resetleyin veya yenileyin."
+      }
+    ],
+    "etiketler": [
+      "canon",
+      "imagerunner",
+      "c3520i",
+      "fuser-film",
+      "e000",
+      "firina-sarilma"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_cn_18",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon MegaTank G2420 / G3420: Bakım Kartuşu (MC-G02 Maintenance Cartridge) Doluluk Kilidi",
+    "hizli_adimlar": [
+      "Yazıcının arka altındaki tek tutucu vidayı düz tornavida ile sökün.",
+      "MC-G02 atık kutusunu rayından çekip dışarı alın.",
+      "Yeni MC-G02 kartuşunu yerine takıp vidasını sıkın.",
+      "Yazıcı otomatik olarak çipi tanıyıp kullanıma hazır hale gelecektir."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çip Durumu",
+        "komut": "Canon IJ Status Monitor -> Bakım Kutusu Doluluk Grafiği",
+        "aciklama": "Bakım kartuşunun kalan kapasitesini yüzde olarak gösterir."
+      }
+    ],
+    "temel_anlatim": "Yazıcı ekranında '1726 Bakım kartuşu dolu' uyarısı çıkıp yazdırmanın kilitlenmesi.",
+    "derin_teknik_analiz": "Kök Neden: Yeni nesil G serisinde emici keçe yerine harici mikroçipli MC-G02 atık kutusu kullanılması. Saha Prosedürü: MC-G02 bakım kartuşunu yenisiyle değiştirin veya çip resetleyici ile sayacı sıfırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Yeni kartuş takılmasına rağmen algılamıyor",
+        "neden": "Yazıcı içindeki yaylı temas tırnakları mürekkep buharıyla oksitlenmiştir.",
+        "cozum": "İç kısımdaki çip okuma pinlerini kuru pamuklu çubukla temizleyin."
+      }
+    ],
+    "etiketler": [
+      "canon",
+      "megatank",
+      "g2420",
+      "mc-g02",
+      "bakim-kartusu",
+      "atik-kutusu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_cn_19",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER 2520: E000 Fuser Isıtıcı Rezistans Arızası",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişini çekin.",
+      "İlgili sensör, motor veya fırın bağlantılarını inceleyin.",
+      "Servis moduna girip ERR kaydını temizleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Modu",
+        "komut": "* 2 8 * tuşlayıp COPIER -> FUNCTION -> CLEAR -> ERR",
+        "aciklama": "Canon kilitlenmiş hata durumlarını sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Fırının belirlenen sürede çalışma sıcaklığına ulaşamaması.",
+    "derin_teknik_analiz": "Kök Neden: Fuser halogen lambası veya seramik rezistansın patlaması. Saha Prosedürü: Canon teknik servis el kitabına göre modülü onarın veya değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu devam ediyor",
+        "neden": "Anakart DC Controller kartı hasarlıdır.",
+        "cozum": "Anakartı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "canon",
+      "imagerunner",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_cn_20",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER ADVANCE C5535i: E020 Hopper Toner Besleme Hatası",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişini çekin.",
+      "İlgili sensör, motor veya fırın bağlantılarını inceleyin.",
+      "Servis moduna girip ERR kaydını temizleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Modu",
+        "komut": "* 2 8 * tuşlayıp COPIER -> FUNCTION -> CLEAR -> ERR",
+        "aciklama": "Canon kilitlenmiş hata durumlarını sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Geliştirici ünitesine toner aktarılamaması.",
+    "derin_teknik_analiz": "Kök Neden: Toner şişesi tahrik motoru kavramasının sıyırması. Saha Prosedürü: Canon teknik servis el kitabına göre modülü onarın veya değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu devam ediyor",
+        "neden": "Anakart DC Controller kartı hasarlıdır.",
+        "cozum": "Anakartı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "canon",
+      "imagerunner",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_cn_21",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon MegaTank G2411 / G3411: Hata 5B00 / 1700 Atık Mürekkep Pedi Sayacı Taşması",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişini çekin.",
+      "İlgili sensör, motor veya fırın bağlantılarını inceleyin.",
+      "Servis moduna girip ERR kaydını temizleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Modu",
+        "komut": "* 2 8 * tuşlayıp COPIER -> FUNCTION -> CLEAR -> ERR",
+        "aciklama": "Canon kilitlenmiş hata durumlarını sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Yazıcı güç ve alarm ışıklarının 7 kez sırayla yanıp sönmesi.",
+    "derin_teknik_analiz": "Kök Neden: Dahili atık emici keçelerin sayacının %100 limitine ulaşması. Saha Prosedürü: Canon teknik servis el kitabına göre modülü onarın veya değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu devam ediyor",
+        "neden": "Anakart DC Controller kartı hasarlıdır.",
+        "cozum": "Anakartı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "canon",
+      "imagerunner",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_cn_22",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER 2206: E010 Ana Sürücü Motoru (Main Motor) Saat Hatası",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişini çekin.",
+      "İlgili sensör, motor veya fırın bağlantılarını inceleyin.",
+      "Servis moduna girip ERR kaydını temizleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Modu",
+        "komut": "* 2 8 * tuşlayıp COPIER -> FUNCTION -> CLEAR -> ERR",
+        "aciklama": "Canon kilitlenmiş hata durumlarını sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Motorun dönmeye çalışırken sıkışıp devir sinyali üretememesi.",
+    "derin_teknik_analiz": "Kök Neden: Mekanik dişli grubuna yabancı cisim veya kağıt parçası sıkışması. Saha Prosedürü: Canon teknik servis el kitabına göre modülü onarın veya değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu devam ediyor",
+        "neden": "Anakart DC Controller kartı hasarlıdır.",
+        "cozum": "Anakartı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "canon",
+      "imagerunner",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_cn_23",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon MegaTank G3411: Hata 5100 Taşıyıcı Kafa (Carriage) Sıkışması",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişini çekin.",
+      "İlgili sensör, motor veya fırın bağlantılarını inceleyin.",
+      "Servis moduna girip ERR kaydını temizleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Modu",
+        "komut": "* 2 8 * tuşlayıp COPIER -> FUNCTION -> CLEAR -> ERR",
+        "aciklama": "Canon kilitlenmiş hata durumlarını sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Baskı kafasının sağa sola giderken takılması ve alarm ışığının 2 kez yanması.",
+    "derin_teknik_analiz": "Kök Neden: Şeffaf optik encoder şeridinin (Encoder Strip) mürekkep lekesiyle kirlenmesi. Saha Prosedürü: Canon teknik servis el kitabına göre modülü onarın veya değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu devam ediyor",
+        "neden": "Anakart DC Controller kartı hasarlıdır.",
+        "cozum": "Anakartı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "canon",
+      "imagerunner",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_cn_24",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER ADVANCE C3020: E202 Tarayıcı Okuma Lambası Ev Konumu Hatası",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişini çekin.",
+      "İlgili sensör, motor veya fırın bağlantılarını inceleyin.",
+      "Servis moduna girip ERR kaydını temizleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Modu",
+        "komut": "* 2 8 * tuşlayıp COPIER -> FUNCTION -> CLEAR -> ERR",
+        "aciklama": "Canon kilitlenmiş hata durumlarını sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Fotokopi çekerken tarayıcı lambasının sola çarpıp takırdaması.",
+    "derin_teknik_analiz": "Kök Neden: Tarayıcı ayna kılavuz milinin tozlanıp kuruması. Saha Prosedürü: Canon teknik servis el kitabına göre modülü onarın veya değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu devam ediyor",
+        "neden": "Anakart DC Controller kartı hasarlıdır.",
+        "cozum": "Anakartı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "canon",
+      "imagerunner",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_cn_25",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon LBP6030B: Kağıt Alma Pateninin Ses Yapıp Kağıdı Yarıda Bırakması",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişini çekin.",
+      "İlgili sensör, motor veya fırın bağlantılarını inceleyin.",
+      "Servis moduna girip ERR kaydını temizleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Modu",
+        "komut": "* 2 8 * tuşlayıp COPIER -> FUNCTION -> CLEAR -> ERR",
+        "aciklama": "Canon kilitlenmiş hata durumlarını sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Sayfanın fırına girmeden tam tamburun altında durması.",
+    "derin_teknik_analiz": "Kök Neden: Transfer silindiri (Transfer Roller) yüksek gerilim kontağının oksitlenmesi. Saha Prosedürü: Canon teknik servis el kitabına göre modülü onarın veya değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu devam ediyor",
+        "neden": "Anakart DC Controller kartı hasarlıdır.",
+        "cozum": "Anakartı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "canon",
+      "imagerunner",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_cn_26",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER 2520: E602 Sabit Disk Önyükleme Hatası (Hard Disk Boot Error)",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişini çekin.",
+      "İlgili sensör, motor veya fırın bağlantılarını inceleyin.",
+      "Servis moduna girip ERR kaydını temizleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Modu",
+        "komut": "* 2 8 * tuşlayıp COPIER -> FUNCTION -> CLEAR -> ERR",
+        "aciklama": "Canon kilitlenmiş hata durumlarını sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Fotokopi makinesinin açılışta Canon logosunda donup kalması.",
+    "derin_teknik_analiz": "Kök Neden: 2.5 inç dahili SATA sabit diskin bad sector yapması. Saha Prosedürü: Canon teknik servis el kitabına göre modülü onarın veya değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu devam ediyor",
+        "neden": "Anakart DC Controller kartı hasarlıdır.",
+        "cozum": "Anakartı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "canon",
+      "imagerunner",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_cn_27",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon G2420: Hata 5200 Baskı Kafası Aşırı Sıcaklık Uyarısı",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişini çekin.",
+      "İlgili sensör, motor veya fırın bağlantılarını inceleyin.",
+      "Servis moduna girip ERR kaydını temizleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Modu",
+        "komut": "* 2 8 * tuşlayıp COPIER -> FUNCTION -> CLEAR -> ERR",
+        "aciklama": "Canon kilitlenmiş hata durumlarını sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Baskı sırasında durup kafa aşırı ısındı uyarısı vermesi.",
+    "derin_teknik_analiz": "Kök Neden: Kartuş kanallarında mürekkep kalmaması sonucu termal nozüllerin soğuyamaması. Saha Prosedürü: Canon teknik servis el kitabına göre modülü onarın veya değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu devam ediyor",
+        "neden": "Anakart DC Controller kartı hasarlıdır.",
+        "cozum": "Anakartı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "canon",
+      "imagerunner",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_cn_28",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER ADVANCE C3520i: E840 Fuser Basınç Deklaşör Dekolaj Hatası",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişini çekin.",
+      "İlgili sensör, motor veya fırın bağlantılarını inceleyin.",
+      "Servis moduna girip ERR kaydını temizleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Modu",
+        "komut": "* 2 8 * tuşlayıp COPIER -> FUNCTION -> CLEAR -> ERR",
+        "aciklama": "Canon kilitlenmiş hata durumlarını sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Renkli baskıdan siyah-beyaza geçerken fırın baskı mekanizmasının ayrılamaması.",
+    "derin_teknik_analiz": "Kök Neden: Fuser basınç motoru konum sensörünün arızalanması. Saha Prosedürü: Canon teknik servis el kitabına göre modülü onarın veya değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu devam ediyor",
+        "neden": "Anakart DC Controller kartı hasarlıdır.",
+        "cozum": "Anakartı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "canon",
+      "imagerunner",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "canon_exp_18",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon i-SENSYS LBP2900 / LBP2900B: 64-bit Windows 10/11 CAPT Sürücü Tanınmama Sorunu",
+    "hizli_adimlar": [
+      "Canon i-SENSYS LBP2900 / LBP2900B cihazının ön kapağını ve servis menüsünü açın.",
+      "Kök neden analizini uygulayın: Eski Canon CAPT yazıcı mimarisinin modern 64-bit sürücü imzalama sorunları.",
+      "Canon teknik servis prosedürünü yürütün: R1.50 Ver.1.10 x64 CAPT sürücüsünü manuel INF göstererek kurun.",
+      "Servis modundan ERR kaydını temizleyip test çıktısı alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Canon Servis Girişi",
+        "komut": "* 2 8 * -> COPIER -> FUNCTION -> CLEAR",
+        "aciklama": "Canon kilitlenmiş hata bayraklarını temizler."
+      }
+    ],
+    "temel_anlatim": "USB takıldığında aygıtın 'Bilinmeyen Aygıt' olarak kalması ve yazmaması.",
+    "derin_teknik_analiz": "Eski Canon CAPT yazıcı mimarisinin modern 64-bit sürücü imzalama sorunları. Çözüm: R1.50 Ver.1.10 x64 CAPT sürücüsünü manuel INF göstererek kurun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu silinmiyor",
+        "neden": "Anakart DC Controller hasarlıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "canon",
+      "imagerunner",
+      "megatank",
+      "canon i-sensys lbp2900   lbp2900b",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "canon_exp_19",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER 2425 / 2425i: E002 Fuser Isınma Zaman Aşımı Hatası",
+    "hizli_adimlar": [
+      "Canon imageRUNNER 2425 / 2425i cihazının ön kapağını ve servis menüsünü açın.",
+      "Kök neden analizini uygulayın: Fırın seramik ısıtıcı filminin yırtılması veya termistörün temassızlığı.",
+      "Canon teknik servis prosedürünü yürütün: Fuser film ünitesini yenileyin ve Servis Modundan (* 2 8 *) CLEAR -> ERR yapın.",
+      "Servis modundan ERR kaydını temizleyip test çıktısı alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Canon Servis Girişi",
+        "komut": "* 2 8 * -> COPIER -> FUNCTION -> CLEAR",
+        "aciklama": "Canon kilitlenmiş hata bayraklarını temizler."
+      }
+    ],
+    "temel_anlatim": "Makine açılırken fırının hedeflenen çalışma sıcaklığına ulaşamaması.",
+    "derin_teknik_analiz": "Fırın seramik ısıtıcı filminin yırtılması veya termistörün temassızlığı. Çözüm: Fuser film ünitesini yenileyin ve Servis Modundan (* 2 8 *) CLEAR -> ERR yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu silinmiyor",
+        "neden": "Anakart DC Controller hasarlıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "canon",
+      "imagerunner",
+      "megatank",
+      "canon imagerunner 2425   2425i",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "canon_exp_20",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER ADVANCE DX C3720i: E025 Toner Şişesi Tahrik Motoru Aşırı Akım Uyarısı",
+    "hizli_adimlar": [
+      "Canon imageRUNNER ADVANCE DX C3720i cihazının ön kapağını ve servis menüsünü açın.",
+      "Kök neden analizini uygulayın: Toner şişesi ağzındaki kapağın açılmaması veya dişlisinin sıkışması.",
+      "Canon teknik servis prosedürünü yürütün: Toner besleme hunisini (Hopper) temizleyin ve tahrik motorunu kontrol edin.",
+      "Servis modundan ERR kaydını temizleyip test çıktısı alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Canon Servis Girişi",
+        "komut": "* 2 8 * -> COPIER -> FUNCTION -> CLEAR",
+        "aciklama": "Canon kilitlenmiş hata bayraklarını temizler."
+      }
+    ],
+    "temel_anlatim": "Toner takıldıktan sonra motorun dönmemesi ve makinenin kilitlenmesi.",
+    "derin_teknik_analiz": "Toner şişesi ağzındaki kapağın açılmaması veya dişlisinin sıkışması. Çözüm: Toner besleme hunisini (Hopper) temizleyin ve tahrik motorunu kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu silinmiyor",
+        "neden": "Anakart DC Controller hasarlıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "canon",
+      "imagerunner",
+      "megatank",
+      "canon imagerunner advance dx c3720i",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "canon_exp_21",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon MegaTank G1420: Hata 1700 Emici Mürekkep Pedi Neredeyse Dolu Uyarısı",
+    "hizli_adimlar": [
+      "Canon MegaTank G1420 cihazının ön kapağını ve servis menüsünü açın.",
+      "Kök neden analizini uygulayın: Dahili atık keçenin %95 doluluk eşiğine gelmesi.",
+      "Canon teknik servis prosedürünü yürütün: Canon Servis Moduna (Service Mode v5.300) girerek atık ped sayacını sıfırlayın.",
+      "Servis modundan ERR kaydını temizleyip test çıktısı alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Canon Servis Girişi",
+        "komut": "* 2 8 * -> COPIER -> FUNCTION -> CLEAR",
+        "aciklama": "Canon kilitlenmiş hata bayraklarını temizler."
+      }
+    ],
+    "temel_anlatim": "Yazıcı alarm ışığının 8 kez sarı yanıp sönmesi.",
+    "derin_teknik_analiz": "Dahili atık keçenin %95 doluluk eşiğine gelmesi. Çözüm: Canon Servis Moduna (Service Mode v5.300) girerek atık ped sayacını sıfırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu silinmiyor",
+        "neden": "Anakart DC Controller hasarlıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "canon",
+      "imagerunner",
+      "megatank",
+      "canon megatank g1420",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "canon_exp_22",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER ADVANCE C5840i: E355 Seri Numarası ve Sayaç PCB Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Canon imageRUNNER ADVANCE C5840i cihazının ön kapağını ve servis menüsünü açın.",
+      "Kök neden analizini uygulayın: Ana kart ile sayaç kartı (Counter PCB) seri numaralarının eşleşmemesi.",
+      "Canon teknik servis prosedürünü yürütün: Servis modundan PCB seri numarası senkronizasyon prosedürünü yürütün.",
+      "Servis modundan ERR kaydını temizleyip test çıktısı alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Canon Servis Girişi",
+        "komut": "* 2 8 * -> COPIER -> FUNCTION -> CLEAR",
+        "aciklama": "Canon kilitlenmiş hata bayraklarını temizler."
+      }
+    ],
+    "temel_anlatim": "Anakart değişiminden sonra makinenin açılmayıp lisans hatası vermesi.",
+    "derin_teknik_analiz": "Ana kart ile sayaç kartı (Counter PCB) seri numaralarının eşleşmemesi. Çözüm: Servis modundan PCB seri numarası senkronizasyon prosedürünü yürütün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu silinmiyor",
+        "neden": "Anakart DC Controller hasarlıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "canon",
+      "imagerunner",
+      "megatank",
+      "canon imagerunner advance c5840i",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "canon_exp_23",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon i-SENSYS MF3010: E225 Tarayıcı CIS Lambası Okuma Hatası",
+    "hizli_adimlar": [
+      "Canon i-SENSYS MF3010 cihazının ön kapağını ve servis menüsünü açın.",
+      "Kök neden analizini uygulayın: Tarayıcı camı altındaki beyaz kalibrasyon şeridinin tozlanması.",
+      "Canon teknik servis prosedürünü yürütün: Tarayıcı üst camını söküp altındaki optik beyaz bandı silin.",
+      "Servis modundan ERR kaydını temizleyip test çıktısı alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Canon Servis Girişi",
+        "komut": "* 2 8 * -> COPIER -> FUNCTION -> CLEAR",
+        "aciklama": "Canon kilitlenmiş hata bayraklarını temizler."
+      }
+    ],
+    "temel_anlatim": "Fotokopi çekilirken tarayıcının beyaz referans noktasını okuyamaması.",
+    "derin_teknik_analiz": "Tarayıcı camı altındaki beyaz kalibrasyon şeridinin tozlanması. Çözüm: Tarayıcı üst camını söküp altındaki optik beyaz bandı silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu silinmiyor",
+        "neden": "Anakart DC Controller hasarlıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "canon",
+      "imagerunner",
+      "megatank",
+      "canon i-sensys mf3010",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "canon_exp_24",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon PIXMA G6040 Dublex: Arka Kasetten Kağıt Çekerken Patinaj ve Kağıt Yok Hatası",
+    "hizli_adimlar": [
+      "Canon PIXMA G6040 Dublex cihazının ön kapağını ve servis menüsünü açın.",
+      "Kök neden analizini uygulayın: Giriş paten lastiklerinin kağıt tozuyla kaplanması.",
+      "Canon teknik servis prosedürünü yürütün: Paten lastiğini çıkarıp ters yüzünü çevirin veya yenileyin.",
+      "Servis modundan ERR kaydını temizleyip test çıktısı alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Canon Servis Girişi",
+        "komut": "* 2 8 * -> COPIER -> FUNCTION -> CLEAR",
+        "aciklama": "Canon kilitlenmiş hata bayraklarını temizler."
+      }
+    ],
+    "temel_anlatim": "Tepside kağıt olmasına rağmen patenin boş dönmesi.",
+    "derin_teknik_analiz": "Giriş paten lastiklerinin kağıt tozuyla kaplanması. Çözüm: Paten lastiğini çıkarıp ters yüzünü çevirin veya yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu silinmiyor",
+        "neden": "Anakart DC Controller hasarlıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "canon",
+      "imagerunner",
+      "megatank",
+      "canon pixma g6040 dublex",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "canon_exp_25",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER 2630i: E732 Tarayıcı ve Anakart İletişim Hatası",
+    "hizli_adimlar": [
+      "Canon imageRUNNER 2630i cihazının ön kapağını ve servis menüsünü açın.",
+      "Kök neden analizini uygulayın: Okuyucu ünitesi ile anakart arasındaki LVDS veri kablosunun soketten gevşemesi.",
+      "Canon teknik servis prosedürünü yürütün: LVDS flex kablosunu çıkarıp kontak temizleyici ile temizleyip kilitleyin.",
+      "Servis modundan ERR kaydını temizleyip test çıktısı alın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Canon Servis Girişi",
+        "komut": "* 2 8 * -> COPIER -> FUNCTION -> CLEAR",
+        "aciklama": "Canon kilitlenmiş hata bayraklarını temizler."
+      }
+    ],
+    "temel_anlatim": "Açılışta Canon ekranında kalıp tarayıcıyla haberleşememesi.",
+    "derin_teknik_analiz": "Okuyucu ünitesi ile anakart arasındaki LVDS veri kablosunun soketten gevşemesi. Çözüm: LVDS flex kablosunu çıkarıp kontak temizleyici ile temizleyip kilitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu silinmiyor",
+        "neden": "Anakart DC Controller hasarlıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "canon",
+      "imagerunner",
+      "megatank",
+      "canon imagerunner 2630i",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_32",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER ADVANCE DX C3826i: Fuser Basınç Silindiri (Pressure Roller) Deformasyonu",
+    "hizli_adimlar": [
+      "Canon imageRUNNER ADVANCE DX C3826i cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Alt kauçuk basınç silindirinin yüksek ısıdan erimesi veya yırtılması.",
+      "Saha servis prosedürünü yürütün: Fırın basınç merdanesini ve fırın rulmanlarını yenileyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "* 2 8 * -> CLEAR -> ERR",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kağıdın fırından geçerken buruşması veya tonerinin dökülmesi.",
+    "derin_teknik_analiz": "Alt kauçuk basınç silindirinin yüksek ısıdan erimesi veya yırtılması. Çözüm: Fırın basınç merdanesini ve fırın rulmanlarını yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon imagerunner advance dx c3826i",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_33",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER ADVANCE DX C3826i: E020 Hazne Boş (Hopper Empty) Sensör Algılama Hatası",
+    "hizli_adimlar": [
+      "Canon imageRUNNER ADVANCE DX C3826i cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Developer ünitesine toner aktaran döner helezonun (Auger) dişlisinin sıyırması.",
+      "Saha servis prosedürünü yürütün: Toner besleme motorunu ve dişli grubunu kontrol edin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "COPIER -> FUNCTION -> PART-CHK",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Toner takılı olduğu halde makinenin toner takın uyarısında kalması.",
+    "derin_teknik_analiz": "Developer ünitesine toner aktaran döner helezonun (Auger) dişlisinin sıyırması. Çözüm: Toner besleme motorunu ve dişli grubunu kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon imagerunner advance dx c3826i",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_34",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER ADVANCE DX C3826i: Atık Mürekkep Sayacı (Waste Ink Counter) %100 Kilitlenmesi",
+    "hizli_adimlar": [
+      "Canon imageRUNNER ADVANCE DX C3826i cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Dahili mürekkep toplama keçelerinin yazılımsal ömür sınırına ulaşması.",
+      "Saha servis prosedürünü yürütün: Canon Service Tool ile EEPROM atık sayacını %0 olarak başlatın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ServiceTool.exe -> Clear Ink Counter",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Açılışta güç ve alarm ışığının sırayla 7 kez yanıp sönmesi.",
+    "derin_teknik_analiz": "Dahili mürekkep toplama keçelerinin yazılımsal ömür sınırına ulaşması. Çözüm: Canon Service Tool ile EEPROM atık sayacını %0 olarak başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon imagerunner advance dx c3826i",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_35",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER ADVANCE DX C3826i: Lazer Camı (Dust-proof Glass) Kirliliği Nedeniyle Silik Baskı",
+    "hizli_adimlar": [
+      "Canon imageRUNNER ADVANCE DX C3826i cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Lazer ünitesi koruma camının toner tozuyla kaplanması.",
+      "Saha servis prosedürünü yürütün: Yazıcı kapağındaki dahili temizleme çubuğunu ileri geri çekerek camı silin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "COPIER -> TEST -> PG",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Çıktılarda belirli bir sütunda yazıların tamamen silik çıkması.",
+    "derin_teknik_analiz": "Lazer ünitesi koruma camının toner tozuyla kaplanması. Çözüm: Yazıcı kapağındaki dahili temizleme çubuğunu ileri geri çekerek camı silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon imagerunner advance dx c3826i",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_36",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER 2625i: Fuser Basınç Silindiri (Pressure Roller) Deformasyonu",
+    "hizli_adimlar": [
+      "Canon imageRUNNER 2625i cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Alt kauçuk basınç silindirinin yüksek ısıdan erimesi veya yırtılması.",
+      "Saha servis prosedürünü yürütün: Fırın basınç merdanesini ve fırın rulmanlarını yenileyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "* 2 8 * -> CLEAR -> ERR",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kağıdın fırından geçerken buruşması veya tonerinin dökülmesi.",
+    "derin_teknik_analiz": "Alt kauçuk basınç silindirinin yüksek ısıdan erimesi veya yırtılması. Çözüm: Fırın basınç merdanesini ve fırın rulmanlarını yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon imagerunner 2625i",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_37",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER 2625i: E020 Hazne Boş (Hopper Empty) Sensör Algılama Hatası",
+    "hizli_adimlar": [
+      "Canon imageRUNNER 2625i cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Developer ünitesine toner aktaran döner helezonun (Auger) dişlisinin sıyırması.",
+      "Saha servis prosedürünü yürütün: Toner besleme motorunu ve dişli grubunu kontrol edin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "COPIER -> FUNCTION -> PART-CHK",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Toner takılı olduğu halde makinenin toner takın uyarısında kalması.",
+    "derin_teknik_analiz": "Developer ünitesine toner aktaran döner helezonun (Auger) dişlisinin sıyırması. Çözüm: Toner besleme motorunu ve dişli grubunu kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon imagerunner 2625i",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_38",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER 2625i: Atık Mürekkep Sayacı (Waste Ink Counter) %100 Kilitlenmesi",
+    "hizli_adimlar": [
+      "Canon imageRUNNER 2625i cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Dahili mürekkep toplama keçelerinin yazılımsal ömür sınırına ulaşması.",
+      "Saha servis prosedürünü yürütün: Canon Service Tool ile EEPROM atık sayacını %0 olarak başlatın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ServiceTool.exe -> Clear Ink Counter",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Açılışta güç ve alarm ışığının sırayla 7 kez yanıp sönmesi.",
+    "derin_teknik_analiz": "Dahili mürekkep toplama keçelerinin yazılımsal ömür sınırına ulaşması. Çözüm: Canon Service Tool ile EEPROM atık sayacını %0 olarak başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon imagerunner 2625i",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_39",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER 2625i: Lazer Camı (Dust-proof Glass) Kirliliği Nedeniyle Silik Baskı",
+    "hizli_adimlar": [
+      "Canon imageRUNNER 2625i cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Lazer ünitesi koruma camının toner tozuyla kaplanması.",
+      "Saha servis prosedürünü yürütün: Yazıcı kapağındaki dahili temizleme çubuğunu ileri geri çekerek camı silin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "COPIER -> TEST -> PG",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Çıktılarda belirli bir sütunda yazıların tamamen silik çıkması.",
+    "derin_teknik_analiz": "Lazer ünitesi koruma camının toner tozuyla kaplanması. Çözüm: Yazıcı kapağındaki dahili temizleme çubuğunu ileri geri çekerek camı silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon imagerunner 2625i",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_40",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER ADVANCE DX C5850i: Fuser Basınç Silindiri (Pressure Roller) Deformasyonu",
+    "hizli_adimlar": [
+      "Canon imageRUNNER ADVANCE DX C5850i cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Alt kauçuk basınç silindirinin yüksek ısıdan erimesi veya yırtılması.",
+      "Saha servis prosedürünü yürütün: Fırın basınç merdanesini ve fırın rulmanlarını yenileyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "* 2 8 * -> CLEAR -> ERR",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kağıdın fırından geçerken buruşması veya tonerinin dökülmesi.",
+    "derin_teknik_analiz": "Alt kauçuk basınç silindirinin yüksek ısıdan erimesi veya yırtılması. Çözüm: Fırın basınç merdanesini ve fırın rulmanlarını yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon imagerunner advance dx c5850i",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_41",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER ADVANCE DX C5850i: E020 Hazne Boş (Hopper Empty) Sensör Algılama Hatası",
+    "hizli_adimlar": [
+      "Canon imageRUNNER ADVANCE DX C5850i cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Developer ünitesine toner aktaran döner helezonun (Auger) dişlisinin sıyırması.",
+      "Saha servis prosedürünü yürütün: Toner besleme motorunu ve dişli grubunu kontrol edin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "COPIER -> FUNCTION -> PART-CHK",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Toner takılı olduğu halde makinenin toner takın uyarısında kalması.",
+    "derin_teknik_analiz": "Developer ünitesine toner aktaran döner helezonun (Auger) dişlisinin sıyırması. Çözüm: Toner besleme motorunu ve dişli grubunu kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon imagerunner advance dx c5850i",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_42",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER ADVANCE DX C5850i: Atık Mürekkep Sayacı (Waste Ink Counter) %100 Kilitlenmesi",
+    "hizli_adimlar": [
+      "Canon imageRUNNER ADVANCE DX C5850i cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Dahili mürekkep toplama keçelerinin yazılımsal ömür sınırına ulaşması.",
+      "Saha servis prosedürünü yürütün: Canon Service Tool ile EEPROM atık sayacını %0 olarak başlatın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ServiceTool.exe -> Clear Ink Counter",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Açılışta güç ve alarm ışığının sırayla 7 kez yanıp sönmesi.",
+    "derin_teknik_analiz": "Dahili mürekkep toplama keçelerinin yazılımsal ömür sınırına ulaşması. Çözüm: Canon Service Tool ile EEPROM atık sayacını %0 olarak başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon imagerunner advance dx c5850i",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_43",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER ADVANCE DX C5850i: Lazer Camı (Dust-proof Glass) Kirliliği Nedeniyle Silik Baskı",
+    "hizli_adimlar": [
+      "Canon imageRUNNER ADVANCE DX C5850i cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Lazer ünitesi koruma camının toner tozuyla kaplanması.",
+      "Saha servis prosedürünü yürütün: Yazıcı kapağındaki dahili temizleme çubuğunu ileri geri çekerek camı silin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "COPIER -> TEST -> PG",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Çıktılarda belirli bir sütunda yazıların tamamen silik çıkması.",
+    "derin_teknik_analiz": "Lazer ünitesi koruma camının toner tozuyla kaplanması. Çözüm: Yazıcı kapağındaki dahili temizleme çubuğunu ileri geri çekerek camı silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon imagerunner advance dx c5850i",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_44",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon MegaTank G3460: Fuser Basınç Silindiri (Pressure Roller) Deformasyonu",
+    "hizli_adimlar": [
+      "Canon MegaTank G3460 cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Alt kauçuk basınç silindirinin yüksek ısıdan erimesi veya yırtılması.",
+      "Saha servis prosedürünü yürütün: Fırın basınç merdanesini ve fırın rulmanlarını yenileyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "* 2 8 * -> CLEAR -> ERR",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kağıdın fırından geçerken buruşması veya tonerinin dökülmesi.",
+    "derin_teknik_analiz": "Alt kauçuk basınç silindirinin yüksek ısıdan erimesi veya yırtılması. Çözüm: Fırın basınç merdanesini ve fırın rulmanlarını yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon megatank g3460",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_45",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon MegaTank G3460: E020 Hazne Boş (Hopper Empty) Sensör Algılama Hatası",
+    "hizli_adimlar": [
+      "Canon MegaTank G3460 cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Developer ünitesine toner aktaran döner helezonun (Auger) dişlisinin sıyırması.",
+      "Saha servis prosedürünü yürütün: Toner besleme motorunu ve dişli grubunu kontrol edin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "COPIER -> FUNCTION -> PART-CHK",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Toner takılı olduğu halde makinenin toner takın uyarısında kalması.",
+    "derin_teknik_analiz": "Developer ünitesine toner aktaran döner helezonun (Auger) dişlisinin sıyırması. Çözüm: Toner besleme motorunu ve dişli grubunu kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon megatank g3460",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_46",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon MegaTank G3460: Atık Mürekkep Sayacı (Waste Ink Counter) %100 Kilitlenmesi",
+    "hizli_adimlar": [
+      "Canon MegaTank G3460 cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Dahili mürekkep toplama keçelerinin yazılımsal ömür sınırına ulaşması.",
+      "Saha servis prosedürünü yürütün: Canon Service Tool ile EEPROM atık sayacını %0 olarak başlatın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ServiceTool.exe -> Clear Ink Counter",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Açılışta güç ve alarm ışığının sırayla 7 kez yanıp sönmesi.",
+    "derin_teknik_analiz": "Dahili mürekkep toplama keçelerinin yazılımsal ömür sınırına ulaşması. Çözüm: Canon Service Tool ile EEPROM atık sayacını %0 olarak başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon megatank g3460",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_47",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon MegaTank G3460: Lazer Camı (Dust-proof Glass) Kirliliği Nedeniyle Silik Baskı",
+    "hizli_adimlar": [
+      "Canon MegaTank G3460 cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Lazer ünitesi koruma camının toner tozuyla kaplanması.",
+      "Saha servis prosedürünü yürütün: Yazıcı kapağındaki dahili temizleme çubuğunu ileri geri çekerek camı silin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "COPIER -> TEST -> PG",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Çıktılarda belirli bir sütunda yazıların tamamen silik çıkması.",
+    "derin_teknik_analiz": "Lazer ünitesi koruma camının toner tozuyla kaplanması. Çözüm: Yazıcı kapağındaki dahili temizleme çubuğunu ileri geri çekerek camı silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon megatank g3460",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_48",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon MegaTank G7040 Faks: Fuser Basınç Silindiri (Pressure Roller) Deformasyonu",
+    "hizli_adimlar": [
+      "Canon MegaTank G7040 Faks cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Alt kauçuk basınç silindirinin yüksek ısıdan erimesi veya yırtılması.",
+      "Saha servis prosedürünü yürütün: Fırın basınç merdanesini ve fırın rulmanlarını yenileyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "* 2 8 * -> CLEAR -> ERR",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kağıdın fırından geçerken buruşması veya tonerinin dökülmesi.",
+    "derin_teknik_analiz": "Alt kauçuk basınç silindirinin yüksek ısıdan erimesi veya yırtılması. Çözüm: Fırın basınç merdanesini ve fırın rulmanlarını yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon megatank g7040 faks",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_49",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon MegaTank G7040 Faks: E020 Hazne Boş (Hopper Empty) Sensör Algılama Hatası",
+    "hizli_adimlar": [
+      "Canon MegaTank G7040 Faks cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Developer ünitesine toner aktaran döner helezonun (Auger) dişlisinin sıyırması.",
+      "Saha servis prosedürünü yürütün: Toner besleme motorunu ve dişli grubunu kontrol edin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "COPIER -> FUNCTION -> PART-CHK",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Toner takılı olduğu halde makinenin toner takın uyarısında kalması.",
+    "derin_teknik_analiz": "Developer ünitesine toner aktaran döner helezonun (Auger) dişlisinin sıyırması. Çözüm: Toner besleme motorunu ve dişli grubunu kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon megatank g7040 faks",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_50",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon MegaTank G7040 Faks: Atık Mürekkep Sayacı (Waste Ink Counter) %100 Kilitlenmesi",
+    "hizli_adimlar": [
+      "Canon MegaTank G7040 Faks cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Dahili mürekkep toplama keçelerinin yazılımsal ömür sınırına ulaşması.",
+      "Saha servis prosedürünü yürütün: Canon Service Tool ile EEPROM atık sayacını %0 olarak başlatın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ServiceTool.exe -> Clear Ink Counter",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Açılışta güç ve alarm ışığının sırayla 7 kez yanıp sönmesi.",
+    "derin_teknik_analiz": "Dahili mürekkep toplama keçelerinin yazılımsal ömür sınırına ulaşması. Çözüm: Canon Service Tool ile EEPROM atık sayacını %0 olarak başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon megatank g7040 faks",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_51",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon MegaTank G7040 Faks: Lazer Camı (Dust-proof Glass) Kirliliği Nedeniyle Silik Baskı",
+    "hizli_adimlar": [
+      "Canon MegaTank G7040 Faks cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Lazer ünitesi koruma camının toner tozuyla kaplanması.",
+      "Saha servis prosedürünü yürütün: Yazıcı kapağındaki dahili temizleme çubuğunu ileri geri çekerek camı silin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "COPIER -> TEST -> PG",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Çıktılarda belirli bir sütunda yazıların tamamen silik çıkması.",
+    "derin_teknik_analiz": "Lazer ünitesi koruma camının toner tozuyla kaplanması. Çözüm: Yazıcı kapağındaki dahili temizleme çubuğunu ileri geri çekerek camı silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon megatank g7040 faks",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_52",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon i-SENSYS MF742Cdw: Fuser Basınç Silindiri (Pressure Roller) Deformasyonu",
+    "hizli_adimlar": [
+      "Canon i-SENSYS MF742Cdw cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Alt kauçuk basınç silindirinin yüksek ısıdan erimesi veya yırtılması.",
+      "Saha servis prosedürünü yürütün: Fırın basınç merdanesini ve fırın rulmanlarını yenileyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "* 2 8 * -> CLEAR -> ERR",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kağıdın fırından geçerken buruşması veya tonerinin dökülmesi.",
+    "derin_teknik_analiz": "Alt kauçuk basınç silindirinin yüksek ısıdan erimesi veya yırtılması. Çözüm: Fırın basınç merdanesini ve fırın rulmanlarını yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon i-sensys mf742cdw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_53",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon i-SENSYS MF742Cdw: E020 Hazne Boş (Hopper Empty) Sensör Algılama Hatası",
+    "hizli_adimlar": [
+      "Canon i-SENSYS MF742Cdw cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Developer ünitesine toner aktaran döner helezonun (Auger) dişlisinin sıyırması.",
+      "Saha servis prosedürünü yürütün: Toner besleme motorunu ve dişli grubunu kontrol edin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "COPIER -> FUNCTION -> PART-CHK",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Toner takılı olduğu halde makinenin toner takın uyarısında kalması.",
+    "derin_teknik_analiz": "Developer ünitesine toner aktaran döner helezonun (Auger) dişlisinin sıyırması. Çözüm: Toner besleme motorunu ve dişli grubunu kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon i-sensys mf742cdw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_54",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon i-SENSYS MF742Cdw: Atık Mürekkep Sayacı (Waste Ink Counter) %100 Kilitlenmesi",
+    "hizli_adimlar": [
+      "Canon i-SENSYS MF742Cdw cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Dahili mürekkep toplama keçelerinin yazılımsal ömür sınırına ulaşması.",
+      "Saha servis prosedürünü yürütün: Canon Service Tool ile EEPROM atık sayacını %0 olarak başlatın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ServiceTool.exe -> Clear Ink Counter",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Açılışta güç ve alarm ışığının sırayla 7 kez yanıp sönmesi.",
+    "derin_teknik_analiz": "Dahili mürekkep toplama keçelerinin yazılımsal ömür sınırına ulaşması. Çözüm: Canon Service Tool ile EEPROM atık sayacını %0 olarak başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon i-sensys mf742cdw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_55",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon i-SENSYS MF742Cdw: Lazer Camı (Dust-proof Glass) Kirliliği Nedeniyle Silik Baskı",
+    "hizli_adimlar": [
+      "Canon i-SENSYS MF742Cdw cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Lazer ünitesi koruma camının toner tozuyla kaplanması.",
+      "Saha servis prosedürünü yürütün: Yazıcı kapağındaki dahili temizleme çubuğunu ileri geri çekerek camı silin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "COPIER -> TEST -> PG",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Çıktılarda belirli bir sütunda yazıların tamamen silik çıkması.",
+    "derin_teknik_analiz": "Lazer ünitesi koruma camının toner tozuyla kaplanması. Çözüm: Yazıcı kapağındaki dahili temizleme çubuğunu ileri geri çekerek camı silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon i-sensys mf742cdw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_56",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon i-SENSYS LBP623Cdw: Fuser Basınç Silindiri (Pressure Roller) Deformasyonu",
+    "hizli_adimlar": [
+      "Canon i-SENSYS LBP623Cdw cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Alt kauçuk basınç silindirinin yüksek ısıdan erimesi veya yırtılması.",
+      "Saha servis prosedürünü yürütün: Fırın basınç merdanesini ve fırın rulmanlarını yenileyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "* 2 8 * -> CLEAR -> ERR",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kağıdın fırından geçerken buruşması veya tonerinin dökülmesi.",
+    "derin_teknik_analiz": "Alt kauçuk basınç silindirinin yüksek ısıdan erimesi veya yırtılması. Çözüm: Fırın basınç merdanesini ve fırın rulmanlarını yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon i-sensys lbp623cdw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_57",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon i-SENSYS LBP623Cdw: E020 Hazne Boş (Hopper Empty) Sensör Algılama Hatası",
+    "hizli_adimlar": [
+      "Canon i-SENSYS LBP623Cdw cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Developer ünitesine toner aktaran döner helezonun (Auger) dişlisinin sıyırması.",
+      "Saha servis prosedürünü yürütün: Toner besleme motorunu ve dişli grubunu kontrol edin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "COPIER -> FUNCTION -> PART-CHK",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Toner takılı olduğu halde makinenin toner takın uyarısında kalması.",
+    "derin_teknik_analiz": "Developer ünitesine toner aktaran döner helezonun (Auger) dişlisinin sıyırması. Çözüm: Toner besleme motorunu ve dişli grubunu kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon i-sensys lbp623cdw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_58",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon i-SENSYS LBP623Cdw: Atık Mürekkep Sayacı (Waste Ink Counter) %100 Kilitlenmesi",
+    "hizli_adimlar": [
+      "Canon i-SENSYS LBP623Cdw cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Dahili mürekkep toplama keçelerinin yazılımsal ömür sınırına ulaşması.",
+      "Saha servis prosedürünü yürütün: Canon Service Tool ile EEPROM atık sayacını %0 olarak başlatın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ServiceTool.exe -> Clear Ink Counter",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Açılışta güç ve alarm ışığının sırayla 7 kez yanıp sönmesi.",
+    "derin_teknik_analiz": "Dahili mürekkep toplama keçelerinin yazılımsal ömür sınırına ulaşması. Çözüm: Canon Service Tool ile EEPROM atık sayacını %0 olarak başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon i-sensys lbp623cdw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_59",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon i-SENSYS LBP623Cdw: Lazer Camı (Dust-proof Glass) Kirliliği Nedeniyle Silik Baskı",
+    "hizli_adimlar": [
+      "Canon i-SENSYS LBP623Cdw cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Lazer ünitesi koruma camının toner tozuyla kaplanması.",
+      "Saha servis prosedürünü yürütün: Yazıcı kapağındaki dahili temizleme çubuğunu ileri geri çekerek camı silin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "COPIER -> TEST -> PG",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Çıktılarda belirli bir sütunda yazıların tamamen silik çıkması.",
+    "derin_teknik_analiz": "Lazer ünitesi koruma camının toner tozuyla kaplanması. Çözüm: Yazıcı kapağındaki dahili temizleme çubuğunu ileri geri çekerek camı silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon i-sensys lbp623cdw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_60",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER 1643iF: Fuser Basınç Silindiri (Pressure Roller) Deformasyonu",
+    "hizli_adimlar": [
+      "Canon imageRUNNER 1643iF cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Alt kauçuk basınç silindirinin yüksek ısıdan erimesi veya yırtılması.",
+      "Saha servis prosedürünü yürütün: Fırın basınç merdanesini ve fırın rulmanlarını yenileyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "* 2 8 * -> CLEAR -> ERR",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kağıdın fırından geçerken buruşması veya tonerinin dökülmesi.",
+    "derin_teknik_analiz": "Alt kauçuk basınç silindirinin yüksek ısıdan erimesi veya yırtılması. Çözüm: Fırın basınç merdanesini ve fırın rulmanlarını yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon imagerunner 1643if",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_61",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER 1643iF: E020 Hazne Boş (Hopper Empty) Sensör Algılama Hatası",
+    "hizli_adimlar": [
+      "Canon imageRUNNER 1643iF cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Developer ünitesine toner aktaran döner helezonun (Auger) dişlisinin sıyırması.",
+      "Saha servis prosedürünü yürütün: Toner besleme motorunu ve dişli grubunu kontrol edin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "COPIER -> FUNCTION -> PART-CHK",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Toner takılı olduğu halde makinenin toner takın uyarısında kalması.",
+    "derin_teknik_analiz": "Developer ünitesine toner aktaran döner helezonun (Auger) dişlisinin sıyırması. Çözüm: Toner besleme motorunu ve dişli grubunu kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon imagerunner 1643if",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_62",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER 1643iF: Atık Mürekkep Sayacı (Waste Ink Counter) %100 Kilitlenmesi",
+    "hizli_adimlar": [
+      "Canon imageRUNNER 1643iF cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Dahili mürekkep toplama keçelerinin yazılımsal ömür sınırına ulaşması.",
+      "Saha servis prosedürünü yürütün: Canon Service Tool ile EEPROM atık sayacını %0 olarak başlatın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ServiceTool.exe -> Clear Ink Counter",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Açılışta güç ve alarm ışığının sırayla 7 kez yanıp sönmesi.",
+    "derin_teknik_analiz": "Dahili mürekkep toplama keçelerinin yazılımsal ömür sınırına ulaşması. Çözüm: Canon Service Tool ile EEPROM atık sayacını %0 olarak başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon imagerunner 1643if",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_63",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Canon imageRUNNER & MegaTank",
+    "baslik": "Canon imageRUNNER 1643iF: Lazer Camı (Dust-proof Glass) Kirliliği Nedeniyle Silik Baskı",
+    "hizli_adimlar": [
+      "Canon imageRUNNER 1643iF cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Lazer ünitesi koruma camının toner tozuyla kaplanması.",
+      "Saha servis prosedürünü yürütün: Yazıcı kapağındaki dahili temizleme çubuğunu ileri geri çekerek camı silin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "COPIER -> TEST -> PG",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Çıktılarda belirli bir sütunda yazıların tamamen silik çıkması.",
+    "derin_teknik_analiz": "Lazer ünitesi koruma camının toner tozuyla kaplanması. Çözüm: Yazıcı kapağındaki dahili temizleme çubuğunu ileri geri çekerek camı silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "canon imagerunner & megatank",
+      "canon imagerunner 1643if",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  }
+]

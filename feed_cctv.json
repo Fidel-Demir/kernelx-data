@@ -1,242 +1,2871 @@
-{
-  "versiyon": "2.5.0",
-  "toplam": 6,
-  "modul": "feed_cctv.json",
-  "kayitlar": [
-    {
-      "id": "cctv_00001",
-      "kategori": "CCTV Kamera",
-      "alt_kategori": "Hikvision / Dahua SADP Tool ile Şifre Sıfırlama",
-      "baslik": "Hikvision / Dahua SADP Tool ile Şifre Sıfırlama",
-      "hizli_adimlar": [
-        "Saha arıza/kurulum belirtisini teyit edin: Unutulan IP kamera ve NVR şifresini XML dosyası export ederek sıfırlama.",
-        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
-        "Birincil komutu veya eylemi uygulayın: SADP Tool -> Select Device -> Forgot Password -> Export XML -> Import Key File",
-        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Teşhis ve Uygulama Komutu",
-          "komut": "SADP Tool -> Select Device -> Forgot Password -> Export XML -> Import Key File",
-          "aciklama": "Kamera admin şifresini sıfırlar."
-        }
-      ],
-      "temel_anlatim": "Hikvision / Dahua SADP Tool ile Şifre Sıfırlama: Unutulan IP kamera ve NVR şifresini XML dosyası export ederek sıfırlama. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
-      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. SADP Tool -> Select Device -> Forgot Password -> Export XML -> Import Key File parametresi durumu optimize eder.",
-      "kenar_durumlar": [
-        {
-          "durum": "Zaman aşımı veya erişim engeli hatası",
-          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
-          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "nvr",
-        "kamera sifresi",
-        "cctv",
-        "cctv kamera",
-        "sadp",
-        "hikvision",
-        "dahua"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "cctv_00002",
-      "kategori": "CCTV Kamera",
-      "alt_kategori": "RTSP Canlı Akış URL Formatları",
-      "baslik": "RTSP Canlı Akış URL Formatları (VLC & NVR)",
-      "hizli_adimlar": [
-        "Saha arıza/kurulum belirtisini teyit edin: IP kameranın görüntüsünü üçüncü parti yazılımlara aktarma.",
-        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
-        "Birincil komutu veya eylemi uygulayın: vlc rtsp://admin:parola@192.168.1.100:554/Streaming/Channels/101",
-        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Teşhis ve Uygulama Komutu",
-          "komut": "vlc rtsp://admin:parola@192.168.1.100:554/Streaming/Channels/101",
-          "aciklama": "RTSP canlı video akışını test eder."
-        }
-      ],
-      "temel_anlatim": "RTSP Canlı Akış URL Formatları (VLC & NVR): IP kameranın görüntüsünü üçüncü parti yazılımlara aktarma. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
-      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. vlc rtsp://admin:parola@192.168.1.100:554/Streaming/Channels/101 parametresi durumu optimize eder.",
-      "kenar_durumlar": [
-        {
-          "durum": "Zaman aşımı veya erişim engeli hatası",
-          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
-          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "vlc",
-        "cctv",
-        "rtsp",
-        "cctv kamera",
-        "onvif",
-        "canli yayin",
-        "ip kamera"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "kur_bootorder_nvram_sifirlama",
-      "kategori": "Kurtarma",
-      "alt_kategori": "UEFI, EFI & BCD Önyükleme Kurtarma",
-      "baslik": "BootOrder NVRAM Sıfırlama",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: Anakart BIOS'unda Windows Boot Manager'ı üste alma.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Önyükleme BCD Kayıtlarını Tara",
-          "komut": "bootrec /scanos",
-          "aciklama": "Diskteki Windows yüklemelerini tespit eder."
-        },
-        {
-          "etiket": "DiskPart Liste Komutu",
-          "komut": "diskpart /s (Get-Volume)",
-          "aciklama": "Bölüntü ve disk yapısını kontrol eder."
-        }
-      ],
-      "temel_anlatim": "BootOrder NVRAM Sıfırlama, bilişim altyapılarında anakart bios'unda windows boot manager'ı üste alma. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "BootOrder NVRAM Sıfırlama mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Anakart BIOS'unda Windows Boot Manager'ı üste alma. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "bootorder nvram sifirlama",
-        "kurtarma",
-        "uefi efi bcd onyukleme kurtarma",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "cctv_rtsp_stream_loss",
-      "kategori": "CCTV Kamera",
-      "alt_kategori": "IP Kamera & RTSP",
-      "baslik": "IP Kamera RTSP Görüntü Kopması & Ağ Paket Kaybı Analizi",
-      "hizli_adimlar": [
-        "Kameranın RTSP URL'sini VLC ile doğrudan test et.",
-        "PoE Switch portunun güç tüketimini kontrol et.",
-        "Bitrate modunu VBR'den CBR'ye al."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Kameraya Sürekli Paket Boyutlu Ping At",
-          "komut": "ping 192.168.1.150 -t -l 1472",
-          "aciklama": "MTU sınırında büyük video paketlerinin hatta kaybolup kaybolmadığını ölçer."
-        },
-        {
-          "etiket": "VLC ile Doğrudan RTSP Yayını Test Et",
-          "komut": "vlc rtsp://admin:GucluSifre@192.168.1.150:554/Streaming/Channels/101",
-          "aciklama": "NVR'ı atlayarak doğrudan kamera akışını test eder."
-        }
-      ],
-      "temel_anlatim": "NVR ekranında kameraların rasgele griye düşmesi veya donması genellikle PoE switch yetersiz gücünden veya ağdaki MTU parçalanmasından kaynaklanır.",
-      "derin_teknik_analiz": "RTSP video akışları UDP veya TCP (Interleaved) üzerinden iletilir. UDP modunda paket kaybı ekranda piksellenme ve yırtılma yapar; NVR üzerinde RTSP TCP zorunlu seçilmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Gece saatlerinde kamera aniden kapanıyorsa",
-          "neden": "Kameranın gece görüş IR LED'leri açıldığında PoE bütçesi yetmiyordur.",
-          "cozum": "Switch'in toplam PoE Watt kapasitesini artırın."
-        }
-      ],
-      "etiketler": [
-        "cctv",
-        "rtsp",
-        "ip kamera",
-        "nvr",
-        "hikvision",
-        "dahua",
-        "poe"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "cctv_hikvision_sadp_reset",
-      "kategori": "CCTV Kamera",
-      "alt_kategori": "Hikvision / HiLook",
-      "baslik": "Hikvision NVR ve Kameralarda SADP Tool ile Unutulan Şifreyi XML Dosyası ile Sıfırlama",
-      "hizli_adimlar": [
-        "Bilgisayara en güncel 'SADP Tool' yazılımını kurun ve kamerayla aynı yerel ağa (switch) bağlayın.",
-        "SADP listesinde şifresi unutulan kamerayı seçin.",
-        "Sağ alt köşedeki 'Forgot Password' linkine tıklayın.",
-        "'Export' butonuna basarak cihazın `DeviceKey.xml` dosyasını masaüstüne kaydedin (Cihazı bu süreçte ASLA kapatmayın/yeniden başlatmayın).",
-        "Gelen sıfırlama XML dosyasını 'Import' edin veya gelen güvenlik kodunu girip yeni güçlü şifrenizi belirleyin."
-      ],
-      "komutlar": [
-        {
-          "etiket": "SADP Port Dinleme Testi",
-          "komut": "netstat -ano | findstr 8000",
-          "aciklama": "Hikvision yönetim portunu teyit eder."
-        }
-      ],
-      "temel_anlatim": "Şifresi unutulmuş Hikvision kamera veya NVR cihazına fabrika şifreleri çalışmadığında cihazı sökmeden yerel ağdan sıfırlama.",
-      "derin_teknik_analiz": "Hikvision cihazları port 8000 ve UDP broadcast üzerinden SADP (Search Active Devices Protocol) ile bulunur. Cihazın ürettiği şifreli `DeviceKey.xml` dosyası distribütör veya yetkili destek portalı üzerinden RSA özel anahtarıyla çözülerek sıfırlama kodu elde edilir.",
-      "kenar_durumlar": [
-        {
-          "durum": "'Reset password failed' veya 'Key expired' hatası veriyor",
-          "neden": "XML alındıktan sonra kamera yeniden başlatılmıştır veya bilgisayar ile kameranın tarih/saat bilgisi 1 günden fazla farklıdır.",
-          "cozum": "Kamerayı yeniden başlatmadan hemen yeni bir XML dosyası çekip işlemi tamamlayın."
-        }
-      ],
-      "etiketler": [
-        "cctv",
-        "hikvision",
-        "sadp",
-        "sifre-sifirlama",
-        "nvr",
-        "ip-kamera"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "cctv_poe_switch_wattage_budget_drop",
-      "kategori": "CCTV Kamera",
-      "alt_kategori": "PoE & Altyapı",
-      "baslik": "PoE Switch Watt Bütçesi Aşımı Nedeniyle Geceleyin IR Ledler Açılınca Kameraların Sırayla Kapanması",
-      "hizli_adimlar": [
-        "PoE switch'in toplam güç bütçesini (Örn: 150W, 250W, 370W) etiketinden kontrol edin.",
-        "Tüm kameraların maksimum gece IR watt değerlerini toplayın (Kamera sayısı x 12W).",
-        "Toplam talep bütçenin %80'ini aşıyorsa switch yetersizdir.",
-        "Switch yönetim arayüzünden portlara güç önceliği (Port PoE Priority: Critical / High / Low) atayın veya ikinci bir PoE switch ekleyerek yükü bölün."
-      ],
-      "komutlar": [
-        {
-          "etiket": "PoE Port Güç Durumunu Sorgula (Cisco/DGS)",
-          "komut": "show power inline",
-          "aciklama": "Port bazında anlık çekilen Watt değerlerini ve kalan bütçeyi gösterir."
-        }
-      ],
-      "temel_anlatim": "Gündüz kusursuz çalışan 16 kameranın, akşam hava kararıp kızılötesi (IR) gece görüş LED'leri devreye girdiğinde rastgele 4-5 tanesinin offline olması.",
-      "derin_teknik_analiz": "IP kameralar gündüz 4-6 Watt çekerken, geceleyin güçlü IR LED'ler ve ısıtıcılar devreye girdiğinde tüketim 12-15 Watt'a çıkar. 16 portlu 150W PoE switch gündüz 80W çekerken sorunsuz çalışır; gece toplam talep 200W'a ulaştığında switch aşırı akım korumasına geçer ve önceliği düşük portları sırayla keser.",
-      "kenar_durumlar": [
-        {
-          "durum": "Kablo mesafesi 80 metrenin üzerinde olan kamera hiç gece görüşe geçemiyor",
-          "neden": "İnce bakır kaplı alüminyum (CCA) kablolarda mesafe uzadıkça voltaj 48V'tan 36V'a düşer (IR akımını taşıyamaz).",
-          "cozum": "Hatları %100 saf bakır 23 AWG CAT6 kablo ile değiştirin."
-        }
-      ],
-      "etiketler": [
-        "cctv",
-        "poe",
-        "poe-butcesi",
-        "ir-led",
-        "gece-gorusu",
-        "kamera-kapanma"
-      ],
-      "oncelik": 1
-    }
-  ]
-}
+[
+  {
+    "id": "cctv_00001",
+    "kategori": "CCTV Kamera",
+    "alt_kategori": "Hikvision / Dahua SADP Tool ile Şifre Sıfırlama",
+    "baslik": "Hikvision / Dahua SADP Tool ile Şifre Sıfırlama",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: Unutulan IP kamera ve NVR şifresini XML dosyası export ederek sıfırlama.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: SADP Tool -> Select Device -> Forgot Password -> Export XML -> Import Key File",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "SADP Tool -> Select Device -> Forgot Password -> Export XML -> Import Key File",
+        "aciklama": "Kamera admin şifresini sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Hikvision / Dahua SADP Tool ile Şifre Sıfırlama: Unutulan IP kamera ve NVR şifresini XML dosyası export ederek sıfırlama. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. SADP Tool -> Select Device -> Forgot Password -> Export XML -> Import Key File parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "nvr kamera sifresi cctv cctv kamera sadp hikvision dahua"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "cctv_00002",
+    "kategori": "CCTV Kamera",
+    "alt_kategori": "RTSP Canlı Akış URL Formatları",
+    "baslik": "RTSP Canlı Akış URL Formatları (VLC & NVR)",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: IP kameranın görüntüsünü üçüncü parti yazılımlara aktarma.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: vlc rtsp://admin:parola@192.168.1.100:554/Streaming/Channels/101",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "vlc rtsp://admin:parola@192.168.1.100:554/Streaming/Channels/101",
+        "aciklama": "RTSP canlı video akışını test eder."
+      }
+    ],
+    "temel_anlatim": "RTSP Canlı Akış URL Formatları (VLC & NVR): IP kameranın görüntüsünü üçüncü parti yazılımlara aktarma. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. vlc rtsp://admin:parola@192.168.1.100:554/Streaming/Channels/101 parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "vlc cctv rtsp cctv kamera onvif canli yayin ip kamera"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "kur_bootorder_nvram_sifirlama",
+    "kategori": "Kurtarma",
+    "alt_kategori": "UEFI, EFI & BCD Önyükleme Kurtarma",
+    "baslik": "BootOrder NVRAM Sıfırlama",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: Anakart BIOS'unda Windows Boot Manager'ı üste alma.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Önyükleme BCD Kayıtlarını Tara",
+        "komut": "bootrec /scanos",
+        "aciklama": "Diskteki Windows yüklemelerini tespit eder."
+      },
+      {
+        "etiket": "DiskPart Liste Komutu",
+        "komut": "diskpart /s (Get-Volume)",
+        "aciklama": "Bölüntü ve disk yapısını kontrol eder."
+      }
+    ],
+    "temel_anlatim": "BootOrder NVRAM Sıfırlama, bilişim altyapılarında anakart bios'unda windows boot manager'ı üste alma. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "BootOrder NVRAM Sıfırlama mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Anakart BIOS'unda Windows Boot Manager'ı üste alma. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "bootorder nvram sifirlama kurtarma uefi efi bcd onyukleme kurtarma ariza onarım"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "cctv_rtsp_stream_loss",
+    "kategori": "CCTV Kamera",
+    "alt_kategori": "IP Kamera & RTSP",
+    "baslik": "IP Kamera RTSP Görüntü Kopması & Ağ Paket Kaybı Analizi",
+    "hizli_adimlar": [
+      "Kameranın RTSP URL'sini VLC ile doğrudan test et.",
+      "PoE Switch portunun güç tüketimini kontrol et.",
+      "Bitrate modunu VBR'den CBR'ye al."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Kameraya Sürekli Paket Boyutlu Ping At",
+        "komut": "ping 192.168.1.150 -t -l 1472",
+        "aciklama": "MTU sınırında büyük video paketlerinin hatta kaybolup kaybolmadığını ölçer."
+      },
+      {
+        "etiket": "VLC ile Doğrudan RTSP Yayını Test Et",
+        "komut": "vlc rtsp://admin:GucluSifre@192.168.1.150:554/Streaming/Channels/101",
+        "aciklama": "NVR'ı atlayarak doğrudan kamera akışını test eder."
+      }
+    ],
+    "temel_anlatim": "NVR ekranında kameraların rasgele griye düşmesi veya donması genellikle PoE switch yetersiz gücünden veya ağdaki MTU parçalanmasından kaynaklanır.",
+    "derin_teknik_analiz": "RTSP video akışları UDP veya TCP (Interleaved) üzerinden iletilir. UDP modunda paket kaybı ekranda piksellenme ve yırtılma yapar; NVR üzerinde RTSP TCP zorunlu seçilmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Gece saatlerinde kamera aniden kapanıyorsa",
+        "neden": "Kameranın gece görüş IR LED'leri açıldığında PoE bütçesi yetmiyordur.",
+        "cozum": "Switch'in toplam PoE Watt kapasitesini artırın."
+      }
+    ],
+    "etiketler": [
+      "cctv rtsp ip kamera nvr hikvision dahua poe"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "cctv_mat_11",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Hikvision NVR PoE Güç Bütçesi Aşımı ve Gece Kameraların Yeniden Başlaması",
+    "hizli_adimlar": [
+      "NVR web arayüzüne girip Sistem -> Kamera Yönetimi -> PoE Güç Tüketimi tablosunu açın.",
+      "Her bir kameranın gündüz (3-5W) ve gece IR açıkken (10-15W) çektiği gücü karşılaştırın.",
+      "Toplam güç bütçesinin (Örn: 120W) %90'ını aşmadığından emin olun.",
+      "Aşırı yüklenen portlardaki kameralara harici 802.3at (PoE+) besleme verin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "RTSP Canlı Akış Testi",
+        "komut": "vlc rtsp://admin:Sifre123@192.168.1.64:554/Streaming/Channels/101",
+        "aciklama": "Kameranın ana akışını (Main Stream) doğrudan bilgisayarda test eder."
+      }
+    ],
+    "temel_anlatim": "Gündüz sorunsuz çalışan IP kameraların hava kararıp kızılötesi (IR) LED'ler yandığında sürekli kapanıp açılması.",
+    "derin_teknik_analiz": "Kök Neden: NVR dahili PoE switch toplam watt gücünün (PoE Budget) IR LED'lerin çektiği yüksek akımı karşılayamaması. Saha Çözümü: Uzak veya yüksek güç tüketen kameraları harici PoE enjektöre veya ayrı bir PoE Switch'e aktarın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sadece bir kamera gece kapanıyor",
+        "neden": "Kablo mesafesi uzundur (>60m) ve gece voltaj düşümü (voltage drop) yaşanmaktadır.",
+        "cozum": "Kaliteli saf bakır CAT6 kablo çekin veya kamera yanına yerel 12V adaptör takın."
+      }
+    ],
+    "etiketler": [
+      "cctv",
+      "hikvision",
+      "poe",
+      "ir-led",
+      "kamera-yeniden-baslama"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_192",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Hikvision DS-2CD2083G2-I 4K: H.265 / HEVC Video Çözücü Eksikliği ve Siyah Ekran",
+    "hizli_adimlar": [
+      "Hikvision DS-2CD2083G2-I 4K sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İstemci bilgisayarda Microsoft H.265 video kodek bileşeninin yüklü olmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: K-Lite Codec Pack veya Windows Mağazası HEVC video uzantısını yükleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "dxdiag",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kayıt cihazından canlı izlerken görüntünün siyah olması ancak sesin gelmesi.",
+    "derin_teknik_analiz": "İstemci bilgisayarda Microsoft H.265 video kodek bileşeninin yüklü olmaması. Çözüm: K-Lite Codec Pack veya Windows Mağazası HEVC video uzantısını yükleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "hikvision ds-2cd2083g2-i 4k",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_193",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Hikvision DS-2CD2083G2-I 4K: Kamera Gece Görüşünde Örümcek Ağı ve Yağmur Damlası Yanıltıcı Alarmı",
+    "hizli_adimlar": [
+      "Hikvision DS-2CD2083G2-I 4K sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Lens önündeki örümcek ağının IR LED ışığını doğrudan kameraya yansıtması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Lens camını temizleyin ve kamerada Yapay Zeka Tabanlı İnsan/Araç Filtresini (AcuSense / SMD) aktif edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "SADPTool.exe",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Gece boyunca her 5 dakikada bir sahte hareket algılama e-postası gelmesi.",
+    "derin_teknik_analiz": "Lens önündeki örümcek ağının IR LED ışığını doğrudan kameraya yansıtması. Çözüm: Lens camını temizleyin ve kamerada Yapay Zeka Tabanlı İnsan/Araç Filtresini (AcuSense / SMD) aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "hikvision ds-2cd2083g2-i 4k",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_194",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Hikvision DS-2CD2083G2-I 4K: PTZ Kamera RS-485 Pelco-D Adres ve Baud Rate Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Hikvision DS-2CD2083G2-I 4K sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kamera arkasındaki dip switch adresinin (ID: 1) kayıt cihazındaki adresle uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kamera dip switchini ve NVR PTZ menüsündeki protokolü Pelco-D / 9600 olarak eşitleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "NVR PTZ Setup",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "PTZ kameranın yukarı aşağı dönmemesi ve optik zoom yapmaması.",
+    "derin_teknik_analiz": "Kamera arkasındaki dip switch adresinin (ID: 1) kayıt cihazındaki adresle uyuşmaması. Çözüm: Kamera dip switchini ve NVR PTZ menüsündeki protokolü Pelco-D / 9600 olarak eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "hikvision ds-2cd2083g2-i 4k",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_195",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Hikvision DS-2CD2083G2-I 4K: Hik-Connect / DMSS Bulut P2P Bağlantısının \"Çevrimdışı\" Kalması",
+    "hizli_adimlar": [
+      "Hikvision DS-2CD2083G2-I 4K sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: NVR ağ ayarlarında DNS adresinin boş kalması sonucu P2P bulut sunucusuna erişilememesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: NVR DNS 1 ayarına 8.8.8.8, DNS 2 ayarına 1.1.1.1 yazıp P2P servisini yeniden başlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Ping dev.hik-connect.com",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Cep telefonundan kameraları izlemek isterken cihazın çevrimdışı görünmesi.",
+    "derin_teknik_analiz": "NVR ağ ayarlarında DNS adresinin boş kalması sonucu P2P bulut sunucusuna erişilememesi. Çözüm: NVR DNS 1 ayarına 8.8.8.8, DNS 2 ayarına 1.1.1.1 yazıp P2P servisini yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "hikvision ds-2cd2083g2-i 4k",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_196",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Dahua IPC-HFW2431S-S: H.265 / HEVC Video Çözücü Eksikliği ve Siyah Ekran",
+    "hizli_adimlar": [
+      "Dahua IPC-HFW2431S-S sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İstemci bilgisayarda Microsoft H.265 video kodek bileşeninin yüklü olmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: K-Lite Codec Pack veya Windows Mağazası HEVC video uzantısını yükleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "dxdiag",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kayıt cihazından canlı izlerken görüntünün siyah olması ancak sesin gelmesi.",
+    "derin_teknik_analiz": "İstemci bilgisayarda Microsoft H.265 video kodek bileşeninin yüklü olmaması. Çözüm: K-Lite Codec Pack veya Windows Mağazası HEVC video uzantısını yükleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "dahua ipc-hfw2431s-s",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_197",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Dahua IPC-HFW2431S-S: Kamera Gece Görüşünde Örümcek Ağı ve Yağmur Damlası Yanıltıcı Alarmı",
+    "hizli_adimlar": [
+      "Dahua IPC-HFW2431S-S sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Lens önündeki örümcek ağının IR LED ışığını doğrudan kameraya yansıtması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Lens camını temizleyin ve kamerada Yapay Zeka Tabanlı İnsan/Araç Filtresini (AcuSense / SMD) aktif edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "SADPTool.exe",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Gece boyunca her 5 dakikada bir sahte hareket algılama e-postası gelmesi.",
+    "derin_teknik_analiz": "Lens önündeki örümcek ağının IR LED ışığını doğrudan kameraya yansıtması. Çözüm: Lens camını temizleyin ve kamerada Yapay Zeka Tabanlı İnsan/Araç Filtresini (AcuSense / SMD) aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "dahua ipc-hfw2431s-s",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_198",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Dahua IPC-HFW2431S-S: PTZ Kamera RS-485 Pelco-D Adres ve Baud Rate Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Dahua IPC-HFW2431S-S sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kamera arkasındaki dip switch adresinin (ID: 1) kayıt cihazındaki adresle uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kamera dip switchini ve NVR PTZ menüsündeki protokolü Pelco-D / 9600 olarak eşitleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "NVR PTZ Setup",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "PTZ kameranın yukarı aşağı dönmemesi ve optik zoom yapmaması.",
+    "derin_teknik_analiz": "Kamera arkasındaki dip switch adresinin (ID: 1) kayıt cihazındaki adresle uyuşmaması. Çözüm: Kamera dip switchini ve NVR PTZ menüsündeki protokolü Pelco-D / 9600 olarak eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "dahua ipc-hfw2431s-s",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_199",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Dahua IPC-HFW2431S-S: Hik-Connect / DMSS Bulut P2P Bağlantısının \"Çevrimdışı\" Kalması",
+    "hizli_adimlar": [
+      "Dahua IPC-HFW2431S-S sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: NVR ağ ayarlarında DNS adresinin boş kalması sonucu P2P bulut sunucusuna erişilememesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: NVR DNS 1 ayarına 8.8.8.8, DNS 2 ayarına 1.1.1.1 yazıp P2P servisini yeniden başlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Ping dev.hik-connect.com",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Cep telefonundan kameraları izlemek isterken cihazın çevrimdışı görünmesi.",
+    "derin_teknik_analiz": "NVR ağ ayarlarında DNS adresinin boş kalması sonucu P2P bulut sunucusuna erişilememesi. Çözüm: NVR DNS 1 ayarına 8.8.8.8, DNS 2 ayarına 1.1.1.1 yazıp P2P servisini yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "dahua ipc-hfw2431s-s",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_200",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Uniview IPC2124LR3: H.265 / HEVC Video Çözücü Eksikliği ve Siyah Ekran",
+    "hizli_adimlar": [
+      "Uniview IPC2124LR3 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İstemci bilgisayarda Microsoft H.265 video kodek bileşeninin yüklü olmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: K-Lite Codec Pack veya Windows Mağazası HEVC video uzantısını yükleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "dxdiag",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kayıt cihazından canlı izlerken görüntünün siyah olması ancak sesin gelmesi.",
+    "derin_teknik_analiz": "İstemci bilgisayarda Microsoft H.265 video kodek bileşeninin yüklü olmaması. Çözüm: K-Lite Codec Pack veya Windows Mağazası HEVC video uzantısını yükleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "uniview ipc2124lr3",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_201",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Uniview IPC2124LR3: Kamera Gece Görüşünde Örümcek Ağı ve Yağmur Damlası Yanıltıcı Alarmı",
+    "hizli_adimlar": [
+      "Uniview IPC2124LR3 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Lens önündeki örümcek ağının IR LED ışığını doğrudan kameraya yansıtması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Lens camını temizleyin ve kamerada Yapay Zeka Tabanlı İnsan/Araç Filtresini (AcuSense / SMD) aktif edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "SADPTool.exe",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Gece boyunca her 5 dakikada bir sahte hareket algılama e-postası gelmesi.",
+    "derin_teknik_analiz": "Lens önündeki örümcek ağının IR LED ışığını doğrudan kameraya yansıtması. Çözüm: Lens camını temizleyin ve kamerada Yapay Zeka Tabanlı İnsan/Araç Filtresini (AcuSense / SMD) aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "uniview ipc2124lr3",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_202",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Uniview IPC2124LR3: PTZ Kamera RS-485 Pelco-D Adres ve Baud Rate Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Uniview IPC2124LR3 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kamera arkasındaki dip switch adresinin (ID: 1) kayıt cihazındaki adresle uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kamera dip switchini ve NVR PTZ menüsündeki protokolü Pelco-D / 9600 olarak eşitleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "NVR PTZ Setup",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "PTZ kameranın yukarı aşağı dönmemesi ve optik zoom yapmaması.",
+    "derin_teknik_analiz": "Kamera arkasındaki dip switch adresinin (ID: 1) kayıt cihazındaki adresle uyuşmaması. Çözüm: Kamera dip switchini ve NVR PTZ menüsündeki protokolü Pelco-D / 9600 olarak eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "uniview ipc2124lr3",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_203",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Uniview IPC2124LR3: Hik-Connect / DMSS Bulut P2P Bağlantısının \"Çevrimdışı\" Kalması",
+    "hizli_adimlar": [
+      "Uniview IPC2124LR3 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: NVR ağ ayarlarında DNS adresinin boş kalması sonucu P2P bulut sunucusuna erişilememesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: NVR DNS 1 ayarına 8.8.8.8, DNS 2 ayarına 1.1.1.1 yazıp P2P servisini yeniden başlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Ping dev.hik-connect.com",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Cep telefonundan kameraları izlemek isterken cihazın çevrimdışı görünmesi.",
+    "derin_teknik_analiz": "NVR ağ ayarlarında DNS adresinin boş kalması sonucu P2P bulut sunucusuna erişilememesi. Çözüm: NVR DNS 1 ayarına 8.8.8.8, DNS 2 ayarına 1.1.1.1 yazıp P2P servisini yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "uniview ipc2124lr3",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_204",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Axis P1375 Ağ Kamerası: H.265 / HEVC Video Çözücü Eksikliği ve Siyah Ekran",
+    "hizli_adimlar": [
+      "Axis P1375 Ağ Kamerası sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İstemci bilgisayarda Microsoft H.265 video kodek bileşeninin yüklü olmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: K-Lite Codec Pack veya Windows Mağazası HEVC video uzantısını yükleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "dxdiag",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kayıt cihazından canlı izlerken görüntünün siyah olması ancak sesin gelmesi.",
+    "derin_teknik_analiz": "İstemci bilgisayarda Microsoft H.265 video kodek bileşeninin yüklü olmaması. Çözüm: K-Lite Codec Pack veya Windows Mağazası HEVC video uzantısını yükleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "axis p1375 ağ kamerası",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_205",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Axis P1375 Ağ Kamerası: Kamera Gece Görüşünde Örümcek Ağı ve Yağmur Damlası Yanıltıcı Alarmı",
+    "hizli_adimlar": [
+      "Axis P1375 Ağ Kamerası sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Lens önündeki örümcek ağının IR LED ışığını doğrudan kameraya yansıtması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Lens camını temizleyin ve kamerada Yapay Zeka Tabanlı İnsan/Araç Filtresini (AcuSense / SMD) aktif edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "SADPTool.exe",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Gece boyunca her 5 dakikada bir sahte hareket algılama e-postası gelmesi.",
+    "derin_teknik_analiz": "Lens önündeki örümcek ağının IR LED ışığını doğrudan kameraya yansıtması. Çözüm: Lens camını temizleyin ve kamerada Yapay Zeka Tabanlı İnsan/Araç Filtresini (AcuSense / SMD) aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "axis p1375 ağ kamerası",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_206",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Axis P1375 Ağ Kamerası: PTZ Kamera RS-485 Pelco-D Adres ve Baud Rate Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Axis P1375 Ağ Kamerası sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kamera arkasındaki dip switch adresinin (ID: 1) kayıt cihazındaki adresle uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kamera dip switchini ve NVR PTZ menüsündeki protokolü Pelco-D / 9600 olarak eşitleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "NVR PTZ Setup",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "PTZ kameranın yukarı aşağı dönmemesi ve optik zoom yapmaması.",
+    "derin_teknik_analiz": "Kamera arkasındaki dip switch adresinin (ID: 1) kayıt cihazındaki adresle uyuşmaması. Çözüm: Kamera dip switchini ve NVR PTZ menüsündeki protokolü Pelco-D / 9600 olarak eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "axis p1375 ağ kamerası",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_207",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Axis P1375 Ağ Kamerası: Hik-Connect / DMSS Bulut P2P Bağlantısının \"Çevrimdışı\" Kalması",
+    "hizli_adimlar": [
+      "Axis P1375 Ağ Kamerası sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: NVR ağ ayarlarında DNS adresinin boş kalması sonucu P2P bulut sunucusuna erişilememesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: NVR DNS 1 ayarına 8.8.8.8, DNS 2 ayarına 1.1.1.1 yazıp P2P servisini yeniden başlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Ping dev.hik-connect.com",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Cep telefonundan kameraları izlemek isterken cihazın çevrimdışı görünmesi.",
+    "derin_teknik_analiz": "NVR ağ ayarlarında DNS adresinin boş kalması sonucu P2P bulut sunucusuna erişilememesi. Çözüm: NVR DNS 1 ayarına 8.8.8.8, DNS 2 ayarına 1.1.1.1 yazıp P2P servisini yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "axis p1375 ağ kamerası",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_208",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Hanwha QNO-8080R: H.265 / HEVC Video Çözücü Eksikliği ve Siyah Ekran",
+    "hizli_adimlar": [
+      "Hanwha QNO-8080R sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İstemci bilgisayarda Microsoft H.265 video kodek bileşeninin yüklü olmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: K-Lite Codec Pack veya Windows Mağazası HEVC video uzantısını yükleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "dxdiag",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kayıt cihazından canlı izlerken görüntünün siyah olması ancak sesin gelmesi.",
+    "derin_teknik_analiz": "İstemci bilgisayarda Microsoft H.265 video kodek bileşeninin yüklü olmaması. Çözüm: K-Lite Codec Pack veya Windows Mağazası HEVC video uzantısını yükleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "hanwha qno-8080r",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_209",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Hanwha QNO-8080R: Kamera Gece Görüşünde Örümcek Ağı ve Yağmur Damlası Yanıltıcı Alarmı",
+    "hizli_adimlar": [
+      "Hanwha QNO-8080R sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Lens önündeki örümcek ağının IR LED ışığını doğrudan kameraya yansıtması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Lens camını temizleyin ve kamerada Yapay Zeka Tabanlı İnsan/Araç Filtresini (AcuSense / SMD) aktif edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "SADPTool.exe",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Gece boyunca her 5 dakikada bir sahte hareket algılama e-postası gelmesi.",
+    "derin_teknik_analiz": "Lens önündeki örümcek ağının IR LED ışığını doğrudan kameraya yansıtması. Çözüm: Lens camını temizleyin ve kamerada Yapay Zeka Tabanlı İnsan/Araç Filtresini (AcuSense / SMD) aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "hanwha qno-8080r",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_210",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Hanwha QNO-8080R: PTZ Kamera RS-485 Pelco-D Adres ve Baud Rate Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Hanwha QNO-8080R sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kamera arkasındaki dip switch adresinin (ID: 1) kayıt cihazındaki adresle uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kamera dip switchini ve NVR PTZ menüsündeki protokolü Pelco-D / 9600 olarak eşitleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "NVR PTZ Setup",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "PTZ kameranın yukarı aşağı dönmemesi ve optik zoom yapmaması.",
+    "derin_teknik_analiz": "Kamera arkasındaki dip switch adresinin (ID: 1) kayıt cihazındaki adresle uyuşmaması. Çözüm: Kamera dip switchini ve NVR PTZ menüsündeki protokolü Pelco-D / 9600 olarak eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "hanwha qno-8080r",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_211",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Hanwha QNO-8080R: Hik-Connect / DMSS Bulut P2P Bağlantısının \"Çevrimdışı\" Kalması",
+    "hizli_adimlar": [
+      "Hanwha QNO-8080R sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: NVR ağ ayarlarında DNS adresinin boş kalması sonucu P2P bulut sunucusuna erişilememesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: NVR DNS 1 ayarına 8.8.8.8, DNS 2 ayarına 1.1.1.1 yazıp P2P servisini yeniden başlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Ping dev.hik-connect.com",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Cep telefonundan kameraları izlemek isterken cihazın çevrimdışı görünmesi.",
+    "derin_teknik_analiz": "NVR ağ ayarlarında DNS adresinin boş kalması sonucu P2P bulut sunucusuna erişilememesi. Çözüm: NVR DNS 1 ayarına 8.8.8.8, DNS 2 ayarına 1.1.1.1 yazıp P2P servisini yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "hanwha qno-8080r",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_212",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Tiandy TC-C34XN Bullet: H.265 / HEVC Video Çözücü Eksikliği ve Siyah Ekran",
+    "hizli_adimlar": [
+      "Tiandy TC-C34XN Bullet sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İstemci bilgisayarda Microsoft H.265 video kodek bileşeninin yüklü olmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: K-Lite Codec Pack veya Windows Mağazası HEVC video uzantısını yükleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "dxdiag",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kayıt cihazından canlı izlerken görüntünün siyah olması ancak sesin gelmesi.",
+    "derin_teknik_analiz": "İstemci bilgisayarda Microsoft H.265 video kodek bileşeninin yüklü olmaması. Çözüm: K-Lite Codec Pack veya Windows Mağazası HEVC video uzantısını yükleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "tiandy tc-c34xn bullet",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_213",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Tiandy TC-C34XN Bullet: Kamera Gece Görüşünde Örümcek Ağı ve Yağmur Damlası Yanıltıcı Alarmı",
+    "hizli_adimlar": [
+      "Tiandy TC-C34XN Bullet sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Lens önündeki örümcek ağının IR LED ışığını doğrudan kameraya yansıtması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Lens camını temizleyin ve kamerada Yapay Zeka Tabanlı İnsan/Araç Filtresini (AcuSense / SMD) aktif edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "SADPTool.exe",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Gece boyunca her 5 dakikada bir sahte hareket algılama e-postası gelmesi.",
+    "derin_teknik_analiz": "Lens önündeki örümcek ağının IR LED ışığını doğrudan kameraya yansıtması. Çözüm: Lens camını temizleyin ve kamerada Yapay Zeka Tabanlı İnsan/Araç Filtresini (AcuSense / SMD) aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "tiandy tc-c34xn bullet",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_214",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Tiandy TC-C34XN Bullet: PTZ Kamera RS-485 Pelco-D Adres ve Baud Rate Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Tiandy TC-C34XN Bullet sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kamera arkasındaki dip switch adresinin (ID: 1) kayıt cihazındaki adresle uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kamera dip switchini ve NVR PTZ menüsündeki protokolü Pelco-D / 9600 olarak eşitleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "NVR PTZ Setup",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "PTZ kameranın yukarı aşağı dönmemesi ve optik zoom yapmaması.",
+    "derin_teknik_analiz": "Kamera arkasındaki dip switch adresinin (ID: 1) kayıt cihazındaki adresle uyuşmaması. Çözüm: Kamera dip switchini ve NVR PTZ menüsündeki protokolü Pelco-D / 9600 olarak eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "tiandy tc-c34xn bullet",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_215",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Tiandy TC-C34XN Bullet: Hik-Connect / DMSS Bulut P2P Bağlantısının \"Çevrimdışı\" Kalması",
+    "hizli_adimlar": [
+      "Tiandy TC-C34XN Bullet sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: NVR ağ ayarlarında DNS adresinin boş kalması sonucu P2P bulut sunucusuna erişilememesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: NVR DNS 1 ayarına 8.8.8.8, DNS 2 ayarına 1.1.1.1 yazıp P2P servisini yeniden başlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Ping dev.hik-connect.com",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Cep telefonundan kameraları izlemek isterken cihazın çevrimdışı görünmesi.",
+    "derin_teknik_analiz": "NVR ağ ayarlarında DNS adresinin boş kalması sonucu P2P bulut sunucusuna erişilememesi. Çözüm: NVR DNS 1 ayarına 8.8.8.8, DNS 2 ayarına 1.1.1.1 yazıp P2P servisini yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "tiandy tc-c34xn bullet",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_216",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Hikvision DarkFighter PTZ: H.265 / HEVC Video Çözücü Eksikliği ve Siyah Ekran",
+    "hizli_adimlar": [
+      "Hikvision DarkFighter PTZ sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İstemci bilgisayarda Microsoft H.265 video kodek bileşeninin yüklü olmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: K-Lite Codec Pack veya Windows Mağazası HEVC video uzantısını yükleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "dxdiag",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kayıt cihazından canlı izlerken görüntünün siyah olması ancak sesin gelmesi.",
+    "derin_teknik_analiz": "İstemci bilgisayarda Microsoft H.265 video kodek bileşeninin yüklü olmaması. Çözüm: K-Lite Codec Pack veya Windows Mağazası HEVC video uzantısını yükleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "hikvision darkfighter ptz",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_217",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Hikvision DarkFighter PTZ: Kamera Gece Görüşünde Örümcek Ağı ve Yağmur Damlası Yanıltıcı Alarmı",
+    "hizli_adimlar": [
+      "Hikvision DarkFighter PTZ sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Lens önündeki örümcek ağının IR LED ışığını doğrudan kameraya yansıtması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Lens camını temizleyin ve kamerada Yapay Zeka Tabanlı İnsan/Araç Filtresini (AcuSense / SMD) aktif edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "SADPTool.exe",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Gece boyunca her 5 dakikada bir sahte hareket algılama e-postası gelmesi.",
+    "derin_teknik_analiz": "Lens önündeki örümcek ağının IR LED ışığını doğrudan kameraya yansıtması. Çözüm: Lens camını temizleyin ve kamerada Yapay Zeka Tabanlı İnsan/Araç Filtresini (AcuSense / SMD) aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "hikvision darkfighter ptz",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_218",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Hikvision DarkFighter PTZ: PTZ Kamera RS-485 Pelco-D Adres ve Baud Rate Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Hikvision DarkFighter PTZ sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kamera arkasındaki dip switch adresinin (ID: 1) kayıt cihazındaki adresle uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kamera dip switchini ve NVR PTZ menüsündeki protokolü Pelco-D / 9600 olarak eşitleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "NVR PTZ Setup",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "PTZ kameranın yukarı aşağı dönmemesi ve optik zoom yapmaması.",
+    "derin_teknik_analiz": "Kamera arkasındaki dip switch adresinin (ID: 1) kayıt cihazındaki adresle uyuşmaması. Çözüm: Kamera dip switchini ve NVR PTZ menüsündeki protokolü Pelco-D / 9600 olarak eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "hikvision darkfighter ptz",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_219",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Hikvision DarkFighter PTZ: Hik-Connect / DMSS Bulut P2P Bağlantısının \"Çevrimdışı\" Kalması",
+    "hizli_adimlar": [
+      "Hikvision DarkFighter PTZ sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: NVR ağ ayarlarında DNS adresinin boş kalması sonucu P2P bulut sunucusuna erişilememesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: NVR DNS 1 ayarına 8.8.8.8, DNS 2 ayarına 1.1.1.1 yazıp P2P servisini yeniden başlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Ping dev.hik-connect.com",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Cep telefonundan kameraları izlemek isterken cihazın çevrimdışı görünmesi.",
+    "derin_teknik_analiz": "NVR ağ ayarlarında DNS adresinin boş kalması sonucu P2P bulut sunucusuna erişilememesi. Çözüm: NVR DNS 1 ayarına 8.8.8.8, DNS 2 ayarına 1.1.1.1 yazıp P2P servisini yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "hikvision darkfighter ptz",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_220",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Dahua TiOC 2.0 Aktif Caydırıcı: H.265 / HEVC Video Çözücü Eksikliği ve Siyah Ekran",
+    "hizli_adimlar": [
+      "Dahua TiOC 2.0 Aktif Caydırıcı sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İstemci bilgisayarda Microsoft H.265 video kodek bileşeninin yüklü olmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: K-Lite Codec Pack veya Windows Mağazası HEVC video uzantısını yükleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "dxdiag",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kayıt cihazından canlı izlerken görüntünün siyah olması ancak sesin gelmesi.",
+    "derin_teknik_analiz": "İstemci bilgisayarda Microsoft H.265 video kodek bileşeninin yüklü olmaması. Çözüm: K-Lite Codec Pack veya Windows Mağazası HEVC video uzantısını yükleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "dahua tioc 2.0 aktif caydırıcı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_221",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Dahua TiOC 2.0 Aktif Caydırıcı: Kamera Gece Görüşünde Örümcek Ağı ve Yağmur Damlası Yanıltıcı Alarmı",
+    "hizli_adimlar": [
+      "Dahua TiOC 2.0 Aktif Caydırıcı sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Lens önündeki örümcek ağının IR LED ışığını doğrudan kameraya yansıtması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Lens camını temizleyin ve kamerada Yapay Zeka Tabanlı İnsan/Araç Filtresini (AcuSense / SMD) aktif edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "SADPTool.exe",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Gece boyunca her 5 dakikada bir sahte hareket algılama e-postası gelmesi.",
+    "derin_teknik_analiz": "Lens önündeki örümcek ağının IR LED ışığını doğrudan kameraya yansıtması. Çözüm: Lens camını temizleyin ve kamerada Yapay Zeka Tabanlı İnsan/Araç Filtresini (AcuSense / SMD) aktif edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "dahua tioc 2.0 aktif caydırıcı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_222",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Dahua TiOC 2.0 Aktif Caydırıcı: PTZ Kamera RS-485 Pelco-D Adres ve Baud Rate Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Dahua TiOC 2.0 Aktif Caydırıcı sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kamera arkasındaki dip switch adresinin (ID: 1) kayıt cihazındaki adresle uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kamera dip switchini ve NVR PTZ menüsündeki protokolü Pelco-D / 9600 olarak eşitleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "NVR PTZ Setup",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "PTZ kameranın yukarı aşağı dönmemesi ve optik zoom yapmaması.",
+    "derin_teknik_analiz": "Kamera arkasındaki dip switch adresinin (ID: 1) kayıt cihazındaki adresle uyuşmaması. Çözüm: Kamera dip switchini ve NVR PTZ menüsündeki protokolü Pelco-D / 9600 olarak eşitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "dahua tioc 2.0 aktif caydırıcı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_223",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Dahua TiOC 2.0 Aktif Caydırıcı: Hik-Connect / DMSS Bulut P2P Bağlantısının \"Çevrimdışı\" Kalması",
+    "hizli_adimlar": [
+      "Dahua TiOC 2.0 Aktif Caydırıcı sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: NVR ağ ayarlarında DNS adresinin boş kalması sonucu P2P bulut sunucusuna erişilememesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: NVR DNS 1 ayarına 8.8.8.8, DNS 2 ayarına 1.1.1.1 yazıp P2P servisini yeniden başlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Ping dev.hik-connect.com",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Cep telefonundan kameraları izlemek isterken cihazın çevrimdışı görünmesi.",
+    "derin_teknik_analiz": "NVR ağ ayarlarında DNS adresinin boş kalması sonucu P2P bulut sunucusuna erişilememesi. Çözüm: NVR DNS 1 ayarına 8.8.8.8, DNS 2 ayarına 1.1.1.1 yazıp P2P servisini yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "dahua tioc 2.0 aktif caydırıcı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_240",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Hikvision AcuSense NVR 32 Kanal: Kayıt Cihazında RAID 5 Dizi Bozulması ve Canlı İzleme Kaybı",
+    "hizli_adimlar": [
+      "Hikvision AcuSense NVR 32 Kanal cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Disklerden birinde bad sector oluşması sonucu kayıt akışının tıkanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Arızalı diski tespit edip yenisiyle değiştirin ve NVR menüsünden RAID Rebuild başlatın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "NVR Storage -> RAID Status",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "NVR ekranında \"RAID Degraded\" uyarısı çıkması ve eski kayıtların açılamaması.",
+    "derin_teknik_analiz": "Disklerden birinde bad sector oluşması sonucu kayıt akışının tıkanması. Çözüm: Arızalı diski tespit edip yenisiyle değiştirin ve NVR menüsünden RAID Rebuild başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "hikvision acusense nvr 32 kanal",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_241",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Hikvision AcuSense NVR 32 Kanal: Kamera Görüntüsünde 50 Hz / 60 Hz Floresan Işık Titremesi (Flicker)",
+    "hizli_adimlar": [
+      "Hikvision AcuSense NVR 32 Kanal cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Kamera pozlama frekansının Türkiye elektrik şebekesi frekansı (50 Hz) ile uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Kamera video ayarlarından Video Standardı / Anti-Flicker modunu 50 Hz olarak sabitleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Camera Settings -> Image -> 50Hz",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kamera görüntüsünde yukarıdan aşağıya doğru dalgalı çizgiler geçmesi.",
+    "derin_teknik_analiz": "Kamera pozlama frekansının Türkiye elektrik şebekesi frekansı (50 Hz) ile uyuşmaması. Çözüm: Kamera video ayarlarından Video Standardı / Anti-Flicker modunu 50 Hz olarak sabitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "hikvision acusense nvr 32 kanal",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_242",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Hikvision AcuSense NVR 32 Kanal: RTSP Canlı Akışında Paket Kaybı Nedeniyle Gri Bloklaşma",
+    "hizli_adimlar": [
+      "Hikvision AcuSense NVR 32 Kanal cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Kamera video iletim protokolünün UDP modunda paket kaybetmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Kayıt cihazı ve izleme yazılımında RTSP akış protokolünü UDP yerine TCP olarak zorlayın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "VLC -> Tools -> Preferences -> Input/Codecs -> Live555: RTP over RTSP (TCP)",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kamera görüntüsünün her 5 saniyede bir pikselleşip griye dönmesi.",
+    "derin_teknik_analiz": "Kamera video iletim protokolünün UDP modunda paket kaybetmesi. Çözüm: Kayıt cihazı ve izleme yazılımında RTSP akış protokolünü UDP yerine TCP olarak zorlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "hikvision acusense nvr 32 kanal",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_243",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Dahua WizSense NVR 16 Kanal: Kayıt Cihazında RAID 5 Dizi Bozulması ve Canlı İzleme Kaybı",
+    "hizli_adimlar": [
+      "Dahua WizSense NVR 16 Kanal cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Disklerden birinde bad sector oluşması sonucu kayıt akışının tıkanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Arızalı diski tespit edip yenisiyle değiştirin ve NVR menüsünden RAID Rebuild başlatın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "NVR Storage -> RAID Status",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "NVR ekranında \"RAID Degraded\" uyarısı çıkması ve eski kayıtların açılamaması.",
+    "derin_teknik_analiz": "Disklerden birinde bad sector oluşması sonucu kayıt akışının tıkanması. Çözüm: Arızalı diski tespit edip yenisiyle değiştirin ve NVR menüsünden RAID Rebuild başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "dahua wizsense nvr 16 kanal",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_244",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Dahua WizSense NVR 16 Kanal: Kamera Görüntüsünde 50 Hz / 60 Hz Floresan Işık Titremesi (Flicker)",
+    "hizli_adimlar": [
+      "Dahua WizSense NVR 16 Kanal cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Kamera pozlama frekansının Türkiye elektrik şebekesi frekansı (50 Hz) ile uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Kamera video ayarlarından Video Standardı / Anti-Flicker modunu 50 Hz olarak sabitleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Camera Settings -> Image -> 50Hz",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kamera görüntüsünde yukarıdan aşağıya doğru dalgalı çizgiler geçmesi.",
+    "derin_teknik_analiz": "Kamera pozlama frekansının Türkiye elektrik şebekesi frekansı (50 Hz) ile uyuşmaması. Çözüm: Kamera video ayarlarından Video Standardı / Anti-Flicker modunu 50 Hz olarak sabitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "dahua wizsense nvr 16 kanal",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_245",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Dahua WizSense NVR 16 Kanal: RTSP Canlı Akışında Paket Kaybı Nedeniyle Gri Bloklaşma",
+    "hizli_adimlar": [
+      "Dahua WizSense NVR 16 Kanal cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Kamera video iletim protokolünün UDP modunda paket kaybetmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Kayıt cihazı ve izleme yazılımında RTSP akış protokolünü UDP yerine TCP olarak zorlayın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "VLC -> Tools -> Preferences -> Input/Codecs -> Live555: RTP over RTSP (TCP)",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kamera görüntüsünün her 5 saniyede bir pikselleşip griye dönmesi.",
+    "derin_teknik_analiz": "Kamera video iletim protokolünün UDP modunda paket kaybetmesi. Çözüm: Kayıt cihazı ve izleme yazılımında RTSP akış protokolünü UDP yerine TCP olarak zorlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "dahua wizsense nvr 16 kanal",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_246",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Uniview NVR304 32 Kanal: Kayıt Cihazında RAID 5 Dizi Bozulması ve Canlı İzleme Kaybı",
+    "hizli_adimlar": [
+      "Uniview NVR304 32 Kanal cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Disklerden birinde bad sector oluşması sonucu kayıt akışının tıkanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Arızalı diski tespit edip yenisiyle değiştirin ve NVR menüsünden RAID Rebuild başlatın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "NVR Storage -> RAID Status",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "NVR ekranında \"RAID Degraded\" uyarısı çıkması ve eski kayıtların açılamaması.",
+    "derin_teknik_analiz": "Disklerden birinde bad sector oluşması sonucu kayıt akışının tıkanması. Çözüm: Arızalı diski tespit edip yenisiyle değiştirin ve NVR menüsünden RAID Rebuild başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "uniview nvr304 32 kanal",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_247",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Uniview NVR304 32 Kanal: Kamera Görüntüsünde 50 Hz / 60 Hz Floresan Işık Titremesi (Flicker)",
+    "hizli_adimlar": [
+      "Uniview NVR304 32 Kanal cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Kamera pozlama frekansının Türkiye elektrik şebekesi frekansı (50 Hz) ile uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Kamera video ayarlarından Video Standardı / Anti-Flicker modunu 50 Hz olarak sabitleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Camera Settings -> Image -> 50Hz",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kamera görüntüsünde yukarıdan aşağıya doğru dalgalı çizgiler geçmesi.",
+    "derin_teknik_analiz": "Kamera pozlama frekansının Türkiye elektrik şebekesi frekansı (50 Hz) ile uyuşmaması. Çözüm: Kamera video ayarlarından Video Standardı / Anti-Flicker modunu 50 Hz olarak sabitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "uniview nvr304 32 kanal",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_248",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Uniview NVR304 32 Kanal: RTSP Canlı Akışında Paket Kaybı Nedeniyle Gri Bloklaşma",
+    "hizli_adimlar": [
+      "Uniview NVR304 32 Kanal cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Kamera video iletim protokolünün UDP modunda paket kaybetmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Kayıt cihazı ve izleme yazılımında RTSP akış protokolünü UDP yerine TCP olarak zorlayın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "VLC -> Tools -> Preferences -> Input/Codecs -> Live555: RTP over RTSP (TCP)",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kamera görüntüsünün her 5 saniyede bir pikselleşip griye dönmesi.",
+    "derin_teknik_analiz": "Kamera video iletim protokolünün UDP modunda paket kaybetmesi. Çözüm: Kayıt cihazı ve izleme yazılımında RTSP akış protokolünü UDP yerine TCP olarak zorlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "uniview nvr304 32 kanal",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_249",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Axis Camera Station S1148: Kayıt Cihazında RAID 5 Dizi Bozulması ve Canlı İzleme Kaybı",
+    "hizli_adimlar": [
+      "Axis Camera Station S1148 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Disklerden birinde bad sector oluşması sonucu kayıt akışının tıkanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Arızalı diski tespit edip yenisiyle değiştirin ve NVR menüsünden RAID Rebuild başlatın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "NVR Storage -> RAID Status",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "NVR ekranında \"RAID Degraded\" uyarısı çıkması ve eski kayıtların açılamaması.",
+    "derin_teknik_analiz": "Disklerden birinde bad sector oluşması sonucu kayıt akışının tıkanması. Çözüm: Arızalı diski tespit edip yenisiyle değiştirin ve NVR menüsünden RAID Rebuild başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "axis camera station s1148",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_250",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Axis Camera Station S1148: Kamera Görüntüsünde 50 Hz / 60 Hz Floresan Işık Titremesi (Flicker)",
+    "hizli_adimlar": [
+      "Axis Camera Station S1148 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Kamera pozlama frekansının Türkiye elektrik şebekesi frekansı (50 Hz) ile uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Kamera video ayarlarından Video Standardı / Anti-Flicker modunu 50 Hz olarak sabitleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Camera Settings -> Image -> 50Hz",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kamera görüntüsünde yukarıdan aşağıya doğru dalgalı çizgiler geçmesi.",
+    "derin_teknik_analiz": "Kamera pozlama frekansının Türkiye elektrik şebekesi frekansı (50 Hz) ile uyuşmaması. Çözüm: Kamera video ayarlarından Video Standardı / Anti-Flicker modunu 50 Hz olarak sabitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "axis camera station s1148",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_251",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Axis Camera Station S1148: RTSP Canlı Akışında Paket Kaybı Nedeniyle Gri Bloklaşma",
+    "hizli_adimlar": [
+      "Axis Camera Station S1148 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Kamera video iletim protokolünün UDP modunda paket kaybetmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Kayıt cihazı ve izleme yazılımında RTSP akış protokolünü UDP yerine TCP olarak zorlayın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "VLC -> Tools -> Preferences -> Input/Codecs -> Live555: RTP over RTSP (TCP)",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kamera görüntüsünün her 5 saniyede bir pikselleşip griye dönmesi.",
+    "derin_teknik_analiz": "Kamera video iletim protokolünün UDP modunda paket kaybetmesi. Çözüm: Kayıt cihazı ve izleme yazılımında RTSP akış protokolünü UDP yerine TCP olarak zorlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "axis camera station s1148",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_252",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Tiandy TC-R3220 NVR: Kayıt Cihazında RAID 5 Dizi Bozulması ve Canlı İzleme Kaybı",
+    "hizli_adimlar": [
+      "Tiandy TC-R3220 NVR cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Disklerden birinde bad sector oluşması sonucu kayıt akışının tıkanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Arızalı diski tespit edip yenisiyle değiştirin ve NVR menüsünden RAID Rebuild başlatın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "NVR Storage -> RAID Status",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "NVR ekranında \"RAID Degraded\" uyarısı çıkması ve eski kayıtların açılamaması.",
+    "derin_teknik_analiz": "Disklerden birinde bad sector oluşması sonucu kayıt akışının tıkanması. Çözüm: Arızalı diski tespit edip yenisiyle değiştirin ve NVR menüsünden RAID Rebuild başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "tiandy tc-r3220 nvr",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_253",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Tiandy TC-R3220 NVR: Kamera Görüntüsünde 50 Hz / 60 Hz Floresan Işık Titremesi (Flicker)",
+    "hizli_adimlar": [
+      "Tiandy TC-R3220 NVR cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Kamera pozlama frekansının Türkiye elektrik şebekesi frekansı (50 Hz) ile uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Kamera video ayarlarından Video Standardı / Anti-Flicker modunu 50 Hz olarak sabitleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Camera Settings -> Image -> 50Hz",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kamera görüntüsünde yukarıdan aşağıya doğru dalgalı çizgiler geçmesi.",
+    "derin_teknik_analiz": "Kamera pozlama frekansının Türkiye elektrik şebekesi frekansı (50 Hz) ile uyuşmaması. Çözüm: Kamera video ayarlarından Video Standardı / Anti-Flicker modunu 50 Hz olarak sabitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "tiandy tc-r3220 nvr",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_254",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Tiandy TC-R3220 NVR: RTSP Canlı Akışında Paket Kaybı Nedeniyle Gri Bloklaşma",
+    "hizli_adimlar": [
+      "Tiandy TC-R3220 NVR cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Kamera video iletim protokolünün UDP modunda paket kaybetmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Kayıt cihazı ve izleme yazılımında RTSP akış protokolünü UDP yerine TCP olarak zorlayın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "VLC -> Tools -> Preferences -> Input/Codecs -> Live555: RTP over RTSP (TCP)",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kamera görüntüsünün her 5 saniyede bir pikselleşip griye dönmesi.",
+    "derin_teknik_analiz": "Kamera video iletim protokolünün UDP modunda paket kaybetmesi. Çözüm: Kayıt cihazı ve izleme yazılımında RTSP akış protokolünü UDP yerine TCP olarak zorlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "tiandy tc-r3220 nvr",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_255",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Hanwha Wisenet XRN-1620: Kayıt Cihazında RAID 5 Dizi Bozulması ve Canlı İzleme Kaybı",
+    "hizli_adimlar": [
+      "Hanwha Wisenet XRN-1620 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Disklerden birinde bad sector oluşması sonucu kayıt akışının tıkanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Arızalı diski tespit edip yenisiyle değiştirin ve NVR menüsünden RAID Rebuild başlatın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "NVR Storage -> RAID Status",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "NVR ekranında \"RAID Degraded\" uyarısı çıkması ve eski kayıtların açılamaması.",
+    "derin_teknik_analiz": "Disklerden birinde bad sector oluşması sonucu kayıt akışının tıkanması. Çözüm: Arızalı diski tespit edip yenisiyle değiştirin ve NVR menüsünden RAID Rebuild başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "hanwha wisenet xrn-1620",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_256",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Hanwha Wisenet XRN-1620: Kamera Görüntüsünde 50 Hz / 60 Hz Floresan Işık Titremesi (Flicker)",
+    "hizli_adimlar": [
+      "Hanwha Wisenet XRN-1620 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Kamera pozlama frekansının Türkiye elektrik şebekesi frekansı (50 Hz) ile uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Kamera video ayarlarından Video Standardı / Anti-Flicker modunu 50 Hz olarak sabitleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Camera Settings -> Image -> 50Hz",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kamera görüntüsünde yukarıdan aşağıya doğru dalgalı çizgiler geçmesi.",
+    "derin_teknik_analiz": "Kamera pozlama frekansının Türkiye elektrik şebekesi frekansı (50 Hz) ile uyuşmaması. Çözüm: Kamera video ayarlarından Video Standardı / Anti-Flicker modunu 50 Hz olarak sabitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "hanwha wisenet xrn-1620",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_257",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Hanwha Wisenet XRN-1620: RTSP Canlı Akışında Paket Kaybı Nedeniyle Gri Bloklaşma",
+    "hizli_adimlar": [
+      "Hanwha Wisenet XRN-1620 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Kamera video iletim protokolünün UDP modunda paket kaybetmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Kayıt cihazı ve izleme yazılımında RTSP akış protokolünü UDP yerine TCP olarak zorlayın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "VLC -> Tools -> Preferences -> Input/Codecs -> Live555: RTP over RTSP (TCP)",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kamera görüntüsünün her 5 saniyede bir pikselleşip griye dönmesi.",
+    "derin_teknik_analiz": "Kamera video iletim protokolünün UDP modunda paket kaybetmesi. Çözüm: Kayıt cihazı ve izleme yazılımında RTSP akış protokolünü UDP yerine TCP olarak zorlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "hanwha wisenet xrn-1620",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_258",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Synology DVA3221 Yapay Zeka: Kayıt Cihazında RAID 5 Dizi Bozulması ve Canlı İzleme Kaybı",
+    "hizli_adimlar": [
+      "Synology DVA3221 Yapay Zeka cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Disklerden birinde bad sector oluşması sonucu kayıt akışının tıkanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Arızalı diski tespit edip yenisiyle değiştirin ve NVR menüsünden RAID Rebuild başlatın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "NVR Storage -> RAID Status",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "NVR ekranında \"RAID Degraded\" uyarısı çıkması ve eski kayıtların açılamaması.",
+    "derin_teknik_analiz": "Disklerden birinde bad sector oluşması sonucu kayıt akışının tıkanması. Çözüm: Arızalı diski tespit edip yenisiyle değiştirin ve NVR menüsünden RAID Rebuild başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "synology dva3221 yapay zeka",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_259",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Synology DVA3221 Yapay Zeka: Kamera Görüntüsünde 50 Hz / 60 Hz Floresan Işık Titremesi (Flicker)",
+    "hizli_adimlar": [
+      "Synology DVA3221 Yapay Zeka cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Kamera pozlama frekansının Türkiye elektrik şebekesi frekansı (50 Hz) ile uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Kamera video ayarlarından Video Standardı / Anti-Flicker modunu 50 Hz olarak sabitleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Camera Settings -> Image -> 50Hz",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kamera görüntüsünde yukarıdan aşağıya doğru dalgalı çizgiler geçmesi.",
+    "derin_teknik_analiz": "Kamera pozlama frekansının Türkiye elektrik şebekesi frekansı (50 Hz) ile uyuşmaması. Çözüm: Kamera video ayarlarından Video Standardı / Anti-Flicker modunu 50 Hz olarak sabitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "synology dva3221 yapay zeka",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_260",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Synology DVA3221 Yapay Zeka: RTSP Canlı Akışında Paket Kaybı Nedeniyle Gri Bloklaşma",
+    "hizli_adimlar": [
+      "Synology DVA3221 Yapay Zeka cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Kamera video iletim protokolünün UDP modunda paket kaybetmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Kayıt cihazı ve izleme yazılımında RTSP akış protokolünü UDP yerine TCP olarak zorlayın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "VLC -> Tools -> Preferences -> Input/Codecs -> Live555: RTP over RTSP (TCP)",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kamera görüntüsünün her 5 saniyede bir pikselleşip griye dönmesi.",
+    "derin_teknik_analiz": "Kamera video iletim protokolünün UDP modunda paket kaybetmesi. Çözüm: Kayıt cihazı ve izleme yazılımında RTSP akış protokolünü UDP yerine TCP olarak zorlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "synology dva3221 yapay zeka",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_261",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Milestone XProtect Kurumsal: Kayıt Cihazında RAID 5 Dizi Bozulması ve Canlı İzleme Kaybı",
+    "hizli_adimlar": [
+      "Milestone XProtect Kurumsal cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Disklerden birinde bad sector oluşması sonucu kayıt akışının tıkanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Arızalı diski tespit edip yenisiyle değiştirin ve NVR menüsünden RAID Rebuild başlatın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "NVR Storage -> RAID Status",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "NVR ekranında \"RAID Degraded\" uyarısı çıkması ve eski kayıtların açılamaması.",
+    "derin_teknik_analiz": "Disklerden birinde bad sector oluşması sonucu kayıt akışının tıkanması. Çözüm: Arızalı diski tespit edip yenisiyle değiştirin ve NVR menüsünden RAID Rebuild başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "milestone xprotect kurumsal",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_262",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Milestone XProtect Kurumsal: Kamera Görüntüsünde 50 Hz / 60 Hz Floresan Işık Titremesi (Flicker)",
+    "hizli_adimlar": [
+      "Milestone XProtect Kurumsal cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Kamera pozlama frekansının Türkiye elektrik şebekesi frekansı (50 Hz) ile uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Kamera video ayarlarından Video Standardı / Anti-Flicker modunu 50 Hz olarak sabitleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Camera Settings -> Image -> 50Hz",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kamera görüntüsünde yukarıdan aşağıya doğru dalgalı çizgiler geçmesi.",
+    "derin_teknik_analiz": "Kamera pozlama frekansının Türkiye elektrik şebekesi frekansı (50 Hz) ile uyuşmaması. Çözüm: Kamera video ayarlarından Video Standardı / Anti-Flicker modunu 50 Hz olarak sabitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "milestone xprotect kurumsal",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_263",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Milestone XProtect Kurumsal: RTSP Canlı Akışında Paket Kaybı Nedeniyle Gri Bloklaşma",
+    "hizli_adimlar": [
+      "Milestone XProtect Kurumsal cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Kamera video iletim protokolünün UDP modunda paket kaybetmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Kayıt cihazı ve izleme yazılımında RTSP akış protokolünü UDP yerine TCP olarak zorlayın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "VLC -> Tools -> Preferences -> Input/Codecs -> Live555: RTP over RTSP (TCP)",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kamera görüntüsünün her 5 saniyede bir pikselleşip griye dönmesi.",
+    "derin_teknik_analiz": "Kamera video iletim protokolünün UDP modunda paket kaybetmesi. Çözüm: Kayıt cihazı ve izleme yazılımında RTSP akış protokolünü UDP yerine TCP olarak zorlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "milestone xprotect kurumsal",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_264",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "QNAP QVR Pro Gözetim: Kayıt Cihazında RAID 5 Dizi Bozulması ve Canlı İzleme Kaybı",
+    "hizli_adimlar": [
+      "QNAP QVR Pro Gözetim cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Disklerden birinde bad sector oluşması sonucu kayıt akışının tıkanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Arızalı diski tespit edip yenisiyle değiştirin ve NVR menüsünden RAID Rebuild başlatın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "NVR Storage -> RAID Status",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "NVR ekranında \"RAID Degraded\" uyarısı çıkması ve eski kayıtların açılamaması.",
+    "derin_teknik_analiz": "Disklerden birinde bad sector oluşması sonucu kayıt akışının tıkanması. Çözüm: Arızalı diski tespit edip yenisiyle değiştirin ve NVR menüsünden RAID Rebuild başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "qnap qvr pro gözetim",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_265",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "QNAP QVR Pro Gözetim: Kamera Görüntüsünde 50 Hz / 60 Hz Floresan Işık Titremesi (Flicker)",
+    "hizli_adimlar": [
+      "QNAP QVR Pro Gözetim cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Kamera pozlama frekansının Türkiye elektrik şebekesi frekansı (50 Hz) ile uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Kamera video ayarlarından Video Standardı / Anti-Flicker modunu 50 Hz olarak sabitleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Camera Settings -> Image -> 50Hz",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kamera görüntüsünde yukarıdan aşağıya doğru dalgalı çizgiler geçmesi.",
+    "derin_teknik_analiz": "Kamera pozlama frekansının Türkiye elektrik şebekesi frekansı (50 Hz) ile uyuşmaması. Çözüm: Kamera video ayarlarından Video Standardı / Anti-Flicker modunu 50 Hz olarak sabitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "qnap qvr pro gözetim",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_266",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "QNAP QVR Pro Gözetim: RTSP Canlı Akışında Paket Kaybı Nedeniyle Gri Bloklaşma",
+    "hizli_adimlar": [
+      "QNAP QVR Pro Gözetim cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Kamera video iletim protokolünün UDP modunda paket kaybetmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Kayıt cihazı ve izleme yazılımında RTSP akış protokolünü UDP yerine TCP olarak zorlayın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "VLC -> Tools -> Preferences -> Input/Codecs -> Live555: RTP over RTSP (TCP)",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kamera görüntüsünün her 5 saniyede bir pikselleşip griye dönmesi.",
+    "derin_teknik_analiz": "Kamera video iletim protokolünün UDP modunda paket kaybetmesi. Çözüm: Kayıt cihazı ve izleme yazılımında RTSP akış protokolünü UDP yerine TCP olarak zorlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "qnap qvr pro gözetim",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_267",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Milesight 4K H.265 NVR: Kayıt Cihazında RAID 5 Dizi Bozulması ve Canlı İzleme Kaybı",
+    "hizli_adimlar": [
+      "Milesight 4K H.265 NVR cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Disklerden birinde bad sector oluşması sonucu kayıt akışının tıkanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Arızalı diski tespit edip yenisiyle değiştirin ve NVR menüsünden RAID Rebuild başlatın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "NVR Storage -> RAID Status",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "NVR ekranında \"RAID Degraded\" uyarısı çıkması ve eski kayıtların açılamaması.",
+    "derin_teknik_analiz": "Disklerden birinde bad sector oluşması sonucu kayıt akışının tıkanması. Çözüm: Arızalı diski tespit edip yenisiyle değiştirin ve NVR menüsünden RAID Rebuild başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "milesight 4k h.265 nvr",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_268",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Milesight 4K H.265 NVR: Kamera Görüntüsünde 50 Hz / 60 Hz Floresan Işık Titremesi (Flicker)",
+    "hizli_adimlar": [
+      "Milesight 4K H.265 NVR cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Kamera pozlama frekansının Türkiye elektrik şebekesi frekansı (50 Hz) ile uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Kamera video ayarlarından Video Standardı / Anti-Flicker modunu 50 Hz olarak sabitleyin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Camera Settings -> Image -> 50Hz",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kamera görüntüsünde yukarıdan aşağıya doğru dalgalı çizgiler geçmesi.",
+    "derin_teknik_analiz": "Kamera pozlama frekansının Türkiye elektrik şebekesi frekansı (50 Hz) ile uyuşmaması. Çözüm: Kamera video ayarlarından Video Standardı / Anti-Flicker modunu 50 Hz olarak sabitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "milesight 4k h.265 nvr",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_269",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Milesight 4K H.265 NVR: RTSP Canlı Akışında Paket Kaybı Nedeniyle Gri Bloklaşma",
+    "hizli_adimlar": [
+      "Milesight 4K H.265 NVR cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Kamera video iletim protokolünün UDP modunda paket kaybetmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Kayıt cihazı ve izleme yazılımında RTSP akış protokolünü UDP yerine TCP olarak zorlayın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "VLC -> Tools -> Preferences -> Input/Codecs -> Live555: RTP over RTSP (TCP)",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kamera görüntüsünün her 5 saniyede bir pikselleşip griye dönmesi.",
+    "derin_teknik_analiz": "Kamera video iletim protokolünün UDP modunda paket kaybetmesi. Çözüm: Kayıt cihazı ve izleme yazılımında RTSP akış protokolünü UDP yerine TCP olarak zorlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "milesight 4k h.265 nvr",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2512",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Hikvision DS-2CD2143G0-I: Kamera Kubbe Camında Kızılötesi (IR) Işık Yansıması ve Puslu Gece Görüntüsü",
+    "hizli_adimlar": [
+      "Hikvision DS-2CD2143G0-I cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kubbe (Dome) camının içindeki kauçuk yalıtım contasının lense tam yapışmaması ve IR LED ışığının cama çarpıp lense sızması.",
+      "Saha servis prosedürünü yerine getirin: Kubbe kapağını açıp siyah kauçuk sünger contayı lensin tam etrafına oturtun ve camın iç yüzeyindeki tozu mikrofiber bezle silin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Hikvision DS-2CD2143G0-I Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Gündüz kristal netliğindeki kameranın gece bembeyaz bir sis bulutu arkasında kalması.",
+    "derin_teknik_analiz": "Kök Neden: Kubbe (Dome) camının içindeki kauçuk yalıtım contasının lense tam yapışmaması ve IR LED ışığının cama çarpıp lense sızması. Saha Çözümü: Kubbe kapağını açıp siyah kauçuk sünger contayı lensin tam etrafına oturtun ve camın iç yüzeyindeki tozu mikrofiber bezle silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "hikvision ds-2cd2143g0-i",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2513",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Hikvision DS-2CD2143G0-I: RTSP Canlı Akışının Üçüncü Parti Yazılıma Çekilememesi (Auth Timeout)",
+    "hizli_adimlar": [
+      "Hikvision DS-2CD2143G0-I cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kamera web arayüzünde RTSP kimlik doğrulamasının digest/basic olarak kısıtlanması veya portun kapalı olması.",
+      "Saha servis prosedürünü yerine getirin: Kamera ayarlarından RTSP güvenlik modunu Digest olarak güncelleyin ve doğru URL formatını girin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Hikvision DS-2CD2143G0-I Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "VLC veya merkezi izleme yazılımında kameranın canlı görüntüsünün gelmemesi.",
+    "derin_teknik_analiz": "Kök Neden: Kamera web arayüzünde RTSP kimlik doğrulamasının digest/basic olarak kısıtlanması veya portun kapalı olması. Saha Çözümü: Kamera ayarlarından RTSP güvenlik modunu Digest olarak güncelleyin ve doğru URL formatını girin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "hikvision ds-2cd2143g0-i",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2514",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Hikvision DS-2CD2143G0-I: NVR Kayıt Cihazının Yeni Takılan Güvenlik Hard Diskini Biçimlendirememesi",
+    "hizli_adimlar": [
+      "Hikvision DS-2CD2143G0-I cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Diskin SATA arayüzünün NVR kontrolörü ile el sıkışamaması veya dosya sisteminin NVR özel formatını kabul etmemesi.",
+      "Saha servis prosedürünü yerine getirin: Diski bilgisayara bağlayıp diskpart clean ile tüm bölümlerini silin ve NVR üzerinde yeniden biçimlendirin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Hikvision DS-2CD2143G0-I Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "NVR ekranında HDD Status: Unformatted uyarısının gitmemesi ve hata bipi çalması.",
+    "derin_teknik_analiz": "Kök Neden: Diskin SATA arayüzünün NVR kontrolörü ile el sıkışamaması veya dosya sisteminin NVR özel formatını kabul etmemesi. Saha Çözümü: Diski bilgisayara bağlayıp diskpart clean ile tüm bölümlerini silin ve NVR üzerinde yeniden biçimlendirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "hikvision ds-2cd2143g0-i",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2515",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Dahua IPC-HDBW2431E-S: Kamera Kubbe Camında Kızılötesi (IR) Işık Yansıması ve Puslu Gece Görüntüsü",
+    "hizli_adimlar": [
+      "Dahua IPC-HDBW2431E-S cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kubbe (Dome) camının içindeki kauçuk yalıtım contasının lense tam yapışmaması ve IR LED ışığının cama çarpıp lense sızması.",
+      "Saha servis prosedürünü yerine getirin: Kubbe kapağını açıp siyah kauçuk sünger contayı lensin tam etrafına oturtun ve camın iç yüzeyindeki tozu mikrofiber bezle silin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Dahua IPC-HDBW2431E-S Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Gündüz kristal netliğindeki kameranın gece bembeyaz bir sis bulutu arkasında kalması.",
+    "derin_teknik_analiz": "Kök Neden: Kubbe (Dome) camının içindeki kauçuk yalıtım contasının lense tam yapışmaması ve IR LED ışığının cama çarpıp lense sızması. Saha Çözümü: Kubbe kapağını açıp siyah kauçuk sünger contayı lensin tam etrafına oturtun ve camın iç yüzeyindeki tozu mikrofiber bezle silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "dahua ipc-hdbw2431e-s",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2516",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Dahua IPC-HDBW2431E-S: RTSP Canlı Akışının Üçüncü Parti Yazılıma Çekilememesi (Auth Timeout)",
+    "hizli_adimlar": [
+      "Dahua IPC-HDBW2431E-S cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kamera web arayüzünde RTSP kimlik doğrulamasının digest/basic olarak kısıtlanması veya portun kapalı olması.",
+      "Saha servis prosedürünü yerine getirin: Kamera ayarlarından RTSP güvenlik modunu Digest olarak güncelleyin ve doğru URL formatını girin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Dahua IPC-HDBW2431E-S Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "VLC veya merkezi izleme yazılımında kameranın canlı görüntüsünün gelmemesi.",
+    "derin_teknik_analiz": "Kök Neden: Kamera web arayüzünde RTSP kimlik doğrulamasının digest/basic olarak kısıtlanması veya portun kapalı olması. Saha Çözümü: Kamera ayarlarından RTSP güvenlik modunu Digest olarak güncelleyin ve doğru URL formatını girin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "dahua ipc-hdbw2431e-s",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2517",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Dahua IPC-HDBW2431E-S: NVR Kayıt Cihazının Yeni Takılan Güvenlik Hard Diskini Biçimlendirememesi",
+    "hizli_adimlar": [
+      "Dahua IPC-HDBW2431E-S cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Diskin SATA arayüzünün NVR kontrolörü ile el sıkışamaması veya dosya sisteminin NVR özel formatını kabul etmemesi.",
+      "Saha servis prosedürünü yerine getirin: Diski bilgisayara bağlayıp diskpart clean ile tüm bölümlerini silin ve NVR üzerinde yeniden biçimlendirin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Dahua IPC-HDBW2431E-S Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "NVR ekranında HDD Status: Unformatted uyarısının gitmemesi ve hata bipi çalması.",
+    "derin_teknik_analiz": "Kök Neden: Diskin SATA arayüzünün NVR kontrolörü ile el sıkışamaması veya dosya sisteminin NVR özel formatını kabul etmemesi. Saha Çözümü: Diski bilgisayara bağlayıp diskpart clean ile tüm bölümlerini silin ve NVR üzerinde yeniden biçimlendirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "dahua ipc-hdbw2431e-s",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2518",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Uniview IPC324LR3: Kamera Kubbe Camında Kızılötesi (IR) Işık Yansıması ve Puslu Gece Görüntüsü",
+    "hizli_adimlar": [
+      "Uniview IPC324LR3 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kubbe (Dome) camının içindeki kauçuk yalıtım contasının lense tam yapışmaması ve IR LED ışığının cama çarpıp lense sızması.",
+      "Saha servis prosedürünü yerine getirin: Kubbe kapağını açıp siyah kauçuk sünger contayı lensin tam etrafına oturtun ve camın iç yüzeyindeki tozu mikrofiber bezle silin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Uniview IPC324LR3 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Gündüz kristal netliğindeki kameranın gece bembeyaz bir sis bulutu arkasında kalması.",
+    "derin_teknik_analiz": "Kök Neden: Kubbe (Dome) camının içindeki kauçuk yalıtım contasının lense tam yapışmaması ve IR LED ışığının cama çarpıp lense sızması. Saha Çözümü: Kubbe kapağını açıp siyah kauçuk sünger contayı lensin tam etrafına oturtun ve camın iç yüzeyindeki tozu mikrofiber bezle silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "uniview ipc324lr3",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2519",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Uniview IPC324LR3: RTSP Canlı Akışının Üçüncü Parti Yazılıma Çekilememesi (Auth Timeout)",
+    "hizli_adimlar": [
+      "Uniview IPC324LR3 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kamera web arayüzünde RTSP kimlik doğrulamasının digest/basic olarak kısıtlanması veya portun kapalı olması.",
+      "Saha servis prosedürünü yerine getirin: Kamera ayarlarından RTSP güvenlik modunu Digest olarak güncelleyin ve doğru URL formatını girin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Uniview IPC324LR3 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "VLC veya merkezi izleme yazılımında kameranın canlı görüntüsünün gelmemesi.",
+    "derin_teknik_analiz": "Kök Neden: Kamera web arayüzünde RTSP kimlik doğrulamasının digest/basic olarak kısıtlanması veya portun kapalı olması. Saha Çözümü: Kamera ayarlarından RTSP güvenlik modunu Digest olarak güncelleyin ve doğru URL formatını girin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "uniview ipc324lr3",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2520",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Uniview IPC324LR3: NVR Kayıt Cihazının Yeni Takılan Güvenlik Hard Diskini Biçimlendirememesi",
+    "hizli_adimlar": [
+      "Uniview IPC324LR3 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Diskin SATA arayüzünün NVR kontrolörü ile el sıkışamaması veya dosya sisteminin NVR özel formatını kabul etmemesi.",
+      "Saha servis prosedürünü yerine getirin: Diski bilgisayara bağlayıp diskpart clean ile tüm bölümlerini silin ve NVR üzerinde yeniden biçimlendirin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Uniview IPC324LR3 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "NVR ekranında HDD Status: Unformatted uyarısının gitmemesi ve hata bipi çalması.",
+    "derin_teknik_analiz": "Kök Neden: Diskin SATA arayüzünün NVR kontrolörü ile el sıkışamaması veya dosya sisteminin NVR özel formatını kabul etmemesi. Saha Çözümü: Diski bilgisayara bağlayıp diskpart clean ile tüm bölümlerini silin ve NVR üzerinde yeniden biçimlendirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "uniview ipc324lr3",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2521",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Axis M3065-V: Kamera Kubbe Camında Kızılötesi (IR) Işık Yansıması ve Puslu Gece Görüntüsü",
+    "hizli_adimlar": [
+      "Axis M3065-V cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kubbe (Dome) camının içindeki kauçuk yalıtım contasının lense tam yapışmaması ve IR LED ışığının cama çarpıp lense sızması.",
+      "Saha servis prosedürünü yerine getirin: Kubbe kapağını açıp siyah kauçuk sünger contayı lensin tam etrafına oturtun ve camın iç yüzeyindeki tozu mikrofiber bezle silin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Axis M3065-V Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Gündüz kristal netliğindeki kameranın gece bembeyaz bir sis bulutu arkasında kalması.",
+    "derin_teknik_analiz": "Kök Neden: Kubbe (Dome) camının içindeki kauçuk yalıtım contasının lense tam yapışmaması ve IR LED ışığının cama çarpıp lense sızması. Saha Çözümü: Kubbe kapağını açıp siyah kauçuk sünger contayı lensin tam etrafına oturtun ve camın iç yüzeyindeki tozu mikrofiber bezle silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "axis m3065-v",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2522",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Axis M3065-V: RTSP Canlı Akışının Üçüncü Parti Yazılıma Çekilememesi (Auth Timeout)",
+    "hizli_adimlar": [
+      "Axis M3065-V cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kamera web arayüzünde RTSP kimlik doğrulamasının digest/basic olarak kısıtlanması veya portun kapalı olması.",
+      "Saha servis prosedürünü yerine getirin: Kamera ayarlarından RTSP güvenlik modunu Digest olarak güncelleyin ve doğru URL formatını girin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Axis M3065-V Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "VLC veya merkezi izleme yazılımında kameranın canlı görüntüsünün gelmemesi.",
+    "derin_teknik_analiz": "Kök Neden: Kamera web arayüzünde RTSP kimlik doğrulamasının digest/basic olarak kısıtlanması veya portun kapalı olması. Saha Çözümü: Kamera ayarlarından RTSP güvenlik modunu Digest olarak güncelleyin ve doğru URL formatını girin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "axis m3065-v",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2523",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Axis M3065-V: NVR Kayıt Cihazının Yeni Takılan Güvenlik Hard Diskini Biçimlendirememesi",
+    "hizli_adimlar": [
+      "Axis M3065-V cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Diskin SATA arayüzünün NVR kontrolörü ile el sıkışamaması veya dosya sisteminin NVR özel formatını kabul etmemesi.",
+      "Saha servis prosedürünü yerine getirin: Diski bilgisayara bağlayıp diskpart clean ile tüm bölümlerini silin ve NVR üzerinde yeniden biçimlendirin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Axis M3065-V Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "NVR ekranında HDD Status: Unformatted uyarısının gitmemesi ve hata bipi çalması.",
+    "derin_teknik_analiz": "Kök Neden: Diskin SATA arayüzünün NVR kontrolörü ile el sıkışamaması veya dosya sisteminin NVR özel formatını kabul etmemesi. Saha Çözümü: Diski bilgisayara bağlayıp diskpart clean ile tüm bölümlerini silin ve NVR üzerinde yeniden biçimlendirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "axis m3065-v",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2524",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Tiandy TC-C32XN: Kamera Kubbe Camında Kızılötesi (IR) Işık Yansıması ve Puslu Gece Görüntüsü",
+    "hizli_adimlar": [
+      "Tiandy TC-C32XN cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kubbe (Dome) camının içindeki kauçuk yalıtım contasının lense tam yapışmaması ve IR LED ışığının cama çarpıp lense sızması.",
+      "Saha servis prosedürünü yerine getirin: Kubbe kapağını açıp siyah kauçuk sünger contayı lensin tam etrafına oturtun ve camın iç yüzeyindeki tozu mikrofiber bezle silin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Tiandy TC-C32XN Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Gündüz kristal netliğindeki kameranın gece bembeyaz bir sis bulutu arkasında kalması.",
+    "derin_teknik_analiz": "Kök Neden: Kubbe (Dome) camının içindeki kauçuk yalıtım contasının lense tam yapışmaması ve IR LED ışığının cama çarpıp lense sızması. Saha Çözümü: Kubbe kapağını açıp siyah kauçuk sünger contayı lensin tam etrafına oturtun ve camın iç yüzeyindeki tozu mikrofiber bezle silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "tiandy tc-c32xn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2525",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Tiandy TC-C32XN: RTSP Canlı Akışının Üçüncü Parti Yazılıma Çekilememesi (Auth Timeout)",
+    "hizli_adimlar": [
+      "Tiandy TC-C32XN cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kamera web arayüzünde RTSP kimlik doğrulamasının digest/basic olarak kısıtlanması veya portun kapalı olması.",
+      "Saha servis prosedürünü yerine getirin: Kamera ayarlarından RTSP güvenlik modunu Digest olarak güncelleyin ve doğru URL formatını girin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Tiandy TC-C32XN Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "VLC veya merkezi izleme yazılımında kameranın canlı görüntüsünün gelmemesi.",
+    "derin_teknik_analiz": "Kök Neden: Kamera web arayüzünde RTSP kimlik doğrulamasının digest/basic olarak kısıtlanması veya portun kapalı olması. Saha Çözümü: Kamera ayarlarından RTSP güvenlik modunu Digest olarak güncelleyin ve doğru URL formatını girin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "tiandy tc-c32xn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2526",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "CCTV & Kamera Sistemleri",
+    "baslik": "Tiandy TC-C32XN: NVR Kayıt Cihazının Yeni Takılan Güvenlik Hard Diskini Biçimlendirememesi",
+    "hizli_adimlar": [
+      "Tiandy TC-C32XN cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Diskin SATA arayüzünün NVR kontrolörü ile el sıkışamaması veya dosya sisteminin NVR özel formatını kabul etmemesi.",
+      "Saha servis prosedürünü yerine getirin: Diski bilgisayara bağlayıp diskpart clean ile tüm bölümlerini silin ve NVR üzerinde yeniden biçimlendirin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Tiandy TC-C32XN Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "NVR ekranında HDD Status: Unformatted uyarısının gitmemesi ve hata bipi çalması.",
+    "derin_teknik_analiz": "Kök Neden: Diskin SATA arayüzünün NVR kontrolörü ile el sıkışamaması veya dosya sisteminin NVR özel formatını kabul etmemesi. Saha Çözümü: Diski bilgisayara bağlayıp diskpart clean ile tüm bölümlerini silin ve NVR üzerinde yeniden biçimlendirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "cctv & kamera sistemleri",
+      "tiandy tc-c32xn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  }
+]

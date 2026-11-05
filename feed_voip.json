@@ -1,168 +1,3232 @@
-{
-  "versiyon": "2.5.0",
-  "toplam": 4,
-  "modul": "feed_voip.json",
-  "kayitlar": [
-    {
-      "id": "voip_00001",
-      "kategori": "IP Santral",
-      "alt_kategori": "VoIP Tek Taraflı Ses Gitmesi",
-      "baslik": "VoIP Tek Taraflı Ses Gitmesi (One-Way Audio & NAT)",
-      "hizli_adimlar": [
-        "Saha arıza/kurulum belirtisini teyit edin: Aramada bir tarafın diğerini duyamaması (RTP port kilitleri).",
-        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
-        "Birincil komutu veya eylemi uygulayın: nano /etc/asterisk/rtp.conf -> rtpstart=10000 rtpend=20000; Router'dan UDP 10000-20000 portlarını santrale yönlendir.",
-        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Teşhis ve Uygulama Komutu",
-          "komut": "nano /etc/asterisk/rtp.conf -> rtpstart=10000 rtpend=20000; Router'dan UDP 10000-20000 portlarını santrale yönlendir.",
-          "aciklama": "RTP ses akışı portlarını sabitler."
-        }
-      ],
-      "temel_anlatim": "VoIP Tek Taraflı Ses Gitmesi (One-Way Audio & NAT): Aramada bir tarafın diğerini duyamaması (RTP port kilitleri). Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
-      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. nano /etc/asterisk/rtp.conf -> rtpstart=10000 rtpend=20000; Router'dan UDP 10000-20000 portlarını santrale yönlendir. parametresi durumu optimize eder.",
-      "kenar_durumlar": [
-        {
-          "durum": "Zaman aşımı veya erişim engeli hatası",
-          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
-          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "one-way audio",
-        "ip santral",
-        "tek tarafli ses",
-        "sip",
-        "asterisk",
-        "voip",
-        "rtp"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "voip_00002",
-      "kategori": "IP Santral",
-      "alt_kategori": "SIP UDP 5060 Register Düşmesi",
-      "baslik": "SIP UDP 5060 Register Düşmesi & SIP ALG",
-      "hizli_adimlar": [
-        "Saha arıza/kurulum belirtisini teyit edin: Modemlerin SIP trafiğini bozması nedeniyle dahili telefonların düşmesi.",
-        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
-        "Birincil komutu veya eylemi uygulayın: Router yönetim arayüzünden 'SIP ALG' özelliğini tamamen devre dışı bırakın (Disable).",
-        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Teşhis ve Uygulama Komutu",
-          "komut": "Router yönetim arayüzünden 'SIP ALG' özelliğini tamamen devre dışı bırakın (Disable).",
-          "aciklama": "SIP el sıkışma paketlerini korur."
-        }
-      ],
-      "temel_anlatim": "SIP UDP 5060 Register Düşmesi & SIP ALG: Modemlerin SIP trafiğini bozması nedeniyle dahili telefonların düşmesi. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
-      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. Router yönetim arayüzünden 'SIP ALG' özelliğini tamamen devre dışı bırakın (Disable). parametresi durumu optimize eder.",
-      "kenar_durumlar": [
-        {
-          "durum": "Zaman aşımı veya erişim engeli hatası",
-          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
-          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "ip santral",
-        "sip 5060",
-        "dahili hat",
-        "santral",
-        "freepbx",
-        "voip",
-        "sip alg"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "voip_sip_alg_nat_drop",
-      "kategori": "IP Santral",
-      "alt_kategori": "VoIP & SIP",
-      "baslik": "VoIP Tek Taraflı Ses & Modem SIP ALG Sorununun Çözümü",
-      "hizli_adimlar": [
-        "Modem arayüzünde SIP ALG özelliğini bul ve KAPAT.",
-        "RTP port aralığını (10000-20000 UDP) santrale yönlendir.",
-        "Santralde NAT keep-alive süresini 30 saniyeye çek."
-      ],
-      "komutlar": [
-        {
-          "etiket": "SIP Portu 5060 UDP Açıklık Testi",
-          "komut": "Test-NetConnection -ComputerName 192.168.1.200 -Port 5060",
-          "aciklama": "Santral SIP portunun yerel ağdan erişilebilirliğini kontrol eder."
-        },
-        {
-          "etiket": "RTP Ses Portlarını Güvenlik Duvarında Aç",
-          "komut": "netsh advfirewall firewall add rule name=\"VoIP_RTP\" dir=in action=allow protocol=UDP localport=10000-20000",
-          "aciklama": "Ses paketlerinin güvenlik duvarına takılmasını önler."
-        }
-      ],
-      "temel_anlatim": "IP telefonla konuşurken arayan kişinin sesinin gelmemesi veya karşıya gitmemesi (tek taraflı ses) %90 oranında modemdeki hatalı 'SIP ALG' özelliğinden kaynaklanır.",
-      "derin_teknik_analiz": "SIP ALG (Application Layer Gateway), SIP paketlerindeki SDP başlıklarını yeniden yazar. Ancak modern şifreli veya NAT arkası VoIP sistemlerinde bu başlık bozulur ve RTP ses portları eşleşemez.",
-      "kenar_durumlar": [
-        {
-          "durum": "Telefon 10 dakika sonra çağrı almayı durduruyorsa",
-          "neden": "Modem UDP NAT oturum süresi doluyordur.",
-          "cozum": "Santralde Registration Expiry süresini 120 saniyeye düşürün."
-        }
-      ],
-      "etiketler": [
-        "voip",
-        "sip alg",
-        "tek tarafli ses",
-        "rtp",
-        "ip santral",
-        "asterisk"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "voip_one_way_audio_nat_rtp",
-      "kategori": "IP Santral",
-      "alt_kategori": "SIP & NAT Sorunları",
-      "baslik": "VoIP Çağrılarında Tek Taraflı Ses Gitmesi / Gelmemesi ve RTP Port (UDP 10000-20000) Çözümü",
-      "hizli_adimlar": [
-        "Router yönetim panelinde 'SIP ALG' (Application Layer Gateway) özelliğini bulun ve KESİNLİKLE KAPATIN (Disable).",
-        "Router'da NAT / Port Forwarding menüsüne gelin.",
-        "`UDP 10000 - 20000` port aralığını IP Santralin (FreePBX/3CX) yerel IP adresine yönlendirin.",
-        "IP Santral SIP ayarlarında (NAT Settings) harici statik IP adresinizi (External IP) ve yerel alt ağınızı (Local Network: 192.168.1.0/24) tanımlayın.",
-        "Santral servisini tazeleyin: `asterisk -rx 'core restart when convenient'`."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Aktif RTP Kanallarını İzle (Asterisk)",
-          "komut": "asterisk -rx 'rtp set debug on'",
-          "aciklama": "Ses paketlerinin hangi IP ve porta aktığını canlı gösterir."
-        },
-        {
-          "etiket": "SIP Peer Durumu",
-          "komut": "asterisk -rx 'sip show peers'",
-          "aciklama": "IP telefonların register durumunu ve gecikmesini listeler."
-        }
-      ],
-      "temel_anlatim": "IP telefonda arama yapıldığında karşı tarafın sesinin duyulması ama kendi sesimizin gitmemesi (veya tam tersi).",
-      "derin_teknik_analiz": "SIP protokolü sinyalleşmeyi (çağrı başlatma/bitirme) port 5060 üzerinden yapar; gerçek ses paketleri (RTP - Real-time Transport Protocol) ise dinamik yüksek UDP portları (varsayılan 10000-20000) üzerinden akar. Eğer router firewall'da RTP port aralığı santral sunucusuna yönlendirilmezse veya router'daki 'SIP ALG' ses başlıklarındaki iç IP'yi bozarsa ses tek yönlü kesilir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Çağrı tam 30. veya 32. saniyede kendiliğinden düşüyor",
-          "neden": "RTP ACK paketi firewall tarafından engellendiği için santral çağrının yanıtlanmadığını varsayıp kapatmaktadır.",
-          "cozum": "Firewall'da SIP bağlantı takip süresini (SIP UDP timeout) 3600 saniyeye çıkarın."
-        }
-      ],
-      "etiketler": [
-        "voip",
-        "tek-tarafli-ses",
-        "rtp",
-        "sip-alg",
-        "asterisk",
-        "freepbx",
-        "3cx"
-      ],
-      "oncelik": 1
-    }
-  ]
-}
+[
+  {
+    "id": "voip_00001",
+    "kategori": "IP Santral",
+    "alt_kategori": "VoIP Tek Taraflı Ses Gitmesi",
+    "baslik": "VoIP Tek Taraflı Ses Gitmesi (One-Way Audio & NAT)",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: Aramada bir tarafın diğerini duyamaması (RTP port kilitleri).",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: nano /etc/asterisk/rtp.conf -> rtpstart=10000 rtpend=20000; Router'dan UDP 10000-20000 portlarını santrale yönlendir.",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "nano /etc/asterisk/rtp.conf -> rtpstart=10000 rtpend=20000; Router'dan UDP 10000-20000 portlarını santrale yönlendir.",
+        "aciklama": "RTP ses akışı portlarını sabitler."
+      }
+    ],
+    "temel_anlatim": "VoIP Tek Taraflı Ses Gitmesi (One-Way Audio & NAT): Aramada bir tarafın diğerini duyamaması (RTP port kilitleri). Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. nano /etc/asterisk/rtp.conf -> rtpstart=10000 rtpend=20000; Router'dan UDP 10000-20000 portlarını santrale yönlendir. parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "one-way audio ip santral tek tarafli ses sip asterisk voip rtp"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "voip_00002",
+    "kategori": "IP Santral",
+    "alt_kategori": "SIP UDP 5060 Register Düşmesi",
+    "baslik": "SIP UDP 5060 Register Düşmesi & SIP ALG",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: Modemlerin SIP trafiğini bozması nedeniyle dahili telefonların düşmesi.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: Router yönetim arayüzünden 'SIP ALG' özelliğini tamamen devre dışı bırakın (Disable).",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "Router yönetim arayüzünden 'SIP ALG' özelliğini tamamen devre dışı bırakın (Disable).",
+        "aciklama": "SIP el sıkışma paketlerini korur."
+      }
+    ],
+    "temel_anlatim": "SIP UDP 5060 Register Düşmesi & SIP ALG: Modemlerin SIP trafiğini bozması nedeniyle dahili telefonların düşmesi. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. Router yönetim arayüzünden 'SIP ALG' özelliğini tamamen devre dışı bırakın (Disable). parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "ip santral sip 5060 dahili hat santral freepbx voip sip alg"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "voip_sip_alg_nat_drop",
+    "kategori": "IP Santral",
+    "alt_kategori": "VoIP & SIP",
+    "baslik": "VoIP Tek Taraflı Ses & Modem SIP ALG Sorununun Çözümü",
+    "hizli_adimlar": [
+      "Modem arayüzünde SIP ALG özelliğini bul ve KAPAT.",
+      "RTP port aralığını (10000-20000 UDP) santrale yönlendir.",
+      "Santralde NAT keep-alive süresini 30 saniyeye çek."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SIP Portu 5060 UDP Açıklık Testi",
+        "komut": "Test-NetConnection -ComputerName 192.168.1.200 -Port 5060",
+        "aciklama": "Santral SIP portunun yerel ağdan erişilebilirliğini kontrol eder."
+      },
+      {
+        "etiket": "RTP Ses Portlarını Güvenlik Duvarında Aç",
+        "komut": "netsh advfirewall firewall add rule name=\"VoIP_RTP\" dir=in action=allow protocol=UDP localport=10000-20000",
+        "aciklama": "Ses paketlerinin güvenlik duvarına takılmasını önler."
+      }
+    ],
+    "temel_anlatim": "IP telefonla konuşurken arayan kişinin sesinin gelmemesi veya karşıya gitmemesi (tek taraflı ses) %90 oranında modemdeki hatalı 'SIP ALG' özelliğinden kaynaklanır.",
+    "derin_teknik_analiz": "SIP ALG (Application Layer Gateway), SIP paketlerindeki SDP başlıklarını yeniden yazar. Ancak modern şifreli veya NAT arkası VoIP sistemlerinde bu başlık bozulur ve RTP ses portları eşleşemez.",
+    "kenar_durumlar": [
+      {
+        "durum": "Telefon 10 dakika sonra çağrı almayı durduruyorsa",
+        "neden": "Modem UDP NAT oturum süresi doluyordur.",
+        "cozum": "Santralde Registration Expiry süresini 120 saniyeye düşürün."
+      }
+    ],
+    "etiketler": [
+      "voip sip alg tek tarafli ses rtp ip santral asterisk"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "voip_one_way_audio_nat_rtp",
+    "kategori": "IP Santral",
+    "alt_kategori": "SIP & NAT Sorunları",
+    "baslik": "VoIP Çağrılarında Tek Taraflı Ses Gitmesi / Gelmemesi ve RTP Port (UDP 10000-20000) Çözümü",
+    "hizli_adimlar": [
+      "Router yönetim panelinde 'SIP ALG' (Application Layer Gateway) özelliğini bulun ve KESİNLİKLE KAPATIN (Disable).",
+      "Router'da NAT / Port Forwarding menüsüne gelin.",
+      "`UDP 10000 - 20000` port aralığını IP Santralin (FreePBX/3CX) yerel IP adresine yönlendirin.",
+      "IP Santral SIP ayarlarında (NAT Settings) harici statik IP adresinizi (External IP) ve yerel alt ağınızı (Local Network: 192.168.1.0/24) tanımlayın.",
+      "Santral servisini tazeleyin: `asterisk -rx 'core restart when convenient'`."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Aktif RTP Kanallarını İzle (Asterisk)",
+        "komut": "asterisk -rx 'rtp set debug on'",
+        "aciklama": "Ses paketlerinin hangi IP ve porta aktığını canlı gösterir."
+      },
+      {
+        "etiket": "SIP Peer Durumu",
+        "komut": "asterisk -rx 'sip show peers'",
+        "aciklama": "IP telefonların register durumunu ve gecikmesini listeler."
+      }
+    ],
+    "temel_anlatim": "IP telefonda arama yapıldığında karşı tarafın sesinin duyulması ama kendi sesimizin gitmemesi (veya tam tersi).",
+    "derin_teknik_analiz": "SIP protokolü sinyalleşmeyi (çağrı başlatma/bitirme) port 5060 üzerinden yapar; gerçek ses paketleri (RTP - Real-time Transport Protocol) ise dinamik yüksek UDP portları (varsayılan 10000-20000) üzerinden akar. Eğer router firewall'da RTP port aralığı santral sunucusuna yönlendirilmezse veya router'daki 'SIP ALG' ses başlıklarındaki iç IP'yi bozarsa ses tek yönlü kesilir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Çağrı tam 30. veya 32. saniyede kendiliğinden düşüyor",
+        "neden": "RTP ACK paketi firewall tarafından engellendiği için santral çağrının yanıtlanmadığını varsayıp kapatmaktadır.",
+        "cozum": "Firewall'da SIP bağlantı takip süresini (SIP UDP timeout) 3600 saniyeye çıkarın."
+      }
+    ],
+    "etiketler": [
+      "voip tek-tarafli-ses rtp sip-alg asterisk freepbx 3cx"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "voip_mat_12",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "VoIP SIP Tek Taraflı Ses Sorunu (One-Way Audio) ve SIP ALG Müdahalesi",
+    "hizli_adimlar": [
+      "Modem arayüzüne girin (WAN Setup / NAT / Alg Ayarları).",
+      "'SIP ALG' (Application Layer Gateway) seçeneğini bulun ve 'Disabled' yapın.",
+      "Router'ı yeniden başlatın.",
+      "Santralde (FreePBX / Asterisk) 'nat=yes' ve 'externip=SABIT_IP' tanımlarının doğruluğunu teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Asterisk Canlı SIP Takibi",
+        "komut": "asterisk -rvvv\npjsip set logger on",
+        "aciklama": "Canlı SIP INVITE ve SDP el sıkışma paketlerini ekrana döker."
+      }
+    ],
+    "temel_anlatim": "Arama yapıldığında karşı tarafın sesinin gelmesi ancak bizim sesimizin gitmemesi (veya tam tersi).",
+    "derin_teknik_analiz": "Kök Neden: Modem/Router üzerinde açık olan 'SIP ALG' özelliğinin RTP paket başlıklarındaki port ve IP'leri bozması. Saha Mühendisliği: Modem arayüzünden SIP ALG'yi kapatın ve güvenlik duvarından UDP 10000-20000 RTP port aralığını açın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Ses 30 saniye sonra tamamen kesiliyor",
+        "neden": "ACK paketi NAT duvarını aşamadığı için çağrı zaman aşımına uğramıştır.",
+        "cozum": "Firewall üzerinde UDP 5060 için UDP session timeout süresini 180 saniyeye çıkarın."
+      }
+    ],
+    "etiketler": [
+      "voip",
+      "sip",
+      "one-way-audio",
+      "sip-alg",
+      "asterisk",
+      "santral"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sip_err_400",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "VoIP SIP Hata Kodu 400 (Bad Request - İstek Sözdizimi Hatası) Çözüm Rehberi",
+    "hizli_adimlar": [
+      "Santral loglarında (400 Bad Request) dönen SIP çağrı paketini filtreleyin.",
+      "Kök neden analizini uygulayın: SIP paket başlığında eksik URI veya hatalı karakter dizisi.",
+      "Saha çözüm adımlarını yürütün: Sipariş paketi başlıklarını Wireshark ile yakalayıp SDP alanındaki geçersiz parametreleri düzeltin.",
+      "Canlı arama yaparak sesin iki yönlü bağlandığını doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SIP Hata Filtreleme",
+        "komut": "asterisk -rx \"pjsip show history\" | grep 400",
+        "aciklama": "Asterisk canlı çağrı geçmişinde hatalı kodu listeler."
+      }
+    ],
+    "temel_anlatim": "IP telefon aramasında 'SIP/400 Bad Request' düşmesi ve çağrının sonlanması.",
+    "derin_teknik_analiz": "SIP paket başlığında eksik URI veya hatalı karakter dizisi. Çözüm: Sipariş paketi başlıklarını Wireshark ile yakalayıp SDP alanındaki geçersiz parametreleri düzeltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Çağrı yine düşüyor",
+        "neden": "Firewall UDP 5060 paketini bozmaktadır.",
+        "cozum": "Firewall üzerinde SIP ALG'yi kapatın."
+      }
+    ],
+    "etiketler": [
+      "voip",
+      "sip",
+      "sip-400",
+      "bad-request",
+      "santral"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sip_err_404",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "VoIP SIP Hata Kodu 404 (Not Found - Aranan Dahili Bulunamadı) Çözüm Rehberi",
+    "hizli_adimlar": [
+      "Santral loglarında (404 Not Found) dönen SIP çağrı paketini filtreleyin.",
+      "Kök neden analizini uygulayın: Aranan telefon numarasının veya dahili hattın dialplan içerisinde tanımlı olmaması.",
+      "Saha çözüm adımlarını yürütün: Santral FreePBX dialplan kurallarına dahili yönlendirmesini veya giden arama rotasını ekleyin.",
+      "Canlı arama yaparak sesin iki yönlü bağlandığını doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SIP Hata Filtreleme",
+        "komut": "asterisk -rx \"pjsip show history\" | grep 404",
+        "aciklama": "Asterisk canlı çağrı geçmişinde hatalı kodu listeler."
+      }
+    ],
+    "temel_anlatim": "IP telefon aramasında 'SIP/404 Not Found' düşmesi ve çağrının sonlanması.",
+    "derin_teknik_analiz": "Aranan telefon numarasının veya dahili hattın dialplan içerisinde tanımlı olmaması. Çözüm: Santral FreePBX dialplan kurallarına dahili yönlendirmesini veya giden arama rotasını ekleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Çağrı yine düşüyor",
+        "neden": "Firewall UDP 5060 paketini bozmaktadır.",
+        "cozum": "Firewall üzerinde SIP ALG'yi kapatın."
+      }
+    ],
+    "etiketler": [
+      "voip",
+      "sip",
+      "sip-404",
+      "not-found",
+      "santral"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sip_err_408",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "VoIP SIP Hata Kodu 408 (Request Timeout - İstek Zaman Aşımı) Çözüm Rehberi",
+    "hizli_adimlar": [
+      "Santral loglarında (408 Request Timeout) dönen SIP çağrı paketini filtreleyin.",
+      "Kök neden analizini uygulayın: Hedef IP telefonun INVITE paketine belirlenen süre içinde yanıt vermemesi.",
+      "Saha çözüm adımlarını yürütün: Telefonun yerel ağ bağlantısını ve PoE switch portunun aktifliğini kontrol edin.",
+      "Canlı arama yaparak sesin iki yönlü bağlandığını doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SIP Hata Filtreleme",
+        "komut": "asterisk -rx \"pjsip show history\" | grep 408",
+        "aciklama": "Asterisk canlı çağrı geçmişinde hatalı kodu listeler."
+      }
+    ],
+    "temel_anlatim": "IP telefon aramasında 'SIP/408 Request Timeout' düşmesi ve çağrının sonlanması.",
+    "derin_teknik_analiz": "Hedef IP telefonun INVITE paketine belirlenen süre içinde yanıt vermemesi. Çözüm: Telefonun yerel ağ bağlantısını ve PoE switch portunun aktifliğini kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Çağrı yine düşüyor",
+        "neden": "Firewall UDP 5060 paketini bozmaktadır.",
+        "cozum": "Firewall üzerinde SIP ALG'yi kapatın."
+      }
+    ],
+    "etiketler": [
+      "voip",
+      "sip",
+      "sip-408",
+      "request-timeout",
+      "santral"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sip_err_480",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "VoIP SIP Hata Kodu 480 (Temporarily Unavailable - Geçici Olarak Kullanılamıyor) Çözüm Rehberi",
+    "hizli_adimlar": [
+      "Santral loglarında (480 Temporarily Unavailable) dönen SIP çağrı paketini filtreleyin.",
+      "Kök neden analizini uygulayın: Dahili telefonun Rahatsız Etmeyin (DND) modunda olması veya meşgul olması.",
+      "Saha çözüm adımlarını yürütün: Telefon üzerindeki DND butonunu kapatın veya santralden dahili durumunu aktif yapın.",
+      "Canlı arama yaparak sesin iki yönlü bağlandığını doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SIP Hata Filtreleme",
+        "komut": "asterisk -rx \"pjsip show history\" | grep 480",
+        "aciklama": "Asterisk canlı çağrı geçmişinde hatalı kodu listeler."
+      }
+    ],
+    "temel_anlatim": "IP telefon aramasında 'SIP/480 Temporarily Unavailable' düşmesi ve çağrının sonlanması.",
+    "derin_teknik_analiz": "Dahili telefonun Rahatsız Etmeyin (DND) modunda olması veya meşgul olması. Çözüm: Telefon üzerindeki DND butonunu kapatın veya santralden dahili durumunu aktif yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Çağrı yine düşüyor",
+        "neden": "Firewall UDP 5060 paketini bozmaktadır.",
+        "cozum": "Firewall üzerinde SIP ALG'yi kapatın."
+      }
+    ],
+    "etiketler": [
+      "voip",
+      "sip",
+      "sip-480",
+      "temporarily-unavailable",
+      "santral"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sip_err_486",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "VoIP SIP Hata Kodu 486 (Busy Here - Hedef Abone Meşgul) Çözüm Rehberi",
+    "hizli_adimlar": [
+      "Santral loglarında (486 Busy Here) dönen SIP çağrı paketini filtreleyin.",
+      "Kök neden analizini uygulayın: Aranan kullanıcının başka bir görüşmede olması ve çağrı bekletme (Call Waiting) özelliğinin kapalı olması.",
+      "Saha çözüm adımlarını yürütün: Telefon arayüzünden 'Call Waiting' özelliğini etkinleştirin veya meşgulde yönlendirme kuralı tanımlayın.",
+      "Canlı arama yaparak sesin iki yönlü bağlandığını doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SIP Hata Filtreleme",
+        "komut": "asterisk -rx \"pjsip show history\" | grep 486",
+        "aciklama": "Asterisk canlı çağrı geçmişinde hatalı kodu listeler."
+      }
+    ],
+    "temel_anlatim": "IP telefon aramasında 'SIP/486 Busy Here' düşmesi ve çağrının sonlanması.",
+    "derin_teknik_analiz": "Aranan kullanıcının başka bir görüşmede olması ve çağrı bekletme (Call Waiting) özelliğinin kapalı olması. Çözüm: Telefon arayüzünden 'Call Waiting' özelliğini etkinleştirin veya meşgulde yönlendirme kuralı tanımlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Çağrı yine düşüyor",
+        "neden": "Firewall UDP 5060 paketini bozmaktadır.",
+        "cozum": "Firewall üzerinde SIP ALG'yi kapatın."
+      }
+    ],
+    "etiketler": [
+      "voip",
+      "sip",
+      "sip-486",
+      "busy-here",
+      "santral"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sip_err_488",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "VoIP SIP Hata Kodu 488 (Not Acceptable Here - Ses Kodek Uyuşmazlığı) Çözüm Rehberi",
+    "hizli_adimlar": [
+      "Santral loglarında (488 Not Acceptable Here) dönen SIP çağrı paketini filtreleyin.",
+      "Kök neden analizini uygulayın: Arayan cihaz ile aranan cihazın ortak bir ses kodeğinde (G.711u, G.729, Opus) anlaşamaması.",
+      "Saha çözüm adımlarını yürütün: Santral ve telefon ayarlarında G.711 A-law (PCMA) kodeğini en üst önceliğe alın.",
+      "Canlı arama yaparak sesin iki yönlü bağlandığını doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SIP Hata Filtreleme",
+        "komut": "asterisk -rx \"pjsip show history\" | grep 488",
+        "aciklama": "Asterisk canlı çağrı geçmişinde hatalı kodu listeler."
+      }
+    ],
+    "temel_anlatim": "IP telefon aramasında 'SIP/488 Not Acceptable Here' düşmesi ve çağrının sonlanması.",
+    "derin_teknik_analiz": "Arayan cihaz ile aranan cihazın ortak bir ses kodeğinde (G.711u, G.729, Opus) anlaşamaması. Çözüm: Santral ve telefon ayarlarında G.711 A-law (PCMA) kodeğini en üst önceliğe alın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Çağrı yine düşüyor",
+        "neden": "Firewall UDP 5060 paketini bozmaktadır.",
+        "cozum": "Firewall üzerinde SIP ALG'yi kapatın."
+      }
+    ],
+    "etiketler": [
+      "voip",
+      "sip",
+      "sip-488",
+      "not-acceptable-here",
+      "santral"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sip_err_500",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "VoIP SIP Hata Kodu 500 (Server Internal Error - Santral Sunucu Dahili Hatası) Çözüm Rehberi",
+    "hizli_adimlar": [
+      "Santral loglarında (500 Server Internal Error) dönen SIP çağrı paketini filtreleyin.",
+      "Kök neden analizini uygulayın: Asterisk çekirdeğinde veritabanı kilitlenmesi veya bellek yetersizliği.",
+      "Saha çözüm adımlarını yürütün: Santral sunucusunda 'asterisk -rx \"core restart gracefully\"' çalıştırarak servisi tazeleyin.",
+      "Canlı arama yaparak sesin iki yönlü bağlandığını doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SIP Hata Filtreleme",
+        "komut": "asterisk -rx \"pjsip show history\" | grep 500",
+        "aciklama": "Asterisk canlı çağrı geçmişinde hatalı kodu listeler."
+      }
+    ],
+    "temel_anlatim": "IP telefon aramasında 'SIP/500 Server Internal Error' düşmesi ve çağrının sonlanması.",
+    "derin_teknik_analiz": "Asterisk çekirdeğinde veritabanı kilitlenmesi veya bellek yetersizliği. Çözüm: Santral sunucusunda 'asterisk -rx \"core restart gracefully\"' çalıştırarak servisi tazeleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Çağrı yine düşüyor",
+        "neden": "Firewall UDP 5060 paketini bozmaktadır.",
+        "cozum": "Firewall üzerinde SIP ALG'yi kapatın."
+      }
+    ],
+    "etiketler": [
+      "voip",
+      "sip",
+      "sip-500",
+      "server-internal-error",
+      "santral"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sip_err_503",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "VoIP SIP Hata Kodu 503 (Service Unavailable - Hizmet Kullanılamıyor) Çözüm Rehberi",
+    "hizli_adimlar": [
+      "Santral loglarında (503 Service Unavailable) dönen SIP çağrı paketini filtreleyin.",
+      "Kök neden analizini uygulayın: SIP Trunk sağlayıcısının sunucusunun aşırı yükte olması veya hattın askıya alınması.",
+      "Saha çözüm adımlarını yürütün: Trunk sağlayıcının kayıt durumunu 'pjsip show registrations' ile doğrulayın ve sağlayıcıyla görüşün.",
+      "Canlı arama yaparak sesin iki yönlü bağlandığını doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SIP Hata Filtreleme",
+        "komut": "asterisk -rx \"pjsip show history\" | grep 503",
+        "aciklama": "Asterisk canlı çağrı geçmişinde hatalı kodu listeler."
+      }
+    ],
+    "temel_anlatim": "IP telefon aramasında 'SIP/503 Service Unavailable' düşmesi ve çağrının sonlanması.",
+    "derin_teknik_analiz": "SIP Trunk sağlayıcısının sunucusunun aşırı yükte olması veya hattın askıya alınması. Çözüm: Trunk sağlayıcının kayıt durumunu 'pjsip show registrations' ile doğrulayın ve sağlayıcıyla görüşün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Çağrı yine düşüyor",
+        "neden": "Firewall UDP 5060 paketini bozmaktadır.",
+        "cozum": "Firewall üzerinde SIP ALG'yi kapatın."
+      }
+    ],
+    "etiketler": [
+      "voip",
+      "sip",
+      "sip-503",
+      "service-unavailable",
+      "santral"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sip_err_504",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "VoIP SIP Hata Kodu 504 (Server Time-out - Ağ Geçidi Zaman Aşımı) Çözüm Rehberi",
+    "hizli_adimlar": [
+      "Santral loglarında (504 Server Time-out) dönen SIP çağrı paketini filtreleyin.",
+      "Kök neden analizini uygulayın: Santralin dış dünyaya açılan ses ağ geçidinden (PSTN Gateway) yanıt alamaması.",
+      "Saha çözüm adımlarını yürütün: FXO/PRI ağ geçidinin IP erişilebilirliğini ve analog/ISDN hat voltajını test edin.",
+      "Canlı arama yaparak sesin iki yönlü bağlandığını doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SIP Hata Filtreleme",
+        "komut": "asterisk -rx \"pjsip show history\" | grep 504",
+        "aciklama": "Asterisk canlı çağrı geçmişinde hatalı kodu listeler."
+      }
+    ],
+    "temel_anlatim": "IP telefon aramasında 'SIP/504 Server Time-out' düşmesi ve çağrının sonlanması.",
+    "derin_teknik_analiz": "Santralin dış dünyaya açılan ses ağ geçidinden (PSTN Gateway) yanıt alamaması. Çözüm: FXO/PRI ağ geçidinin IP erişilebilirliğini ve analog/ISDN hat voltajını test edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Çağrı yine düşüyor",
+        "neden": "Firewall UDP 5060 paketini bozmaktadır.",
+        "cozum": "Firewall üzerinde SIP ALG'yi kapatın."
+      }
+    ],
+    "etiketler": [
+      "voip",
+      "sip",
+      "sip-504",
+      "server-time-out",
+      "santral"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "sip_err_603",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "VoIP SIP Hata Kodu 603 (Decline - Arama Reddedildi) Çözüm Rehberi",
+    "hizli_adimlar": [
+      "Santral loglarında (603 Decline) dönen SIP çağrı paketini filtreleyin.",
+      "Kök neden analizini uygulayın: Aranan abonenin kırmızı butona basarak aramayı kasıtlı olarak reddetmesi.",
+      "Saha çözüm adımlarını yürütün: Normal kullanıcı davranışıdır; yönlendirme yoksa sesli mesaja aktarılmasını sağlayın.",
+      "Canlı arama yaparak sesin iki yönlü bağlandığını doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SIP Hata Filtreleme",
+        "komut": "asterisk -rx \"pjsip show history\" | grep 603",
+        "aciklama": "Asterisk canlı çağrı geçmişinde hatalı kodu listeler."
+      }
+    ],
+    "temel_anlatim": "IP telefon aramasında 'SIP/603 Decline' düşmesi ve çağrının sonlanması.",
+    "derin_teknik_analiz": "Aranan abonenin kırmızı butona basarak aramayı kasıtlı olarak reddetmesi. Çözüm: Normal kullanıcı davranışıdır; yönlendirme yoksa sesli mesaja aktarılmasını sağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Çağrı yine düşüyor",
+        "neden": "Firewall UDP 5060 paketini bozmaktadır.",
+        "cozum": "Firewall üzerinde SIP ALG'yi kapatın."
+      }
+    ],
+    "etiketler": [
+      "voip",
+      "sip",
+      "sip-603",
+      "decline",
+      "santral"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_224",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Yealink SIP-T54W Wi-Fi: BLF (Busy Lamp Field) Meşguliyet Işıklarının Güncellenmemesi",
+    "hizli_adimlar": [
+      "Yealink SIP-T54W Wi-Fi sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: SIP SUBSCRIBE ve NOTIFY paketlerinin santralde zaman aşımına uğraması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Santralde Presence Server desteğini açın ve telefonda BLF yenileme süresini 60 sn yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "asterisk -rx \"core show hints\"",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yan masadaki arkadaşı konuşurken telefondaki butonun yeşil kalması.",
+    "derin_teknik_analiz": "SIP SUBSCRIBE ve NOTIFY paketlerinin santralde zaman aşımına uğraması. Çözüm: Santralde Presence Server desteğini açın ve telefonda BLF yenileme süresini 60 sn yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "yealink sip-t54w wi-fi",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_225",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Yealink SIP-T54W Wi-Fi: Kulaklık (EHS / Plantronics) Entegrasyonunda Butonun Çağrıyı Açmaması",
+    "hizli_adimlar": [
+      "Yealink SIP-T54W Wi-Fi sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Telefon menüsünde kulaklık portunun EHS yerine Standart kulaklık modunda kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Telefon ayarlarından Kulaklık Modunu EHS36 / Jabra olarak güncelleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Web GUI -> Features -> Audio",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kablosuz kulaklık üzerindeki düğmeye basıldığında çağrının yanıtlanmaması.",
+    "derin_teknik_analiz": "Telefon menüsünde kulaklık portunun EHS yerine Standart kulaklık modunda kalması. Çözüm: Telefon ayarlarından Kulaklık Modunu EHS36 / Jabra olarak güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "yealink sip-t54w wi-fi",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_226",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Yealink SIP-T54W Wi-Fi: FXS Analog Port (ATA Adaptör) Çevir Sesi (Dial Tone) Yokluğu",
+    "hizli_adimlar": [
+      "Yealink SIP-T54W Wi-Fi sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: ATA adaptörünün SIP kaydının düşmesi veya dahili impedans uyuşmazlığı.",
+      "Saha mühendisliği servis prosedürünü yürütün: ATA adaptörü arayüzünden FXS portunun Registered olduğunu doğrulayın ve empedansı 600 Ohm yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ping 192.168.1.250",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Eski analog telsiz telefondan hat sesi gelmemesi.",
+    "derin_teknik_analiz": "ATA adaptörünün SIP kaydının düşmesi veya dahili impedans uyuşmazlığı. Çözüm: ATA adaptörü arayüzünden FXS portunun Registered olduğunu doğrulayın ve empedansı 600 Ohm yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "yealink sip-t54w wi-fi",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_227",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Yealink SIP-T54W Wi-Fi: Arama Bekletme (Call Waiting) Melodisi (Music on Hold) Çalmaması",
+    "hizli_adimlar": [
+      "Yealink SIP-T54W Wi-Fi sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Santraldeki MoH ses dosyalarının 8000Hz 16-bit Mono PCM formatında olmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Bekletme müziği WAV dosyalarını SOX aracı ile 8kHz mono formata dönüştürün.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "sox input.wav -r 8000 -c 1 -b 16 output.wav",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Müşteri hatta bekletildiğinde sessizlik olması ve çağrının düşmesi.",
+    "derin_teknik_analiz": "Santraldeki MoH ses dosyalarının 8000Hz 16-bit Mono PCM formatında olmaması. Çözüm: Bekletme müziği WAV dosyalarını SOX aracı ile 8kHz mono formata dönüştürün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "yealink sip-t54w wi-fi",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_228",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Grandstream GXV3370 Video Telefon: BLF (Busy Lamp Field) Meşguliyet Işıklarının Güncellenmemesi",
+    "hizli_adimlar": [
+      "Grandstream GXV3370 Video Telefon sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: SIP SUBSCRIBE ve NOTIFY paketlerinin santralde zaman aşımına uğraması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Santralde Presence Server desteğini açın ve telefonda BLF yenileme süresini 60 sn yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "asterisk -rx \"core show hints\"",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yan masadaki arkadaşı konuşurken telefondaki butonun yeşil kalması.",
+    "derin_teknik_analiz": "SIP SUBSCRIBE ve NOTIFY paketlerinin santralde zaman aşımına uğraması. Çözüm: Santralde Presence Server desteğini açın ve telefonda BLF yenileme süresini 60 sn yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "grandstream gxv3370 video telefon",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_229",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Grandstream GXV3370 Video Telefon: Kulaklık (EHS / Plantronics) Entegrasyonunda Butonun Çağrıyı Açmaması",
+    "hizli_adimlar": [
+      "Grandstream GXV3370 Video Telefon sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Telefon menüsünde kulaklık portunun EHS yerine Standart kulaklık modunda kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Telefon ayarlarından Kulaklık Modunu EHS36 / Jabra olarak güncelleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Web GUI -> Features -> Audio",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kablosuz kulaklık üzerindeki düğmeye basıldığında çağrının yanıtlanmaması.",
+    "derin_teknik_analiz": "Telefon menüsünde kulaklık portunun EHS yerine Standart kulaklık modunda kalması. Çözüm: Telefon ayarlarından Kulaklık Modunu EHS36 / Jabra olarak güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "grandstream gxv3370 video telefon",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_230",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Grandstream GXV3370 Video Telefon: FXS Analog Port (ATA Adaptör) Çevir Sesi (Dial Tone) Yokluğu",
+    "hizli_adimlar": [
+      "Grandstream GXV3370 Video Telefon sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: ATA adaptörünün SIP kaydının düşmesi veya dahili impedans uyuşmazlığı.",
+      "Saha mühendisliği servis prosedürünü yürütün: ATA adaptörü arayüzünden FXS portunun Registered olduğunu doğrulayın ve empedansı 600 Ohm yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ping 192.168.1.250",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Eski analog telsiz telefondan hat sesi gelmemesi.",
+    "derin_teknik_analiz": "ATA adaptörünün SIP kaydının düşmesi veya dahili impedans uyuşmazlığı. Çözüm: ATA adaptörü arayüzünden FXS portunun Registered olduğunu doğrulayın ve empedansı 600 Ohm yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "grandstream gxv3370 video telefon",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_231",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Grandstream GXV3370 Video Telefon: Arama Bekletme (Call Waiting) Melodisi (Music on Hold) Çalmaması",
+    "hizli_adimlar": [
+      "Grandstream GXV3370 Video Telefon sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Santraldeki MoH ses dosyalarının 8000Hz 16-bit Mono PCM formatında olmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Bekletme müziği WAV dosyalarını SOX aracı ile 8kHz mono formata dönüştürün.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "sox input.wav -r 8000 -c 1 -b 16 output.wav",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Müşteri hatta bekletildiğinde sessizlik olması ve çağrının düşmesi.",
+    "derin_teknik_analiz": "Santraldeki MoH ses dosyalarının 8000Hz 16-bit Mono PCM formatında olmaması. Çözüm: Bekletme müziği WAV dosyalarını SOX aracı ile 8kHz mono formata dönüştürün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "grandstream gxv3370 video telefon",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_232",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Cisco IP Phone 8851: BLF (Busy Lamp Field) Meşguliyet Işıklarının Güncellenmemesi",
+    "hizli_adimlar": [
+      "Cisco IP Phone 8851 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: SIP SUBSCRIBE ve NOTIFY paketlerinin santralde zaman aşımına uğraması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Santralde Presence Server desteğini açın ve telefonda BLF yenileme süresini 60 sn yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "asterisk -rx \"core show hints\"",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yan masadaki arkadaşı konuşurken telefondaki butonun yeşil kalması.",
+    "derin_teknik_analiz": "SIP SUBSCRIBE ve NOTIFY paketlerinin santralde zaman aşımına uğraması. Çözüm: Santralde Presence Server desteğini açın ve telefonda BLF yenileme süresini 60 sn yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "cisco ip phone 8851",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_233",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Cisco IP Phone 8851: Kulaklık (EHS / Plantronics) Entegrasyonunda Butonun Çağrıyı Açmaması",
+    "hizli_adimlar": [
+      "Cisco IP Phone 8851 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Telefon menüsünde kulaklık portunun EHS yerine Standart kulaklık modunda kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Telefon ayarlarından Kulaklık Modunu EHS36 / Jabra olarak güncelleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Web GUI -> Features -> Audio",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kablosuz kulaklık üzerindeki düğmeye basıldığında çağrının yanıtlanmaması.",
+    "derin_teknik_analiz": "Telefon menüsünde kulaklık portunun EHS yerine Standart kulaklık modunda kalması. Çözüm: Telefon ayarlarından Kulaklık Modunu EHS36 / Jabra olarak güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "cisco ip phone 8851",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_234",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Cisco IP Phone 8851: FXS Analog Port (ATA Adaptör) Çevir Sesi (Dial Tone) Yokluğu",
+    "hizli_adimlar": [
+      "Cisco IP Phone 8851 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: ATA adaptörünün SIP kaydının düşmesi veya dahili impedans uyuşmazlığı.",
+      "Saha mühendisliği servis prosedürünü yürütün: ATA adaptörü arayüzünden FXS portunun Registered olduğunu doğrulayın ve empedansı 600 Ohm yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ping 192.168.1.250",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Eski analog telsiz telefondan hat sesi gelmemesi.",
+    "derin_teknik_analiz": "ATA adaptörünün SIP kaydının düşmesi veya dahili impedans uyuşmazlığı. Çözüm: ATA adaptörü arayüzünden FXS portunun Registered olduğunu doğrulayın ve empedansı 600 Ohm yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "cisco ip phone 8851",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_235",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Cisco IP Phone 8851: Arama Bekletme (Call Waiting) Melodisi (Music on Hold) Çalmaması",
+    "hizli_adimlar": [
+      "Cisco IP Phone 8851 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Santraldeki MoH ses dosyalarının 8000Hz 16-bit Mono PCM formatında olmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Bekletme müziği WAV dosyalarını SOX aracı ile 8kHz mono formata dönüştürün.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "sox input.wav -r 8000 -c 1 -b 16 output.wav",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Müşteri hatta bekletildiğinde sessizlik olması ve çağrının düşmesi.",
+    "derin_teknik_analiz": "Santraldeki MoH ses dosyalarının 8000Hz 16-bit Mono PCM formatında olmaması. Çözüm: Bekletme müziği WAV dosyalarını SOX aracı ile 8kHz mono formata dönüştürün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "cisco ip phone 8851",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_236",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Fanvil X7C Dokunmatik: BLF (Busy Lamp Field) Meşguliyet Işıklarının Güncellenmemesi",
+    "hizli_adimlar": [
+      "Fanvil X7C Dokunmatik sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: SIP SUBSCRIBE ve NOTIFY paketlerinin santralde zaman aşımına uğraması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Santralde Presence Server desteğini açın ve telefonda BLF yenileme süresini 60 sn yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "asterisk -rx \"core show hints\"",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yan masadaki arkadaşı konuşurken telefondaki butonun yeşil kalması.",
+    "derin_teknik_analiz": "SIP SUBSCRIBE ve NOTIFY paketlerinin santralde zaman aşımına uğraması. Çözüm: Santralde Presence Server desteğini açın ve telefonda BLF yenileme süresini 60 sn yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "fanvil x7c dokunmatik",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_237",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Fanvil X7C Dokunmatik: Kulaklık (EHS / Plantronics) Entegrasyonunda Butonun Çağrıyı Açmaması",
+    "hizli_adimlar": [
+      "Fanvil X7C Dokunmatik sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Telefon menüsünde kulaklık portunun EHS yerine Standart kulaklık modunda kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Telefon ayarlarından Kulaklık Modunu EHS36 / Jabra olarak güncelleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Web GUI -> Features -> Audio",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kablosuz kulaklık üzerindeki düğmeye basıldığında çağrının yanıtlanmaması.",
+    "derin_teknik_analiz": "Telefon menüsünde kulaklık portunun EHS yerine Standart kulaklık modunda kalması. Çözüm: Telefon ayarlarından Kulaklık Modunu EHS36 / Jabra olarak güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "fanvil x7c dokunmatik",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_238",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Fanvil X7C Dokunmatik: FXS Analog Port (ATA Adaptör) Çevir Sesi (Dial Tone) Yokluğu",
+    "hizli_adimlar": [
+      "Fanvil X7C Dokunmatik sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: ATA adaptörünün SIP kaydının düşmesi veya dahili impedans uyuşmazlığı.",
+      "Saha mühendisliği servis prosedürünü yürütün: ATA adaptörü arayüzünden FXS portunun Registered olduğunu doğrulayın ve empedansı 600 Ohm yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ping 192.168.1.250",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Eski analog telsiz telefondan hat sesi gelmemesi.",
+    "derin_teknik_analiz": "ATA adaptörünün SIP kaydının düşmesi veya dahili impedans uyuşmazlığı. Çözüm: ATA adaptörü arayüzünden FXS portunun Registered olduğunu doğrulayın ve empedansı 600 Ohm yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "fanvil x7c dokunmatik",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_239",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Fanvil X7C Dokunmatik: Arama Bekletme (Call Waiting) Melodisi (Music on Hold) Çalmaması",
+    "hizli_adimlar": [
+      "Fanvil X7C Dokunmatik sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Santraldeki MoH ses dosyalarının 8000Hz 16-bit Mono PCM formatında olmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Bekletme müziği WAV dosyalarını SOX aracı ile 8kHz mono formata dönüştürün.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "sox input.wav -r 8000 -c 1 -b 16 output.wav",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Müşteri hatta bekletildiğinde sessizlik olması ve çağrının düşmesi.",
+    "derin_teknik_analiz": "Santraldeki MoH ses dosyalarının 8000Hz 16-bit Mono PCM formatında olmaması. Çözüm: Bekletme müziği WAV dosyalarını SOX aracı ile 8kHz mono formata dönüştürün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "fanvil x7c dokunmatik",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_240",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Snom D385 Yönetici Telefonu: BLF (Busy Lamp Field) Meşguliyet Işıklarının Güncellenmemesi",
+    "hizli_adimlar": [
+      "Snom D385 Yönetici Telefonu sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: SIP SUBSCRIBE ve NOTIFY paketlerinin santralde zaman aşımına uğraması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Santralde Presence Server desteğini açın ve telefonda BLF yenileme süresini 60 sn yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "asterisk -rx \"core show hints\"",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yan masadaki arkadaşı konuşurken telefondaki butonun yeşil kalması.",
+    "derin_teknik_analiz": "SIP SUBSCRIBE ve NOTIFY paketlerinin santralde zaman aşımına uğraması. Çözüm: Santralde Presence Server desteğini açın ve telefonda BLF yenileme süresini 60 sn yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "snom d385 yönetici telefonu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_241",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Snom D385 Yönetici Telefonu: Kulaklık (EHS / Plantronics) Entegrasyonunda Butonun Çağrıyı Açmaması",
+    "hizli_adimlar": [
+      "Snom D385 Yönetici Telefonu sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Telefon menüsünde kulaklık portunun EHS yerine Standart kulaklık modunda kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Telefon ayarlarından Kulaklık Modunu EHS36 / Jabra olarak güncelleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Web GUI -> Features -> Audio",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kablosuz kulaklık üzerindeki düğmeye basıldığında çağrının yanıtlanmaması.",
+    "derin_teknik_analiz": "Telefon menüsünde kulaklık portunun EHS yerine Standart kulaklık modunda kalması. Çözüm: Telefon ayarlarından Kulaklık Modunu EHS36 / Jabra olarak güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "snom d385 yönetici telefonu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_242",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Snom D385 Yönetici Telefonu: FXS Analog Port (ATA Adaptör) Çevir Sesi (Dial Tone) Yokluğu",
+    "hizli_adimlar": [
+      "Snom D385 Yönetici Telefonu sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: ATA adaptörünün SIP kaydının düşmesi veya dahili impedans uyuşmazlığı.",
+      "Saha mühendisliği servis prosedürünü yürütün: ATA adaptörü arayüzünden FXS portunun Registered olduğunu doğrulayın ve empedansı 600 Ohm yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ping 192.168.1.250",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Eski analog telsiz telefondan hat sesi gelmemesi.",
+    "derin_teknik_analiz": "ATA adaptörünün SIP kaydının düşmesi veya dahili impedans uyuşmazlığı. Çözüm: ATA adaptörü arayüzünden FXS portunun Registered olduğunu doğrulayın ve empedansı 600 Ohm yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "snom d385 yönetici telefonu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_243",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Snom D385 Yönetici Telefonu: Arama Bekletme (Call Waiting) Melodisi (Music on Hold) Çalmaması",
+    "hizli_adimlar": [
+      "Snom D385 Yönetici Telefonu sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Santraldeki MoH ses dosyalarının 8000Hz 16-bit Mono PCM formatında olmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Bekletme müziği WAV dosyalarını SOX aracı ile 8kHz mono formata dönüştürün.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "sox input.wav -r 8000 -c 1 -b 16 output.wav",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Müşteri hatta bekletildiğinde sessizlik olması ve çağrının düşmesi.",
+    "derin_teknik_analiz": "Santraldeki MoH ses dosyalarının 8000Hz 16-bit Mono PCM formatında olmaması. Çözüm: Bekletme müziği WAV dosyalarını SOX aracı ile 8kHz mono formata dönüştürün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "snom d385 yönetici telefonu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_244",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Yealink CP960 Konferans Cihazı: BLF (Busy Lamp Field) Meşguliyet Işıklarının Güncellenmemesi",
+    "hizli_adimlar": [
+      "Yealink CP960 Konferans Cihazı sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: SIP SUBSCRIBE ve NOTIFY paketlerinin santralde zaman aşımına uğraması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Santralde Presence Server desteğini açın ve telefonda BLF yenileme süresini 60 sn yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "asterisk -rx \"core show hints\"",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yan masadaki arkadaşı konuşurken telefondaki butonun yeşil kalması.",
+    "derin_teknik_analiz": "SIP SUBSCRIBE ve NOTIFY paketlerinin santralde zaman aşımına uğraması. Çözüm: Santralde Presence Server desteğini açın ve telefonda BLF yenileme süresini 60 sn yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "yealink cp960 konferans cihazı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_245",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Yealink CP960 Konferans Cihazı: Kulaklık (EHS / Plantronics) Entegrasyonunda Butonun Çağrıyı Açmaması",
+    "hizli_adimlar": [
+      "Yealink CP960 Konferans Cihazı sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Telefon menüsünde kulaklık portunun EHS yerine Standart kulaklık modunda kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Telefon ayarlarından Kulaklık Modunu EHS36 / Jabra olarak güncelleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Web GUI -> Features -> Audio",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kablosuz kulaklık üzerindeki düğmeye basıldığında çağrının yanıtlanmaması.",
+    "derin_teknik_analiz": "Telefon menüsünde kulaklık portunun EHS yerine Standart kulaklık modunda kalması. Çözüm: Telefon ayarlarından Kulaklık Modunu EHS36 / Jabra olarak güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "yealink cp960 konferans cihazı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_246",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Yealink CP960 Konferans Cihazı: FXS Analog Port (ATA Adaptör) Çevir Sesi (Dial Tone) Yokluğu",
+    "hizli_adimlar": [
+      "Yealink CP960 Konferans Cihazı sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: ATA adaptörünün SIP kaydının düşmesi veya dahili impedans uyuşmazlığı.",
+      "Saha mühendisliği servis prosedürünü yürütün: ATA adaptörü arayüzünden FXS portunun Registered olduğunu doğrulayın ve empedansı 600 Ohm yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ping 192.168.1.250",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Eski analog telsiz telefondan hat sesi gelmemesi.",
+    "derin_teknik_analiz": "ATA adaptörünün SIP kaydının düşmesi veya dahili impedans uyuşmazlığı. Çözüm: ATA adaptörü arayüzünden FXS portunun Registered olduğunu doğrulayın ve empedansı 600 Ohm yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "yealink cp960 konferans cihazı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_247",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Yealink CP960 Konferans Cihazı: Arama Bekletme (Call Waiting) Melodisi (Music on Hold) Çalmaması",
+    "hizli_adimlar": [
+      "Yealink CP960 Konferans Cihazı sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Santraldeki MoH ses dosyalarının 8000Hz 16-bit Mono PCM formatında olmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Bekletme müziği WAV dosyalarını SOX aracı ile 8kHz mono formata dönüştürün.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "sox input.wav -r 8000 -c 1 -b 16 output.wav",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Müşteri hatta bekletildiğinde sessizlik olması ve çağrının düşmesi.",
+    "derin_teknik_analiz": "Santraldeki MoH ses dosyalarının 8000Hz 16-bit Mono PCM formatında olmaması. Çözüm: Bekletme müziği WAV dosyalarını SOX aracı ile 8kHz mono formata dönüştürün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "yealink cp960 konferans cihazı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_248",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Grandstream HT812 ATA Adaptör: BLF (Busy Lamp Field) Meşguliyet Işıklarının Güncellenmemesi",
+    "hizli_adimlar": [
+      "Grandstream HT812 ATA Adaptör sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: SIP SUBSCRIBE ve NOTIFY paketlerinin santralde zaman aşımına uğraması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Santralde Presence Server desteğini açın ve telefonda BLF yenileme süresini 60 sn yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "asterisk -rx \"core show hints\"",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yan masadaki arkadaşı konuşurken telefondaki butonun yeşil kalması.",
+    "derin_teknik_analiz": "SIP SUBSCRIBE ve NOTIFY paketlerinin santralde zaman aşımına uğraması. Çözüm: Santralde Presence Server desteğini açın ve telefonda BLF yenileme süresini 60 sn yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "grandstream ht812 ata adaptör",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_249",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Grandstream HT812 ATA Adaptör: Kulaklık (EHS / Plantronics) Entegrasyonunda Butonun Çağrıyı Açmaması",
+    "hizli_adimlar": [
+      "Grandstream HT812 ATA Adaptör sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Telefon menüsünde kulaklık portunun EHS yerine Standart kulaklık modunda kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Telefon ayarlarından Kulaklık Modunu EHS36 / Jabra olarak güncelleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Web GUI -> Features -> Audio",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kablosuz kulaklık üzerindeki düğmeye basıldığında çağrının yanıtlanmaması.",
+    "derin_teknik_analiz": "Telefon menüsünde kulaklık portunun EHS yerine Standart kulaklık modunda kalması. Çözüm: Telefon ayarlarından Kulaklık Modunu EHS36 / Jabra olarak güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "grandstream ht812 ata adaptör",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_250",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Grandstream HT812 ATA Adaptör: FXS Analog Port (ATA Adaptör) Çevir Sesi (Dial Tone) Yokluğu",
+    "hizli_adimlar": [
+      "Grandstream HT812 ATA Adaptör sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: ATA adaptörünün SIP kaydının düşmesi veya dahili impedans uyuşmazlığı.",
+      "Saha mühendisliği servis prosedürünü yürütün: ATA adaptörü arayüzünden FXS portunun Registered olduğunu doğrulayın ve empedansı 600 Ohm yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ping 192.168.1.250",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Eski analog telsiz telefondan hat sesi gelmemesi.",
+    "derin_teknik_analiz": "ATA adaptörünün SIP kaydının düşmesi veya dahili impedans uyuşmazlığı. Çözüm: ATA adaptörü arayüzünden FXS portunun Registered olduğunu doğrulayın ve empedansı 600 Ohm yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "grandstream ht812 ata adaptör",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_251",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Grandstream HT812 ATA Adaptör: Arama Bekletme (Call Waiting) Melodisi (Music on Hold) Çalmaması",
+    "hizli_adimlar": [
+      "Grandstream HT812 ATA Adaptör sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Santraldeki MoH ses dosyalarının 8000Hz 16-bit Mono PCM formatında olmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Bekletme müziği WAV dosyalarını SOX aracı ile 8kHz mono formata dönüştürün.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "sox input.wav -r 8000 -c 1 -b 16 output.wav",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Müşteri hatta bekletildiğinde sessizlik olması ve çağrının düşmesi.",
+    "derin_teknik_analiz": "Santraldeki MoH ses dosyalarının 8000Hz 16-bit Mono PCM formatında olmaması. Çözüm: Bekletme müziği WAV dosyalarını SOX aracı ile 8kHz mono formata dönüştürün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "grandstream ht812 ata adaptör",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_252",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Yeastar S50 IP Santral: BLF (Busy Lamp Field) Meşguliyet Işıklarının Güncellenmemesi",
+    "hizli_adimlar": [
+      "Yeastar S50 IP Santral sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: SIP SUBSCRIBE ve NOTIFY paketlerinin santralde zaman aşımına uğraması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Santralde Presence Server desteğini açın ve telefonda BLF yenileme süresini 60 sn yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "asterisk -rx \"core show hints\"",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yan masadaki arkadaşı konuşurken telefondaki butonun yeşil kalması.",
+    "derin_teknik_analiz": "SIP SUBSCRIBE ve NOTIFY paketlerinin santralde zaman aşımına uğraması. Çözüm: Santralde Presence Server desteğini açın ve telefonda BLF yenileme süresini 60 sn yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "yeastar s50 ip santral",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_253",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Yeastar S50 IP Santral: Kulaklık (EHS / Plantronics) Entegrasyonunda Butonun Çağrıyı Açmaması",
+    "hizli_adimlar": [
+      "Yeastar S50 IP Santral sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Telefon menüsünde kulaklık portunun EHS yerine Standart kulaklık modunda kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Telefon ayarlarından Kulaklık Modunu EHS36 / Jabra olarak güncelleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Web GUI -> Features -> Audio",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kablosuz kulaklık üzerindeki düğmeye basıldığında çağrının yanıtlanmaması.",
+    "derin_teknik_analiz": "Telefon menüsünde kulaklık portunun EHS yerine Standart kulaklık modunda kalması. Çözüm: Telefon ayarlarından Kulaklık Modunu EHS36 / Jabra olarak güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "yeastar s50 ip santral",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_254",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Yeastar S50 IP Santral: FXS Analog Port (ATA Adaptör) Çevir Sesi (Dial Tone) Yokluğu",
+    "hizli_adimlar": [
+      "Yeastar S50 IP Santral sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: ATA adaptörünün SIP kaydının düşmesi veya dahili impedans uyuşmazlığı.",
+      "Saha mühendisliği servis prosedürünü yürütün: ATA adaptörü arayüzünden FXS portunun Registered olduğunu doğrulayın ve empedansı 600 Ohm yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ping 192.168.1.250",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Eski analog telsiz telefondan hat sesi gelmemesi.",
+    "derin_teknik_analiz": "ATA adaptörünün SIP kaydının düşmesi veya dahili impedans uyuşmazlığı. Çözüm: ATA adaptörü arayüzünden FXS portunun Registered olduğunu doğrulayın ve empedansı 600 Ohm yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "yeastar s50 ip santral",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_255",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Yeastar S50 IP Santral: Arama Bekletme (Call Waiting) Melodisi (Music on Hold) Çalmaması",
+    "hizli_adimlar": [
+      "Yeastar S50 IP Santral sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Santraldeki MoH ses dosyalarının 8000Hz 16-bit Mono PCM formatında olmaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Bekletme müziği WAV dosyalarını SOX aracı ile 8kHz mono formata dönüştürün.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "sox input.wav -r 8000 -c 1 -b 16 output.wav",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Müşteri hatta bekletildiğinde sessizlik olması ve çağrının düşmesi.",
+    "derin_teknik_analiz": "Santraldeki MoH ses dosyalarının 8000Hz 16-bit Mono PCM formatında olmaması. Çözüm: Bekletme müziği WAV dosyalarını SOX aracı ile 8kHz mono formata dönüştürün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "yeastar s50 ip santral",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_270",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "3CX Phone System v20: SIP Trunk Sağlayıcıda INVITE Oturum Yenileme (Session Timer) Kopması",
+    "hizli_adimlar": [
+      "3CX Phone System v20 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: SIP Session Timer (RFC 4028) sürelerinin santral ile operatör arasında uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Trunk ayarlarında \"Session Timers = Refuse\" yapın veya süreyi 1800 saniyeye yükseltin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "asterisk -rx \"pjsip show endpoints\"",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Tüm dış aramalarda tam 15. dakikada çağrının aniden kapanması.",
+    "derin_teknik_analiz": "SIP Session Timer (RFC 4028) sürelerinin santral ile operatör arasında uyuşmaması. Çözüm: Trunk ayarlarında \"Session Timers = Refuse\" yapın veya süreyi 1800 saniyeye yükseltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "3cx phone system v20",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_271",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "3CX Phone System v20: Çağrı Merkezinde Ses Kayıt Dosyalarının Diski Doldurması",
+    "hizli_adimlar": [
+      "3CX Phone System v20 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Görüşmelerin WAV formatında saklanması ve otomatik arşivleme betiğinin durması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Ses kayıtlarını MP3/OGG formatına dönüştüren cron scripti yazın ve 90 günden eski kayıtları NAS'a taşıyın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "df -h /var/spool/asterisk/monitor",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kuyrukların çağrı kabul etmeyi durdurması ve veritabanının kilitlenmesi.",
+    "derin_teknik_analiz": "Görüşmelerin WAV formatında saklanması ve otomatik arşivleme betiğinin durması. Çözüm: Ses kayıtlarını MP3/OGG formatına dönüştüren cron scripti yazın ve 90 günden eski kayıtları NAS'a taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "3cx phone system v20",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_272",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "3CX Phone System v20: Dahili IP Telefondan Dış Hat Aranırken 404 Not Found Hatası",
+    "hizli_adimlar": [
+      "3CX Phone System v20 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Giden Arama Rotasında (Outbound Route) alan kodu ön ekinin (Dial Prefix: 9) yanlış filtrelenmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Santral Giden Arama Kurallarında kural desenini (Örn: 05XXXXXXXXX) kontrol edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "asterisk -rx \"dialplan show\"",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Personel dış numara çevirdiğinde anında meşgul sesi alması.",
+    "derin_teknik_analiz": "Giden Arama Rotasında (Outbound Route) alan kodu ön ekinin (Dial Prefix: 9) yanlış filtrelenmesi. Çözüm: Santral Giden Arama Kurallarında kural desenini (Örn: 05XXXXXXXXX) kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "3cx phone system v20",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_273",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "FreePBX 16 Asterisk 18: SIP Trunk Sağlayıcıda INVITE Oturum Yenileme (Session Timer) Kopması",
+    "hizli_adimlar": [
+      "FreePBX 16 Asterisk 18 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: SIP Session Timer (RFC 4028) sürelerinin santral ile operatör arasında uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Trunk ayarlarında \"Session Timers = Refuse\" yapın veya süreyi 1800 saniyeye yükseltin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "asterisk -rx \"pjsip show endpoints\"",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Tüm dış aramalarda tam 15. dakikada çağrının aniden kapanması.",
+    "derin_teknik_analiz": "SIP Session Timer (RFC 4028) sürelerinin santral ile operatör arasında uyuşmaması. Çözüm: Trunk ayarlarında \"Session Timers = Refuse\" yapın veya süreyi 1800 saniyeye yükseltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "freepbx 16 asterisk 18",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_274",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "FreePBX 16 Asterisk 18: Çağrı Merkezinde Ses Kayıt Dosyalarının Diski Doldurması",
+    "hizli_adimlar": [
+      "FreePBX 16 Asterisk 18 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Görüşmelerin WAV formatında saklanması ve otomatik arşivleme betiğinin durması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Ses kayıtlarını MP3/OGG formatına dönüştüren cron scripti yazın ve 90 günden eski kayıtları NAS'a taşıyın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "df -h /var/spool/asterisk/monitor",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kuyrukların çağrı kabul etmeyi durdurması ve veritabanının kilitlenmesi.",
+    "derin_teknik_analiz": "Görüşmelerin WAV formatında saklanması ve otomatik arşivleme betiğinin durması. Çözüm: Ses kayıtlarını MP3/OGG formatına dönüştüren cron scripti yazın ve 90 günden eski kayıtları NAS'a taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "freepbx 16 asterisk 18",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_275",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "FreePBX 16 Asterisk 18: Dahili IP Telefondan Dış Hat Aranırken 404 Not Found Hatası",
+    "hizli_adimlar": [
+      "FreePBX 16 Asterisk 18 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Giden Arama Rotasında (Outbound Route) alan kodu ön ekinin (Dial Prefix: 9) yanlış filtrelenmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Santral Giden Arama Kurallarında kural desenini (Örn: 05XXXXXXXXX) kontrol edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "asterisk -rx \"dialplan show\"",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Personel dış numara çevirdiğinde anında meşgul sesi alması.",
+    "derin_teknik_analiz": "Giden Arama Rotasında (Outbound Route) alan kodu ön ekinin (Dial Prefix: 9) yanlış filtrelenmesi. Çözüm: Santral Giden Arama Kurallarında kural desenini (Örn: 05XXXXXXXXX) kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "freepbx 16 asterisk 18",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_276",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Issabel PBX Çağrı Merkezi: SIP Trunk Sağlayıcıda INVITE Oturum Yenileme (Session Timer) Kopması",
+    "hizli_adimlar": [
+      "Issabel PBX Çağrı Merkezi cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: SIP Session Timer (RFC 4028) sürelerinin santral ile operatör arasında uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Trunk ayarlarında \"Session Timers = Refuse\" yapın veya süreyi 1800 saniyeye yükseltin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "asterisk -rx \"pjsip show endpoints\"",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Tüm dış aramalarda tam 15. dakikada çağrının aniden kapanması.",
+    "derin_teknik_analiz": "SIP Session Timer (RFC 4028) sürelerinin santral ile operatör arasında uyuşmaması. Çözüm: Trunk ayarlarında \"Session Timers = Refuse\" yapın veya süreyi 1800 saniyeye yükseltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "issabel pbx çağrı merkezi",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_277",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Issabel PBX Çağrı Merkezi: Çağrı Merkezinde Ses Kayıt Dosyalarının Diski Doldurması",
+    "hizli_adimlar": [
+      "Issabel PBX Çağrı Merkezi cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Görüşmelerin WAV formatında saklanması ve otomatik arşivleme betiğinin durması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Ses kayıtlarını MP3/OGG formatına dönüştüren cron scripti yazın ve 90 günden eski kayıtları NAS'a taşıyın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "df -h /var/spool/asterisk/monitor",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kuyrukların çağrı kabul etmeyi durdurması ve veritabanının kilitlenmesi.",
+    "derin_teknik_analiz": "Görüşmelerin WAV formatında saklanması ve otomatik arşivleme betiğinin durması. Çözüm: Ses kayıtlarını MP3/OGG formatına dönüştüren cron scripti yazın ve 90 günden eski kayıtları NAS'a taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "issabel pbx çağrı merkezi",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_278",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Issabel PBX Çağrı Merkezi: Dahili IP Telefondan Dış Hat Aranırken 404 Not Found Hatası",
+    "hizli_adimlar": [
+      "Issabel PBX Çağrı Merkezi cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Giden Arama Rotasında (Outbound Route) alan kodu ön ekinin (Dial Prefix: 9) yanlış filtrelenmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Santral Giden Arama Kurallarında kural desenini (Örn: 05XXXXXXXXX) kontrol edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "asterisk -rx \"dialplan show\"",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Personel dış numara çevirdiğinde anında meşgul sesi alması.",
+    "derin_teknik_analiz": "Giden Arama Rotasında (Outbound Route) alan kodu ön ekinin (Dial Prefix: 9) yanlış filtrelenmesi. Çözüm: Santral Giden Arama Kurallarında kural desenini (Örn: 05XXXXXXXXX) kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "issabel pbx çağrı merkezi",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_279",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Yeastar S300 Hibrit: SIP Trunk Sağlayıcıda INVITE Oturum Yenileme (Session Timer) Kopması",
+    "hizli_adimlar": [
+      "Yeastar S300 Hibrit cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: SIP Session Timer (RFC 4028) sürelerinin santral ile operatör arasında uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Trunk ayarlarında \"Session Timers = Refuse\" yapın veya süreyi 1800 saniyeye yükseltin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "asterisk -rx \"pjsip show endpoints\"",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Tüm dış aramalarda tam 15. dakikada çağrının aniden kapanması.",
+    "derin_teknik_analiz": "SIP Session Timer (RFC 4028) sürelerinin santral ile operatör arasında uyuşmaması. Çözüm: Trunk ayarlarında \"Session Timers = Refuse\" yapın veya süreyi 1800 saniyeye yükseltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "yeastar s300 hibrit",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_280",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Yeastar S300 Hibrit: Çağrı Merkezinde Ses Kayıt Dosyalarının Diski Doldurması",
+    "hizli_adimlar": [
+      "Yeastar S300 Hibrit cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Görüşmelerin WAV formatında saklanması ve otomatik arşivleme betiğinin durması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Ses kayıtlarını MP3/OGG formatına dönüştüren cron scripti yazın ve 90 günden eski kayıtları NAS'a taşıyın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "df -h /var/spool/asterisk/monitor",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kuyrukların çağrı kabul etmeyi durdurması ve veritabanının kilitlenmesi.",
+    "derin_teknik_analiz": "Görüşmelerin WAV formatında saklanması ve otomatik arşivleme betiğinin durması. Çözüm: Ses kayıtlarını MP3/OGG formatına dönüştüren cron scripti yazın ve 90 günden eski kayıtları NAS'a taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "yeastar s300 hibrit",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_281",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Yeastar S300 Hibrit: Dahili IP Telefondan Dış Hat Aranırken 404 Not Found Hatası",
+    "hizli_adimlar": [
+      "Yeastar S300 Hibrit cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Giden Arama Rotasında (Outbound Route) alan kodu ön ekinin (Dial Prefix: 9) yanlış filtrelenmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Santral Giden Arama Kurallarında kural desenini (Örn: 05XXXXXXXXX) kontrol edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "asterisk -rx \"dialplan show\"",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Personel dış numara çevirdiğinde anında meşgul sesi alması.",
+    "derin_teknik_analiz": "Giden Arama Rotasında (Outbound Route) alan kodu ön ekinin (Dial Prefix: 9) yanlış filtrelenmesi. Çözüm: Santral Giden Arama Kurallarında kural desenini (Örn: 05XXXXXXXXX) kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "yeastar s300 hibrit",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_282",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Grandstream UCM6308 IP PBX: SIP Trunk Sağlayıcıda INVITE Oturum Yenileme (Session Timer) Kopması",
+    "hizli_adimlar": [
+      "Grandstream UCM6308 IP PBX cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: SIP Session Timer (RFC 4028) sürelerinin santral ile operatör arasında uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Trunk ayarlarında \"Session Timers = Refuse\" yapın veya süreyi 1800 saniyeye yükseltin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "asterisk -rx \"pjsip show endpoints\"",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Tüm dış aramalarda tam 15. dakikada çağrının aniden kapanması.",
+    "derin_teknik_analiz": "SIP Session Timer (RFC 4028) sürelerinin santral ile operatör arasında uyuşmaması. Çözüm: Trunk ayarlarında \"Session Timers = Refuse\" yapın veya süreyi 1800 saniyeye yükseltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "grandstream ucm6308 ip pbx",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_283",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Grandstream UCM6308 IP PBX: Çağrı Merkezinde Ses Kayıt Dosyalarının Diski Doldurması",
+    "hizli_adimlar": [
+      "Grandstream UCM6308 IP PBX cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Görüşmelerin WAV formatında saklanması ve otomatik arşivleme betiğinin durması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Ses kayıtlarını MP3/OGG formatına dönüştüren cron scripti yazın ve 90 günden eski kayıtları NAS'a taşıyın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "df -h /var/spool/asterisk/monitor",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kuyrukların çağrı kabul etmeyi durdurması ve veritabanının kilitlenmesi.",
+    "derin_teknik_analiz": "Görüşmelerin WAV formatında saklanması ve otomatik arşivleme betiğinin durması. Çözüm: Ses kayıtlarını MP3/OGG formatına dönüştüren cron scripti yazın ve 90 günden eski kayıtları NAS'a taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "grandstream ucm6308 ip pbx",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_284",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Grandstream UCM6308 IP PBX: Dahili IP Telefondan Dış Hat Aranırken 404 Not Found Hatası",
+    "hizli_adimlar": [
+      "Grandstream UCM6308 IP PBX cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Giden Arama Rotasında (Outbound Route) alan kodu ön ekinin (Dial Prefix: 9) yanlış filtrelenmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Santral Giden Arama Kurallarında kural desenini (Örn: 05XXXXXXXXX) kontrol edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "asterisk -rx \"dialplan show\"",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Personel dış numara çevirdiğinde anında meşgul sesi alması.",
+    "derin_teknik_analiz": "Giden Arama Rotasında (Outbound Route) alan kodu ön ekinin (Dial Prefix: 9) yanlış filtrelenmesi. Çözüm: Santral Giden Arama Kurallarında kural desenini (Örn: 05XXXXXXXXX) kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "grandstream ucm6308 ip pbx",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_285",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Cisco CUCM v14 Kurumsal: SIP Trunk Sağlayıcıda INVITE Oturum Yenileme (Session Timer) Kopması",
+    "hizli_adimlar": [
+      "Cisco CUCM v14 Kurumsal cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: SIP Session Timer (RFC 4028) sürelerinin santral ile operatör arasında uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Trunk ayarlarında \"Session Timers = Refuse\" yapın veya süreyi 1800 saniyeye yükseltin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "asterisk -rx \"pjsip show endpoints\"",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Tüm dış aramalarda tam 15. dakikada çağrının aniden kapanması.",
+    "derin_teknik_analiz": "SIP Session Timer (RFC 4028) sürelerinin santral ile operatör arasında uyuşmaması. Çözüm: Trunk ayarlarında \"Session Timers = Refuse\" yapın veya süreyi 1800 saniyeye yükseltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "cisco cucm v14 kurumsal",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_286",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Cisco CUCM v14 Kurumsal: Çağrı Merkezinde Ses Kayıt Dosyalarının Diski Doldurması",
+    "hizli_adimlar": [
+      "Cisco CUCM v14 Kurumsal cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Görüşmelerin WAV formatında saklanması ve otomatik arşivleme betiğinin durması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Ses kayıtlarını MP3/OGG formatına dönüştüren cron scripti yazın ve 90 günden eski kayıtları NAS'a taşıyın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "df -h /var/spool/asterisk/monitor",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kuyrukların çağrı kabul etmeyi durdurması ve veritabanının kilitlenmesi.",
+    "derin_teknik_analiz": "Görüşmelerin WAV formatında saklanması ve otomatik arşivleme betiğinin durması. Çözüm: Ses kayıtlarını MP3/OGG formatına dönüştüren cron scripti yazın ve 90 günden eski kayıtları NAS'a taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "cisco cucm v14 kurumsal",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_287",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Cisco CUCM v14 Kurumsal: Dahili IP Telefondan Dış Hat Aranırken 404 Not Found Hatası",
+    "hizli_adimlar": [
+      "Cisco CUCM v14 Kurumsal cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Giden Arama Rotasında (Outbound Route) alan kodu ön ekinin (Dial Prefix: 9) yanlış filtrelenmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Santral Giden Arama Kurallarında kural desenini (Örn: 05XXXXXXXXX) kontrol edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "asterisk -rx \"dialplan show\"",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Personel dış numara çevirdiğinde anında meşgul sesi alması.",
+    "derin_teknik_analiz": "Giden Arama Rotasında (Outbound Route) alan kodu ön ekinin (Dial Prefix: 9) yanlış filtrelenmesi. Çözüm: Santral Giden Arama Kurallarında kural desenini (Örn: 05XXXXXXXXX) kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "cisco cucm v14 kurumsal",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_288",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Avaya IP Office 500 V2: SIP Trunk Sağlayıcıda INVITE Oturum Yenileme (Session Timer) Kopması",
+    "hizli_adimlar": [
+      "Avaya IP Office 500 V2 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: SIP Session Timer (RFC 4028) sürelerinin santral ile operatör arasında uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Trunk ayarlarında \"Session Timers = Refuse\" yapın veya süreyi 1800 saniyeye yükseltin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "asterisk -rx \"pjsip show endpoints\"",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Tüm dış aramalarda tam 15. dakikada çağrının aniden kapanması.",
+    "derin_teknik_analiz": "SIP Session Timer (RFC 4028) sürelerinin santral ile operatör arasında uyuşmaması. Çözüm: Trunk ayarlarında \"Session Timers = Refuse\" yapın veya süreyi 1800 saniyeye yükseltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "avaya ip office 500 v2",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_289",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Avaya IP Office 500 V2: Çağrı Merkezinde Ses Kayıt Dosyalarının Diski Doldurması",
+    "hizli_adimlar": [
+      "Avaya IP Office 500 V2 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Görüşmelerin WAV formatında saklanması ve otomatik arşivleme betiğinin durması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Ses kayıtlarını MP3/OGG formatına dönüştüren cron scripti yazın ve 90 günden eski kayıtları NAS'a taşıyın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "df -h /var/spool/asterisk/monitor",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kuyrukların çağrı kabul etmeyi durdurması ve veritabanının kilitlenmesi.",
+    "derin_teknik_analiz": "Görüşmelerin WAV formatında saklanması ve otomatik arşivleme betiğinin durması. Çözüm: Ses kayıtlarını MP3/OGG formatına dönüştüren cron scripti yazın ve 90 günden eski kayıtları NAS'a taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "avaya ip office 500 v2",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_290",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Avaya IP Office 500 V2: Dahili IP Telefondan Dış Hat Aranırken 404 Not Found Hatası",
+    "hizli_adimlar": [
+      "Avaya IP Office 500 V2 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Giden Arama Rotasında (Outbound Route) alan kodu ön ekinin (Dial Prefix: 9) yanlış filtrelenmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Santral Giden Arama Kurallarında kural desenini (Örn: 05XXXXXXXXX) kontrol edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "asterisk -rx \"dialplan show\"",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Personel dış numara çevirdiğinde anında meşgul sesi alması.",
+    "derin_teknik_analiz": "Giden Arama Rotasında (Outbound Route) alan kodu ön ekinin (Dial Prefix: 9) yanlış filtrelenmesi. Çözüm: Santral Giden Arama Kurallarında kural desenini (Örn: 05XXXXXXXXX) kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "avaya ip office 500 v2",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_291",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Panasonic KX-NS500: SIP Trunk Sağlayıcıda INVITE Oturum Yenileme (Session Timer) Kopması",
+    "hizli_adimlar": [
+      "Panasonic KX-NS500 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: SIP Session Timer (RFC 4028) sürelerinin santral ile operatör arasında uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Trunk ayarlarında \"Session Timers = Refuse\" yapın veya süreyi 1800 saniyeye yükseltin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "asterisk -rx \"pjsip show endpoints\"",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Tüm dış aramalarda tam 15. dakikada çağrının aniden kapanması.",
+    "derin_teknik_analiz": "SIP Session Timer (RFC 4028) sürelerinin santral ile operatör arasında uyuşmaması. Çözüm: Trunk ayarlarında \"Session Timers = Refuse\" yapın veya süreyi 1800 saniyeye yükseltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "panasonic kx-ns500",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_292",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Panasonic KX-NS500: Çağrı Merkezinde Ses Kayıt Dosyalarının Diski Doldurması",
+    "hizli_adimlar": [
+      "Panasonic KX-NS500 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Görüşmelerin WAV formatında saklanması ve otomatik arşivleme betiğinin durması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Ses kayıtlarını MP3/OGG formatına dönüştüren cron scripti yazın ve 90 günden eski kayıtları NAS'a taşıyın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "df -h /var/spool/asterisk/monitor",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kuyrukların çağrı kabul etmeyi durdurması ve veritabanının kilitlenmesi.",
+    "derin_teknik_analiz": "Görüşmelerin WAV formatında saklanması ve otomatik arşivleme betiğinin durması. Çözüm: Ses kayıtlarını MP3/OGG formatına dönüştüren cron scripti yazın ve 90 günden eski kayıtları NAS'a taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "panasonic kx-ns500",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_293",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Panasonic KX-NS500: Dahili IP Telefondan Dış Hat Aranırken 404 Not Found Hatası",
+    "hizli_adimlar": [
+      "Panasonic KX-NS500 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Giden Arama Rotasında (Outbound Route) alan kodu ön ekinin (Dial Prefix: 9) yanlış filtrelenmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Santral Giden Arama Kurallarında kural desenini (Örn: 05XXXXXXXXX) kontrol edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "asterisk -rx \"dialplan show\"",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Personel dış numara çevirdiğinde anında meşgul sesi alması.",
+    "derin_teknik_analiz": "Giden Arama Rotasında (Outbound Route) alan kodu ön ekinin (Dial Prefix: 9) yanlış filtrelenmesi. Çözüm: Santral Giden Arama Kurallarında kural desenini (Örn: 05XXXXXXXXX) kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "panasonic kx-ns500",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_294",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "OpenSIPS SIP Proxy: SIP Trunk Sağlayıcıda INVITE Oturum Yenileme (Session Timer) Kopması",
+    "hizli_adimlar": [
+      "OpenSIPS SIP Proxy cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: SIP Session Timer (RFC 4028) sürelerinin santral ile operatör arasında uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Trunk ayarlarında \"Session Timers = Refuse\" yapın veya süreyi 1800 saniyeye yükseltin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "asterisk -rx \"pjsip show endpoints\"",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Tüm dış aramalarda tam 15. dakikada çağrının aniden kapanması.",
+    "derin_teknik_analiz": "SIP Session Timer (RFC 4028) sürelerinin santral ile operatör arasında uyuşmaması. Çözüm: Trunk ayarlarında \"Session Timers = Refuse\" yapın veya süreyi 1800 saniyeye yükseltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "opensips sip proxy",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_295",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "OpenSIPS SIP Proxy: Çağrı Merkezinde Ses Kayıt Dosyalarının Diski Doldurması",
+    "hizli_adimlar": [
+      "OpenSIPS SIP Proxy cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Görüşmelerin WAV formatında saklanması ve otomatik arşivleme betiğinin durması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Ses kayıtlarını MP3/OGG formatına dönüştüren cron scripti yazın ve 90 günden eski kayıtları NAS'a taşıyın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "df -h /var/spool/asterisk/monitor",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kuyrukların çağrı kabul etmeyi durdurması ve veritabanının kilitlenmesi.",
+    "derin_teknik_analiz": "Görüşmelerin WAV formatında saklanması ve otomatik arşivleme betiğinin durması. Çözüm: Ses kayıtlarını MP3/OGG formatına dönüştüren cron scripti yazın ve 90 günden eski kayıtları NAS'a taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "opensips sip proxy",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_296",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "OpenSIPS SIP Proxy: Dahili IP Telefondan Dış Hat Aranırken 404 Not Found Hatası",
+    "hizli_adimlar": [
+      "OpenSIPS SIP Proxy cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Giden Arama Rotasında (Outbound Route) alan kodu ön ekinin (Dial Prefix: 9) yanlış filtrelenmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Santral Giden Arama Kurallarında kural desenini (Örn: 05XXXXXXXXX) kontrol edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "asterisk -rx \"dialplan show\"",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Personel dış numara çevirdiğinde anında meşgul sesi alması.",
+    "derin_teknik_analiz": "Giden Arama Rotasında (Outbound Route) alan kodu ön ekinin (Dial Prefix: 9) yanlış filtrelenmesi. Çözüm: Santral Giden Arama Kurallarında kural desenini (Örn: 05XXXXXXXXX) kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "opensips sip proxy",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_297",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Kamailio SIP Sunucusu: SIP Trunk Sağlayıcıda INVITE Oturum Yenileme (Session Timer) Kopması",
+    "hizli_adimlar": [
+      "Kamailio SIP Sunucusu cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: SIP Session Timer (RFC 4028) sürelerinin santral ile operatör arasında uyuşmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Trunk ayarlarında \"Session Timers = Refuse\" yapın veya süreyi 1800 saniyeye yükseltin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "asterisk -rx \"pjsip show endpoints\"",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Tüm dış aramalarda tam 15. dakikada çağrının aniden kapanması.",
+    "derin_teknik_analiz": "SIP Session Timer (RFC 4028) sürelerinin santral ile operatör arasında uyuşmaması. Çözüm: Trunk ayarlarında \"Session Timers = Refuse\" yapın veya süreyi 1800 saniyeye yükseltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "kamailio sip sunucusu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_298",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Kamailio SIP Sunucusu: Çağrı Merkezinde Ses Kayıt Dosyalarının Diski Doldurması",
+    "hizli_adimlar": [
+      "Kamailio SIP Sunucusu cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Görüşmelerin WAV formatında saklanması ve otomatik arşivleme betiğinin durması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Ses kayıtlarını MP3/OGG formatına dönüştüren cron scripti yazın ve 90 günden eski kayıtları NAS'a taşıyın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "df -h /var/spool/asterisk/monitor",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Kuyrukların çağrı kabul etmeyi durdurması ve veritabanının kilitlenmesi.",
+    "derin_teknik_analiz": "Görüşmelerin WAV formatında saklanması ve otomatik arşivleme betiğinin durması. Çözüm: Ses kayıtlarını MP3/OGG formatına dönüştüren cron scripti yazın ve 90 günden eski kayıtları NAS'a taşıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "kamailio sip sunucusu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_299",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Kamailio SIP Sunucusu: Dahili IP Telefondan Dış Hat Aranırken 404 Not Found Hatası",
+    "hizli_adimlar": [
+      "Kamailio SIP Sunucusu cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Giden Arama Rotasında (Outbound Route) alan kodu ön ekinin (Dial Prefix: 9) yanlış filtrelenmesi.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Santral Giden Arama Kurallarında kural desenini (Örn: 05XXXXXXXXX) kontrol edin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "asterisk -rx \"dialplan show\"",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Personel dış numara çevirdiğinde anında meşgul sesi alması.",
+    "derin_teknik_analiz": "Giden Arama Rotasında (Outbound Route) alan kodu ön ekinin (Dial Prefix: 9) yanlış filtrelenmesi. Çözüm: Santral Giden Arama Kurallarında kural desenini (Örn: 05XXXXXXXXX) kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "kamailio sip sunucusu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2527",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Yealink SIP-T31P / T46U: SIP 403 Forbidden Hatası ve Dahili Numara Kayıt Başarısızlığı",
+    "hizli_adimlar": [
+      "Yealink SIP-T31P / T46U cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Santralde dahili için belirlenen IP kısıtlaması veya hatalı şifre denemesi sonucu IP adresinin Fail2ban tarafından banlanması.",
+      "Saha servis prosedürünü yerine getirin: Santral konsolundan IP banını kaldırın ve telefon konfigürasyonundaki kullanıcı adı, şifre ve port bilgilerini kontrol edin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Yealink SIP-T31P / T46U Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "IP telefon ekranında \"Kayıt Başarısız\" yazması ve arama yapılamaması.",
+    "derin_teknik_analiz": "Kök Neden: Santralde dahili için belirlenen IP kısıtlaması veya hatalı şifre denemesi sonucu IP adresinin Fail2ban tarafından banlanması. Saha Çözümü: Santral konsolundan IP banını kaldırın ve telefon konfigürasyonundaki kullanıcı adı, şifre ve port bilgilerini kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "yealink sip-t31p   t46u",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2528",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Yealink SIP-T31P / T46U: Yoğun Saatlerde Ses Paketlerinde Titreme (Jitter) ve Robotik Ses Oluşumu",
+    "hizli_adimlar": [
+      "Yealink SIP-T31P / T46U cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Yerel ağda dosya indirmeleri nedeniyle ses UDP paketlerinin sırada gecikmesi.",
+      "Saha servis prosedürünü yerine getirin: Switch ve router üzerinde DSCP 46 (Expedited Forwarding) QoS kuralı yazarak ses trafiğine mutlak öncelik tanıyın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Yealink SIP-T31P / T46U Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Görüşme sırasında sesin kesik kesik, mekanik veya anlaşılmaz gelmesi.",
+    "derin_teknik_analiz": "Kök Neden: Yerel ağda dosya indirmeleri nedeniyle ses UDP paketlerinin sırada gecikmesi. Saha Çözümü: Switch ve router üzerinde DSCP 46 (Expedited Forwarding) QoS kuralı yazarak ses trafiğine mutlak öncelik tanıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "yealink sip-t31p   t46u",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2529",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Yealink SIP-T31P / T46U: IP Telefonun TFTP / HTTP Üzerinden Otomatik Konfigürasyon (Provisioning) Alamaması",
+    "hizli_adimlar": [
+      "Yealink SIP-T31P / T46U cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: DHCP Option 66 sunucu adresinin eksik veya hatalı yapılandırılması.",
+      "Saha servis prosedürünü yerine getirin: DHCP sunucusunda Kapsam Seçenekleri altına Option 66 ekleyip santral provisioning URL'sini tanımlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Yealink SIP-T31P / T46U Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Telefon açılışında şirket logosu ve rehberinin yüklenmemesi.",
+    "derin_teknik_analiz": "Kök Neden: DHCP Option 66 sunucu adresinin eksik veya hatalı yapılandırılması. Saha Çözümü: DHCP sunucusunda Kapsam Seçenekleri altına Option 66 ekleyip santral provisioning URL'sini tanımlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "yealink sip-t31p   t46u",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2530",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Grandstream GXP2170 / GRP2614: SIP 403 Forbidden Hatası ve Dahili Numara Kayıt Başarısızlığı",
+    "hizli_adimlar": [
+      "Grandstream GXP2170 / GRP2614 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Santralde dahili için belirlenen IP kısıtlaması veya hatalı şifre denemesi sonucu IP adresinin Fail2ban tarafından banlanması.",
+      "Saha servis prosedürünü yerine getirin: Santral konsolundan IP banını kaldırın ve telefon konfigürasyonundaki kullanıcı adı, şifre ve port bilgilerini kontrol edin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Grandstream GXP2170 / GRP2614 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "IP telefon ekranında \"Kayıt Başarısız\" yazması ve arama yapılamaması.",
+    "derin_teknik_analiz": "Kök Neden: Santralde dahili için belirlenen IP kısıtlaması veya hatalı şifre denemesi sonucu IP adresinin Fail2ban tarafından banlanması. Saha Çözümü: Santral konsolundan IP banını kaldırın ve telefon konfigürasyonundaki kullanıcı adı, şifre ve port bilgilerini kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "grandstream gxp2170   grp2614",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2531",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Grandstream GXP2170 / GRP2614: Yoğun Saatlerde Ses Paketlerinde Titreme (Jitter) ve Robotik Ses Oluşumu",
+    "hizli_adimlar": [
+      "Grandstream GXP2170 / GRP2614 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Yerel ağda dosya indirmeleri nedeniyle ses UDP paketlerinin sırada gecikmesi.",
+      "Saha servis prosedürünü yerine getirin: Switch ve router üzerinde DSCP 46 (Expedited Forwarding) QoS kuralı yazarak ses trafiğine mutlak öncelik tanıyın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Grandstream GXP2170 / GRP2614 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Görüşme sırasında sesin kesik kesik, mekanik veya anlaşılmaz gelmesi.",
+    "derin_teknik_analiz": "Kök Neden: Yerel ağda dosya indirmeleri nedeniyle ses UDP paketlerinin sırada gecikmesi. Saha Çözümü: Switch ve router üzerinde DSCP 46 (Expedited Forwarding) QoS kuralı yazarak ses trafiğine mutlak öncelik tanıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "grandstream gxp2170   grp2614",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2532",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Grandstream GXP2170 / GRP2614: IP Telefonun TFTP / HTTP Üzerinden Otomatik Konfigürasyon (Provisioning) Alamaması",
+    "hizli_adimlar": [
+      "Grandstream GXP2170 / GRP2614 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: DHCP Option 66 sunucu adresinin eksik veya hatalı yapılandırılması.",
+      "Saha servis prosedürünü yerine getirin: DHCP sunucusunda Kapsam Seçenekleri altına Option 66 ekleyip santral provisioning URL'sini tanımlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Grandstream GXP2170 / GRP2614 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Telefon açılışında şirket logosu ve rehberinin yüklenmemesi.",
+    "derin_teknik_analiz": "Kök Neden: DHCP Option 66 sunucu adresinin eksik veya hatalı yapılandırılması. Saha Çözümü: DHCP sunucusunda Kapsam Seçenekleri altına Option 66 ekleyip santral provisioning URL'sini tanımlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "grandstream gxp2170   grp2614",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2533",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Cisco IP Phone 7841 / 8845: SIP 403 Forbidden Hatası ve Dahili Numara Kayıt Başarısızlığı",
+    "hizli_adimlar": [
+      "Cisco IP Phone 7841 / 8845 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Santralde dahili için belirlenen IP kısıtlaması veya hatalı şifre denemesi sonucu IP adresinin Fail2ban tarafından banlanması.",
+      "Saha servis prosedürünü yerine getirin: Santral konsolundan IP banını kaldırın ve telefon konfigürasyonundaki kullanıcı adı, şifre ve port bilgilerini kontrol edin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Cisco IP Phone 7841 / 8845 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "IP telefon ekranında \"Kayıt Başarısız\" yazması ve arama yapılamaması.",
+    "derin_teknik_analiz": "Kök Neden: Santralde dahili için belirlenen IP kısıtlaması veya hatalı şifre denemesi sonucu IP adresinin Fail2ban tarafından banlanması. Saha Çözümü: Santral konsolundan IP banını kaldırın ve telefon konfigürasyonundaki kullanıcı adı, şifre ve port bilgilerini kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "cisco ip phone 7841   8845",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2534",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Cisco IP Phone 7841 / 8845: Yoğun Saatlerde Ses Paketlerinde Titreme (Jitter) ve Robotik Ses Oluşumu",
+    "hizli_adimlar": [
+      "Cisco IP Phone 7841 / 8845 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Yerel ağda dosya indirmeleri nedeniyle ses UDP paketlerinin sırada gecikmesi.",
+      "Saha servis prosedürünü yerine getirin: Switch ve router üzerinde DSCP 46 (Expedited Forwarding) QoS kuralı yazarak ses trafiğine mutlak öncelik tanıyın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Cisco IP Phone 7841 / 8845 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Görüşme sırasında sesin kesik kesik, mekanik veya anlaşılmaz gelmesi.",
+    "derin_teknik_analiz": "Kök Neden: Yerel ağda dosya indirmeleri nedeniyle ses UDP paketlerinin sırada gecikmesi. Saha Çözümü: Switch ve router üzerinde DSCP 46 (Expedited Forwarding) QoS kuralı yazarak ses trafiğine mutlak öncelik tanıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "cisco ip phone 7841   8845",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2535",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Cisco IP Phone 7841 / 8845: IP Telefonun TFTP / HTTP Üzerinden Otomatik Konfigürasyon (Provisioning) Alamaması",
+    "hizli_adimlar": [
+      "Cisco IP Phone 7841 / 8845 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: DHCP Option 66 sunucu adresinin eksik veya hatalı yapılandırılması.",
+      "Saha servis prosedürünü yerine getirin: DHCP sunucusunda Kapsam Seçenekleri altına Option 66 ekleyip santral provisioning URL'sini tanımlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Cisco IP Phone 7841 / 8845 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Telefon açılışında şirket logosu ve rehberinin yüklenmemesi.",
+    "derin_teknik_analiz": "Kök Neden: DHCP Option 66 sunucu adresinin eksik veya hatalı yapılandırılması. Saha Çözümü: DHCP sunucusunda Kapsam Seçenekleri altına Option 66 ekleyip santral provisioning URL'sini tanımlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "cisco ip phone 7841   8845",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2536",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Fanvil X4U / X6U: SIP 403 Forbidden Hatası ve Dahili Numara Kayıt Başarısızlığı",
+    "hizli_adimlar": [
+      "Fanvil X4U / X6U cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Santralde dahili için belirlenen IP kısıtlaması veya hatalı şifre denemesi sonucu IP adresinin Fail2ban tarafından banlanması.",
+      "Saha servis prosedürünü yerine getirin: Santral konsolundan IP banını kaldırın ve telefon konfigürasyonundaki kullanıcı adı, şifre ve port bilgilerini kontrol edin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Fanvil X4U / X6U Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "IP telefon ekranında \"Kayıt Başarısız\" yazması ve arama yapılamaması.",
+    "derin_teknik_analiz": "Kök Neden: Santralde dahili için belirlenen IP kısıtlaması veya hatalı şifre denemesi sonucu IP adresinin Fail2ban tarafından banlanması. Saha Çözümü: Santral konsolundan IP banını kaldırın ve telefon konfigürasyonundaki kullanıcı adı, şifre ve port bilgilerini kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "fanvil x4u   x6u",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2537",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Fanvil X4U / X6U: Yoğun Saatlerde Ses Paketlerinde Titreme (Jitter) ve Robotik Ses Oluşumu",
+    "hizli_adimlar": [
+      "Fanvil X4U / X6U cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Yerel ağda dosya indirmeleri nedeniyle ses UDP paketlerinin sırada gecikmesi.",
+      "Saha servis prosedürünü yerine getirin: Switch ve router üzerinde DSCP 46 (Expedited Forwarding) QoS kuralı yazarak ses trafiğine mutlak öncelik tanıyın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Fanvil X4U / X6U Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Görüşme sırasında sesin kesik kesik, mekanik veya anlaşılmaz gelmesi.",
+    "derin_teknik_analiz": "Kök Neden: Yerel ağda dosya indirmeleri nedeniyle ses UDP paketlerinin sırada gecikmesi. Saha Çözümü: Switch ve router üzerinde DSCP 46 (Expedited Forwarding) QoS kuralı yazarak ses trafiğine mutlak öncelik tanıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "fanvil x4u   x6u",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2538",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Fanvil X4U / X6U: IP Telefonun TFTP / HTTP Üzerinden Otomatik Konfigürasyon (Provisioning) Alamaması",
+    "hizli_adimlar": [
+      "Fanvil X4U / X6U cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: DHCP Option 66 sunucu adresinin eksik veya hatalı yapılandırılması.",
+      "Saha servis prosedürünü yerine getirin: DHCP sunucusunda Kapsam Seçenekleri altına Option 66 ekleyip santral provisioning URL'sini tanımlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Fanvil X4U / X6U Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Telefon açılışında şirket logosu ve rehberinin yüklenmemesi.",
+    "derin_teknik_analiz": "Kök Neden: DHCP Option 66 sunucu adresinin eksik veya hatalı yapılandırılması. Saha Çözümü: DHCP sunucusunda Kapsam Seçenekleri altına Option 66 ekleyip santral provisioning URL'sini tanımlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "fanvil x4u   x6u",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2539",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Snom D785: SIP 403 Forbidden Hatası ve Dahili Numara Kayıt Başarısızlığı",
+    "hizli_adimlar": [
+      "Snom D785 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Santralde dahili için belirlenen IP kısıtlaması veya hatalı şifre denemesi sonucu IP adresinin Fail2ban tarafından banlanması.",
+      "Saha servis prosedürünü yerine getirin: Santral konsolundan IP banını kaldırın ve telefon konfigürasyonundaki kullanıcı adı, şifre ve port bilgilerini kontrol edin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Snom D785 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "IP telefon ekranında \"Kayıt Başarısız\" yazması ve arama yapılamaması.",
+    "derin_teknik_analiz": "Kök Neden: Santralde dahili için belirlenen IP kısıtlaması veya hatalı şifre denemesi sonucu IP adresinin Fail2ban tarafından banlanması. Saha Çözümü: Santral konsolundan IP banını kaldırın ve telefon konfigürasyonundaki kullanıcı adı, şifre ve port bilgilerini kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "snom d785",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2540",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Snom D785: Yoğun Saatlerde Ses Paketlerinde Titreme (Jitter) ve Robotik Ses Oluşumu",
+    "hizli_adimlar": [
+      "Snom D785 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Yerel ağda dosya indirmeleri nedeniyle ses UDP paketlerinin sırada gecikmesi.",
+      "Saha servis prosedürünü yerine getirin: Switch ve router üzerinde DSCP 46 (Expedited Forwarding) QoS kuralı yazarak ses trafiğine mutlak öncelik tanıyın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Snom D785 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Görüşme sırasında sesin kesik kesik, mekanik veya anlaşılmaz gelmesi.",
+    "derin_teknik_analiz": "Kök Neden: Yerel ağda dosya indirmeleri nedeniyle ses UDP paketlerinin sırada gecikmesi. Saha Çözümü: Switch ve router üzerinde DSCP 46 (Expedited Forwarding) QoS kuralı yazarak ses trafiğine mutlak öncelik tanıyın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "snom d785",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2541",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "IP Santral & VoIP",
+    "baslik": "Snom D785: IP Telefonun TFTP / HTTP Üzerinden Otomatik Konfigürasyon (Provisioning) Alamaması",
+    "hizli_adimlar": [
+      "Snom D785 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: DHCP Option 66 sunucu adresinin eksik veya hatalı yapılandırılması.",
+      "Saha servis prosedürünü yerine getirin: DHCP sunucusunda Kapsam Seçenekleri altına Option 66 ekleyip santral provisioning URL'sini tanımlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Snom D785 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Telefon açılışında şirket logosu ve rehberinin yüklenmemesi.",
+    "derin_teknik_analiz": "Kök Neden: DHCP Option 66 sunucu adresinin eksik veya hatalı yapılandırılması. Saha Çözümü: DHCP sunucusunda Kapsam Seçenekleri altına Option 66 ekleyip santral provisioning URL'sini tanımlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "ağ & i̇letişim",
+      "ip santral & voip",
+      "snom d785",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  }
+]

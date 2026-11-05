@@ -1,82 +1,1698 @@
-{
-  "versiyon": "2.5.0",
-  "toplam": 2,
-  "modul": "feed_yazici_kyocera.json",
-  "kayitlar": [
-    {
-      "id": "prn_kyocera_c0180_eeprom",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Kyocera ECOSYS & TASKalfa",
-      "baslik": "Kyocera ECOSYS C0180 Hata Kodu (Anakart ile EEPROM Arasındaki Veri Uyuşmazlığı)",
-      "hizli_adimlar": [
-        "Tuş takımından `1 0 8 7 1 0 8 7` tuşlayarak Servis Moduna girin.",
-        "`U004` ile makine seri numarasını doğrulayın.",
-        "`U000` veya `U019` ile EEPROM verilerini senkronize edin.",
-        "`U001` ile servis modundan çıkıp cihazı kapatıp açın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Kyocera Servis Modu",
-          "komut": "10871087 -> U004 -> U019 -> U001",
-          "aciklama": "Bakım modu prosedürü."
-        }
-      ],
-      "temel_anlatim": "Yazıcı açıldığında 'Call Service Person C0180' hatası verip kilitlenmesi.",
-      "derin_teknik_analiz": "C0180, Main PWB ile Engine PWB üzerindeki EEPROM verilerinin uyuşmamasıdır.",
-      "kenar_durumlar": [
-        {
-          "durum": "Servis modu açılmıyor",
-          "neden": "Sayısal tuş takımı kilitlidir.",
-          "cozum": "Status menüsünden admin ile giriş yapın."
-        }
-      ],
-      "etiketler": [
-        "yazici",
-        "kyocera",
-        "c0180",
-        "ecosys",
-        "10871087",
-        "eeprom"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "prn_kyocera_c7990_waste_toner",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Kyocera ECOSYS & TASKalfa",
-      "baslik": "Kyocera ECOSYS C7990 Hata Kodu (Atık Toner Haznesi ve Optik Sensör Kirliliği)",
-      "hizli_adimlar": [
-        "Sol yan kapağı açın; atık toner kutusunu dikkatlice çıkarın.",
-        "Kutu tamamen doluysa yeni orijinal atık toner kutusu takın.",
-        "Kutu boş olmasına rağmen hata veriyorsa, yuvanın içindeki optik sensör prizmasını (şeffaf plastik pencere) temiz bir fırça veya hava spreyi ile temizleyin.",
-        "Servis moduna girin (`10871087`) -> `U157` (Waste Toner Reset) kodunu seçip 'Execute' yapın.",
-        "Makineyi kapatıp açın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Atık Toner Servis Sıfırlama",
-          "komut": "10871087 -> U157 -> Execute -> U001 (Exit)",
-          "aciklama": "C7990 arıza bayrağını temizler."
-        }
-      ],
-      "temel_anlatim": "Fotokopi makinesi ekranında 'Call Service C7990' uyarısı çıkması ve yazdırma işlemlerinin tamamen bloke olması.",
-      "derin_teknik_analiz": "C7990 atık toner kutusunun (Waste Toner Box) dolduğunu veya atık toner taşıma borusu üzerindeki optik yansıtıcı sensörün aşırı toner tozuyla kaplandığını belirtir. Sensör ışık geçirgenliğini kaybedince makine taşmayı önlemek için durur.",
-      "kenar_durumlar": [
-        {
-          "durum": "Sıfırlamadan 1 gün sonra C7990 tekrarlıyor",
-          "neden": "Atık toner helezon vidası (auger) sıkışmış veya tahrik dişlisi kırılmıştır.",
-          "cozum": "Drum temizleme bıçağını ve atık helezon dişlisini kontrol edin."
-        }
-      ],
-      "etiketler": [
-        "yazici",
-        "kyocera",
-        "c7990",
-        "atik-toner",
-        "u157",
-        "optik-sensor"
-      ],
-      "oncelik": 1
-    }
-  ]
-}
+[
+  {
+    "id": "prn_894",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı Hata Kodları",
+    "baslik": "Kyocera ECOSYS C2000 Ana Motor Arızası",
+    "hizli_adimlar": [
+      "Drum ve toner ünitelerini dışarı çıkarın.",
+      "Üniteler dışarıdayken motoru servis modundan çalıştırın; motor dönüyorsa arıza drum mekanizmasındadır.",
+      "Drum silindirinin rahat döndüğünü kontrol edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Modu U030 Motor Testi",
+        "komut": "10871087 -> U030 -> Motors -> Main Motor Run",
+        "aciklama": "Ana motoru yüksüz test eder."
+      }
+    ],
+    "temel_anlatim": "Yazıcı açılırken hafif bir zorlanma sesi gelip ekranda 'Call Service C2000' belirmesi.",
+    "derin_teknik_analiz": "Geliştirici veya drum ünitesinin kilitlenmesi sonucu ana tahrik motorunun aşırı akım çekmesi.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata temizlenmesine rağmen tekrar ediyor",
+        "neden": "Mekanik parçada aşınma vardır.",
+        "cozum": "İlgili sensör veya mekanik modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazici",
+      "kyocera",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_895",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı Hata Kodları",
+    "baslik": "Kyocera ECOSYS C3200 CIS Tarayıcı Kilidi Arızası",
+    "hizli_adimlar": [
+      "Tarayıcı camının sol altındaki kilit düğmesini kontrol edin.",
+      "Kilit açık olduğu halde hata veriyorsa servis modundan `U060` (Scanner Run) testi yapın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Tarayıcı Kilidini Aç",
+        "komut": "Kameranın sol altındaki kilit mandalını 'Açık Kilit' simgesine getirin",
+        "aciklama": "Mekanik kilidi serbest bırakır."
+      }
+    ],
+    "temel_anlatim": "Tarayıcı kapağı açıldığında ışığın hareket etmemesi ve 'Call Service C3200' vermesi.",
+    "derin_teknik_analiz": "Tarayıcı taşıma kilidinin (Scanner Lock Switch) kilitli konumda unutulması veya kafa taşıyıcı kayışının kopması.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata temizlenmesine rağmen tekrar ediyor",
+        "neden": "Mekanik parçada aşınma vardır.",
+        "cozum": "İlgili sensör veya mekanik modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazici",
+      "kyocera",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_kyo_53",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera ECOSYS M2040dn / M2540dn: Hata C7990: Atık Toner Kutusu Dolu (Waste Toner Box Full)",
+    "hizli_adimlar": [
+      "Ön kapağı açıp drum ve developer ünitesini mandallarını çözerek komple dışarı alın.",
+      "Drum ünitesinin arkasındaki atık toner tahliye tapasını açıp biriken atık toneri poşete boşaltın.",
+      "Atık seviye penceresindeki şeffaf plastik prizmayı kuru bezle silin.",
+      "Üniteyi yerine takıp cihazı açın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Kyocera Servis Modu",
+        "komut": "10871087 tuşla -> U163 Fuser Reset / U000 Engine Status",
+        "aciklama": "Kyocera kilitli arıza kodlarını temizleyen gizli teknisyen modudur."
+      }
+    ],
+    "temel_anlatim": "Yazıcı ekranında C7990 kodu çıkıp yazdırmanın kilitlenmesi.",
+    "derin_teknik_analiz": "Kök Neden: Drum ünitesinin arkasındaki atık toner haznesinin dolması veya atık sensörünün toner tozuyla kaplanması. Servis Çözümü: Drum ünitesini söküp atık toner haznesini boşaltın ve optik sensör prizmasını temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Boşaltılmasına rağmen C7990 devam ediyor",
+        "neden": "Atık toner sensörünün foto-transistörü yanmıştır.",
+        "cozum": "Sensör kartını multimetre ile test edip değiştirin."
+      }
+    ],
+    "etiketler": [
+      "kyocera",
+      "ecosys",
+      "m2040dn",
+      "c7990",
+      "atik-toner"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_kyo_54",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera Taskalfa 1800 / 2552ci: Hata C6000: Fuser Isıtıcı Rezistans Arızası (Fixing Heater Broken)",
+    "hizli_adimlar": [
+      "Sağ fırın kapağını açıp fırın soketlerini sökün.",
+      "Multimetre ile fırın rezistansının omajını ölçün (Normal değer: 15-25 Ohm).",
+      "Termostat uçları arasında kısa devre kontrolü yapın (Açık devre ise resetleyin).",
+      "Parçayı taktıktan sonra 10871087 tuşlayıp Servis Moduna girin.",
+      "U163 menüsüne girip Execute deyin ve makineyi kapatıp açın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Fırın Sıfırlama",
+        "komut": "10871087 -> U163 -> Execute -> Reboot",
+        "aciklama": "Fuser donanımsal arıza bayrağını anakarttan temizler."
+      }
+    ],
+    "temel_anlatim": "Makine açılırken C6000 uyarısı verip fırının ısınmaması ve güvenliğe alması.",
+    "derin_teknik_analiz": "Kök Neden: Fırın seramik lambasının kopması veya termostatın aşırı ısıdan devreyi kesmesi. Servis Çözümü: Fuser rezistansını ölçün, termostatı kontrol edin ve Servis Modu U163 ile arıza kodunu silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "U163 sonrası tekrar C6000 veriyor",
+        "neden": "Anakart üzerindeki triyak (Triac) fırına elektrik vermiyordur.",
+        "cozum": "Güç kaynağı kartındaki fırın röle ve triyak devresini onarın."
+      }
+    ],
+    "etiketler": [
+      "kyocera",
+      "taskalfa",
+      "c6000",
+      "u163",
+      "fuser-reset"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_kyo_55",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera ECOSYS P2040dn: Hata C2000: Ana Sürücü Motoru Kilitlendi",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "10871087 ile servis menüsünü açın.",
+      "İlgili U testini çalıştırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Kyocera U Kodu",
+        "komut": "10871087 -> U Kodu -> Execute",
+        "aciklama": "Kyocera servis kodunu işletir."
+      }
+    ],
+    "temel_anlatim": "Motorun dönmeye çalışırken dişli sıkışması nedeniyle aşırı akım çekmesi.",
+    "derin_teknik_analiz": "Kök Neden: Geliştirici (Developer) ünitesindeki toner dişlisinin kilitlenmesi. Servis Çözümü: Kyocera servis prosedürüne göre U-kodları üzerinden işlem yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata devam ederse",
+        "neden": "Anakart arızası.",
+        "cozum": "Anakartı kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "kyocera",
+      "ecosys",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_kyo_56",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera FS-1040 / FS-1060DN: Hata C0180: Makine Anakart EEPROM Hatası",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "10871087 ile servis menüsünü açın.",
+      "İlgili U testini çalıştırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Kyocera U Kodu",
+        "komut": "10871087 -> U Kodu -> Execute",
+        "aciklama": "Kyocera servis kodunu işletir."
+      }
+    ],
+    "temel_anlatim": "Yazıcının açılışta tüm ışıklarını kırmızı yakıp kilitlenmesi.",
+    "derin_teknik_analiz": "Kök Neden: Voltaj dalgalanması sonucu anakart EEPROM konfigürasyonunun bozulması. Servis Çözümü: Kyocera servis prosedürüne göre U-kodları üzerinden işlem yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata devam ederse",
+        "neden": "Anakart arızası.",
+        "cozum": "Anakartı kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "kyocera",
+      "ecosys",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_kyo_57",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera ECOSYS M2540dn: Baskıda Dikey Beyaz Şerit Çıkması",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "10871087 ile servis menüsünü açın.",
+      "İlgili U testini çalıştırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Kyocera U Kodu",
+        "komut": "10871087 -> U Kodu -> Execute",
+        "aciklama": "Kyocera servis kodunu işletir."
+      }
+    ],
+    "temel_anlatim": "Sayfa boyunca belirli bir alana hiç toner basılmaması.",
+    "derin_teknik_analiz": "Kök Neden: Lazer camı (Laser Scanner Glass) üzerinde toner tozunun birikmesi. Servis Çözümü: Kyocera servis prosedürüne göre U-kodları üzerinden işlem yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata devam ederse",
+        "neden": "Anakart arızası.",
+        "cozum": "Anakartı kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "kyocera",
+      "ecosys",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_kyo_58",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera Taskalfa 2552ci: Hata C4000: Poligon Motor Arızası",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "10871087 ile servis menüsünü açın.",
+      "İlgili U testini çalıştırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Kyocera U Kodu",
+        "komut": "10871087 -> U Kodu -> Execute",
+        "aciklama": "Kyocera servis kodunu işletir."
+      }
+    ],
+    "temel_anlatim": "Lazer ünitesindeki dönen çokgen aynanın devrini yakalayamaması.",
+    "derin_teknik_analiz": "Kök Neden: Poligon ayna motor yatağının tozlanıp yavaşlaması. Servis Çözümü: Kyocera servis prosedürüne göre U-kodları üzerinden işlem yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata devam ederse",
+        "neden": "Anakart arızası.",
+        "cozum": "Anakartı kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "kyocera",
+      "ecosys",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_kyo_59",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera ECOSYS M2040dn: Hata C6600: Fırın Harici Termistör Açık Devre",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "10871087 ile servis menüsünü açın.",
+      "İlgili U testini çalıştırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Kyocera U Kodu",
+        "komut": "10871087 -> U Kodu -> Execute",
+        "aciklama": "Kyocera servis kodunu işletir."
+      }
+    ],
+    "temel_anlatim": "Fırın yüzey sıcaklığını ölçen sensör kablosunun kopması.",
+    "derin_teknik_analiz": "Kök Neden: Fırın temizliği sırasında termistör yayının bükülmesi. Servis Çözümü: Kyocera servis prosedürüne göre U-kodları üzerinden işlem yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata devam ederse",
+        "neden": "Anakart arızası.",
+        "cozum": "Anakartı kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "kyocera",
+      "ecosys",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_kyo_60",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera FS-1120MFP: Kağıt Giriş Pateninin (Pickup Roller) Boş Dönmesi",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "10871087 ile servis menüsünü açın.",
+      "İlgili U testini çalıştırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Kyocera U Kodu",
+        "komut": "10871087 -> U Kodu -> Execute",
+        "aciklama": "Kyocera servis kodunu işletir."
+      }
+    ],
+    "temel_anlatim": "Tepsiden kağıt çekemeyip 'Kağıt Yükleyin' uyarısı vermesi.",
+    "derin_teknik_analiz": "Kök Neden: Paten lastiği üzerindeki tırtıkların düzleşmesi. Servis Çözümü: Kyocera servis prosedürüne göre U-kodları üzerinden işlem yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata devam ederse",
+        "neden": "Anakart arızası.",
+        "cozum": "Anakartı kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "kyocera",
+      "ecosys",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_kyo_61",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera ECOSYS P2235dn: Servis Modu U130 ile Developer Toneri Doldurma",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "10871087 ile servis menüsünü açın.",
+      "İlgili U testini çalıştırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Kyocera U Kodu",
+        "komut": "10871087 -> U Kodu -> Execute",
+        "aciklama": "Kyocera servis kodunu işletir."
+      }
+    ],
+    "temel_anlatim": "Yeni drum/developer takıldığında baskının bembeyaz çıkması.",
+    "derin_teknik_analiz": "Kök Neden: U130 çalıştırmadan tonerin hazneden aktarılmaması. Servis Çözümü: Kyocera servis prosedürüne göre U-kodları üzerinden işlem yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata devam ederse",
+        "neden": "Anakart arızası.",
+        "cozum": "Anakartı kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "kyocera",
+      "ecosys",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_kyo_62",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera Taskalfa 1800: Hata C3100: Tarayıcı Taşıyıcı Motor Hatası",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "10871087 ile servis menüsünü açın.",
+      "İlgili U testini çalıştırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Kyocera U Kodu",
+        "komut": "10871087 -> U Kodu -> Execute",
+        "aciklama": "Kyocera servis kodunu işletir."
+      }
+    ],
+    "temel_anlatim": "Üst tarayıcının sola çarparak takılı kalması.",
+    "derin_teknik_analiz": "Kök Neden: Tarayıcı optik şerit kablosunun (FFC) kırılması. Servis Çözümü: Kyocera servis prosedürüne göre U-kodları üzerinden işlem yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata devam ederse",
+        "neden": "Anakart arızası.",
+        "cozum": "Anakartı kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "kyocera",
+      "ecosys",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_kyo_63",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera ECOSYS M2640idw: Command Center RX Web Arayüzü Admin Şifresi Sıfırlama",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "10871087 ile servis menüsünü açın.",
+      "İlgili U testini çalıştırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Kyocera U Kodu",
+        "komut": "10871087 -> U Kodu -> Execute",
+        "aciklama": "Kyocera servis kodunu işletir."
+      }
+    ],
+    "temel_anlatim": "Varsayılan 'Admin' / 'Admin' girişinin kabul edilmemesi.",
+    "derin_teknik_analiz": "Kök Neden: U000 altından ağ parametrelerini sıfırlama prosedürü. Servis Çözümü: Kyocera servis prosedürüne göre U-kodları üzerinden işlem yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata devam ederse",
+        "neden": "Anakart arızası.",
+        "cozum": "Anakartı kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "kyocera",
+      "ecosys",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_kyo_64",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera FS-1060DN: Bakım Kiti (MK-1110) Sayaç Sıfırlama",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "10871087 ile servis menüsünü açın.",
+      "İlgili U testini çalıştırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Kyocera U Kodu",
+        "komut": "10871087 -> U Kodu -> Execute",
+        "aciklama": "Kyocera servis kodunu işletir."
+      }
+    ],
+    "temel_anlatim": "Sayfa sayacının 100.000 limite ulaşıp bakım uyarısı vermesi.",
+    "derin_teknik_analiz": "Kök Neden: Kyocera Client Tool üzerinden sayacın yenilenmesi. Servis Çözümü: Kyocera servis prosedürüne göre U-kodları üzerinden işlem yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata devam ederse",
+        "neden": "Anakart arızası.",
+        "cozum": "Anakartı kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "kyocera",
+      "ecosys",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "kyo_exp_35",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera ECOSYS M2135dn / M2635dn: Hata F040: Anakart ile Motor Kontrolörü İletişim Hatası",
+    "hizli_adimlar": [
+      "Kyocera ECOSYS M2135dn / M2635dn cihazında 10871087 tuşlayarak Servis Modunu açın.",
+      "Kök neden analizini uygulayın: Anakart ile Engine Board arasındaki flex kablonun oynaması.",
+      "Kyocera U-kodu servis prosedürünü işletin: Kablo bağlantılarını tazeleyin veya U021 ile bellek sıfırlaması yapın.",
+      "Cihazı kapatıp açarak normal çalışma moduna dönün."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Kyocera U-Kodu",
+        "komut": "10871087 -> U163 / U021",
+        "aciklama": "Kyocera arıza ve bellek reset kodudur."
+      }
+    ],
+    "temel_anlatim": "Açılışta F040 kodu çıkıp motorun hiç dönmemesi.",
+    "derin_teknik_analiz": "Anakart ile Engine Board arasındaki flex kablonun oynaması. Çözüm: Kablo bağlantılarını tazeleyin veya U021 ile bellek sıfırlaması yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu devam ediyor",
+        "neden": "Anakart kontrol devresi arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "kyocera",
+      "ecosys",
+      "taskalfa",
+      "kyocera ecosys m2135dn   m2635dn",
+      "u-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "kyo_exp_36",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera Taskalfa 3252ci / 4053ci: Hata C7301: Toner Besleme Motoru Hatası (Black Hopper)",
+    "hizli_adimlar": [
+      "Kyocera Taskalfa 3252ci / 4053ci cihazında 10871087 tuşlayarak Servis Modunu açın.",
+      "Kök neden analizini uygulayın: Siyah toner kartuşunun ağzındaki sünger contanın yırtılıp hazneyi tıkaması.",
+      "Kyocera U-kodu servis prosedürünü işletin: Boya besleme haznesini vakumla temizleyin ve motor dişlisini serbestleştirin.",
+      "Cihazı kapatıp açarak normal çalışma moduna dönün."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Kyocera U-Kodu",
+        "komut": "10871087 -> U163 / U021",
+        "aciklama": "Kyocera arıza ve bellek reset kodudur."
+      }
+    ],
+    "temel_anlatim": "Siyah toner basılırken makinenin durup servis çağırması.",
+    "derin_teknik_analiz": "Siyah toner kartuşunun ağzındaki sünger contanın yırtılıp hazneyi tıkaması. Çözüm: Boya besleme haznesini vakumla temizleyin ve motor dişlisini serbestleştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu devam ediyor",
+        "neden": "Anakart kontrol devresi arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "kyocera",
+      "ecosys",
+      "taskalfa",
+      "kyocera taskalfa 3252ci   4053ci",
+      "u-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "kyo_exp_37",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera FS-1025MFP: Kağıt Çıkış Tepsisinde Kağıdın Akordeon Şeklinde Katlanması",
+    "hizli_adimlar": [
+      "Kyocera FS-1025MFP cihazında 10871087 tuşlayarak Servis Modunu açın.",
+      "Kök neden analizini uygulayın: Fırın çıkışındaki teflon ayırıcı tırnakların (Picker Fingers) tonerle yapışması.",
+      "Kyocera U-kodu servis prosedürünü işletin: Fırını söküp ayırıcı tırnakları alkolle temizleyin veya yenileyin.",
+      "Cihazı kapatıp açarak normal çalışma moduna dönün."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Kyocera U-Kodu",
+        "komut": "10871087 -> U163 / U021",
+        "aciklama": "Kyocera arıza ve bellek reset kodudur."
+      }
+    ],
+    "temel_anlatim": "Kağıdın fırından çıkarken kıvrılıp katlanması.",
+    "derin_teknik_analiz": "Fırın çıkışındaki teflon ayırıcı tırnakların (Picker Fingers) tonerle yapışması. Çözüm: Fırını söküp ayırıcı tırnakları alkolle temizleyin veya yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu devam ediyor",
+        "neden": "Anakart kontrol devresi arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "kyocera",
+      "ecosys",
+      "taskalfa",
+      "kyocera fs-1025mfp",
+      "u-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_128",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera ECOSYS M3645dn: Hata C7990: Atık Toner Haznesi Taşması ve Prizma Temizliği",
+    "hizli_adimlar": [
+      "Kyocera ECOSYS M3645dn cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Drum ünitesindeki atık haznesinin dolup optik prizmayı tıkaması.",
+      "Saha servis prosedürünü yürütün: Atık toner haznesini boşaltıp şeffaf prizmayı temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "10871087 -> U163",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yazıcı ekranında C7990 kodu çıkıp yazdırmanın durması.",
+    "derin_teknik_analiz": "Drum ünitesindeki atık haznesinin dolup optik prizmayı tıkaması. Çözüm: Atık toner haznesini boşaltıp şeffaf prizmayı temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "kyocera ecosys m3645dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_129",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera ECOSYS M3645dn: Baskıda Düzenli Aralıklarla Siyah Noktalar (Drum Lekesi)",
+    "hizli_adimlar": [
+      "Kyocera ECOSYS M3645dn cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Amorf silikon uzun ömürlü drum yüzeyine sert yabancı cisim yapışması.",
+      "Saha servis prosedürünü yürütün: Drum tamburunu izopropil alkolle dikkatlice silin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "10871087 -> U100",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Sayfa boyunca her 9.4 cm'de bir tekrar eden siyah leke.",
+    "derin_teknik_analiz": "Amorf silikon uzun ömürlü drum yüzeyine sert yabancı cisim yapışması. Çözüm: Drum tamburunu izopropil alkolle dikkatlice silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "kyocera ecosys m3645dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_130",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera ECOSYS M3645dn: Kağıt Çekme Tepsisi Solenoid Süngerinin Erimesi ve Çift Besleme",
+    "hizli_adimlar": [
+      "Kyocera ECOSYS M3645dn cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Tepsi solenoidi üzerindeki ses sönümleme süngerinin eriyip yapışması.",
+      "Saha servis prosedürünü yürütün: Solenoidi söküp yapışkan süngeri temizleyin ve ince bant çekin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Engine Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kağıt alırken \"çat-çat\" diye vuruntu sesi gelmesi ve iki sayfa alması.",
+    "derin_teknik_analiz": "Tepsi solenoidi üzerindeki ses sönümleme süngerinin eriyip yapışması. Çözüm: Solenoidi söküp yapışkan süngeri temizleyin ve ince bant çekin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "kyocera ecosys m3645dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_131",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera ECOSYS M3645dn: Ağ Kartı NVRAM Konfigürasyonunun Kilitlenmesi",
+    "hizli_adimlar": [
+      "Kyocera ECOSYS M3645dn cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Ağ kartı web servisinin çöken bağlantılar sonucu soketi açık tutması.",
+      "Saha servis prosedürünü yürütün: 10871087 -> U021 ile ağ kartını fabrika ayarlarına döndürün.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "10871087 -> U021",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yazıcı IP almasına rağmen Command Center RX web paneline erişilememesi.",
+    "derin_teknik_analiz": "Ağ kartı web servisinin çöken bağlantılar sonucu soketi açık tutması. Çözüm: 10871087 -> U021 ile ağ kartını fabrika ayarlarına döndürün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "kyocera ecosys m3645dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_132",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera ECOSYS P3145dn: Hata C7990: Atık Toner Haznesi Taşması ve Prizma Temizliği",
+    "hizli_adimlar": [
+      "Kyocera ECOSYS P3145dn cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Drum ünitesindeki atık haznesinin dolup optik prizmayı tıkaması.",
+      "Saha servis prosedürünü yürütün: Atık toner haznesini boşaltıp şeffaf prizmayı temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "10871087 -> U163",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yazıcı ekranında C7990 kodu çıkıp yazdırmanın durması.",
+    "derin_teknik_analiz": "Drum ünitesindeki atık haznesinin dolup optik prizmayı tıkaması. Çözüm: Atık toner haznesini boşaltıp şeffaf prizmayı temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "kyocera ecosys p3145dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_133",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera ECOSYS P3145dn: Baskıda Düzenli Aralıklarla Siyah Noktalar (Drum Lekesi)",
+    "hizli_adimlar": [
+      "Kyocera ECOSYS P3145dn cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Amorf silikon uzun ömürlü drum yüzeyine sert yabancı cisim yapışması.",
+      "Saha servis prosedürünü yürütün: Drum tamburunu izopropil alkolle dikkatlice silin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "10871087 -> U100",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Sayfa boyunca her 9.4 cm'de bir tekrar eden siyah leke.",
+    "derin_teknik_analiz": "Amorf silikon uzun ömürlü drum yüzeyine sert yabancı cisim yapışması. Çözüm: Drum tamburunu izopropil alkolle dikkatlice silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "kyocera ecosys p3145dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_134",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera ECOSYS P3145dn: Kağıt Çekme Tepsisi Solenoid Süngerinin Erimesi ve Çift Besleme",
+    "hizli_adimlar": [
+      "Kyocera ECOSYS P3145dn cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Tepsi solenoidi üzerindeki ses sönümleme süngerinin eriyip yapışması.",
+      "Saha servis prosedürünü yürütün: Solenoidi söküp yapışkan süngeri temizleyin ve ince bant çekin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Engine Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kağıt alırken \"çat-çat\" diye vuruntu sesi gelmesi ve iki sayfa alması.",
+    "derin_teknik_analiz": "Tepsi solenoidi üzerindeki ses sönümleme süngerinin eriyip yapışması. Çözüm: Solenoidi söküp yapışkan süngeri temizleyin ve ince bant çekin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "kyocera ecosys p3145dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_135",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera ECOSYS P3145dn: Ağ Kartı NVRAM Konfigürasyonunun Kilitlenmesi",
+    "hizli_adimlar": [
+      "Kyocera ECOSYS P3145dn cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Ağ kartı web servisinin çöken bağlantılar sonucu soketi açık tutması.",
+      "Saha servis prosedürünü yürütün: 10871087 -> U021 ile ağ kartını fabrika ayarlarına döndürün.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "10871087 -> U021",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yazıcı IP almasına rağmen Command Center RX web paneline erişilememesi.",
+    "derin_teknik_analiz": "Ağ kartı web servisinin çöken bağlantılar sonucu soketi açık tutması. Çözüm: 10871087 -> U021 ile ağ kartını fabrika ayarlarına döndürün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "kyocera ecosys p3145dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_136",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera Taskalfa 3011i: Hata C7990: Atık Toner Haznesi Taşması ve Prizma Temizliği",
+    "hizli_adimlar": [
+      "Kyocera Taskalfa 3011i cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Drum ünitesindeki atık haznesinin dolup optik prizmayı tıkaması.",
+      "Saha servis prosedürünü yürütün: Atık toner haznesini boşaltıp şeffaf prizmayı temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "10871087 -> U163",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yazıcı ekranında C7990 kodu çıkıp yazdırmanın durması.",
+    "derin_teknik_analiz": "Drum ünitesindeki atık haznesinin dolup optik prizmayı tıkaması. Çözüm: Atık toner haznesini boşaltıp şeffaf prizmayı temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "kyocera taskalfa 3011i",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_137",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera Taskalfa 3011i: Baskıda Düzenli Aralıklarla Siyah Noktalar (Drum Lekesi)",
+    "hizli_adimlar": [
+      "Kyocera Taskalfa 3011i cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Amorf silikon uzun ömürlü drum yüzeyine sert yabancı cisim yapışması.",
+      "Saha servis prosedürünü yürütün: Drum tamburunu izopropil alkolle dikkatlice silin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "10871087 -> U100",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Sayfa boyunca her 9.4 cm'de bir tekrar eden siyah leke.",
+    "derin_teknik_analiz": "Amorf silikon uzun ömürlü drum yüzeyine sert yabancı cisim yapışması. Çözüm: Drum tamburunu izopropil alkolle dikkatlice silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "kyocera taskalfa 3011i",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_138",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera Taskalfa 3011i: Kağıt Çekme Tepsisi Solenoid Süngerinin Erimesi ve Çift Besleme",
+    "hizli_adimlar": [
+      "Kyocera Taskalfa 3011i cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Tepsi solenoidi üzerindeki ses sönümleme süngerinin eriyip yapışması.",
+      "Saha servis prosedürünü yürütün: Solenoidi söküp yapışkan süngeri temizleyin ve ince bant çekin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Engine Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kağıt alırken \"çat-çat\" diye vuruntu sesi gelmesi ve iki sayfa alması.",
+    "derin_teknik_analiz": "Tepsi solenoidi üzerindeki ses sönümleme süngerinin eriyip yapışması. Çözüm: Solenoidi söküp yapışkan süngeri temizleyin ve ince bant çekin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "kyocera taskalfa 3011i",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_139",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera Taskalfa 3011i: Ağ Kartı NVRAM Konfigürasyonunun Kilitlenmesi",
+    "hizli_adimlar": [
+      "Kyocera Taskalfa 3011i cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Ağ kartı web servisinin çöken bağlantılar sonucu soketi açık tutması.",
+      "Saha servis prosedürünü yürütün: 10871087 -> U021 ile ağ kartını fabrika ayarlarına döndürün.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "10871087 -> U021",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yazıcı IP almasına rağmen Command Center RX web paneline erişilememesi.",
+    "derin_teknik_analiz": "Ağ kartı web servisinin çöken bağlantılar sonucu soketi açık tutması. Çözüm: 10871087 -> U021 ile ağ kartını fabrika ayarlarına döndürün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "kyocera taskalfa 3011i",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_140",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera Taskalfa 3554ci Renkli: Hata C7990: Atık Toner Haznesi Taşması ve Prizma Temizliği",
+    "hizli_adimlar": [
+      "Kyocera Taskalfa 3554ci Renkli cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Drum ünitesindeki atık haznesinin dolup optik prizmayı tıkaması.",
+      "Saha servis prosedürünü yürütün: Atık toner haznesini boşaltıp şeffaf prizmayı temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "10871087 -> U163",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yazıcı ekranında C7990 kodu çıkıp yazdırmanın durması.",
+    "derin_teknik_analiz": "Drum ünitesindeki atık haznesinin dolup optik prizmayı tıkaması. Çözüm: Atık toner haznesini boşaltıp şeffaf prizmayı temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "kyocera taskalfa 3554ci renkli",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_141",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera Taskalfa 3554ci Renkli: Baskıda Düzenli Aralıklarla Siyah Noktalar (Drum Lekesi)",
+    "hizli_adimlar": [
+      "Kyocera Taskalfa 3554ci Renkli cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Amorf silikon uzun ömürlü drum yüzeyine sert yabancı cisim yapışması.",
+      "Saha servis prosedürünü yürütün: Drum tamburunu izopropil alkolle dikkatlice silin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "10871087 -> U100",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Sayfa boyunca her 9.4 cm'de bir tekrar eden siyah leke.",
+    "derin_teknik_analiz": "Amorf silikon uzun ömürlü drum yüzeyine sert yabancı cisim yapışması. Çözüm: Drum tamburunu izopropil alkolle dikkatlice silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "kyocera taskalfa 3554ci renkli",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_142",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera Taskalfa 3554ci Renkli: Kağıt Çekme Tepsisi Solenoid Süngerinin Erimesi ve Çift Besleme",
+    "hizli_adimlar": [
+      "Kyocera Taskalfa 3554ci Renkli cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Tepsi solenoidi üzerindeki ses sönümleme süngerinin eriyip yapışması.",
+      "Saha servis prosedürünü yürütün: Solenoidi söküp yapışkan süngeri temizleyin ve ince bant çekin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Engine Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kağıt alırken \"çat-çat\" diye vuruntu sesi gelmesi ve iki sayfa alması.",
+    "derin_teknik_analiz": "Tepsi solenoidi üzerindeki ses sönümleme süngerinin eriyip yapışması. Çözüm: Solenoidi söküp yapışkan süngeri temizleyin ve ince bant çekin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "kyocera taskalfa 3554ci renkli",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_143",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera Taskalfa 3554ci Renkli: Ağ Kartı NVRAM Konfigürasyonunun Kilitlenmesi",
+    "hizli_adimlar": [
+      "Kyocera Taskalfa 3554ci Renkli cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Ağ kartı web servisinin çöken bağlantılar sonucu soketi açık tutması.",
+      "Saha servis prosedürünü yürütün: 10871087 -> U021 ile ağ kartını fabrika ayarlarına döndürün.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "10871087 -> U021",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yazıcı IP almasına rağmen Command Center RX web paneline erişilememesi.",
+    "derin_teknik_analiz": "Ağ kartı web servisinin çöken bağlantılar sonucu soketi açık tutması. Çözüm: 10871087 -> U021 ile ağ kartını fabrika ayarlarına döndürün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "kyocera taskalfa 3554ci renkli",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_144",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera ECOSYS M5526cdw: Hata C7990: Atık Toner Haznesi Taşması ve Prizma Temizliği",
+    "hizli_adimlar": [
+      "Kyocera ECOSYS M5526cdw cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Drum ünitesindeki atık haznesinin dolup optik prizmayı tıkaması.",
+      "Saha servis prosedürünü yürütün: Atık toner haznesini boşaltıp şeffaf prizmayı temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "10871087 -> U163",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yazıcı ekranında C7990 kodu çıkıp yazdırmanın durması.",
+    "derin_teknik_analiz": "Drum ünitesindeki atık haznesinin dolup optik prizmayı tıkaması. Çözüm: Atık toner haznesini boşaltıp şeffaf prizmayı temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "kyocera ecosys m5526cdw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_145",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera ECOSYS M5526cdw: Baskıda Düzenli Aralıklarla Siyah Noktalar (Drum Lekesi)",
+    "hizli_adimlar": [
+      "Kyocera ECOSYS M5526cdw cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Amorf silikon uzun ömürlü drum yüzeyine sert yabancı cisim yapışması.",
+      "Saha servis prosedürünü yürütün: Drum tamburunu izopropil alkolle dikkatlice silin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "10871087 -> U100",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Sayfa boyunca her 9.4 cm'de bir tekrar eden siyah leke.",
+    "derin_teknik_analiz": "Amorf silikon uzun ömürlü drum yüzeyine sert yabancı cisim yapışması. Çözüm: Drum tamburunu izopropil alkolle dikkatlice silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "kyocera ecosys m5526cdw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_146",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera ECOSYS M5526cdw: Kağıt Çekme Tepsisi Solenoid Süngerinin Erimesi ve Çift Besleme",
+    "hizli_adimlar": [
+      "Kyocera ECOSYS M5526cdw cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Tepsi solenoidi üzerindeki ses sönümleme süngerinin eriyip yapışması.",
+      "Saha servis prosedürünü yürütün: Solenoidi söküp yapışkan süngeri temizleyin ve ince bant çekin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Engine Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kağıt alırken \"çat-çat\" diye vuruntu sesi gelmesi ve iki sayfa alması.",
+    "derin_teknik_analiz": "Tepsi solenoidi üzerindeki ses sönümleme süngerinin eriyip yapışması. Çözüm: Solenoidi söküp yapışkan süngeri temizleyin ve ince bant çekin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "kyocera ecosys m5526cdw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_147",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Kyocera ECOSYS M5526cdw: Ağ Kartı NVRAM Konfigürasyonunun Kilitlenmesi",
+    "hizli_adimlar": [
+      "Kyocera ECOSYS M5526cdw cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Ağ kartı web servisinin çöken bağlantılar sonucu soketi açık tutması.",
+      "Saha servis prosedürünü yürütün: 10871087 -> U021 ile ağ kartını fabrika ayarlarına döndürün.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "10871087 -> U021",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yazıcı IP almasına rağmen Command Center RX web paneline erişilememesi.",
+    "derin_teknik_analiz": "Ağ kartı web servisinin çöken bağlantılar sonucu soketi açık tutması. Çözüm: 10871087 -> U021 ile ağ kartını fabrika ayarlarına döndürün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "kyocera ecosys m5526cdw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_148",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Ricoh MP 305+SP: Hata C7990: Atık Toner Haznesi Taşması ve Prizma Temizliği",
+    "hizli_adimlar": [
+      "Ricoh MP 305+SP cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Drum ünitesindeki atık haznesinin dolup optik prizmayı tıkaması.",
+      "Saha servis prosedürünü yürütün: Atık toner haznesini boşaltıp şeffaf prizmayı temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "10871087 -> U163",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yazıcı ekranında C7990 kodu çıkıp yazdırmanın durması.",
+    "derin_teknik_analiz": "Drum ünitesindeki atık haznesinin dolup optik prizmayı tıkaması. Çözüm: Atık toner haznesini boşaltıp şeffaf prizmayı temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "ricoh mp 305+sp",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_149",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Ricoh MP 305+SP: Baskıda Düzenli Aralıklarla Siyah Noktalar (Drum Lekesi)",
+    "hizli_adimlar": [
+      "Ricoh MP 305+SP cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Amorf silikon uzun ömürlü drum yüzeyine sert yabancı cisim yapışması.",
+      "Saha servis prosedürünü yürütün: Drum tamburunu izopropil alkolle dikkatlice silin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "10871087 -> U100",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Sayfa boyunca her 9.4 cm'de bir tekrar eden siyah leke.",
+    "derin_teknik_analiz": "Amorf silikon uzun ömürlü drum yüzeyine sert yabancı cisim yapışması. Çözüm: Drum tamburunu izopropil alkolle dikkatlice silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "ricoh mp 305+sp",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_150",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Ricoh MP 305+SP: Kağıt Çekme Tepsisi Solenoid Süngerinin Erimesi ve Çift Besleme",
+    "hizli_adimlar": [
+      "Ricoh MP 305+SP cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Tepsi solenoidi üzerindeki ses sönümleme süngerinin eriyip yapışması.",
+      "Saha servis prosedürünü yürütün: Solenoidi söküp yapışkan süngeri temizleyin ve ince bant çekin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Engine Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kağıt alırken \"çat-çat\" diye vuruntu sesi gelmesi ve iki sayfa alması.",
+    "derin_teknik_analiz": "Tepsi solenoidi üzerindeki ses sönümleme süngerinin eriyip yapışması. Çözüm: Solenoidi söküp yapışkan süngeri temizleyin ve ince bant çekin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "ricoh mp 305+sp",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_151",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Ricoh MP 305+SP: Ağ Kartı NVRAM Konfigürasyonunun Kilitlenmesi",
+    "hizli_adimlar": [
+      "Ricoh MP 305+SP cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Ağ kartı web servisinin çöken bağlantılar sonucu soketi açık tutması.",
+      "Saha servis prosedürünü yürütün: 10871087 -> U021 ile ağ kartını fabrika ayarlarına döndürün.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "10871087 -> U021",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yazıcı IP almasına rağmen Command Center RX web paneline erişilememesi.",
+    "derin_teknik_analiz": "Ağ kartı web servisinin çöken bağlantılar sonucu soketi açık tutması. Çözüm: 10871087 -> U021 ile ağ kartını fabrika ayarlarına döndürün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "ricoh mp 305+sp",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_152",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Ricoh IM C2000: Hata C7990: Atık Toner Haznesi Taşması ve Prizma Temizliği",
+    "hizli_adimlar": [
+      "Ricoh IM C2000 cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Drum ünitesindeki atık haznesinin dolup optik prizmayı tıkaması.",
+      "Saha servis prosedürünü yürütün: Atık toner haznesini boşaltıp şeffaf prizmayı temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "10871087 -> U163",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yazıcı ekranında C7990 kodu çıkıp yazdırmanın durması.",
+    "derin_teknik_analiz": "Drum ünitesindeki atık haznesinin dolup optik prizmayı tıkaması. Çözüm: Atık toner haznesini boşaltıp şeffaf prizmayı temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "ricoh im c2000",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_153",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Ricoh IM C2000: Baskıda Düzenli Aralıklarla Siyah Noktalar (Drum Lekesi)",
+    "hizli_adimlar": [
+      "Ricoh IM C2000 cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Amorf silikon uzun ömürlü drum yüzeyine sert yabancı cisim yapışması.",
+      "Saha servis prosedürünü yürütün: Drum tamburunu izopropil alkolle dikkatlice silin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "10871087 -> U100",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Sayfa boyunca her 9.4 cm'de bir tekrar eden siyah leke.",
+    "derin_teknik_analiz": "Amorf silikon uzun ömürlü drum yüzeyine sert yabancı cisim yapışması. Çözüm: Drum tamburunu izopropil alkolle dikkatlice silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "ricoh im c2000",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_154",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Ricoh IM C2000: Kağıt Çekme Tepsisi Solenoid Süngerinin Erimesi ve Çift Besleme",
+    "hizli_adimlar": [
+      "Ricoh IM C2000 cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Tepsi solenoidi üzerindeki ses sönümleme süngerinin eriyip yapışması.",
+      "Saha servis prosedürünü yürütün: Solenoidi söküp yapışkan süngeri temizleyin ve ince bant çekin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Engine Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kağıt alırken \"çat-çat\" diye vuruntu sesi gelmesi ve iki sayfa alması.",
+    "derin_teknik_analiz": "Tepsi solenoidi üzerindeki ses sönümleme süngerinin eriyip yapışması. Çözüm: Solenoidi söküp yapışkan süngeri temizleyin ve ince bant çekin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "ricoh im c2000",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_155",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Ricoh IM C2000: Ağ Kartı NVRAM Konfigürasyonunun Kilitlenmesi",
+    "hizli_adimlar": [
+      "Ricoh IM C2000 cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Ağ kartı web servisinin çöken bağlantılar sonucu soketi açık tutması.",
+      "Saha servis prosedürünü yürütün: 10871087 -> U021 ile ağ kartını fabrika ayarlarına döndürün.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "10871087 -> U021",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yazıcı IP almasına rağmen Command Center RX web paneline erişilememesi.",
+    "derin_teknik_analiz": "Ağ kartı web servisinin çöken bağlantılar sonucu soketi açık tutması. Çözüm: 10871087 -> U021 ile ağ kartını fabrika ayarlarına döndürün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "ricoh im c2000",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_156",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Ricoh SP 213w: Hata C7990: Atık Toner Haznesi Taşması ve Prizma Temizliği",
+    "hizli_adimlar": [
+      "Ricoh SP 213w cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Drum ünitesindeki atık haznesinin dolup optik prizmayı tıkaması.",
+      "Saha servis prosedürünü yürütün: Atık toner haznesini boşaltıp şeffaf prizmayı temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "10871087 -> U163",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yazıcı ekranında C7990 kodu çıkıp yazdırmanın durması.",
+    "derin_teknik_analiz": "Drum ünitesindeki atık haznesinin dolup optik prizmayı tıkaması. Çözüm: Atık toner haznesini boşaltıp şeffaf prizmayı temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "ricoh sp 213w",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_157",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Ricoh SP 213w: Baskıda Düzenli Aralıklarla Siyah Noktalar (Drum Lekesi)",
+    "hizli_adimlar": [
+      "Ricoh SP 213w cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Amorf silikon uzun ömürlü drum yüzeyine sert yabancı cisim yapışması.",
+      "Saha servis prosedürünü yürütün: Drum tamburunu izopropil alkolle dikkatlice silin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "10871087 -> U100",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Sayfa boyunca her 9.4 cm'de bir tekrar eden siyah leke.",
+    "derin_teknik_analiz": "Amorf silikon uzun ömürlü drum yüzeyine sert yabancı cisim yapışması. Çözüm: Drum tamburunu izopropil alkolle dikkatlice silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "ricoh sp 213w",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_158",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Ricoh SP 213w: Kağıt Çekme Tepsisi Solenoid Süngerinin Erimesi ve Çift Besleme",
+    "hizli_adimlar": [
+      "Ricoh SP 213w cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Tepsi solenoidi üzerindeki ses sönümleme süngerinin eriyip yapışması.",
+      "Saha servis prosedürünü yürütün: Solenoidi söküp yapışkan süngeri temizleyin ve ince bant çekin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Engine Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kağıt alırken \"çat-çat\" diye vuruntu sesi gelmesi ve iki sayfa alması.",
+    "derin_teknik_analiz": "Tepsi solenoidi üzerindeki ses sönümleme süngerinin eriyip yapışması. Çözüm: Solenoidi söküp yapışkan süngeri temizleyin ve ince bant çekin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "ricoh sp 213w",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_159",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Kyocera & Ricoh",
+    "baslik": "Ricoh SP 213w: Ağ Kartı NVRAM Konfigürasyonunun Kilitlenmesi",
+    "hizli_adimlar": [
+      "Ricoh SP 213w cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Ağ kartı web servisinin çöken bağlantılar sonucu soketi açık tutması.",
+      "Saha servis prosedürünü yürütün: 10871087 -> U021 ile ağ kartını fabrika ayarlarına döndürün.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "10871087 -> U021",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yazıcı IP almasına rağmen Command Center RX web paneline erişilememesi.",
+    "derin_teknik_analiz": "Ağ kartı web servisinin çöken bağlantılar sonucu soketi açık tutması. Çözüm: 10871087 -> U021 ile ağ kartını fabrika ayarlarına döndürün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "kyocera & ricoh",
+      "ricoh sp 213w",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  }
+]

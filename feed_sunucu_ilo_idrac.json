@@ -1,220 +1,2264 @@
-{
-  "versiyon": "2.5.0",
-  "toplam": 5,
-  "modul": "feed_sunucu_ilo_idrac.json",
-  "kayitlar": [
-    {
-      "id": "ağ_4g_5g_wan_yedekleme_failover",
-      "kategori": "Ağ",
-      "alt_kategori": "Modem, Fiber GPON & DSL Teknolojileri",
-      "baslik": "4G/5G WAN Yedekleme (Failover)",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: Dual-WAN router üzerinde otomatik geçiş kuralı.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Ağ Durumu ve Rota Tablosu",
-          "komut": "route print -4",
-          "aciklama": "Aktif yönlendirme tablosunu ve ağ geçitlerini listeler."
-        },
-        {
-          "etiket": "Netsh Arayüz Bilgisi",
-          "komut": "netsh interface ipv4 show subinterfaces",
-          "aciklama": "Ağ kartı MTU ve paket durumlarını dökümler."
-        }
-      ],
-      "temel_anlatim": "4G/5G WAN Yedekleme (Failover), bilişim altyapılarında dual-wan router üzerinde otomatik geçiş kuralı. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "4G/5G WAN Yedekleme (Failover) mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Dual-WAN router üzerinde otomatik geçiş kuralı. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "4g 5g wan yedekleme failover",
-        "ağ",
-        "modem fiber gpon dsl teknolojileri",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "ağ_dhcp_failover_hot_standby_vs_load_s",
-      "kategori": "Ağ",
-      "alt_kategori": "DHCP & DORA Protokolleri",
-      "baslik": "DHCP Failover (Hot Standby vs Load Sharing)",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: İki sunucu arası senkronizasyon.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Ağ Durumu ve Rota Tablosu",
-          "komut": "route print -4",
-          "aciklama": "Aktif yönlendirme tablosunu ve ağ geçitlerini listeler."
-        },
-        {
-          "etiket": "Netsh Arayüz Bilgisi",
-          "komut": "netsh interface ipv4 show subinterfaces",
-          "aciklama": "Ağ kartı MTU ve paket durumlarını dökümler."
-        }
-      ],
-      "temel_anlatim": "DHCP Failover (Hot Standby vs Load Sharing), bilişim altyapılarında i̇ki sunucu arası senkronizasyon. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "DHCP Failover (Hot Standby vs Load Sharing) mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. İki sunucu arası senkronizasyon. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "dhcp failover hot standby vs load s",
-        "ağ",
-        "dhcp dora protokolleri",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "srv_dell_idrac_virtual_console_block",
-      "kategori": "Sunucu & iLO/iDRAC",
-      "alt_kategori": "Dell iDRAC (8 / 9)",
-      "baslik": "Dell PowerEdge iDRAC Sanal Konsol (Virtual Console) Bağlantı Reddi ve HTML5 Geçişi",
-      "hizli_adimlar": [
-        "iDRAC web arayüzüne (https://idrac-ip) yönetici (root) ile giriş yapın.",
-        "Configuration -> Virtual Console sekmesine gelin.",
-        "'Plug-in Type' ayarını Java'dan 'HTML5' durumuna getirin.",
-        "'Virtual Console: Enabled' kutucuğunun işaretli olduğunu ve Port değerinin 5900 olduğunu doğrulayın.",
-        "Değişiklikleri kaydedin ve 'Launch Virtual Console' butonuna basarak doğrudan tarayıcı sekmesinde BIOS ekranını açın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "iDRAC SSH ile Konsolu Yeniden Başlat",
-          "komut": "racadm racreset",
-          "aciklama": "iDRAC işletim sistemini sunucuyu kapatmadan soft reset yapar."
-        },
-        {
-          "etiket": "HTML5 Konsolu CLI ile Aktif Et",
-          "komut": "racadm set idrac.virtualconsole.PluginType 2",
-          "aciklama": "1=Java, 2=HTML5 ayarını zorlar."
-        }
-      ],
-      "temel_anlatim": "Dell sunucu iDRAC web arayüzünde 'Virtual Console' butonuna basıldığında siyah ekran kalması, bağlantının zaman aşımına uğraması.",
-      "derin_teknik_analiz": "Eski iDRAC sürümlerinde sanal konsol Java Applet üzerinden TCP 5900 portu ile çalışır. Modern tarayıcılarda NPAPI Java desteği kaldırılmıştır ve TLS 1.0/1.1 engellenmiştir. Çözüm, konsol eklenti türünü HTML5'e çekmek ve port 5900 yönlendirmesini doğrulamaktır.",
-      "kenar_durumlar": [
-        {
-          "durum": "Sanal konsol açılıyor ama klavye ve fare komutları gitmiyor",
-          "neden": "iDRAC Virtual Media (Sanal Medya) servisi devre dışıdır veya USB öykünmesi kilitlenmiştir.",
-          "cozum": "`racadm set idrac.virtualconsole.KeyboardMouseAttach 1` komutunu çalıştırın."
-        }
-      ],
-      "etiketler": [
-        "sunucu",
-        "dell",
-        "idrac",
-        "virtual-console",
-        "html5",
-        "poweredge"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "srv_dell_perc_foreign_config",
-      "kategori": "Sunucu & iLO/iDRAC",
-      "alt_kategori": "PERC RAID Kontrolcüleri",
-      "baslik": "Dell PERC RAID Kartı 'Foreign Configuration Detected' Hatası ve Disk Kurtarma",
-      "hizli_adimlar": [
-        "Sunucuyu yeniden başlatın ve POST ekranında F2 (System Setup) -> Device Settings -> RAID Controller menüsüne girin.",
-        "Configuration Management -> 'Manage Foreign Configuration' sekmesini açın.",
-        "'Preview Foreign Configuration' diyerek diskin hangi RAID dizisine ait olduğunu kontrol edin.",
-        "Eğer disk mevcut dizinizin bir parçasıysa 'Import Foreign Configuration' seçeneğini seçin ve onaylayın.",
-        "Eğer disk sıfır olarak kullanılacaksa 'Clear Foreign Configuration' diyerek diski boşa çıkarın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "MegaCLI / StorCLI ile Foreign Diski İncele",
-          "komut": "storcli /c0 /fall show",
-          "aciklama": "Yabancı yapılandırmaya sahip diskleri ve array bilgilerini listeler."
-        },
-        {
-          "etiket": "Foreign Yapılandırmayı İçe Aktar (Import)",
-          "komut": "storcli /c0 /fall import",
-          "aciklama": "Diskteki mevcut RAID bilgisini canlı sisteme dahil eder."
-        }
-      ],
-      "temel_anlatim": "Sunucuya yeni veya başka bir sunucudan çıkarılmış SAS/SATA disk takıldığında veya ani elektrik kesintisi sonrası RAID dizisinin 'Foreign' (Yabancı) durumuna düşmesi.",
-      "derin_teknik_analiz": "PERC (PowerEdge RAID Controller) kartları RAID meta verisini (DDF - Disk Data Format) her diskin son sektörlerine yazar. Diskteki RAID imzası RAID kontrolcüsünün NVRAM'indeki imza ile uyuşmadığında kontrolcü diziyi korumak için diski kilitler.",
-      "kenar_durumlar": [
-        {
-          "durum": "'Clear Foreign Configuration' yapıldıktan sonra mevcut RAID bozuldu",
-          "neden": "Kritik bir RAID 5 dizisindeki eksik disk 'Clear' edilerek diziden tamamen atılmıştır.",
-          "cozum": "Asla emin olmadan 'Clear' yapmayın; disk sağlam bir dizinin parçasıysa mutlaka 'Import' yapılmalıdır."
-        }
-      ],
-      "etiketler": [
-        "sunucu",
-        "dell",
-        "perc",
-        "foreign-config",
-        "raid-kurtarma",
-        "storcli"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "srv_hpe_ilo_ssl_certificate_error",
-      "kategori": "Sunucu & iLO/iDRAC",
-      "alt_kategori": "HPE iLO (5 / 6)",
-      "baslik": "HPE ProLiant iLO 5 / 6 Arayüzüne SSL Sertifika Hatası ve Kilitlenme Nedeniyle Erişilememe",
-      "hizli_adimlar": [
-        "iLO portuna aynı ağdan SSH (port 22) ile bağlanın (`ssh Administrator@ilo-ip`).",
-        "`reset /map1` komutu ile iLO yönetim işlemcisini (ASIC) yeniden başlatın.",
-        "iLO web arayüzüne girip Administration -> Security -> SSL Certificate bölümüne gelin.",
-        "'Generate Self-Signed Certificate' butonuna basarak modern 2048-bit SHA-256 sertifikası üretin.",
-        "Administration -> Firmware Update menüsünden iLO firmware'ini en güncel sürüme yükseltin."
-      ],
-      "komutlar": [
-        {
-          "etiket": "iLO ASIC Reset (SSH)",
-          "komut": "reset /map1",
-          "aciklama": "iLO yongasını sunucuyu etkilemeden soft-reboot yapar."
-        },
-        {
-          "etiket": "iLO IP ve Ağ Bilgilerini Göster",
-          "komut": "show /map1/Ethernet1",
-          "aciklama": "Aktif IP, Maske ve Ağ geçidi parametrelerini döker."
-        }
-      ],
-      "temel_anlatim": "Tarayıcıdan iLO IP adresine girildiğinde 'ERR_SSL_VERSION_OR_CIPHER_MISMATCH' vermesi veya sayfanın hiç yüklenmemesi.",
-      "derin_teknik_analiz": "Eski iLO firmware sürümlerindeki self-signed SSL sertifikaları modern tarayıcıların kabul etmediği RSA 1024-bit veya zayıf TLS 1.0 şifreleme anahtarları içerir. Ayrıca iLO Security Dashboard 'Production' modunda eski şifreleme paketlerini reddedebilir.",
-      "kenar_durumlar": [
-        {
-          "durum": "iLO web arayüzü sürekli 'iLO is initializing' ekranında takılı kalıyor",
-          "neden": "Dahili iLO NAND flaş belleği bozulmuştur (Embedded Flash/SD-CARD failure).",
-          "cozum": "iLO Diagnostics sekmesinden 'Format Embedded Flash and restart iLO' prosedürünü uygulayın."
-        }
-      ],
-      "etiketler": [
-        "sunucu",
-        "hpe",
-        "ilo",
-        "proliant",
-        "ssl",
-        "firmware"
-      ],
-      "oncelik": 1
-    }
-  ]
-}
+[
+  {
+    "id": "ağ_4g_5g_wan_yedekleme_failover",
+    "kategori": "Ağ",
+    "alt_kategori": "Modem, Fiber GPON & DSL Teknolojileri",
+    "baslik": "4G/5G WAN Yedekleme (Failover)",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: Dual-WAN router üzerinde otomatik geçiş kuralı.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Ağ Durumu ve Rota Tablosu",
+        "komut": "route print -4",
+        "aciklama": "Aktif yönlendirme tablosunu ve ağ geçitlerini listeler."
+      },
+      {
+        "etiket": "Netsh Arayüz Bilgisi",
+        "komut": "netsh interface ipv4 show subinterfaces",
+        "aciklama": "Ağ kartı MTU ve paket durumlarını dökümler."
+      }
+    ],
+    "temel_anlatim": "4G/5G WAN Yedekleme (Failover), bilişim altyapılarında dual-wan router üzerinde otomatik geçiş kuralı. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "4G/5G WAN Yedekleme (Failover) mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Dual-WAN router üzerinde otomatik geçiş kuralı. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "4g 5g wan yedekleme failover ağ modem fiber gpon dsl teknolojileri ariza onarım"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "ağ_dhcp_failover_hot_standby_vs_load_s",
+    "kategori": "Ağ",
+    "alt_kategori": "DHCP & DORA Protokolleri",
+    "baslik": "DHCP Failover (Hot Standby vs Load Sharing)",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: İki sunucu arası senkronizasyon.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Ağ Durumu ve Rota Tablosu",
+        "komut": "route print -4",
+        "aciklama": "Aktif yönlendirme tablosunu ve ağ geçitlerini listeler."
+      },
+      {
+        "etiket": "Netsh Arayüz Bilgisi",
+        "komut": "netsh interface ipv4 show subinterfaces",
+        "aciklama": "Ağ kartı MTU ve paket durumlarını dökümler."
+      }
+    ],
+    "temel_anlatim": "DHCP Failover (Hot Standby vs Load Sharing), bilişim altyapılarında i̇ki sunucu arası senkronizasyon. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "DHCP Failover (Hot Standby vs Load Sharing) mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. İki sunucu arası senkronizasyon. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "dhcp failover hot standby vs load s ağ dhcp dora protokolleri ariza onarım"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "srv_dell_idrac_virtual_console_block",
+    "kategori": "Sunucu & iLO/iDRAC",
+    "alt_kategori": "Dell iDRAC (8 / 9)",
+    "baslik": "Dell PowerEdge iDRAC Sanal Konsol (Virtual Console) Bağlantı Reddi ve HTML5 Geçişi",
+    "hizli_adimlar": [
+      "iDRAC web arayüzüne (https://idrac-ip) yönetici (root) ile giriş yapın.",
+      "Configuration -> Virtual Console sekmesine gelin.",
+      "'Plug-in Type' ayarını Java'dan 'HTML5' durumuna getirin.",
+      "'Virtual Console: Enabled' kutucuğunun işaretli olduğunu ve Port değerinin 5900 olduğunu doğrulayın.",
+      "Değişiklikleri kaydedin ve 'Launch Virtual Console' butonuna basarak doğrudan tarayıcı sekmesinde BIOS ekranını açın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "iDRAC SSH ile Konsolu Yeniden Başlat",
+        "komut": "racadm racreset",
+        "aciklama": "iDRAC işletim sistemini sunucuyu kapatmadan soft reset yapar."
+      },
+      {
+        "etiket": "HTML5 Konsolu CLI ile Aktif Et",
+        "komut": "racadm set idrac.virtualconsole.PluginType 2",
+        "aciklama": "1=Java, 2=HTML5 ayarını zorlar."
+      }
+    ],
+    "temel_anlatim": "Dell sunucu iDRAC web arayüzünde 'Virtual Console' butonuna basıldığında siyah ekran kalması, bağlantının zaman aşımına uğraması.",
+    "derin_teknik_analiz": "Eski iDRAC sürümlerinde sanal konsol Java Applet üzerinden TCP 5900 portu ile çalışır. Modern tarayıcılarda NPAPI Java desteği kaldırılmıştır ve TLS 1.0/1.1 engellenmiştir. Çözüm, konsol eklenti türünü HTML5'e çekmek ve port 5900 yönlendirmesini doğrulamaktır.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sanal konsol açılıyor ama klavye ve fare komutları gitmiyor",
+        "neden": "iDRAC Virtual Media (Sanal Medya) servisi devre dışıdır veya USB öykünmesi kilitlenmiştir.",
+        "cozum": "`racadm set idrac.virtualconsole.KeyboardMouseAttach 1` komutunu çalıştırın."
+      }
+    ],
+    "etiketler": [
+      "sunucu dell idrac virtual-console html5 poweredge"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "srv_dell_perc_foreign_config",
+    "kategori": "Sunucu & iLO/iDRAC",
+    "alt_kategori": "PERC RAID Kontrolcüleri",
+    "baslik": "Dell PERC RAID Kartı 'Foreign Configuration Detected' Hatası ve Disk Kurtarma",
+    "hizli_adimlar": [
+      "Sunucuyu yeniden başlatın ve POST ekranında F2 (System Setup) -> Device Settings -> RAID Controller menüsüne girin.",
+      "Configuration Management -> 'Manage Foreign Configuration' sekmesini açın.",
+      "'Preview Foreign Configuration' diyerek diskin hangi RAID dizisine ait olduğunu kontrol edin.",
+      "Eğer disk mevcut dizinizin bir parçasıysa 'Import Foreign Configuration' seçeneğini seçin ve onaylayın.",
+      "Eğer disk sıfır olarak kullanılacaksa 'Clear Foreign Configuration' diyerek diski boşa çıkarın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "MegaCLI / StorCLI ile Foreign Diski İncele",
+        "komut": "storcli /c0 /fall show",
+        "aciklama": "Yabancı yapılandırmaya sahip diskleri ve array bilgilerini listeler."
+      },
+      {
+        "etiket": "Foreign Yapılandırmayı İçe Aktar (Import)",
+        "komut": "storcli /c0 /fall import",
+        "aciklama": "Diskteki mevcut RAID bilgisini canlı sisteme dahil eder."
+      }
+    ],
+    "temel_anlatim": "Sunucuya yeni veya başka bir sunucudan çıkarılmış SAS/SATA disk takıldığında veya ani elektrik kesintisi sonrası RAID dizisinin 'Foreign' (Yabancı) durumuna düşmesi.",
+    "derin_teknik_analiz": "PERC (PowerEdge RAID Controller) kartları RAID meta verisini (DDF - Disk Data Format) her diskin son sektörlerine yazar. Diskteki RAID imzası RAID kontrolcüsünün NVRAM'indeki imza ile uyuşmadığında kontrolcü diziyi korumak için diski kilitler.",
+    "kenar_durumlar": [
+      {
+        "durum": "'Clear Foreign Configuration' yapıldıktan sonra mevcut RAID bozuldu",
+        "neden": "Kritik bir RAID 5 dizisindeki eksik disk 'Clear' edilerek diziden tamamen atılmıştır.",
+        "cozum": "Asla emin olmadan 'Clear' yapmayın; disk sağlam bir dizinin parçasıysa mutlaka 'Import' yapılmalıdır."
+      }
+    ],
+    "etiketler": [
+      "sunucu dell perc foreign-config raid-kurtarma storcli"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "srv_hpe_ilo_ssl_certificate_error",
+    "kategori": "Sunucu & iLO/iDRAC",
+    "alt_kategori": "HPE iLO (5 / 6)",
+    "baslik": "HPE ProLiant iLO 5 / 6 Arayüzüne SSL Sertifika Hatası ve Kilitlenme Nedeniyle Erişilememe",
+    "hizli_adimlar": [
+      "iLO portuna aynı ağdan SSH (port 22) ile bağlanın (`ssh Administrator@ilo-ip`).",
+      "`reset /map1` komutu ile iLO yönetim işlemcisini (ASIC) yeniden başlatın.",
+      "iLO web arayüzüne girip Administration -> Security -> SSL Certificate bölümüne gelin.",
+      "'Generate Self-Signed Certificate' butonuna basarak modern 2048-bit SHA-256 sertifikası üretin.",
+      "Administration -> Firmware Update menüsünden iLO firmware'ini en güncel sürüme yükseltin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "iLO ASIC Reset (SSH)",
+        "komut": "reset /map1",
+        "aciklama": "iLO yongasını sunucuyu etkilemeden soft-reboot yapar."
+      },
+      {
+        "etiket": "iLO IP ve Ağ Bilgilerini Göster",
+        "komut": "show /map1/Ethernet1",
+        "aciklama": "Aktif IP, Maske ve Ağ geçidi parametrelerini döker."
+      }
+    ],
+    "temel_anlatim": "Tarayıcıdan iLO IP adresine girildiğinde 'ERR_SSL_VERSION_OR_CIPHER_MISMATCH' vermesi veya sayfanın hiç yüklenmemesi.",
+    "derin_teknik_analiz": "Eski iLO firmware sürümlerindeki self-signed SSL sertifikaları modern tarayıcıların kabul etmediği RSA 1024-bit veya zayıf TLS 1.0 şifreleme anahtarları içerir. Ayrıca iLO Security Dashboard 'Production' modunda eski şifreleme paketlerini reddedebilir.",
+    "kenar_durumlar": [
+      {
+        "durum": "iLO web arayüzü sürekli 'iLO is initializing' ekranında takılı kalıyor",
+        "neden": "Dahili iLO NAND flaş belleği bozulmuştur (Embedded Flash/SD-CARD failure).",
+        "cozum": "iLO Diagnostics sekmesinden 'Format Embedded Flash and restart iLO' prosedürünü uygulayın."
+      }
+    ],
+    "etiketler": [
+      "sunucu hpe ilo proliant ssl firmware"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "cctv_hikvision_sadp_reset",
+    "kategori": "CCTV Kamera",
+    "alt_kategori": "Hikvision / HiLook",
+    "baslik": "Hikvision NVR ve Kameralarda SADP Tool ile Unutulan Şifreyi XML Dosyası ile Sıfırlama",
+    "hizli_adimlar": [
+      "Bilgisayara en güncel 'SADP Tool' yazılımını kurun ve kamerayla aynı yerel ağa (switch) bağlayın.",
+      "SADP listesinde şifresi unutulan kamerayı seçin.",
+      "Sağ alt köşedeki 'Forgot Password' linkine tıklayın.",
+      "'Export' butonuna basarak cihazın `DeviceKey.xml` dosyasını masaüstüne kaydedin (Cihazı bu süreçte ASLA kapatmayın/yeniden başlatmayın).",
+      "Gelen sıfırlama XML dosyasını 'Import' edin veya gelen güvenlik kodunu girip yeni güçlü şifrenizi belirleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SADP Port Dinleme Testi",
+        "komut": "netstat -ano | findstr 8000",
+        "aciklama": "Hikvision yönetim portunu teyit eder."
+      }
+    ],
+    "temel_anlatim": "Şifresi unutulmuş Hikvision kamera veya NVR cihazına fabrika şifreleri çalışmadığında cihazı sökmeden yerel ağdan sıfırlama.",
+    "derin_teknik_analiz": "Hikvision cihazları port 8000 ve UDP broadcast üzerinden SADP (Search Active Devices Protocol) ile bulunur. Cihazın ürettiği şifreli `DeviceKey.xml` dosyası distribütör veya yetkili destek portalı üzerinden RSA özel anahtarıyla çözülerek sıfırlama kodu elde edilir.",
+    "kenar_durumlar": [
+      {
+        "durum": "'Reset password failed' veya 'Key expired' hatası veriyor",
+        "neden": "XML alındıktan sonra kamera yeniden başlatılmıştır veya bilgisayar ile kameranın tarih/saat bilgisi 1 günden fazla farklıdır.",
+        "cozum": "Kamerayı yeniden başlatmadan hemen yeni bir XML dosyası çekip işlemi tamamlayın."
+      }
+    ],
+    "etiketler": [
+      "cctv hikvision sadp sifre-sifirlama nvr ip-kamera"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "infra_912",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "Saha Teşhisi",
+    "baslik": "Dell PERC Donanım RAID Kartında Yazma Önbelleği Kapanması (Write-Through)",
+    "hizli_adimlar": [
+      "iDRAC üzerinden 'Battery / Capacitor' sağlık durumunu inceleyin.",
+      "Şişmiş veya voltajı düşmüş RAID pilini yenileyin.",
+      "Sunucu sağlam bir online UPS'e bağlıysa `storcli` ile önbelleği geçici olarak Write-Back yapın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "RAID Cache Durumunu Sorgula",
+        "komut": "storcli /c0 /v0 show all | findstr /i \"Current Cache Policy\"",
+        "aciklama": "WriteBack mi WriteThrough mu olduğunu gösterir."
+      },
+      {
+        "etiket": "Zorla Write-Back Açma (UPS Varsa)",
+        "komut": "storcli /c0 /v0 set wrcache=WB force",
+        "aciklama": "Pil olmasa bile önbelleği zorla aktif eder."
+      }
+    ],
+    "temel_anlatim": "Sunucuda disk yazma hızlarının 500 MB/sn'den 20 MB/sn'ye düşmesi ve veritabanının kilitlenmesi.",
+    "derin_teknik_analiz": "PERC RAID kartı üzerindeki BBU (Pil) veya NVCache süper kondansatörünün arızalanması sonucu veri kaybını önlemek için önbelleğin Write-Through moduna geçmesi.",
+    "kenar_durumlar": [
+      {
+        "durum": "İlk adımda sonuç alınamadı",
+        "neden": "Ağ gecikmesi veya izin kısıtlaması vardır.",
+        "cozum": "Güvenlik duvarı ve izinleri kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "altyapi",
+      "saha",
+      "teknik-cozum"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "infra_913",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "Saha Teşhisi",
+    "baslik": "HPE ProLiant Sunucularda 'Smart Storage Battery' Arızası ve POST 267 Uyarısı",
+    "hizli_adimlar": [
+      "Sunucunun kapağını açıp hava sirkülasyon kılavuzunun altındaki pili kontrol edin.",
+      "Orijinal HPE 96W Smart Storage Battery parçasını takın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "iLO Battery Health",
+        "komut": "iLO Web -> System Information -> Power -> Smart Storage Battery",
+        "aciklama": "Pil seri no ve sağlık durumunu listeler."
+      }
+    ],
+    "temel_anlatim": "Sunucu açılırken 'POST Error: 267 - Smart Storage Battery Failure' vermesi.",
+    "derin_teknik_analiz": "Akıllı depolama pilinin 3 yıllık ömrünü doldurması veya anakart şarj devresinin pili algılayamaması.",
+    "kenar_durumlar": [
+      {
+        "durum": "İlk adımda sonuç alınamadı",
+        "neden": "Ağ gecikmesi veya izin kısıtlaması vardır.",
+        "cozum": "Güvenlik duvarı ve izinleri kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "altyapi",
+      "saha",
+      "teknik-cozum"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "srv_mat_9",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "HPE ProLiant Gen10: iLO 5 Self-Test Error 8192 (Embedded Flash/SD-CARD Corrupt)",
+    "hizli_adimlar": [
+      "iLO 5 Web arayüzüne admin hesabıyla giriş yapın.",
+      "Administration -> Maintenance -> Backup & Restore menüsüne gidin.",
+      "'Format Embedded Flash' butonuna basıp işlemi onaylayın.",
+      "İşlem bittiğinde iLO'yu yeniden başlatın (Reset iLO).",
+      "Sunucuyu güç düğmesinden kapatıp elektrik fişlerini 2 dakika çekerek tam artık voltaj deşarjı (Cold Boot) yapın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "iLO NAND Format (SSH)",
+        "komut": "ssh Administrator@[ILO_IP]\nnandformat -f\nreset /map1",
+        "aciklama": "SSH komut satırından bozuk NAND alanını sıfırlar ve yönetim çipini yeniden başlatır."
+      }
+    ],
+    "temel_anlatim": "Sunucu açılışında 'iLO 5 Health: Degraded, Embedded Flash corrupt' uyarısı ve fanların %100 hızda bağırması.",
+    "derin_teknik_analiz": "Kök Neden: iLO yerleşik NAND flash belleğinin aşırı log yazma döngüsü nedeniyle salt-okunur (read-only) kilitlenmesi. Servis Adımı: iLO web arayüzünden 'Format Embedded Flash' çalıştırın veya CLI üzerinden nandformat uygulayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Format sonrası 8192 hatası tekrarlıyor",
+        "neden": "NAND flash çipinin donanımsal yazma blokları tamamen yanmıştır.",
+        "cozum": "HPE sistem kartını (System Board) yetkili garanti kapsamında değiştirin."
+      }
+    ],
+    "etiketler": [
+      "hpe",
+      "proliant",
+      "ilo5",
+      "nand-corrupt",
+      "self-test-8192",
+      "sunucu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "srv_mat_10",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Dell PowerEdge: iDRAC 9 Lifecycle Controller Recovery ve Racadm Sıfırlama",
+    "hizli_adimlar": [
+      "İstemci bilgisayarda Dell OpenManage Racadm CLI açın.",
+      "'racadm -r [IDRAC_IP] -u root -p [PASSWORD] racreset' komutuyla iDRAC'ı yeniden başlatın.",
+      "Sorun devam ederse: 'racadm lclog view' ile hata günlüğünü dökün.",
+      "'racadm techsupreport collect' ile donanım teşhis raporu oluşturun."
+    ],
+    "komutlar": [
+      {
+        "etiket": "iDRAC Donanımsal Sıfırlama (Ön Panel)",
+        "komut": "Ön paneldeki mavi 'i' butonuna 16-20 saniye basılı tutun",
+        "aciklama": "Sunucuyu kapatmadan iDRAC yongasını fiziksel olarak yeniden başlatır."
+      }
+    ],
+    "temel_anlatim": "Lifecycle Controller başlatılırken donması veya sunucu bellenim güncellemelerinin hata vermesi.",
+    "derin_teknik_analiz": "Kök Neden: LC veritabanı önbelleğinin bozulması veya yarım kalan BIOS güncellemesi sonucu askıda kalması. Servis Adımı: Racadm komut satırı aracıyla Lifecycle Controller durumunu temizleyin ve yumuşak sıfırlama yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sunucu açılışta LC kilitli diyor",
+        "neden": "Kritik bir donanım hatası nedeniyle güvenli moda geçmiştir.",
+        "cozum": "racadm lclog clear komutuyla kütüğü boşaltın."
+      }
+    ],
+    "etiketler": [
+      "dell",
+      "poweredge",
+      "idrac9",
+      "lifecycle-controller",
+      "racadm",
+      "sunucu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_160",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "HPE ProLiant DL360 Gen10: SAS Expander Kablosu Gevşemesi ve Disk Yuvası Kaybı",
+    "hizli_adimlar": [
+      "HPE ProLiant DL360 Gen10 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Arka SAS expander genişletme kartına giden Mini-SAS HD kablosunun yuvasından oynaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Sunucuyu kapatıp Mini-SAS kablosunu çıkartıp klik sesiyle tam oturtun.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ssacli ctrl all show config",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ön paneldeki 8 diskten sağdaki 4 diskin aniden sistemden kaybolması.",
+    "derin_teknik_analiz": "Arka SAS expander genişletme kartına giden Mini-SAS HD kablosunun yuvasından oynaması. Çözüm: Sunucuyu kapatıp Mini-SAS kablosunu çıkartıp klik sesiyle tam oturtun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "hpe proliant dl360 gen10",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_161",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "HPE ProLiant DL360 Gen10: BIOS POST Ekranında Bellek Testinde Donma (Memory Training Hang)",
+    "hizli_adimlar": [
+      "HPE ProLiant DL360 Gen10 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Bozuk bir DDR4/DDR5 ECC RAM modülünün bellek denetleyicisini kilitlemesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Tüm RAM'leri söküp sadece CPU1_DIMM_A1 yuvasına tek RAM takarak arızalı modülü izole edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "iLO / iDRAC Event Log",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sunucu açılırken Memory Initialization %50 seviyesinde kalıp boot etmemesi.",
+    "derin_teknik_analiz": "Bozuk bir DDR4/DDR5 ECC RAM modülünün bellek denetleyicisini kilitlemesi. Çözüm: Tüm RAM'leri söküp sadece CPU1_DIMM_A1 yuvasına tek RAM takarak arızalı modülü izole edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "hpe proliant dl360 gen10",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_162",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "HPE ProLiant DL360 Gen10: iDRAC / iLO Web Arayüzü HTTPS SSL Sertifikası Süre Aşımı",
+    "hizli_adimlar": [
+      "HPE ProLiant DL360 Gen10 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Yönetim kartı dahili SSL sertifikasının 5 yıllık süresinin dolması.",
+      "Saha mühendisliği servis prosedürünü yürütün: SSH / racadm üzerinden sslresetcfg veya yeni self-signed sertifika oluşturma komutunu yürütün.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "racadm sslresetcfg && racadm racreset",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Tarayıcıların sunucu yönetim paneline güvenlik gerekçesiyle erişimi tamamen engellemesi.",
+    "derin_teknik_analiz": "Yönetim kartı dahili SSL sertifikasının 5 yıllık süresinin dolması. Çözüm: SSH / racadm üzerinden sslresetcfg veya yeni self-signed sertifika oluşturma komutunu yürütün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "hpe proliant dl360 gen10",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_163",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "HPE ProLiant DL360 Gen10: PCIe Kart Uyumluluk Sorunu Nedeniyle Fanların %100 Bağırması",
+    "hizli_adimlar": [
+      "HPE ProLiant DL360 Gen10 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: iLO belleniminin sertifikasız kartın sıcaklığını okuyamayıp koruma amaçlı fanları tam devire alması.",
+      "Saha mühendisliği servis prosedürünü yürütün: iLO gelişmiş ayarlarından Fan Cooling politikasını Optimal olarak yapılandırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "set /system1/oemhp_cooling=optimal",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sunucuya üçüncü parti ekran kartı veya 10G kart takıldığında fanların susmaması.",
+    "derin_teknik_analiz": "iLO belleniminin sertifikasız kartın sıcaklığını okuyamayıp koruma amaçlı fanları tam devire alması. Çözüm: iLO gelişmiş ayarlarından Fan Cooling politikasını Optimal olarak yapılandırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "hpe proliant dl360 gen10",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_164",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Dell PowerEdge R650: SAS Expander Kablosu Gevşemesi ve Disk Yuvası Kaybı",
+    "hizli_adimlar": [
+      "Dell PowerEdge R650 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Arka SAS expander genişletme kartına giden Mini-SAS HD kablosunun yuvasından oynaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Sunucuyu kapatıp Mini-SAS kablosunu çıkartıp klik sesiyle tam oturtun.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ssacli ctrl all show config",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ön paneldeki 8 diskten sağdaki 4 diskin aniden sistemden kaybolması.",
+    "derin_teknik_analiz": "Arka SAS expander genişletme kartına giden Mini-SAS HD kablosunun yuvasından oynaması. Çözüm: Sunucuyu kapatıp Mini-SAS kablosunu çıkartıp klik sesiyle tam oturtun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "dell poweredge r650",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_165",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Dell PowerEdge R650: BIOS POST Ekranında Bellek Testinde Donma (Memory Training Hang)",
+    "hizli_adimlar": [
+      "Dell PowerEdge R650 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Bozuk bir DDR4/DDR5 ECC RAM modülünün bellek denetleyicisini kilitlemesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Tüm RAM'leri söküp sadece CPU1_DIMM_A1 yuvasına tek RAM takarak arızalı modülü izole edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "iLO / iDRAC Event Log",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sunucu açılırken Memory Initialization %50 seviyesinde kalıp boot etmemesi.",
+    "derin_teknik_analiz": "Bozuk bir DDR4/DDR5 ECC RAM modülünün bellek denetleyicisini kilitlemesi. Çözüm: Tüm RAM'leri söküp sadece CPU1_DIMM_A1 yuvasına tek RAM takarak arızalı modülü izole edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "dell poweredge r650",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_166",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Dell PowerEdge R650: iDRAC / iLO Web Arayüzü HTTPS SSL Sertifikası Süre Aşımı",
+    "hizli_adimlar": [
+      "Dell PowerEdge R650 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Yönetim kartı dahili SSL sertifikasının 5 yıllık süresinin dolması.",
+      "Saha mühendisliği servis prosedürünü yürütün: SSH / racadm üzerinden sslresetcfg veya yeni self-signed sertifika oluşturma komutunu yürütün.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "racadm sslresetcfg && racadm racreset",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Tarayıcıların sunucu yönetim paneline güvenlik gerekçesiyle erişimi tamamen engellemesi.",
+    "derin_teknik_analiz": "Yönetim kartı dahili SSL sertifikasının 5 yıllık süresinin dolması. Çözüm: SSH / racadm üzerinden sslresetcfg veya yeni self-signed sertifika oluşturma komutunu yürütün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "dell poweredge r650",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_167",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Dell PowerEdge R650: PCIe Kart Uyumluluk Sorunu Nedeniyle Fanların %100 Bağırması",
+    "hizli_adimlar": [
+      "Dell PowerEdge R650 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: iLO belleniminin sertifikasız kartın sıcaklığını okuyamayıp koruma amaçlı fanları tam devire alması.",
+      "Saha mühendisliği servis prosedürünü yürütün: iLO gelişmiş ayarlarından Fan Cooling politikasını Optimal olarak yapılandırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "set /system1/oemhp_cooling=optimal",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sunucuya üçüncü parti ekran kartı veya 10G kart takıldığında fanların susmaması.",
+    "derin_teknik_analiz": "iLO belleniminin sertifikasız kartın sıcaklığını okuyamayıp koruma amaçlı fanları tam devire alması. Çözüm: iLO gelişmiş ayarlarından Fan Cooling politikasını Optimal olarak yapılandırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "dell poweredge r650",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_168",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Cisco UCS C240 M5: SAS Expander Kablosu Gevşemesi ve Disk Yuvası Kaybı",
+    "hizli_adimlar": [
+      "Cisco UCS C240 M5 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Arka SAS expander genişletme kartına giden Mini-SAS HD kablosunun yuvasından oynaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Sunucuyu kapatıp Mini-SAS kablosunu çıkartıp klik sesiyle tam oturtun.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ssacli ctrl all show config",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ön paneldeki 8 diskten sağdaki 4 diskin aniden sistemden kaybolması.",
+    "derin_teknik_analiz": "Arka SAS expander genişletme kartına giden Mini-SAS HD kablosunun yuvasından oynaması. Çözüm: Sunucuyu kapatıp Mini-SAS kablosunu çıkartıp klik sesiyle tam oturtun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "cisco ucs c240 m5",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_169",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Cisco UCS C240 M5: BIOS POST Ekranında Bellek Testinde Donma (Memory Training Hang)",
+    "hizli_adimlar": [
+      "Cisco UCS C240 M5 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Bozuk bir DDR4/DDR5 ECC RAM modülünün bellek denetleyicisini kilitlemesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Tüm RAM'leri söküp sadece CPU1_DIMM_A1 yuvasına tek RAM takarak arızalı modülü izole edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "iLO / iDRAC Event Log",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sunucu açılırken Memory Initialization %50 seviyesinde kalıp boot etmemesi.",
+    "derin_teknik_analiz": "Bozuk bir DDR4/DDR5 ECC RAM modülünün bellek denetleyicisini kilitlemesi. Çözüm: Tüm RAM'leri söküp sadece CPU1_DIMM_A1 yuvasına tek RAM takarak arızalı modülü izole edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "cisco ucs c240 m5",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_170",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Cisco UCS C240 M5: iDRAC / iLO Web Arayüzü HTTPS SSL Sertifikası Süre Aşımı",
+    "hizli_adimlar": [
+      "Cisco UCS C240 M5 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Yönetim kartı dahili SSL sertifikasının 5 yıllık süresinin dolması.",
+      "Saha mühendisliği servis prosedürünü yürütün: SSH / racadm üzerinden sslresetcfg veya yeni self-signed sertifika oluşturma komutunu yürütün.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "racadm sslresetcfg && racadm racreset",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Tarayıcıların sunucu yönetim paneline güvenlik gerekçesiyle erişimi tamamen engellemesi.",
+    "derin_teknik_analiz": "Yönetim kartı dahili SSL sertifikasının 5 yıllık süresinin dolması. Çözüm: SSH / racadm üzerinden sslresetcfg veya yeni self-signed sertifika oluşturma komutunu yürütün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "cisco ucs c240 m5",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_171",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Cisco UCS C240 M5: PCIe Kart Uyumluluk Sorunu Nedeniyle Fanların %100 Bağırması",
+    "hizli_adimlar": [
+      "Cisco UCS C240 M5 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: iLO belleniminin sertifikasız kartın sıcaklığını okuyamayıp koruma amaçlı fanları tam devire alması.",
+      "Saha mühendisliği servis prosedürünü yürütün: iLO gelişmiş ayarlarından Fan Cooling politikasını Optimal olarak yapılandırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "set /system1/oemhp_cooling=optimal",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sunucuya üçüncü parti ekran kartı veya 10G kart takıldığında fanların susmaması.",
+    "derin_teknik_analiz": "iLO belleniminin sertifikasız kartın sıcaklığını okuyamayıp koruma amaçlı fanları tam devire alması. Çözüm: iLO gelişmiş ayarlarından Fan Cooling politikasını Optimal olarak yapılandırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "cisco ucs c240 m5",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_172",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Lenovo ThinkSystem SR630: SAS Expander Kablosu Gevşemesi ve Disk Yuvası Kaybı",
+    "hizli_adimlar": [
+      "Lenovo ThinkSystem SR630 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Arka SAS expander genişletme kartına giden Mini-SAS HD kablosunun yuvasından oynaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Sunucuyu kapatıp Mini-SAS kablosunu çıkartıp klik sesiyle tam oturtun.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ssacli ctrl all show config",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ön paneldeki 8 diskten sağdaki 4 diskin aniden sistemden kaybolması.",
+    "derin_teknik_analiz": "Arka SAS expander genişletme kartına giden Mini-SAS HD kablosunun yuvasından oynaması. Çözüm: Sunucuyu kapatıp Mini-SAS kablosunu çıkartıp klik sesiyle tam oturtun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "lenovo thinksystem sr630",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_173",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Lenovo ThinkSystem SR630: BIOS POST Ekranında Bellek Testinde Donma (Memory Training Hang)",
+    "hizli_adimlar": [
+      "Lenovo ThinkSystem SR630 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Bozuk bir DDR4/DDR5 ECC RAM modülünün bellek denetleyicisini kilitlemesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Tüm RAM'leri söküp sadece CPU1_DIMM_A1 yuvasına tek RAM takarak arızalı modülü izole edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "iLO / iDRAC Event Log",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sunucu açılırken Memory Initialization %50 seviyesinde kalıp boot etmemesi.",
+    "derin_teknik_analiz": "Bozuk bir DDR4/DDR5 ECC RAM modülünün bellek denetleyicisini kilitlemesi. Çözüm: Tüm RAM'leri söküp sadece CPU1_DIMM_A1 yuvasına tek RAM takarak arızalı modülü izole edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "lenovo thinksystem sr630",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_174",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Lenovo ThinkSystem SR630: iDRAC / iLO Web Arayüzü HTTPS SSL Sertifikası Süre Aşımı",
+    "hizli_adimlar": [
+      "Lenovo ThinkSystem SR630 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Yönetim kartı dahili SSL sertifikasının 5 yıllık süresinin dolması.",
+      "Saha mühendisliği servis prosedürünü yürütün: SSH / racadm üzerinden sslresetcfg veya yeni self-signed sertifika oluşturma komutunu yürütün.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "racadm sslresetcfg && racadm racreset",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Tarayıcıların sunucu yönetim paneline güvenlik gerekçesiyle erişimi tamamen engellemesi.",
+    "derin_teknik_analiz": "Yönetim kartı dahili SSL sertifikasının 5 yıllık süresinin dolması. Çözüm: SSH / racadm üzerinden sslresetcfg veya yeni self-signed sertifika oluşturma komutunu yürütün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "lenovo thinksystem sr630",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_175",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Lenovo ThinkSystem SR630: PCIe Kart Uyumluluk Sorunu Nedeniyle Fanların %100 Bağırması",
+    "hizli_adimlar": [
+      "Lenovo ThinkSystem SR630 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: iLO belleniminin sertifikasız kartın sıcaklığını okuyamayıp koruma amaçlı fanları tam devire alması.",
+      "Saha mühendisliği servis prosedürünü yürütün: iLO gelişmiş ayarlarından Fan Cooling politikasını Optimal olarak yapılandırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "set /system1/oemhp_cooling=optimal",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sunucuya üçüncü parti ekran kartı veya 10G kart takıldığında fanların susmaması.",
+    "derin_teknik_analiz": "iLO belleniminin sertifikasız kartın sıcaklığını okuyamayıp koruma amaçlı fanları tam devire alması. Çözüm: iLO gelişmiş ayarlarından Fan Cooling politikasını Optimal olarak yapılandırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "lenovo thinksystem sr630",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_176",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "HPE ProLiant ML350 Gen10: SAS Expander Kablosu Gevşemesi ve Disk Yuvası Kaybı",
+    "hizli_adimlar": [
+      "HPE ProLiant ML350 Gen10 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Arka SAS expander genişletme kartına giden Mini-SAS HD kablosunun yuvasından oynaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Sunucuyu kapatıp Mini-SAS kablosunu çıkartıp klik sesiyle tam oturtun.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ssacli ctrl all show config",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ön paneldeki 8 diskten sağdaki 4 diskin aniden sistemden kaybolması.",
+    "derin_teknik_analiz": "Arka SAS expander genişletme kartına giden Mini-SAS HD kablosunun yuvasından oynaması. Çözüm: Sunucuyu kapatıp Mini-SAS kablosunu çıkartıp klik sesiyle tam oturtun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "hpe proliant ml350 gen10",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_177",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "HPE ProLiant ML350 Gen10: BIOS POST Ekranında Bellek Testinde Donma (Memory Training Hang)",
+    "hizli_adimlar": [
+      "HPE ProLiant ML350 Gen10 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Bozuk bir DDR4/DDR5 ECC RAM modülünün bellek denetleyicisini kilitlemesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Tüm RAM'leri söküp sadece CPU1_DIMM_A1 yuvasına tek RAM takarak arızalı modülü izole edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "iLO / iDRAC Event Log",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sunucu açılırken Memory Initialization %50 seviyesinde kalıp boot etmemesi.",
+    "derin_teknik_analiz": "Bozuk bir DDR4/DDR5 ECC RAM modülünün bellek denetleyicisini kilitlemesi. Çözüm: Tüm RAM'leri söküp sadece CPU1_DIMM_A1 yuvasına tek RAM takarak arızalı modülü izole edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "hpe proliant ml350 gen10",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_178",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "HPE ProLiant ML350 Gen10: iDRAC / iLO Web Arayüzü HTTPS SSL Sertifikası Süre Aşımı",
+    "hizli_adimlar": [
+      "HPE ProLiant ML350 Gen10 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Yönetim kartı dahili SSL sertifikasının 5 yıllık süresinin dolması.",
+      "Saha mühendisliği servis prosedürünü yürütün: SSH / racadm üzerinden sslresetcfg veya yeni self-signed sertifika oluşturma komutunu yürütün.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "racadm sslresetcfg && racadm racreset",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Tarayıcıların sunucu yönetim paneline güvenlik gerekçesiyle erişimi tamamen engellemesi.",
+    "derin_teknik_analiz": "Yönetim kartı dahili SSL sertifikasının 5 yıllık süresinin dolması. Çözüm: SSH / racadm üzerinden sslresetcfg veya yeni self-signed sertifika oluşturma komutunu yürütün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "hpe proliant ml350 gen10",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_179",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "HPE ProLiant ML350 Gen10: PCIe Kart Uyumluluk Sorunu Nedeniyle Fanların %100 Bağırması",
+    "hizli_adimlar": [
+      "HPE ProLiant ML350 Gen10 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: iLO belleniminin sertifikasız kartın sıcaklığını okuyamayıp koruma amaçlı fanları tam devire alması.",
+      "Saha mühendisliği servis prosedürünü yürütün: iLO gelişmiş ayarlarından Fan Cooling politikasını Optimal olarak yapılandırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "set /system1/oemhp_cooling=optimal",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sunucuya üçüncü parti ekran kartı veya 10G kart takıldığında fanların susmaması.",
+    "derin_teknik_analiz": "iLO belleniminin sertifikasız kartın sıcaklığını okuyamayıp koruma amaçlı fanları tam devire alması. Çözüm: iLO gelişmiş ayarlarından Fan Cooling politikasını Optimal olarak yapılandırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "hpe proliant ml350 gen10",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_180",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Dell PowerEdge T440: SAS Expander Kablosu Gevşemesi ve Disk Yuvası Kaybı",
+    "hizli_adimlar": [
+      "Dell PowerEdge T440 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Arka SAS expander genişletme kartına giden Mini-SAS HD kablosunun yuvasından oynaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Sunucuyu kapatıp Mini-SAS kablosunu çıkartıp klik sesiyle tam oturtun.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ssacli ctrl all show config",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ön paneldeki 8 diskten sağdaki 4 diskin aniden sistemden kaybolması.",
+    "derin_teknik_analiz": "Arka SAS expander genişletme kartına giden Mini-SAS HD kablosunun yuvasından oynaması. Çözüm: Sunucuyu kapatıp Mini-SAS kablosunu çıkartıp klik sesiyle tam oturtun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "dell poweredge t440",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_181",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Dell PowerEdge T440: BIOS POST Ekranında Bellek Testinde Donma (Memory Training Hang)",
+    "hizli_adimlar": [
+      "Dell PowerEdge T440 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Bozuk bir DDR4/DDR5 ECC RAM modülünün bellek denetleyicisini kilitlemesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Tüm RAM'leri söküp sadece CPU1_DIMM_A1 yuvasına tek RAM takarak arızalı modülü izole edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "iLO / iDRAC Event Log",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sunucu açılırken Memory Initialization %50 seviyesinde kalıp boot etmemesi.",
+    "derin_teknik_analiz": "Bozuk bir DDR4/DDR5 ECC RAM modülünün bellek denetleyicisini kilitlemesi. Çözüm: Tüm RAM'leri söküp sadece CPU1_DIMM_A1 yuvasına tek RAM takarak arızalı modülü izole edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "dell poweredge t440",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_182",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Dell PowerEdge T440: iDRAC / iLO Web Arayüzü HTTPS SSL Sertifikası Süre Aşımı",
+    "hizli_adimlar": [
+      "Dell PowerEdge T440 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Yönetim kartı dahili SSL sertifikasının 5 yıllık süresinin dolması.",
+      "Saha mühendisliği servis prosedürünü yürütün: SSH / racadm üzerinden sslresetcfg veya yeni self-signed sertifika oluşturma komutunu yürütün.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "racadm sslresetcfg && racadm racreset",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Tarayıcıların sunucu yönetim paneline güvenlik gerekçesiyle erişimi tamamen engellemesi.",
+    "derin_teknik_analiz": "Yönetim kartı dahili SSL sertifikasının 5 yıllık süresinin dolması. Çözüm: SSH / racadm üzerinden sslresetcfg veya yeni self-signed sertifika oluşturma komutunu yürütün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "dell poweredge t440",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_183",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Dell PowerEdge T440: PCIe Kart Uyumluluk Sorunu Nedeniyle Fanların %100 Bağırması",
+    "hizli_adimlar": [
+      "Dell PowerEdge T440 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: iLO belleniminin sertifikasız kartın sıcaklığını okuyamayıp koruma amaçlı fanları tam devire alması.",
+      "Saha mühendisliği servis prosedürünü yürütün: iLO gelişmiş ayarlarından Fan Cooling politikasını Optimal olarak yapılandırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "set /system1/oemhp_cooling=optimal",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sunucuya üçüncü parti ekran kartı veya 10G kart takıldığında fanların susmaması.",
+    "derin_teknik_analiz": "iLO belleniminin sertifikasız kartın sıcaklığını okuyamayıp koruma amaçlı fanları tam devire alması. Çözüm: iLO gelişmiş ayarlarından Fan Cooling politikasını Optimal olarak yapılandırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "dell poweredge t440",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_184",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Supermicro SuperServer 2029U: SAS Expander Kablosu Gevşemesi ve Disk Yuvası Kaybı",
+    "hizli_adimlar": [
+      "Supermicro SuperServer 2029U sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Arka SAS expander genişletme kartına giden Mini-SAS HD kablosunun yuvasından oynaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Sunucuyu kapatıp Mini-SAS kablosunu çıkartıp klik sesiyle tam oturtun.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ssacli ctrl all show config",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ön paneldeki 8 diskten sağdaki 4 diskin aniden sistemden kaybolması.",
+    "derin_teknik_analiz": "Arka SAS expander genişletme kartına giden Mini-SAS HD kablosunun yuvasından oynaması. Çözüm: Sunucuyu kapatıp Mini-SAS kablosunu çıkartıp klik sesiyle tam oturtun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "supermicro superserver 2029u",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_185",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Supermicro SuperServer 2029U: BIOS POST Ekranında Bellek Testinde Donma (Memory Training Hang)",
+    "hizli_adimlar": [
+      "Supermicro SuperServer 2029U sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Bozuk bir DDR4/DDR5 ECC RAM modülünün bellek denetleyicisini kilitlemesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Tüm RAM'leri söküp sadece CPU1_DIMM_A1 yuvasına tek RAM takarak arızalı modülü izole edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "iLO / iDRAC Event Log",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sunucu açılırken Memory Initialization %50 seviyesinde kalıp boot etmemesi.",
+    "derin_teknik_analiz": "Bozuk bir DDR4/DDR5 ECC RAM modülünün bellek denetleyicisini kilitlemesi. Çözüm: Tüm RAM'leri söküp sadece CPU1_DIMM_A1 yuvasına tek RAM takarak arızalı modülü izole edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "supermicro superserver 2029u",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_186",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Supermicro SuperServer 2029U: iDRAC / iLO Web Arayüzü HTTPS SSL Sertifikası Süre Aşımı",
+    "hizli_adimlar": [
+      "Supermicro SuperServer 2029U sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Yönetim kartı dahili SSL sertifikasının 5 yıllık süresinin dolması.",
+      "Saha mühendisliği servis prosedürünü yürütün: SSH / racadm üzerinden sslresetcfg veya yeni self-signed sertifika oluşturma komutunu yürütün.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "racadm sslresetcfg && racadm racreset",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Tarayıcıların sunucu yönetim paneline güvenlik gerekçesiyle erişimi tamamen engellemesi.",
+    "derin_teknik_analiz": "Yönetim kartı dahili SSL sertifikasının 5 yıllık süresinin dolması. Çözüm: SSH / racadm üzerinden sslresetcfg veya yeni self-signed sertifika oluşturma komutunu yürütün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "supermicro superserver 2029u",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_187",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Supermicro SuperServer 2029U: PCIe Kart Uyumluluk Sorunu Nedeniyle Fanların %100 Bağırması",
+    "hizli_adimlar": [
+      "Supermicro SuperServer 2029U sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: iLO belleniminin sertifikasız kartın sıcaklığını okuyamayıp koruma amaçlı fanları tam devire alması.",
+      "Saha mühendisliği servis prosedürünü yürütün: iLO gelişmiş ayarlarından Fan Cooling politikasını Optimal olarak yapılandırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "set /system1/oemhp_cooling=optimal",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sunucuya üçüncü parti ekran kartı veya 10G kart takıldığında fanların susmaması.",
+    "derin_teknik_analiz": "iLO belleniminin sertifikasız kartın sıcaklığını okuyamayıp koruma amaçlı fanları tam devire alması. Çözüm: iLO gelişmiş ayarlarından Fan Cooling politikasını Optimal olarak yapılandırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "supermicro superserver 2029u",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_188",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Fujitsu Primergy TX1330: SAS Expander Kablosu Gevşemesi ve Disk Yuvası Kaybı",
+    "hizli_adimlar": [
+      "Fujitsu Primergy TX1330 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Arka SAS expander genişletme kartına giden Mini-SAS HD kablosunun yuvasından oynaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Sunucuyu kapatıp Mini-SAS kablosunu çıkartıp klik sesiyle tam oturtun.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ssacli ctrl all show config",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ön paneldeki 8 diskten sağdaki 4 diskin aniden sistemden kaybolması.",
+    "derin_teknik_analiz": "Arka SAS expander genişletme kartına giden Mini-SAS HD kablosunun yuvasından oynaması. Çözüm: Sunucuyu kapatıp Mini-SAS kablosunu çıkartıp klik sesiyle tam oturtun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "fujitsu primergy tx1330",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_189",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Fujitsu Primergy TX1330: BIOS POST Ekranında Bellek Testinde Donma (Memory Training Hang)",
+    "hizli_adimlar": [
+      "Fujitsu Primergy TX1330 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Bozuk bir DDR4/DDR5 ECC RAM modülünün bellek denetleyicisini kilitlemesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Tüm RAM'leri söküp sadece CPU1_DIMM_A1 yuvasına tek RAM takarak arızalı modülü izole edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "iLO / iDRAC Event Log",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sunucu açılırken Memory Initialization %50 seviyesinde kalıp boot etmemesi.",
+    "derin_teknik_analiz": "Bozuk bir DDR4/DDR5 ECC RAM modülünün bellek denetleyicisini kilitlemesi. Çözüm: Tüm RAM'leri söküp sadece CPU1_DIMM_A1 yuvasına tek RAM takarak arızalı modülü izole edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "fujitsu primergy tx1330",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_190",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Fujitsu Primergy TX1330: iDRAC / iLO Web Arayüzü HTTPS SSL Sertifikası Süre Aşımı",
+    "hizli_adimlar": [
+      "Fujitsu Primergy TX1330 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Yönetim kartı dahili SSL sertifikasının 5 yıllık süresinin dolması.",
+      "Saha mühendisliği servis prosedürünü yürütün: SSH / racadm üzerinden sslresetcfg veya yeni self-signed sertifika oluşturma komutunu yürütün.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "racadm sslresetcfg && racadm racreset",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Tarayıcıların sunucu yönetim paneline güvenlik gerekçesiyle erişimi tamamen engellemesi.",
+    "derin_teknik_analiz": "Yönetim kartı dahili SSL sertifikasının 5 yıllık süresinin dolması. Çözüm: SSH / racadm üzerinden sslresetcfg veya yeni self-signed sertifika oluşturma komutunu yürütün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "fujitsu primergy tx1330",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_191",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Fujitsu Primergy TX1330: PCIe Kart Uyumluluk Sorunu Nedeniyle Fanların %100 Bağırması",
+    "hizli_adimlar": [
+      "Fujitsu Primergy TX1330 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: iLO belleniminin sertifikasız kartın sıcaklığını okuyamayıp koruma amaçlı fanları tam devire alması.",
+      "Saha mühendisliği servis prosedürünü yürütün: iLO gelişmiş ayarlarından Fan Cooling politikasını Optimal olarak yapılandırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "set /system1/oemhp_cooling=optimal",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sunucuya üçüncü parti ekran kartı veya 10G kart takıldığında fanların susmaması.",
+    "derin_teknik_analiz": "iLO belleniminin sertifikasız kartın sıcaklığını okuyamayıp koruma amaçlı fanları tam devire alması. Çözüm: iLO gelişmiş ayarlarından Fan Cooling politikasını Optimal olarak yapılandırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "fujitsu primergy tx1330",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "fin_srv_20",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "HPE ProLiant Gen11: Smart Storage Administrator (SSA) RAID 10 Kurulumu",
+    "hizli_adimlar": [
+      "Sunucu uzaktan yönetim konsolunu veya seri arayüzünü açın.",
+      "Kök neden analizini uygulayın: İşletim sistemi öncesi SSA arayüzünde doğru şerit boyutu (Stripe Size) seçilmemesi.",
+      "Saha servis prosedürünü yerine getirin: SSA CLI üzerinden 'ctrl slot=0 create type=ld drives=all raid=10 ss=256' komutunu yürütün.",
+      "Donanım durum raporu alarak tüm birimlerin yeşil (Healthy) olduğunu doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Sunucu CLI Komutu",
+        "komut": "ssacli ctrl slot=0 create type=ld drives=all raid=10",
+        "aciklama": "Sunucu durum komutu."
+      }
+    ],
+    "temel_anlatim": "Sunucuya yeni takılan 4 adet NVMe U.3 SSD'nin RAID 10 dizisi olarak yapılandırılması.",
+    "derin_teknik_analiz": "İşletim sistemi öncesi SSA arayüzünde doğru şerit boyutu (Stripe Size) seçilmemesi. Çözüm: SSA CLI üzerinden 'ctrl slot=0 create type=ld drives=all raid=10 ss=256' komutunu yürütün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata giderilemedi",
+        "neden": "Anakart sistem kartı arızalıdır.",
+        "cozum": "Yetkili donanım değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sunucu",
+      "ilo",
+      "idrac",
+      "raid",
+      "donanim"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "fin_srv_21",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Dell PowerEdge R750: BOSS-S2 (Boot Optimized Storage) M.2 RAID 1 Bozulması",
+    "hizli_adimlar": [
+      "Sunucu uzaktan yönetim konsolunu veya seri arayüzünü açın.",
+      "Kök neden analizini uygulayın: M.2 SSD'nin ömrünü tamamlaması sonucu BOSS kontrolörünün diski diziden ayırması.",
+      "Saha servis prosedürünü yerine getirin: Sunucuyu kapatmadan arka kızaktan arızalı M.2 SSD'yi çıkarıp yenisini takın; BOSS otomatik rebuild yapacaktır.",
+      "Donanım durum raporu alarak tüm birimlerin yeşil (Healthy) olduğunu doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Sunucu CLI Komutu",
+        "komut": "racadm storage get pdisks -o -p Status",
+        "aciklama": "Sunucu durum komutu."
+      }
+    ],
+    "temel_anlatim": "İşletim sisteminin kurulu olduğu BOSS kartındaki M.2 SATA SSD'lerden birinin sarı ünlem vermesi.",
+    "derin_teknik_analiz": "M.2 SSD'nin ömrünü tamamlaması sonucu BOSS kontrolörünün diski diziden ayırması. Çözüm: Sunucuyu kapatmadan arka kızaktan arızalı M.2 SSD'yi çıkarıp yenisini takın; BOSS otomatik rebuild yapacaktır.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata giderilemedi",
+        "neden": "Anakart sistem kartı arızalıdır.",
+        "cozum": "Yetkili donanım değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sunucu",
+      "ilo",
+      "idrac",
+      "raid",
+      "donanim"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "fin_srv_22",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Cisco UCS B-Series Blade: Service Profile Ayrışması ve vNIC MAC Çakışması",
+    "hizli_adimlar": [
+      "Sunucu uzaktan yönetim konsolunu veya seri arayüzünü açın.",
+      "Kök neden analizini uygulayın: Hizmet profilinde havuzdan çekilen MAC adresinin başka bir blade sunucuya önceden tanımlanmış olması.",
+      "Saha servis prosedürünü yerine getirin: UCS Manager üzerinden MAC Adres Havuzunu (MAC Pool) denetleyin ve çakışan adresi temizleyin.",
+      "Donanım durum raporu alarak tüm birimlerin yeşil (Healthy) olduğunu doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Sunucu CLI Komutu",
+        "komut": "show service-profile circuit",
+        "aciklama": "Sunucu durum komutu."
+      }
+    ],
+    "temel_anlatim": "Blade sunucu açılırken ağ kartlarının switch tarafından engellenmesi.",
+    "derin_teknik_analiz": "Hizmet profilinde havuzdan çekilen MAC adresinin başka bir blade sunucuya önceden tanımlanmış olması. Çözüm: UCS Manager üzerinden MAC Adres Havuzunu (MAC Pool) denetleyin ve çakışan adresi temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata giderilemedi",
+        "neden": "Anakart sistem kartı arızalıdır.",
+        "cozum": "Yetkili donanım değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sunucu",
+      "ilo",
+      "idrac",
+      "raid",
+      "donanim"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "fin_srv_23",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Lenovo ThinkSystem: XClarity Controller (XCC) Bozuk Bellenim Kurtarma",
+    "hizli_adimlar": [
+      "Sunucu uzaktan yönetim konsolunu veya seri arayüzünü açın.",
+      "Kök neden analizini uygulayın: Yarım kalan firmware güncellemesi sonucu birincil SPI flash belleğin bozulması.",
+      "Saha servis prosedürünü yerine getirin: Anakart üzerindeki XCC Backup Flash atlama telini (Jumper) aktif konuma getirerek yedek bellenimle başlatın.",
+      "Donanım durum raporu alarak tüm birimlerin yeşil (Healthy) olduğunu doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Sunucu CLI Komutu",
+        "komut": "OneCLI.exe update flash",
+        "aciklama": "Sunucu durum komutu."
+      }
+    ],
+    "temel_anlatim": "Sunucu yönetim paneline bağlanılamaması ve açılışta XCC Heartbeat LED'inin sönük kalması.",
+    "derin_teknik_analiz": "Yarım kalan firmware güncellemesi sonucu birincil SPI flash belleğin bozulması. Çözüm: Anakart üzerindeki XCC Backup Flash atlama telini (Jumper) aktif konuma getirerek yedek bellenimle başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata giderilemedi",
+        "neden": "Anakart sistem kartı arızalıdır.",
+        "cozum": "Yetkili donanım değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sunucu",
+      "ilo",
+      "idrac",
+      "raid",
+      "donanim"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2395",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "HPE ProLiant DL380 Gen10: PERC / Smart Array RAID Pilinin (BBU) Bozulması ve Write-Through Moduna Düşüş",
+    "hizli_adimlar": [
+      "HPE ProLiant DL380 Gen10 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: RAID önbellek lityum pilinin ömrünü tamamlaması nedeniyle kontrolörün veri kaybını önlemek için önbelleği kapatması.",
+      "Saha servis prosedürünü yerine getirin: Arızalı pil modülünü (BBU/Cache Vault) yenileyin ve yazma politikasını Write-Back olarak doğrulayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "HPE ProLiant DL380 Gen10 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sunucu disk yazma hızının 500 MB/s seviyesinden 20 MB/s seviyesine çakılması.",
+    "derin_teknik_analiz": "Kök Neden: RAID önbellek lityum pilinin ömrünü tamamlaması nedeniyle kontrolörün veri kaybını önlemek için önbelleği kapatması. Saha Çözümü: Arızalı pil modülünü (BBU/Cache Vault) yenileyin ve yazma politikasını Write-Back olarak doğrulayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "hpe proliant dl380 gen10",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2396",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "HPE ProLiant DL380 Gen10: ECC RAM Correctable Error Eşiğinin Aşılması ve DIMM Devre Dışı Kalması",
+    "hizli_adimlar": [
+      "HPE ProLiant DL380 Gen10 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: RAM modülündeki tek bitlik hataların kritik eşik değerini (Threshold) aşması.",
+      "Saha servis prosedürünü yerine getirin: Sunucuyu kapatıp ilgili DIMM slotunu temizleyin, gerekirse modülü yenisiyle değiştirin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "HPE ProLiant DL380 Gen10 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sunucu yönetim panelinde bellek slotunun sarı ünlem vermesi.",
+    "derin_teknik_analiz": "Kök Neden: RAM modülündeki tek bitlik hataların kritik eşik değerini (Threshold) aşması. Saha Çözümü: Sunucuyu kapatıp ilgili DIMM slotunu temizleyin, gerekirse modülü yenisiyle değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "hpe proliant dl380 gen10",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2397",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "HPE ProLiant DL380 Gen10: Yedek Güç Kaynağının (Redundant PSU) Faz Kaybı Nedeniyle Alarm Vermesi",
+    "hizli_adimlar": [
+      "HPE ProLiant DL380 Gen10 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: İkinci PSU'nun bağlı olduğu PDU sigortasının atması veya prizin temassızlığı.",
+      "Saha servis prosedürünü yerine getirin: Güç kaynağı kablosunu bağımsız B panosu UPS prizine takarak tam yedekliliği sağlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "HPE ProLiant DL380 Gen10 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sunucu arkasındaki ikinci güç kaynağının sarı yanması ve iLO günlüğüne Power Input Loss düşmesi.",
+    "derin_teknik_analiz": "Kök Neden: İkinci PSU'nun bağlı olduğu PDU sigortasının atması veya prizin temassızlığı. Saha Çözümü: Güç kaynağı kablosunu bağımsız B panosu UPS prizine takarak tam yedekliliği sağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "hpe proliant dl380 gen10",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2398",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Dell PowerEdge R740xd: PERC / Smart Array RAID Pilinin (BBU) Bozulması ve Write-Through Moduna Düşüş",
+    "hizli_adimlar": [
+      "Dell PowerEdge R740xd cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: RAID önbellek lityum pilinin ömrünü tamamlaması nedeniyle kontrolörün veri kaybını önlemek için önbelleği kapatması.",
+      "Saha servis prosedürünü yerine getirin: Arızalı pil modülünü (BBU/Cache Vault) yenileyin ve yazma politikasını Write-Back olarak doğrulayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Dell PowerEdge R740xd Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sunucu disk yazma hızının 500 MB/s seviyesinden 20 MB/s seviyesine çakılması.",
+    "derin_teknik_analiz": "Kök Neden: RAID önbellek lityum pilinin ömrünü tamamlaması nedeniyle kontrolörün veri kaybını önlemek için önbelleği kapatması. Saha Çözümü: Arızalı pil modülünü (BBU/Cache Vault) yenileyin ve yazma politikasını Write-Back olarak doğrulayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "dell poweredge r740xd",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2399",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Dell PowerEdge R740xd: ECC RAM Correctable Error Eşiğinin Aşılması ve DIMM Devre Dışı Kalması",
+    "hizli_adimlar": [
+      "Dell PowerEdge R740xd cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: RAM modülündeki tek bitlik hataların kritik eşik değerini (Threshold) aşması.",
+      "Saha servis prosedürünü yerine getirin: Sunucuyu kapatıp ilgili DIMM slotunu temizleyin, gerekirse modülü yenisiyle değiştirin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Dell PowerEdge R740xd Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sunucu yönetim panelinde bellek slotunun sarı ünlem vermesi.",
+    "derin_teknik_analiz": "Kök Neden: RAM modülündeki tek bitlik hataların kritik eşik değerini (Threshold) aşması. Saha Çözümü: Sunucuyu kapatıp ilgili DIMM slotunu temizleyin, gerekirse modülü yenisiyle değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "dell poweredge r740xd",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2400",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Dell PowerEdge R740xd: Yedek Güç Kaynağının (Redundant PSU) Faz Kaybı Nedeniyle Alarm Vermesi",
+    "hizli_adimlar": [
+      "Dell PowerEdge R740xd cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: İkinci PSU'nun bağlı olduğu PDU sigortasının atması veya prizin temassızlığı.",
+      "Saha servis prosedürünü yerine getirin: Güç kaynağı kablosunu bağımsız B panosu UPS prizine takarak tam yedekliliği sağlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Dell PowerEdge R740xd Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sunucu arkasındaki ikinci güç kaynağının sarı yanması ve iLO günlüğüne Power Input Loss düşmesi.",
+    "derin_teknik_analiz": "Kök Neden: İkinci PSU'nun bağlı olduğu PDU sigortasının atması veya prizin temassızlığı. Saha Çözümü: Güç kaynağı kablosunu bağımsız B panosu UPS prizine takarak tam yedekliliği sağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "dell poweredge r740xd",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2401",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Cisco UCS C220 M5: PERC / Smart Array RAID Pilinin (BBU) Bozulması ve Write-Through Moduna Düşüş",
+    "hizli_adimlar": [
+      "Cisco UCS C220 M5 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: RAID önbellek lityum pilinin ömrünü tamamlaması nedeniyle kontrolörün veri kaybını önlemek için önbelleği kapatması.",
+      "Saha servis prosedürünü yerine getirin: Arızalı pil modülünü (BBU/Cache Vault) yenileyin ve yazma politikasını Write-Back olarak doğrulayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Cisco UCS C220 M5 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sunucu disk yazma hızının 500 MB/s seviyesinden 20 MB/s seviyesine çakılması.",
+    "derin_teknik_analiz": "Kök Neden: RAID önbellek lityum pilinin ömrünü tamamlaması nedeniyle kontrolörün veri kaybını önlemek için önbelleği kapatması. Saha Çözümü: Arızalı pil modülünü (BBU/Cache Vault) yenileyin ve yazma politikasını Write-Back olarak doğrulayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "cisco ucs c220 m5",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2402",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Cisco UCS C220 M5: ECC RAM Correctable Error Eşiğinin Aşılması ve DIMM Devre Dışı Kalması",
+    "hizli_adimlar": [
+      "Cisco UCS C220 M5 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: RAM modülündeki tek bitlik hataların kritik eşik değerini (Threshold) aşması.",
+      "Saha servis prosedürünü yerine getirin: Sunucuyu kapatıp ilgili DIMM slotunu temizleyin, gerekirse modülü yenisiyle değiştirin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Cisco UCS C220 M5 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sunucu yönetim panelinde bellek slotunun sarı ünlem vermesi.",
+    "derin_teknik_analiz": "Kök Neden: RAM modülündeki tek bitlik hataların kritik eşik değerini (Threshold) aşması. Saha Çözümü: Sunucuyu kapatıp ilgili DIMM slotunu temizleyin, gerekirse modülü yenisiyle değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "cisco ucs c220 m5",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2403",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Cisco UCS C220 M5: Yedek Güç Kaynağının (Redundant PSU) Faz Kaybı Nedeniyle Alarm Vermesi",
+    "hizli_adimlar": [
+      "Cisco UCS C220 M5 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: İkinci PSU'nun bağlı olduğu PDU sigortasının atması veya prizin temassızlığı.",
+      "Saha servis prosedürünü yerine getirin: Güç kaynağı kablosunu bağımsız B panosu UPS prizine takarak tam yedekliliği sağlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Cisco UCS C220 M5 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sunucu arkasındaki ikinci güç kaynağının sarı yanması ve iLO günlüğüne Power Input Loss düşmesi.",
+    "derin_teknik_analiz": "Kök Neden: İkinci PSU'nun bağlı olduğu PDU sigortasının atması veya prizin temassızlığı. Saha Çözümü: Güç kaynağı kablosunu bağımsız B panosu UPS prizine takarak tam yedekliliği sağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "cisco ucs c220 m5",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2404",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Lenovo ThinkSystem SR650: PERC / Smart Array RAID Pilinin (BBU) Bozulması ve Write-Through Moduna Düşüş",
+    "hizli_adimlar": [
+      "Lenovo ThinkSystem SR650 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: RAID önbellek lityum pilinin ömrünü tamamlaması nedeniyle kontrolörün veri kaybını önlemek için önbelleği kapatması.",
+      "Saha servis prosedürünü yerine getirin: Arızalı pil modülünü (BBU/Cache Vault) yenileyin ve yazma politikasını Write-Back olarak doğrulayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Lenovo ThinkSystem SR650 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sunucu disk yazma hızının 500 MB/s seviyesinden 20 MB/s seviyesine çakılması.",
+    "derin_teknik_analiz": "Kök Neden: RAID önbellek lityum pilinin ömrünü tamamlaması nedeniyle kontrolörün veri kaybını önlemek için önbelleği kapatması. Saha Çözümü: Arızalı pil modülünü (BBU/Cache Vault) yenileyin ve yazma politikasını Write-Back olarak doğrulayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "lenovo thinksystem sr650",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2405",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Lenovo ThinkSystem SR650: ECC RAM Correctable Error Eşiğinin Aşılması ve DIMM Devre Dışı Kalması",
+    "hizli_adimlar": [
+      "Lenovo ThinkSystem SR650 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: RAM modülündeki tek bitlik hataların kritik eşik değerini (Threshold) aşması.",
+      "Saha servis prosedürünü yerine getirin: Sunucuyu kapatıp ilgili DIMM slotunu temizleyin, gerekirse modülü yenisiyle değiştirin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Lenovo ThinkSystem SR650 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sunucu yönetim panelinde bellek slotunun sarı ünlem vermesi.",
+    "derin_teknik_analiz": "Kök Neden: RAM modülündeki tek bitlik hataların kritik eşik değerini (Threshold) aşması. Saha Çözümü: Sunucuyu kapatıp ilgili DIMM slotunu temizleyin, gerekirse modülü yenisiyle değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "lenovo thinksystem sr650",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2406",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Lenovo ThinkSystem SR650: Yedek Güç Kaynağının (Redundant PSU) Faz Kaybı Nedeniyle Alarm Vermesi",
+    "hizli_adimlar": [
+      "Lenovo ThinkSystem SR650 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: İkinci PSU'nun bağlı olduğu PDU sigortasının atması veya prizin temassızlığı.",
+      "Saha servis prosedürünü yerine getirin: Güç kaynağı kablosunu bağımsız B panosu UPS prizine takarak tam yedekliliği sağlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Lenovo ThinkSystem SR650 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sunucu arkasındaki ikinci güç kaynağının sarı yanması ve iLO günlüğüne Power Input Loss düşmesi.",
+    "derin_teknik_analiz": "Kök Neden: İkinci PSU'nun bağlı olduğu PDU sigortasının atması veya prizin temassızlığı. Saha Çözümü: Güç kaynağı kablosunu bağımsız B panosu UPS prizine takarak tam yedekliliği sağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "lenovo thinksystem sr650",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2407",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Fujitsu Primergy RX2530: PERC / Smart Array RAID Pilinin (BBU) Bozulması ve Write-Through Moduna Düşüş",
+    "hizli_adimlar": [
+      "Fujitsu Primergy RX2530 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: RAID önbellek lityum pilinin ömrünü tamamlaması nedeniyle kontrolörün veri kaybını önlemek için önbelleği kapatması.",
+      "Saha servis prosedürünü yerine getirin: Arızalı pil modülünü (BBU/Cache Vault) yenileyin ve yazma politikasını Write-Back olarak doğrulayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Fujitsu Primergy RX2530 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sunucu disk yazma hızının 500 MB/s seviyesinden 20 MB/s seviyesine çakılması.",
+    "derin_teknik_analiz": "Kök Neden: RAID önbellek lityum pilinin ömrünü tamamlaması nedeniyle kontrolörün veri kaybını önlemek için önbelleği kapatması. Saha Çözümü: Arızalı pil modülünü (BBU/Cache Vault) yenileyin ve yazma politikasını Write-Back olarak doğrulayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "fujitsu primergy rx2530",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2408",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Fujitsu Primergy RX2530: ECC RAM Correctable Error Eşiğinin Aşılması ve DIMM Devre Dışı Kalması",
+    "hizli_adimlar": [
+      "Fujitsu Primergy RX2530 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: RAM modülündeki tek bitlik hataların kritik eşik değerini (Threshold) aşması.",
+      "Saha servis prosedürünü yerine getirin: Sunucuyu kapatıp ilgili DIMM slotunu temizleyin, gerekirse modülü yenisiyle değiştirin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Fujitsu Primergy RX2530 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sunucu yönetim panelinde bellek slotunun sarı ünlem vermesi.",
+    "derin_teknik_analiz": "Kök Neden: RAM modülündeki tek bitlik hataların kritik eşik değerini (Threshold) aşması. Saha Çözümü: Sunucuyu kapatıp ilgili DIMM slotunu temizleyin, gerekirse modülü yenisiyle değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "fujitsu primergy rx2530",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2409",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Fujitsu Primergy RX2530: Yedek Güç Kaynağının (Redundant PSU) Faz Kaybı Nedeniyle Alarm Vermesi",
+    "hizli_adimlar": [
+      "Fujitsu Primergy RX2530 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: İkinci PSU'nun bağlı olduğu PDU sigortasının atması veya prizin temassızlığı.",
+      "Saha servis prosedürünü yerine getirin: Güç kaynağı kablosunu bağımsız B panosu UPS prizine takarak tam yedekliliği sağlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Fujitsu Primergy RX2530 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sunucu arkasındaki ikinci güç kaynağının sarı yanması ve iLO günlüğüne Power Input Loss düşmesi.",
+    "derin_teknik_analiz": "Kök Neden: İkinci PSU'nun bağlı olduğu PDU sigortasının atması veya prizin temassızlığı. Saha Çözümü: Güç kaynağı kablosunu bağımsız B panosu UPS prizine takarak tam yedekliliği sağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "fujitsu primergy rx2530",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2410",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Supermicro SuperServer 1029P: PERC / Smart Array RAID Pilinin (BBU) Bozulması ve Write-Through Moduna Düşüş",
+    "hizli_adimlar": [
+      "Supermicro SuperServer 1029P cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: RAID önbellek lityum pilinin ömrünü tamamlaması nedeniyle kontrolörün veri kaybını önlemek için önbelleği kapatması.",
+      "Saha servis prosedürünü yerine getirin: Arızalı pil modülünü (BBU/Cache Vault) yenileyin ve yazma politikasını Write-Back olarak doğrulayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Supermicro SuperServer 1029P Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sunucu disk yazma hızının 500 MB/s seviyesinden 20 MB/s seviyesine çakılması.",
+    "derin_teknik_analiz": "Kök Neden: RAID önbellek lityum pilinin ömrünü tamamlaması nedeniyle kontrolörün veri kaybını önlemek için önbelleği kapatması. Saha Çözümü: Arızalı pil modülünü (BBU/Cache Vault) yenileyin ve yazma politikasını Write-Back olarak doğrulayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "supermicro superserver 1029p",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2411",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Supermicro SuperServer 1029P: ECC RAM Correctable Error Eşiğinin Aşılması ve DIMM Devre Dışı Kalması",
+    "hizli_adimlar": [
+      "Supermicro SuperServer 1029P cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: RAM modülündeki tek bitlik hataların kritik eşik değerini (Threshold) aşması.",
+      "Saha servis prosedürünü yerine getirin: Sunucuyu kapatıp ilgili DIMM slotunu temizleyin, gerekirse modülü yenisiyle değiştirin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Supermicro SuperServer 1029P Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sunucu yönetim panelinde bellek slotunun sarı ünlem vermesi.",
+    "derin_teknik_analiz": "Kök Neden: RAM modülündeki tek bitlik hataların kritik eşik değerini (Threshold) aşması. Saha Çözümü: Sunucuyu kapatıp ilgili DIMM slotunu temizleyin, gerekirse modülü yenisiyle değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "supermicro superserver 1029p",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2412",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Sunucu Donanımı & iLO/iDRAC",
+    "baslik": "Supermicro SuperServer 1029P: Yedek Güç Kaynağının (Redundant PSU) Faz Kaybı Nedeniyle Alarm Vermesi",
+    "hizli_adimlar": [
+      "Supermicro SuperServer 1029P cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: İkinci PSU'nun bağlı olduğu PDU sigortasının atması veya prizin temassızlığı.",
+      "Saha servis prosedürünü yerine getirin: Güç kaynağı kablosunu bağımsız B panosu UPS prizine takarak tam yedekliliği sağlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Supermicro SuperServer 1029P Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sunucu arkasındaki ikinci güç kaynağının sarı yanması ve iLO günlüğüne Power Input Loss düşmesi.",
+    "derin_teknik_analiz": "Kök Neden: İkinci PSU'nun bağlı olduğu PDU sigortasının atması veya prizin temassızlığı. Saha Çözümü: Güç kaynağı kablosunu bağımsız B panosu UPS prizine takarak tam yedekliliği sağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "sunucu donanımı & ilo/idrac",
+      "supermicro superserver 1029p",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  }
+]

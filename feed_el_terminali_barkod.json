@@ -1,173 +1,2091 @@
-{
-  "versiyon": "2.5.0",
-  "toplam": 4,
-  "modul": "feed_el_terminali_barkod.json",
-  "kayitlar": [
-    {
-      "id": "yazici_zebra_00003",
-      "kategori": "Yazıcı",
-      "alt_kategori": "TSC / Honeywell DPL",
-      "baslik": "TSC / Honeywell DPL & TSPL Kalibrasyonu",
-      "hizli_adimlar": [
-        "Saha arıza/kurulum belirtisini teyit edin: Masaüstü etiket yazıcısında kağıt durma noktasını ayarlama.",
-        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
-        "Birincil komutu veya eylemi uygulayın: GAP 3 mm, 0 mm; DIRECTION 1; REFERENCE 0,0; AUTODETECT",
-        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Teşhis ve Uygulama Komutu",
-          "komut": "GAP 3 mm, 0 mm; DIRECTION 1; REFERENCE 0,0; AUTODETECT",
-          "aciklama": "Etiket boyutunu otomatik algılar."
-        }
-      ],
-      "temel_anlatim": "TSC / Honeywell DPL & TSPL Kalibrasyonu: Masaüstü etiket yazıcısında kağıt durma noktasını ayarlama. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
-      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. GAP 3 mm, 0 mm; DIRECTION 1; REFERENCE 0,0; AUTODETECT parametresi durumu optimize eder.",
-      "kenar_durumlar": [
-        {
-          "durum": "Zaman aşımı veya erişim engeli hatası",
-          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
-          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "yazıcı",
-        "tsc",
-        "honeywell",
-        "barkod",
-        "etiket",
-        "yazici_zebra",
-        "tspl"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "elterm_zebra_datawedge_keystroke",
-      "kategori": "El Terminali",
-      "alt_kategori": "Zebra Android (TC21 / TC26 / TC52)",
-      "baslik": "Zebra Android El Terminalinde DataWedge ile Barkodu Klavye Tuş Vuruşu Olarak Aktarma",
-      "hizli_adimlar": [
-        "Uygulama menüsünden 'DataWedge' uygulamasını açın.",
-        "Genel kullanım için 'Profile0 (default)' profiline dokunun.",
-        "'Profile enabled' ve 'Barcode input' kutularının işaretli olduğunu teyit edin.",
-        "Aşağı kaydırıp 'Keystroke output' bölümüne gelin; 'Enabled' yapın.",
-        "'Basic data formatting' seçeneğine girin; 'Send ENTER key' kutusunu işaretleyin.",
-        "Not defterinde veya ERP uygulamasında barkod okutarak test edin."
-      ],
-      "komutlar": [
-        {
-          "etiket": "DataWedge Durumunu ADB ile Sorgula",
-          "komut": "adb shell dumpsys activity services com.symbol.datawedge",
-          "aciklama": "DataWedge servisinin aktif profilini ve durumunu döker."
-        },
-        {
-          "etiket": "Cihaz Model ve Seri No Çek",
-          "komut": "adb shell getprop ro.symbol.device",
-          "aciklama": "Zebra donanım modelini teyit eder."
-        }
-      ],
-      "temel_anlatim": "Okutulan barkodun ERP/WMS web ekranında veya Android uygulamasında imlecin bulunduğu kutuya otomatik yazı olarak düşmesi ve arkasından 'Enter' basması.",
-      "derin_teknik_analiz": "Zebra DataWedge servisi donanımsal tarayıcı motoru (SE4710 vb.) ile Android OS arasında köprüdür. Barkod okunduğunda intent yayını (Intent Output) veya tuş vuruşu öykünmesi (Keystroke Output) yapar. Basic Data Formatting (BDF) altında Send ENTER key bayrağı tetiklenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Barkod okunuyor (bip sesi var) ama ekrana yazı gelmiyor",
-          "neden": "Kullanılan WMS uygulaması arka planda özel bir DataWedge profili tanımlamış ve Keystroke yerine Intent beklemektedir.",
-          "cozum": "Uygulamanın ayarlarından 'Barkod Giriş Modu'nu Klavye (Keyboard/Keystroke) moduna alın."
-        }
-      ],
-      "etiketler": [
-        "el-terminali",
-        "zebra",
-        "datawedge",
-        "keystroke",
-        "barkod",
-        "wms"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "elterm_wifi_roaming_drops",
-      "kategori": "El Terminali",
-      "alt_kategori": "Wi-Fi & Ağ Bağlantısı",
-      "baslik": "Depo İçi El Terminallerinde AP'ler Arasında Dolaşırken (Roaming) Wi-Fi Kopması",
-      "hizli_adimlar": [
-        "Zebra cihazlarda Ayarlar -> Ağ ve İnternet -> Wi-Fi -> Wi-Fi Tercihleri -> Gelişmiş -> 'Roaming' ayarlarına girin.",
-        "Roaming RSSI eşik değerini `-70 dBm` veya `-65 dBm` olarak yükseltin.",
-        "5 GHz bandını önceliklendirin (Band Selection: 5 GHz only veya Prefer 5 GHz).",
-        "Depo AP kontrolcüsünde (UniFi/Aruba/Cisco) 802.11r FT (Fast Roaming) protokolünü aktif edin."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Wi-Fi RSSI Sinyal Gücünü İzle (ADB)",
-          "komut": "adb shell cmd wifi status",
-          "aciklama": "Bağlı olunan BSSID, RSSI dBm değeri ve frekansı gösterir."
-        },
-        {
-          "etiket": "Dolaşım Loglarını Filtrele",
-          "komut": "adb logcat -s wpa_supplicant:V WifiStateMachine:V",
-          "aciklama": "AP el değiştirme (handover) süreçlerini canlı döker."
-        }
-      ],
-      "temel_anlatim": "Çalışan depoda forkliftle veya yürüyerek gezerken el terminalinin önceki zayıf Access Point'i bırakmaması (-85 dBm) ve ERP oturumunun düşmesi.",
-      "derin_teknik_analiz": "802.11k (Neighbor Reports) ve 802.11r (Fast BSS Transition) açık olmadığında veya terminalin Wi-Fi Dolaşım Agresifliği (Roaming Agressiveness) 'Düşük' olduğunda istemci eski AP'ye yapışık kalır (Sticky Client sendromu).",
-      "kenar_durumlar": [
-        {
-          "durum": "802.11r açılınca eski terminaller Wi-Fi'a hiç bağlanamıyor",
-          "neden": "Depodaki bazı eski Windows CE/Android 7 terminaller 802.11r FT kimlik doğrulamasını desteklemez.",
-          "cozum": "AP üzerinde 'Adaptive 802.11r' veya eski cihazlar için ayrı bir 2.4 GHz SSID tanımlayın."
-        }
-      ],
-      "etiketler": [
-        "el-terminali",
-        "wifi-roaming",
-        "802.11r",
-        "sticky-client",
-        "depo-ag"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "elterm_honeywell_eda51_scanpal",
-      "kategori": "El Terminali",
-      "alt_kategori": "Honeywell (EDA50 / EDA51 / ScanPal)",
-      "baslik": "Honeywell ScanPal EDA51 Barkod Okuyucu Tetik Çalışmama ve Scanning Ayarları",
-      "hizli_adimlar": [
-        "Ayarlar -> 'Honeywell Settings' -> 'Scanning' menüsüne girin.",
-        "'Internal Scanner' seçeneğinin açık (Enabled) olduğunu doğrulayın.",
-        "'Default Profile' -> 'Data Processing Settings' altında 'Wedge Method' değerinin 'Keyboard' olduğunu teyit edin.",
-        "Ayarlar -> 'Key Remap' menüsüne girip sol ve sağ sarı tuşların 'SCAN' fonksiyonuna atandığını kontrol edin.",
-        "Cihazı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Honeywell Tarayıcı Servisini Kontrol Et",
-          "komut": "adb shell pm list packages | findstr honeywell",
-          "aciklama": "Honeywell donanım servis paketlerini doğrular."
-        },
-        {
-          "etiket": "Pil Sağlığı ve Şarj Döngüsü",
-          "komut": "adb shell dumpsys battery",
-          "aciklama": "Batarya voltajı ve sağlık durumunu listeler."
-        }
-      ],
-      "temel_anlatim": "Honeywell Android terminalde sarı yan tetik tuşlarına basıldığında kırmızı lazer/hedef ışığının yanmaması veya okumaması.",
-      "derin_teknik_analiz": "Honeywell sistemlerinde 'Internal Scanner' servisi devre dışı kalmış veya 'Key Remap' tablosunda SCAN tuşu donanımsal tetikleyici yerine başka bir Android tuşuna (örneğin Camera veya Volume) atanmış olabilir.",
-      "kenar_durumlar": [
-        {
-          "durum": "2D Karekodları okuyor ama uzun 1D barkodları okumuyor",
-          "neden": "Kamera çözünürlük alanında barkod çok uzundur veya Code 128 semboloji ayarlarında minimum/maksimum uzunluk kısıtlanmıştır.",
-          "cozum": "Symbology Settings -> Code 128 -> Length ayarını 0-80 yapın."
-        }
-      ],
-      "etiketler": [
-        "el-terminali",
-        "honeywell",
-        "eda51",
-        "scanpal",
-        "internal-scanner",
-        "key-remap"
-      ],
-      "oncelik": 2
-    }
-  ]
-}
+[
+  {
+    "id": "don_bellek_zamanlama_egitimi_memory_tra",
+    "kategori": "Donanım",
+    "alt_kategori": "Bellek",
+    "baslik": "Bellek Zamanlama Eğitimi (Memory Training)",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: İlk açılışta siyah ekranda 2 dakika bekleme.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "WMI Donanım Bellek Bilgisi",
+        "komut": "wmic memorychip get speed, capacity, partnumber",
+        "aciklama": "Takılı RAM modüllerinin frekans ve parça kodunu verir."
+      }
+    ],
+    "temel_anlatim": "Bellek Zamanlama Eğitimi (Memory Training), bilişim altyapılarında i̇lk açılışta siyah ekranda 2 dakika bekleme. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "Bellek Zamanlama Eğitimi (Memory Training) mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. İlk açılışta siyah ekranda 2 dakika bekleme. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "bellek zamanlama egitimi memory tra donanım bellek ariza onarım"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "don_amd_smart_access_memory_sam",
+    "kategori": "Donanım",
+    "alt_kategori": "Ekran Kartı",
+    "baslik": "AMD Smart Access Memory (SAM)",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: PCIe üzerinden tam bellek erişim optimizasyonu.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "WMI Donanım Bellek Bilgisi",
+        "komut": "wmic memorychip get speed, capacity, partnumber",
+        "aciklama": "Takılı RAM modüllerinin frekans ve parça kodunu verir."
+      }
+    ],
+    "temel_anlatim": "AMD Smart Access Memory (SAM), bilişim altyapılarında pcie üzerinden tam bellek erişim optimizasyonu. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "AMD Smart Access Memory (SAM) mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. PCIe üzerinden tam bellek erişim optimizasyonu. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "amd smart access memory sam donanım ekran karti ariza onarım"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "yazici_zebra_00003",
+    "kategori": "Yazıcı",
+    "alt_kategori": "TSC / Honeywell DPL",
+    "baslik": "TSC / Honeywell DPL & TSPL Kalibrasyonu",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: Masaüstü etiket yazıcısında kağıt durma noktasını ayarlama.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: GAP 3 mm, 0 mm; DIRECTION 1; REFERENCE 0,0; AUTODETECT",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "GAP 3 mm, 0 mm; DIRECTION 1; REFERENCE 0,0; AUTODETECT",
+        "aciklama": "Etiket boyutunu otomatik algılar."
+      }
+    ],
+    "temel_anlatim": "TSC / Honeywell DPL & TSPL Kalibrasyonu: Masaüstü etiket yazıcısında kağıt durma noktasını ayarlama. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. GAP 3 mm, 0 mm; DIRECTION 1; REFERENCE 0,0; AUTODETECT parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı tsc honeywell barkod etiket yazici_zebra tspl"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "elterm_zebra_datawedge_keystroke",
+    "kategori": "El Terminali",
+    "alt_kategori": "Zebra Android (TC21 / TC26 / TC52)",
+    "baslik": "Zebra Android El Terminalinde DataWedge ile Barkodu Klavye Tuş Vuruşu Olarak Aktarma",
+    "hizli_adimlar": [
+      "Uygulama menüsünden 'DataWedge' uygulamasını açın.",
+      "Genel kullanım için 'Profile0 (default)' profiline dokunun.",
+      "'Profile enabled' ve 'Barcode input' kutularının işaretli olduğunu teyit edin.",
+      "Aşağı kaydırıp 'Keystroke output' bölümüne gelin; 'Enabled' yapın.",
+      "'Basic data formatting' seçeneğine girin; 'Send ENTER key' kutusunu işaretleyin.",
+      "Not defterinde veya ERP uygulamasında barkod okutarak test edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "DataWedge Durumunu ADB ile Sorgula",
+        "komut": "adb shell dumpsys activity services com.symbol.datawedge",
+        "aciklama": "DataWedge servisinin aktif profilini ve durumunu döker."
+      },
+      {
+        "etiket": "Cihaz Model ve Seri No Çek",
+        "komut": "adb shell getprop ro.symbol.device",
+        "aciklama": "Zebra donanım modelini teyit eder."
+      }
+    ],
+    "temel_anlatim": "Okutulan barkodun ERP/WMS web ekranında veya Android uygulamasında imlecin bulunduğu kutuya otomatik yazı olarak düşmesi ve arkasından 'Enter' basması.",
+    "derin_teknik_analiz": "Zebra DataWedge servisi donanımsal tarayıcı motoru (SE4710 vb.) ile Android OS arasında köprüdür. Barkod okunduğunda intent yayını (Intent Output) veya tuş vuruşu öykünmesi (Keystroke Output) yapar. Basic Data Formatting (BDF) altında Send ENTER key bayrağı tetiklenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Barkod okunuyor (bip sesi var) ama ekrana yazı gelmiyor",
+        "neden": "Kullanılan WMS uygulaması arka planda özel bir DataWedge profili tanımlamış ve Keystroke yerine Intent beklemektedir.",
+        "cozum": "Uygulamanın ayarlarından 'Barkod Giriş Modu'nu Klavye (Keyboard/Keystroke) moduna alın."
+      }
+    ],
+    "etiketler": [
+      "el-terminali zebra datawedge keystroke barkod wms"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "elterm_wifi_roaming_drops",
+    "kategori": "El Terminali",
+    "alt_kategori": "Wi-Fi & Ağ Bağlantısı",
+    "baslik": "Depo İçi El Terminallerinde AP'ler Arasında Dolaşırken (Roaming) Wi-Fi Kopması",
+    "hizli_adimlar": [
+      "Zebra cihazlarda Ayarlar -> Ağ ve İnternet -> Wi-Fi -> Wi-Fi Tercihleri -> Gelişmiş -> 'Roaming' ayarlarına girin.",
+      "Roaming RSSI eşik değerini `-70 dBm` veya `-65 dBm` olarak yükseltin.",
+      "5 GHz bandını önceliklendirin (Band Selection: 5 GHz only veya Prefer 5 GHz).",
+      "Depo AP kontrolcüsünde (UniFi/Aruba/Cisco) 802.11r FT (Fast Roaming) protokolünü aktif edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Wi-Fi RSSI Sinyal Gücünü İzle (ADB)",
+        "komut": "adb shell cmd wifi status",
+        "aciklama": "Bağlı olunan BSSID, RSSI dBm değeri ve frekansı gösterir."
+      },
+      {
+        "etiket": "Dolaşım Loglarını Filtrele",
+        "komut": "adb logcat -s wpa_supplicant:V WifiStateMachine:V",
+        "aciklama": "AP el değiştirme (handover) süreçlerini canlı döker."
+      }
+    ],
+    "temel_anlatim": "Çalışan depoda forkliftle veya yürüyerek gezerken el terminalinin önceki zayıf Access Point'i bırakmaması (-85 dBm) ve ERP oturumunun düşmesi.",
+    "derin_teknik_analiz": "802.11k (Neighbor Reports) ve 802.11r (Fast BSS Transition) açık olmadığında veya terminalin Wi-Fi Dolaşım Agresifliği (Roaming Agressiveness) 'Düşük' olduğunda istemci eski AP'ye yapışık kalır (Sticky Client sendromu).",
+    "kenar_durumlar": [
+      {
+        "durum": "802.11r açılınca eski terminaller Wi-Fi'a hiç bağlanamıyor",
+        "neden": "Depodaki bazı eski Windows CE/Android 7 terminaller 802.11r FT kimlik doğrulamasını desteklemez.",
+        "cozum": "AP üzerinde 'Adaptive 802.11r' veya eski cihazlar için ayrı bir 2.4 GHz SSID tanımlayın."
+      }
+    ],
+    "etiketler": [
+      "el-terminali wifi-roaming 802.11r sticky-client depo-ag"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "elterm_honeywell_eda51_scanpal",
+    "kategori": "El Terminali",
+    "alt_kategori": "Honeywell (EDA50 / EDA51 / ScanPal)",
+    "baslik": "Honeywell ScanPal EDA51 Barkod Okuyucu Tetik Çalışmama ve Scanning Ayarları",
+    "hizli_adimlar": [
+      "Ayarlar -> 'Honeywell Settings' -> 'Scanning' menüsüne girin.",
+      "'Internal Scanner' seçeneğinin açık (Enabled) olduğunu doğrulayın.",
+      "'Default Profile' -> 'Data Processing Settings' altında 'Wedge Method' değerinin 'Keyboard' olduğunu teyit edin.",
+      "Ayarlar -> 'Key Remap' menüsüne girip sol ve sağ sarı tuşların 'SCAN' fonksiyonuna atandığını kontrol edin.",
+      "Cihazı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Honeywell Tarayıcı Servisini Kontrol Et",
+        "komut": "adb shell pm list packages | findstr honeywell",
+        "aciklama": "Honeywell donanım servis paketlerini doğrular."
+      },
+      {
+        "etiket": "Pil Sağlığı ve Şarj Döngüsü",
+        "komut": "adb shell dumpsys battery",
+        "aciklama": "Batarya voltajı ve sağlık durumunu listeler."
+      }
+    ],
+    "temel_anlatim": "Honeywell Android terminalde sarı yan tetik tuşlarına basıldığında kırmızı lazer/hedef ışığının yanmaması veya okumaması.",
+    "derin_teknik_analiz": "Honeywell sistemlerinde 'Internal Scanner' servisi devre dışı kalmış veya 'Key Remap' tablosunda SCAN tuşu donanımsal tetikleyici yerine başka bir Android tuşuna (örneğin Camera veya Volume) atanmış olabilir.",
+    "kenar_durumlar": [
+      {
+        "durum": "2D Karekodları okuyor ama uzun 1D barkodları okumuyor",
+        "neden": "Kamera çözünürlük alanında barkod çok uzundur veya Code 128 semboloji ayarlarında minimum/maksimum uzunluk kısıtlanmıştır.",
+        "cozum": "Symbology Settings -> Code 128 -> Length ayarını 0-80 yapın."
+      }
+    ],
+    "etiketler": [
+      "el-terminali honeywell eda51 scanpal internal-scanner key-remap"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "bsod_0x10e_video_memory_internal",
+    "kategori": "Mavi Ekran",
+    "alt_kategori": "Video Belleği (VRAM)",
+    "baslik": "VIDEO_MEMORY_MANAGEMENT_INTERNAL (0x10E)",
+    "hizli_adimlar": [
+      "Sorun belirtisini teyit edin: Video bellek yöneticisinin dahili veri yapılarında bozulma algılaması; arızalı VRAM.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak açın.",
+      "Sistem parametrelerini ve olay loglarını denetleyin.",
+      "Uygulanacak komut: dxdiag",
+      "Sonucu doğrulamak için servisi veya sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "VIDEO_MEMORY_MANAGEMENT_INTERNAL (0x10E)",
+        "komut": "dxdiag",
+        "aciklama": "VRAM boyut ve sürücü sürümünü kontrol eder."
+      }
+    ],
+    "temel_anlatim": "VIDEO_MEMORY_MANAGEMENT_INTERNAL (0x10E), Mavi Ekran altyapısında video bellek yöneticisinin dahili veri yapılarında bozulma algılaması; arızalı vram.",
+    "derin_teknik_analiz": "VIDEO_MEMORY_MANAGEMENT_INTERNAL (0x10E) süreci, işletim sistemi çekirdeği ve ilgili donanım/ağ protokolü düzeyinde yürütülür. Video bellek yöneticisinin dahili veri yapılarında bozulma algılaması; arızalı VRAM. Kalıcı çözüm için sistem günlükleri ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komut sonuç vermiyor veya erişim reddedildi",
+        "neden": "Kullanıcı Yönetici yetkilerine sahip değildir veya dosya kilitlidir.",
+        "cozum": "Yönetici olarak çalıştırın veya Kurtarma Ortamında (WinRE) deneyin."
+      }
+    ],
+    "etiketler": [
+      "video_memory_management_internal (0x10e) mavi ekran video belleği (vram) ariza onarim"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mavi_ekran_00002",
+    "kategori": "Mavi Ekran",
+    "alt_kategori": "0x0000001A MEMORY_MANAGEMENT Çökmesi",
+    "baslik": "0x0000001A MEMORY_MANAGEMENT Çökmesi",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: Bozuk RAM modülü, agresif XMP zamanlamaları veya bellek denetleyicisi hatası.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: mdsched.exe",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "mdsched.exe",
+        "aciklama": "Windows Bellek Tanılama testini başlatır."
+      }
+    ],
+    "temel_anlatim": "0x0000001A MEMORY_MANAGEMENT Çökmesi: Bozuk RAM modülü, agresif XMP zamanlamaları veya bellek denetleyicisi hatası. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. mdsched.exe parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "memory_management ram mavi_ekran 0x1a xmp mavi ekran 0x0000001a"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "bsod_0xbe_write_to_readonly",
+    "kategori": "Mavi Ekran",
+    "alt_kategori": "Bellek Koruması",
+    "baslik": "ATTEMPTED_WRITE_TO_READONLY_MEMORY (0xBE)",
+    "hizli_adimlar": [
+      "Sorun belirtisini teyit edin: Sürücünün salt-okunur olarak işaretlenmiş bir bellek bölgesine yazmaya çalışması.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak açın.",
+      "Sistem parametrelerini ve olay loglarını denetleyin.",
+      "Uygulanacak komut: verifier /flags 0x20 /all",
+      "Sonucu doğrulamak için servisi veya sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "ATTEMPTED_WRITE_TO_READONLY_MEMORY (0xBE)",
+        "komut": "verifier /flags 0x20 /all",
+        "aciklama": "Salt-okunur bellek yazma kontrollerini açar."
+      }
+    ],
+    "temel_anlatim": "ATTEMPTED_WRITE_TO_READONLY_MEMORY (0xBE), Mavi Ekran altyapısında sürücünün salt-okunur olarak işaretlenmiş bir bellek bölgesine yazmaya çalışması.",
+    "derin_teknik_analiz": "ATTEMPTED_WRITE_TO_READONLY_MEMORY (0xBE) süreci, işletim sistemi çekirdeği ve ilgili donanım/ağ protokolü düzeyinde yürütülür. Sürücünün salt-okunur olarak işaretlenmiş bir bellek bölgesine yazmaya çalışması. Kalıcı çözüm için sistem günlükleri ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komut sonuç vermiyor veya erişim reddedildi",
+        "neden": "Kullanıcı Yönetici yetkilerine sahip değildir veya dosya kilitlidir.",
+        "cozum": "Yönetici olarak çalıştırın veya Kurtarma Ortamında (WinRE) deneyin."
+      }
+    ],
+    "etiketler": [
+      "attempted_write_to_readonly_memory (0xbe) mavi ekran bellek koruması ariza onarim"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "bsod_0xfc_execute_noexecute",
+    "kategori": "Mavi Ekran",
+    "alt_kategori": "DEP & Çalıştırma Engeli",
+    "baslik": "ATTEMPTED_EXECUTE_OF_NOEXECUTE_MEMORY (0xFC)",
+    "hizli_adimlar": [
+      "Sorun belirtisini teyit edin: Çalıştırılamaz olarak işaretli bellek sayfasında kod koşturma girişimi.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak açın.",
+      "Sistem parametrelerini ve olay loglarını denetleyin.",
+      "Uygulanacak komut: bcdedit /enum {current}",
+      "Sonucu doğrulamak için servisi veya sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "ATTEMPTED_EXECUTE_OF_NOEXECUTE_MEMORY (0xFC)",
+        "komut": "bcdedit /enum {current}",
+        "aciklama": "DEP ayarlarını listeler."
+      }
+    ],
+    "temel_anlatim": "ATTEMPTED_EXECUTE_OF_NOEXECUTE_MEMORY (0xFC), Mavi Ekran altyapısında çalıştırılamaz olarak işaretli bellek sayfasında kod koşturma girişimi.",
+    "derin_teknik_analiz": "ATTEMPTED_EXECUTE_OF_NOEXECUTE_MEMORY (0xFC) süreci, işletim sistemi çekirdeği ve ilgili donanım/ağ protokolü düzeyinde yürütülür. Çalıştırılamaz olarak işaretli bellek sayfasında kod koşturma girişimi. Kalıcı çözüm için sistem günlükleri ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komut sonuç vermiyor veya erişim reddedildi",
+        "neden": "Kullanıcı Yönetici yetkilerine sahip değildir veya dosya kilitlidir.",
+        "cozum": "Yönetici olarak çalıştırın veya Kurtarma Ortamında (WinRE) deneyin."
+      }
+    ],
+    "etiketler": [
+      "attempted_execute_of_noexecute_memory (0xfc) mavi ekran dep & çalıştırma engeli ariza onarim"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "infra_904",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "Saha Teşhisi",
+    "baslik": "Zebra TC21 / TC26 El Terminalinde 'Picklist Mode' ile Sıkışık Barkodları Hedefleme",
+    "hizli_adimlar": [
+      "DataWedge uygulamasını açın -> Profile0'a girin.",
+      "Barcode Input -> Reader Params -> 'Picklist Mode' seçeneğini bulun.",
+      "'Hardware Picklist' veya 'Software Reticle' olarak aktif edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "DataWedge Picklist Ayarı",
+        "komut": "DataWedge -> Profile -> Reader Params -> Picklist Mode: Centered",
+        "aciklama": "Yalnızca nişangah merkezindeki barkodu okur."
+      }
+    ],
+    "temel_anlatim": "Yan yana birden fazla barkod olduğunda terminalin yanlış barkodu okumasını engelleme.",
+    "derin_teknik_analiz": "Picklist Mode lazer nişangahının tam ortasındaki barkodu okur, etraftaki barkodları yok sayar.",
+    "kenar_durumlar": [
+      {
+        "durum": "İlk adımda sonuç alınamadı",
+        "neden": "Ağ gecikmesi veya izin kısıtlaması vardır.",
+        "cozum": "Güvenlik duvarı ve izinleri kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "altyapi",
+      "saha",
+      "teknik-cozum"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "infra_905",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "Saha Teşhisi",
+    "baslik": "Datalogic Memor 10 El Terminalinde Barkod Okuyucu LED Parlaklık Ayarı",
+    "hizli_adimlar": [
+      "Ayarlar -> Datalogic Settings -> Scanner menüsüne girin.",
+      "Illumination Type ayarını 'Dimmed' veya parlaklığı %30 yapın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Datalogic Scanner Ayarı",
+        "komut": "Settings -> Datalogic Settings -> Scanner & Camera -> Illumination Level: 30%",
+        "aciklama": "Aydınlatma parlaklığını düşürür."
+      }
+    ],
+    "temel_anlatim": "Parlak metal veya jelatinli yüzeylerde kırmızı ışığın parlayıp barkodun okunamaması.",
+    "derin_teknik_analiz": "Düzensiz yansımalar CMOS sensörünü doyurur (White-out); aydınlatma LED'inin kısılması gerekir.",
+    "kenar_durumlar": [
+      {
+        "durum": "İlk adımda sonuç alınamadı",
+        "neden": "Ağ gecikmesi veya izin kısıtlaması vardır.",
+        "cozum": "Güvenlik duvarı ve izinleri kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "altyapi",
+      "saha",
+      "teknik-cozum"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "term_mat_15",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Zebra Android El Terminali: DataWedge Intent Output ile Özel ERP Entegrasyonu",
+    "hizli_adimlar": [
+      "Zebra el terminalinde DataWedge uygulamasını açın.",
+      "Üst menüden 'New Profile' seçip ERP uygulamasının adını verin.",
+      "'Associated Apps' altından ERP uygulamasının paket adını (.apk) seçin.",
+      "'Intent Output' bölümünü aktif edip Action alanına yazılım şirketinin verdiği dizeyi yazın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "StageNow Hızlı Kurulum",
+        "komut": "StageNow barkodunu terminal kamerasına okutun",
+        "aciklama": "Tüm DataWedge ve ağ ayarlarını tek barkodla otomatik yükler."
+      }
+    ],
+    "temel_anlatim": "El terminaliyle barkod okutulduğunda tarayıcının veriyi ekrana yazmaması veya klavye odağını kaybetmesi.",
+    "derin_teknik_analiz": "Kök Neden: DataWedge profilinde 'Keystroke Output' yerine uygulamanın beklediği 'Intent Output' yapılandırmasının eksik olması. Çözüm: DataWedge uygulamasından şirket ERP uygulaması için yeni profil oluşturup Intent Action ve Category tanımlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Barkod sonuna Enter eklemiyor",
+        "neden": "Basic Data Formatting (BDF) ayarında Send ENTER kapalıdır.",
+        "cozum": "DataWedge -> BDF -> Send ENTER key kutusunu işaretleyin."
+      }
+    ],
+    "etiketler": [
+      "el-terminali",
+      "zebra",
+      "datawedge",
+      "barkod",
+      "intent"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_320",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Zebra TC52x Android 11: Barkod Okuyucu Lazer Çizgisinin Titremesi ve Açılmaması",
+    "hizli_adimlar": [
+      "Zebra TC52x Android 11 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: SE4710 / SE4750 optik okuma motorunun flex kablosunun oynaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Terminali söküp okuma motoru flex konnektörünü temizleyip kilitleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "DataWedge -> Test Scan",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Tetiğe basıldığında kırmızı lazerin anlık parlayıp sönmesi.",
+    "derin_teknik_analiz": "SE4710 / SE4750 optik okuma motorunun flex kablosunun oynaması. Çözüm: Terminali söküp okuma motoru flex konnektörünü temizleyip kilitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "zebra tc52x android 11",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_321",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Zebra TC52x Android 11: Android Kurumsal Kiosk Modunda Çıkış Şifresinin Unutulması",
+    "hizli_adimlar": [
+      "Zebra TC52x Android 11 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Önceki yöneticinin çıkış PIN kodunu değiştirmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Zebra StageNow ile fabrika ayarlarına sıfırlama barkodu okutarak kilidi kaldırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "StageNow Factory Reset Barcode",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Cihazın sadece tek bir ERP ekranında kilitli kalıp ayarlara girilememesi.",
+    "derin_teknik_analiz": "Önceki yöneticinin çıkış PIN kodunu değiştirmesi. Çözüm: Zebra StageNow ile fabrika ayarlarına sıfırlama barkodu okutarak kilidi kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "zebra tc52x android 11",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_322",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Zebra TC52x Android 11: Bluetooth Kablosuz Barkod Okuyucuda SPP / HID Mod Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Zebra TC52x Android 11 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Cihazın Sanal COM Port (SPP) modunda kalması ve klavye (HID) moduna geçmemesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kılavuzdaki \"HID Keyboard Emulation\" barkodunu okutarak klavye moduna geçin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Pairing Barcode",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Okuyucunun bilgisayara bağlanması ancak veriyi metin alanına yazmaması.",
+    "derin_teknik_analiz": "Cihazın Sanal COM Port (SPP) modunda kalması ve klavye (HID) moduna geçmemesi. Çözüm: Kılavuzdaki \"HID Keyboard Emulation\" barkodunu okutarak klavye moduna geçin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "zebra tc52x android 11",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_323",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Zebra TC52x Android 11: Dokunmatik Ekran Dokunma Sapması ve Kalibrasyon Kaybı",
+    "hizli_adimlar": [
+      "Zebra TC52x Android 11 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Depo ortamında ekran sayısallaştırıcısının (Digitizer) nem alması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Ayarlar -> Ekran -> Dokunmatik Ekran Kalibrasyonunu çalıştırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Touch Calibration Utility",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ekranın sağına dokunulduğunda sol tarafın algılanması.",
+    "derin_teknik_analiz": "Depo ortamında ekran sayısallaştırıcısının (Digitizer) nem alması. Çözüm: Ayarlar -> Ekran -> Dokunmatik Ekran Kalibrasyonunu çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "zebra tc52x android 11",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_324",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Honeywell Dolphin CT60: Barkod Okuyucu Lazer Çizgisinin Titremesi ve Açılmaması",
+    "hizli_adimlar": [
+      "Honeywell Dolphin CT60 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: SE4710 / SE4750 optik okuma motorunun flex kablosunun oynaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Terminali söküp okuma motoru flex konnektörünü temizleyip kilitleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "DataWedge -> Test Scan",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Tetiğe basıldığında kırmızı lazerin anlık parlayıp sönmesi.",
+    "derin_teknik_analiz": "SE4710 / SE4750 optik okuma motorunun flex kablosunun oynaması. Çözüm: Terminali söküp okuma motoru flex konnektörünü temizleyip kilitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "honeywell dolphin ct60",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_325",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Honeywell Dolphin CT60: Android Kurumsal Kiosk Modunda Çıkış Şifresinin Unutulması",
+    "hizli_adimlar": [
+      "Honeywell Dolphin CT60 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Önceki yöneticinin çıkış PIN kodunu değiştirmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Zebra StageNow ile fabrika ayarlarına sıfırlama barkodu okutarak kilidi kaldırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "StageNow Factory Reset Barcode",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Cihazın sadece tek bir ERP ekranında kilitli kalıp ayarlara girilememesi.",
+    "derin_teknik_analiz": "Önceki yöneticinin çıkış PIN kodunu değiştirmesi. Çözüm: Zebra StageNow ile fabrika ayarlarına sıfırlama barkodu okutarak kilidi kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "honeywell dolphin ct60",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_326",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Honeywell Dolphin CT60: Bluetooth Kablosuz Barkod Okuyucuda SPP / HID Mod Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Honeywell Dolphin CT60 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Cihazın Sanal COM Port (SPP) modunda kalması ve klavye (HID) moduna geçmemesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kılavuzdaki \"HID Keyboard Emulation\" barkodunu okutarak klavye moduna geçin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Pairing Barcode",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Okuyucunun bilgisayara bağlanması ancak veriyi metin alanına yazmaması.",
+    "derin_teknik_analiz": "Cihazın Sanal COM Port (SPP) modunda kalması ve klavye (HID) moduna geçmemesi. Çözüm: Kılavuzdaki \"HID Keyboard Emulation\" barkodunu okutarak klavye moduna geçin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "honeywell dolphin ct60",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_327",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Honeywell Dolphin CT60: Dokunmatik Ekran Dokunma Sapması ve Kalibrasyon Kaybı",
+    "hizli_adimlar": [
+      "Honeywell Dolphin CT60 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Depo ortamında ekran sayısallaştırıcısının (Digitizer) nem alması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Ayarlar -> Ekran -> Dokunmatik Ekran Kalibrasyonunu çalıştırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Touch Calibration Utility",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ekranın sağına dokunulduğunda sol tarafın algılanması.",
+    "derin_teknik_analiz": "Depo ortamında ekran sayısallaştırıcısının (Digitizer) nem alması. Çözüm: Ayarlar -> Ekran -> Dokunmatik Ekran Kalibrasyonunu çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "honeywell dolphin ct60",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_328",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Datalogic Memor 20: Barkod Okuyucu Lazer Çizgisinin Titremesi ve Açılmaması",
+    "hizli_adimlar": [
+      "Datalogic Memor 20 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: SE4710 / SE4750 optik okuma motorunun flex kablosunun oynaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Terminali söküp okuma motoru flex konnektörünü temizleyip kilitleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "DataWedge -> Test Scan",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Tetiğe basıldığında kırmızı lazerin anlık parlayıp sönmesi.",
+    "derin_teknik_analiz": "SE4710 / SE4750 optik okuma motorunun flex kablosunun oynaması. Çözüm: Terminali söküp okuma motoru flex konnektörünü temizleyip kilitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "datalogic memor 20",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_329",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Datalogic Memor 20: Android Kurumsal Kiosk Modunda Çıkış Şifresinin Unutulması",
+    "hizli_adimlar": [
+      "Datalogic Memor 20 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Önceki yöneticinin çıkış PIN kodunu değiştirmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Zebra StageNow ile fabrika ayarlarına sıfırlama barkodu okutarak kilidi kaldırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "StageNow Factory Reset Barcode",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Cihazın sadece tek bir ERP ekranında kilitli kalıp ayarlara girilememesi.",
+    "derin_teknik_analiz": "Önceki yöneticinin çıkış PIN kodunu değiştirmesi. Çözüm: Zebra StageNow ile fabrika ayarlarına sıfırlama barkodu okutarak kilidi kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "datalogic memor 20",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_330",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Datalogic Memor 20: Bluetooth Kablosuz Barkod Okuyucuda SPP / HID Mod Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Datalogic Memor 20 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Cihazın Sanal COM Port (SPP) modunda kalması ve klavye (HID) moduna geçmemesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kılavuzdaki \"HID Keyboard Emulation\" barkodunu okutarak klavye moduna geçin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Pairing Barcode",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Okuyucunun bilgisayara bağlanması ancak veriyi metin alanına yazmaması.",
+    "derin_teknik_analiz": "Cihazın Sanal COM Port (SPP) modunda kalması ve klavye (HID) moduna geçmemesi. Çözüm: Kılavuzdaki \"HID Keyboard Emulation\" barkodunu okutarak klavye moduna geçin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "datalogic memor 20",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_331",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Datalogic Memor 20: Dokunmatik Ekran Dokunma Sapması ve Kalibrasyon Kaybı",
+    "hizli_adimlar": [
+      "Datalogic Memor 20 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Depo ortamında ekran sayısallaştırıcısının (Digitizer) nem alması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Ayarlar -> Ekran -> Dokunmatik Ekran Kalibrasyonunu çalıştırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Touch Calibration Utility",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ekranın sağına dokunulduğunda sol tarafın algılanması.",
+    "derin_teknik_analiz": "Depo ortamında ekran sayısallaştırıcısının (Digitizer) nem alması. Çözüm: Ayarlar -> Ekran -> Dokunmatik Ekran Kalibrasyonunu çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "datalogic memor 20",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_332",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Newland MT90 Pro GMS: Barkod Okuyucu Lazer Çizgisinin Titremesi ve Açılmaması",
+    "hizli_adimlar": [
+      "Newland MT90 Pro GMS sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: SE4710 / SE4750 optik okuma motorunun flex kablosunun oynaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Terminali söküp okuma motoru flex konnektörünü temizleyip kilitleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "DataWedge -> Test Scan",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Tetiğe basıldığında kırmızı lazerin anlık parlayıp sönmesi.",
+    "derin_teknik_analiz": "SE4710 / SE4750 optik okuma motorunun flex kablosunun oynaması. Çözüm: Terminali söküp okuma motoru flex konnektörünü temizleyip kilitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "newland mt90 pro gms",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_333",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Newland MT90 Pro GMS: Android Kurumsal Kiosk Modunda Çıkış Şifresinin Unutulması",
+    "hizli_adimlar": [
+      "Newland MT90 Pro GMS sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Önceki yöneticinin çıkış PIN kodunu değiştirmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Zebra StageNow ile fabrika ayarlarına sıfırlama barkodu okutarak kilidi kaldırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "StageNow Factory Reset Barcode",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Cihazın sadece tek bir ERP ekranında kilitli kalıp ayarlara girilememesi.",
+    "derin_teknik_analiz": "Önceki yöneticinin çıkış PIN kodunu değiştirmesi. Çözüm: Zebra StageNow ile fabrika ayarlarına sıfırlama barkodu okutarak kilidi kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "newland mt90 pro gms",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_334",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Newland MT90 Pro GMS: Bluetooth Kablosuz Barkod Okuyucuda SPP / HID Mod Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Newland MT90 Pro GMS sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Cihazın Sanal COM Port (SPP) modunda kalması ve klavye (HID) moduna geçmemesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kılavuzdaki \"HID Keyboard Emulation\" barkodunu okutarak klavye moduna geçin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Pairing Barcode",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Okuyucunun bilgisayara bağlanması ancak veriyi metin alanına yazmaması.",
+    "derin_teknik_analiz": "Cihazın Sanal COM Port (SPP) modunda kalması ve klavye (HID) moduna geçmemesi. Çözüm: Kılavuzdaki \"HID Keyboard Emulation\" barkodunu okutarak klavye moduna geçin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "newland mt90 pro gms",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_335",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Newland MT90 Pro GMS: Dokunmatik Ekran Dokunma Sapması ve Kalibrasyon Kaybı",
+    "hizli_adimlar": [
+      "Newland MT90 Pro GMS sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Depo ortamında ekran sayısallaştırıcısının (Digitizer) nem alması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Ayarlar -> Ekran -> Dokunmatik Ekran Kalibrasyonunu çalıştırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Touch Calibration Utility",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ekranın sağına dokunulduğunda sol tarafın algılanması.",
+    "derin_teknik_analiz": "Depo ortamında ekran sayısallaştırıcısının (Digitizer) nem alması. Çözüm: Ayarlar -> Ekran -> Dokunmatik Ekran Kalibrasyonunu çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "newland mt90 pro gms",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_336",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Urovo DT50 5G: Barkod Okuyucu Lazer Çizgisinin Titremesi ve Açılmaması",
+    "hizli_adimlar": [
+      "Urovo DT50 5G sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: SE4710 / SE4750 optik okuma motorunun flex kablosunun oynaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Terminali söküp okuma motoru flex konnektörünü temizleyip kilitleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "DataWedge -> Test Scan",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Tetiğe basıldığında kırmızı lazerin anlık parlayıp sönmesi.",
+    "derin_teknik_analiz": "SE4710 / SE4750 optik okuma motorunun flex kablosunun oynaması. Çözüm: Terminali söküp okuma motoru flex konnektörünü temizleyip kilitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "urovo dt50 5g",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_337",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Urovo DT50 5G: Android Kurumsal Kiosk Modunda Çıkış Şifresinin Unutulması",
+    "hizli_adimlar": [
+      "Urovo DT50 5G sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Önceki yöneticinin çıkış PIN kodunu değiştirmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Zebra StageNow ile fabrika ayarlarına sıfırlama barkodu okutarak kilidi kaldırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "StageNow Factory Reset Barcode",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Cihazın sadece tek bir ERP ekranında kilitli kalıp ayarlara girilememesi.",
+    "derin_teknik_analiz": "Önceki yöneticinin çıkış PIN kodunu değiştirmesi. Çözüm: Zebra StageNow ile fabrika ayarlarına sıfırlama barkodu okutarak kilidi kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "urovo dt50 5g",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_338",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Urovo DT50 5G: Bluetooth Kablosuz Barkod Okuyucuda SPP / HID Mod Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Urovo DT50 5G sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Cihazın Sanal COM Port (SPP) modunda kalması ve klavye (HID) moduna geçmemesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kılavuzdaki \"HID Keyboard Emulation\" barkodunu okutarak klavye moduna geçin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Pairing Barcode",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Okuyucunun bilgisayara bağlanması ancak veriyi metin alanına yazmaması.",
+    "derin_teknik_analiz": "Cihazın Sanal COM Port (SPP) modunda kalması ve klavye (HID) moduna geçmemesi. Çözüm: Kılavuzdaki \"HID Keyboard Emulation\" barkodunu okutarak klavye moduna geçin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "urovo dt50 5g",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_339",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Urovo DT50 5G: Dokunmatik Ekran Dokunma Sapması ve Kalibrasyon Kaybı",
+    "hizli_adimlar": [
+      "Urovo DT50 5G sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Depo ortamında ekran sayısallaştırıcısının (Digitizer) nem alması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Ayarlar -> Ekran -> Dokunmatik Ekran Kalibrasyonunu çalıştırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Touch Calibration Utility",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ekranın sağına dokunulduğunda sol tarafın algılanması.",
+    "derin_teknik_analiz": "Depo ortamında ekran sayısallaştırıcısının (Digitizer) nem alması. Çözüm: Ayarlar -> Ekran -> Dokunmatik Ekran Kalibrasyonunu çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "urovo dt50 5g",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_340",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Zebra MC3300x Tabancalı: Barkod Okuyucu Lazer Çizgisinin Titremesi ve Açılmaması",
+    "hizli_adimlar": [
+      "Zebra MC3300x Tabancalı sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: SE4710 / SE4750 optik okuma motorunun flex kablosunun oynaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Terminali söküp okuma motoru flex konnektörünü temizleyip kilitleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "DataWedge -> Test Scan",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Tetiğe basıldığında kırmızı lazerin anlık parlayıp sönmesi.",
+    "derin_teknik_analiz": "SE4710 / SE4750 optik okuma motorunun flex kablosunun oynaması. Çözüm: Terminali söküp okuma motoru flex konnektörünü temizleyip kilitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "zebra mc3300x tabancalı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_341",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Zebra MC3300x Tabancalı: Android Kurumsal Kiosk Modunda Çıkış Şifresinin Unutulması",
+    "hizli_adimlar": [
+      "Zebra MC3300x Tabancalı sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Önceki yöneticinin çıkış PIN kodunu değiştirmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Zebra StageNow ile fabrika ayarlarına sıfırlama barkodu okutarak kilidi kaldırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "StageNow Factory Reset Barcode",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Cihazın sadece tek bir ERP ekranında kilitli kalıp ayarlara girilememesi.",
+    "derin_teknik_analiz": "Önceki yöneticinin çıkış PIN kodunu değiştirmesi. Çözüm: Zebra StageNow ile fabrika ayarlarına sıfırlama barkodu okutarak kilidi kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "zebra mc3300x tabancalı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_342",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Zebra MC3300x Tabancalı: Bluetooth Kablosuz Barkod Okuyucuda SPP / HID Mod Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Zebra MC3300x Tabancalı sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Cihazın Sanal COM Port (SPP) modunda kalması ve klavye (HID) moduna geçmemesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kılavuzdaki \"HID Keyboard Emulation\" barkodunu okutarak klavye moduna geçin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Pairing Barcode",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Okuyucunun bilgisayara bağlanması ancak veriyi metin alanına yazmaması.",
+    "derin_teknik_analiz": "Cihazın Sanal COM Port (SPP) modunda kalması ve klavye (HID) moduna geçmemesi. Çözüm: Kılavuzdaki \"HID Keyboard Emulation\" barkodunu okutarak klavye moduna geçin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "zebra mc3300x tabancalı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_343",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Zebra MC3300x Tabancalı: Dokunmatik Ekran Dokunma Sapması ve Kalibrasyon Kaybı",
+    "hizli_adimlar": [
+      "Zebra MC3300x Tabancalı sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Depo ortamında ekran sayısallaştırıcısının (Digitizer) nem alması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Ayarlar -> Ekran -> Dokunmatik Ekran Kalibrasyonunu çalıştırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Touch Calibration Utility",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ekranın sağına dokunulduğunda sol tarafın algılanması.",
+    "derin_teknik_analiz": "Depo ortamında ekran sayısallaştırıcısının (Digitizer) nem alması. Çözüm: Ayarlar -> Ekran -> Dokunmatik Ekran Kalibrasyonunu çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "zebra mc3300x tabancalı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_344",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Honeywell EDA61K Depo: Barkod Okuyucu Lazer Çizgisinin Titremesi ve Açılmaması",
+    "hizli_adimlar": [
+      "Honeywell EDA61K Depo sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: SE4710 / SE4750 optik okuma motorunun flex kablosunun oynaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Terminali söküp okuma motoru flex konnektörünü temizleyip kilitleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "DataWedge -> Test Scan",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Tetiğe basıldığında kırmızı lazerin anlık parlayıp sönmesi.",
+    "derin_teknik_analiz": "SE4710 / SE4750 optik okuma motorunun flex kablosunun oynaması. Çözüm: Terminali söküp okuma motoru flex konnektörünü temizleyip kilitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "honeywell eda61k depo",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_345",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Honeywell EDA61K Depo: Android Kurumsal Kiosk Modunda Çıkış Şifresinin Unutulması",
+    "hizli_adimlar": [
+      "Honeywell EDA61K Depo sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Önceki yöneticinin çıkış PIN kodunu değiştirmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Zebra StageNow ile fabrika ayarlarına sıfırlama barkodu okutarak kilidi kaldırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "StageNow Factory Reset Barcode",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Cihazın sadece tek bir ERP ekranında kilitli kalıp ayarlara girilememesi.",
+    "derin_teknik_analiz": "Önceki yöneticinin çıkış PIN kodunu değiştirmesi. Çözüm: Zebra StageNow ile fabrika ayarlarına sıfırlama barkodu okutarak kilidi kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "honeywell eda61k depo",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_346",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Honeywell EDA61K Depo: Bluetooth Kablosuz Barkod Okuyucuda SPP / HID Mod Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Honeywell EDA61K Depo sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Cihazın Sanal COM Port (SPP) modunda kalması ve klavye (HID) moduna geçmemesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kılavuzdaki \"HID Keyboard Emulation\" barkodunu okutarak klavye moduna geçin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Pairing Barcode",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Okuyucunun bilgisayara bağlanması ancak veriyi metin alanına yazmaması.",
+    "derin_teknik_analiz": "Cihazın Sanal COM Port (SPP) modunda kalması ve klavye (HID) moduna geçmemesi. Çözüm: Kılavuzdaki \"HID Keyboard Emulation\" barkodunu okutarak klavye moduna geçin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "honeywell eda61k depo",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_347",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Honeywell EDA61K Depo: Dokunmatik Ekran Dokunma Sapması ve Kalibrasyon Kaybı",
+    "hizli_adimlar": [
+      "Honeywell EDA61K Depo sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Depo ortamında ekran sayısallaştırıcısının (Digitizer) nem alması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Ayarlar -> Ekran -> Dokunmatik Ekran Kalibrasyonunu çalıştırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Touch Calibration Utility",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ekranın sağına dokunulduğunda sol tarafın algılanması.",
+    "derin_teknik_analiz": "Depo ortamında ekran sayısallaştırıcısının (Digitizer) nem alması. Çözüm: Ayarlar -> Ekran -> Dokunmatik Ekran Kalibrasyonunu çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "honeywell eda61k depo",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_348",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Point Mobile PM85: Barkod Okuyucu Lazer Çizgisinin Titremesi ve Açılmaması",
+    "hizli_adimlar": [
+      "Point Mobile PM85 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: SE4710 / SE4750 optik okuma motorunun flex kablosunun oynaması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Terminali söküp okuma motoru flex konnektörünü temizleyip kilitleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "DataWedge -> Test Scan",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Tetiğe basıldığında kırmızı lazerin anlık parlayıp sönmesi.",
+    "derin_teknik_analiz": "SE4710 / SE4750 optik okuma motorunun flex kablosunun oynaması. Çözüm: Terminali söküp okuma motoru flex konnektörünü temizleyip kilitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "point mobile pm85",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_349",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Point Mobile PM85: Android Kurumsal Kiosk Modunda Çıkış Şifresinin Unutulması",
+    "hizli_adimlar": [
+      "Point Mobile PM85 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Önceki yöneticinin çıkış PIN kodunu değiştirmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Zebra StageNow ile fabrika ayarlarına sıfırlama barkodu okutarak kilidi kaldırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "StageNow Factory Reset Barcode",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Cihazın sadece tek bir ERP ekranında kilitli kalıp ayarlara girilememesi.",
+    "derin_teknik_analiz": "Önceki yöneticinin çıkış PIN kodunu değiştirmesi. Çözüm: Zebra StageNow ile fabrika ayarlarına sıfırlama barkodu okutarak kilidi kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "point mobile pm85",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_350",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Point Mobile PM85: Bluetooth Kablosuz Barkod Okuyucuda SPP / HID Mod Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Point Mobile PM85 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Cihazın Sanal COM Port (SPP) modunda kalması ve klavye (HID) moduna geçmemesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kılavuzdaki \"HID Keyboard Emulation\" barkodunu okutarak klavye moduna geçin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Pairing Barcode",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Okuyucunun bilgisayara bağlanması ancak veriyi metin alanına yazmaması.",
+    "derin_teknik_analiz": "Cihazın Sanal COM Port (SPP) modunda kalması ve klavye (HID) moduna geçmemesi. Çözüm: Kılavuzdaki \"HID Keyboard Emulation\" barkodunu okutarak klavye moduna geçin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "point mobile pm85",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_351",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Point Mobile PM85: Dokunmatik Ekran Dokunma Sapması ve Kalibrasyon Kaybı",
+    "hizli_adimlar": [
+      "Point Mobile PM85 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Depo ortamında ekran sayısallaştırıcısının (Digitizer) nem alması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Ayarlar -> Ekran -> Dokunmatik Ekran Kalibrasyonunu çalıştırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Touch Calibration Utility",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ekranın sağına dokunulduğunda sol tarafın algılanması.",
+    "derin_teknik_analiz": "Depo ortamında ekran sayısallaştırıcısının (Digitizer) nem alması. Çözüm: Ayarlar -> Ekran -> Dokunmatik Ekran Kalibrasyonunu çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "point mobile pm85",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2572",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Zebra TC21 / TC26: El Terminali Şarj Yuvası (Cradle) Pogo Pin Temassızlığı ve Şarj Olmaması",
+    "hizli_adimlar": [
+      "Zebra TC21 / TC26 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Pogo pin yaylarının toz ve ter nedeniyle basılı kalması veya oksitlenmesi.",
+      "Saha servis prosedürünü yerine getirin: Şarj pinlerini ve terminal altındaki altın temas noktalarını kontak temizleyici sprey ile temizleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Zebra TC21 / TC26 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Terminal yuvaya oturtulduğunda şarj LED'inin yanmaması veya temassızlık yapması.",
+    "derin_teknik_analiz": "Kök Neden: Pogo pin yaylarının toz ve ter nedeniyle basılı kalması veya oksitlenmesi. Saha Çözümü: Şarj pinlerini ve terminal altındaki altın temas noktalarını kontak temizleyici sprey ile temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "zebra tc21   tc26",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2573",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Zebra TC21 / TC26: Çoklu Raf Alanında Bitişik Barkodları Yanlış Okuma ve Hedefleme Hatası",
+    "hizli_adimlar": [
+      "Zebra TC21 / TC26 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Barkod okuyucunun geniş açılı okuma yapması ve hedef noktasının (Aiming Dot) pasif olması.",
+      "Saha servis prosedürünü yerine getirin: DataWedge veya ScanSettings menüsünden \"Picklist Mode\" özelliğini etkinleştirerek sadece nişan noktasındaki barkodu okutun.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Zebra TC21 / TC26 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kullanıcının üstteki barkodu hedeflerken alttaki kutunun barkodunu okutması.",
+    "derin_teknik_analiz": "Kök Neden: Barkod okuyucunun geniş açılı okuma yapması ve hedef noktasının (Aiming Dot) pasif olması. Saha Çözümü: DataWedge veya ScanSettings menüsünden \"Picklist Mode\" özelliğini etkinleştirerek sadece nişan noktasındaki barkodu okutun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "zebra tc21   tc26",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2574",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Zebra TC21 / TC26: Android Kurumsal Kiosk Modunda Cihazın Kilitlenip Ayarlar Menüsünün Açılmaması",
+    "hizli_adimlar": [
+      "Zebra TC21 / TC26 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kiosk modunun şifresinin unutulması veya MDM profilinin kilitli kalması.",
+      "Saha servis prosedürünü yerine getirin: Cihaza StageNow yönetici barkodu okutarak ayarlar uygulamasını geçici olarak görünür yapın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Zebra TC21 / TC26 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "El terminalinde ayarları değiştirmek isterken kilitli kullanıcı ekranından çıkılamaması.",
+    "derin_teknik_analiz": "Kök Neden: Kiosk modunun şifresinin unutulması veya MDM profilinin kilitli kalması. Saha Çözümü: Cihaza StageNow yönetici barkodu okutarak ayarlar uygulamasını geçici olarak görünür yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "zebra tc21   tc26",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2575",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Honeywell ScanPal EDA51: El Terminali Şarj Yuvası (Cradle) Pogo Pin Temassızlığı ve Şarj Olmaması",
+    "hizli_adimlar": [
+      "Honeywell ScanPal EDA51 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Pogo pin yaylarının toz ve ter nedeniyle basılı kalması veya oksitlenmesi.",
+      "Saha servis prosedürünü yerine getirin: Şarj pinlerini ve terminal altındaki altın temas noktalarını kontak temizleyici sprey ile temizleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Honeywell ScanPal EDA51 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Terminal yuvaya oturtulduğunda şarj LED'inin yanmaması veya temassızlık yapması.",
+    "derin_teknik_analiz": "Kök Neden: Pogo pin yaylarının toz ve ter nedeniyle basılı kalması veya oksitlenmesi. Saha Çözümü: Şarj pinlerini ve terminal altındaki altın temas noktalarını kontak temizleyici sprey ile temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "honeywell scanpal eda51",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2576",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Honeywell ScanPal EDA51: Çoklu Raf Alanında Bitişik Barkodları Yanlış Okuma ve Hedefleme Hatası",
+    "hizli_adimlar": [
+      "Honeywell ScanPal EDA51 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Barkod okuyucunun geniş açılı okuma yapması ve hedef noktasının (Aiming Dot) pasif olması.",
+      "Saha servis prosedürünü yerine getirin: DataWedge veya ScanSettings menüsünden \"Picklist Mode\" özelliğini etkinleştirerek sadece nişan noktasındaki barkodu okutun.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Honeywell ScanPal EDA51 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kullanıcının üstteki barkodu hedeflerken alttaki kutunun barkodunu okutması.",
+    "derin_teknik_analiz": "Kök Neden: Barkod okuyucunun geniş açılı okuma yapması ve hedef noktasının (Aiming Dot) pasif olması. Saha Çözümü: DataWedge veya ScanSettings menüsünden \"Picklist Mode\" özelliğini etkinleştirerek sadece nişan noktasındaki barkodu okutun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "honeywell scanpal eda51",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2577",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Honeywell ScanPal EDA51: Android Kurumsal Kiosk Modunda Cihazın Kilitlenip Ayarlar Menüsünün Açılmaması",
+    "hizli_adimlar": [
+      "Honeywell ScanPal EDA51 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kiosk modunun şifresinin unutulması veya MDM profilinin kilitli kalması.",
+      "Saha servis prosedürünü yerine getirin: Cihaza StageNow yönetici barkodu okutarak ayarlar uygulamasını geçici olarak görünür yapın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Honeywell ScanPal EDA51 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "El terminalinde ayarları değiştirmek isterken kilitli kullanıcı ekranından çıkılamaması.",
+    "derin_teknik_analiz": "Kök Neden: Kiosk modunun şifresinin unutulması veya MDM profilinin kilitli kalması. Saha Çözümü: Cihaza StageNow yönetici barkodu okutarak ayarlar uygulamasını geçici olarak görünür yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "honeywell scanpal eda51",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2578",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Datalogic Memor 10: El Terminali Şarj Yuvası (Cradle) Pogo Pin Temassızlığı ve Şarj Olmaması",
+    "hizli_adimlar": [
+      "Datalogic Memor 10 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Pogo pin yaylarının toz ve ter nedeniyle basılı kalması veya oksitlenmesi.",
+      "Saha servis prosedürünü yerine getirin: Şarj pinlerini ve terminal altındaki altın temas noktalarını kontak temizleyici sprey ile temizleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Datalogic Memor 10 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Terminal yuvaya oturtulduğunda şarj LED'inin yanmaması veya temassızlık yapması.",
+    "derin_teknik_analiz": "Kök Neden: Pogo pin yaylarının toz ve ter nedeniyle basılı kalması veya oksitlenmesi. Saha Çözümü: Şarj pinlerini ve terminal altındaki altın temas noktalarını kontak temizleyici sprey ile temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "datalogic memor 10",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2579",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Datalogic Memor 10: Çoklu Raf Alanında Bitişik Barkodları Yanlış Okuma ve Hedefleme Hatası",
+    "hizli_adimlar": [
+      "Datalogic Memor 10 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Barkod okuyucunun geniş açılı okuma yapması ve hedef noktasının (Aiming Dot) pasif olması.",
+      "Saha servis prosedürünü yerine getirin: DataWedge veya ScanSettings menüsünden \"Picklist Mode\" özelliğini etkinleştirerek sadece nişan noktasındaki barkodu okutun.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Datalogic Memor 10 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kullanıcının üstteki barkodu hedeflerken alttaki kutunun barkodunu okutması.",
+    "derin_teknik_analiz": "Kök Neden: Barkod okuyucunun geniş açılı okuma yapması ve hedef noktasının (Aiming Dot) pasif olması. Saha Çözümü: DataWedge veya ScanSettings menüsünden \"Picklist Mode\" özelliğini etkinleştirerek sadece nişan noktasındaki barkodu okutun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "datalogic memor 10",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2580",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Datalogic Memor 10: Android Kurumsal Kiosk Modunda Cihazın Kilitlenip Ayarlar Menüsünün Açılmaması",
+    "hizli_adimlar": [
+      "Datalogic Memor 10 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kiosk modunun şifresinin unutulması veya MDM profilinin kilitli kalması.",
+      "Saha servis prosedürünü yerine getirin: Cihaza StageNow yönetici barkodu okutarak ayarlar uygulamasını geçici olarak görünür yapın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Datalogic Memor 10 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "El terminalinde ayarları değiştirmek isterken kilitli kullanıcı ekranından çıkılamaması.",
+    "derin_teknik_analiz": "Kök Neden: Kiosk modunun şifresinin unutulması veya MDM profilinin kilitli kalması. Saha Çözümü: Cihaza StageNow yönetici barkodu okutarak ayarlar uygulamasını geçici olarak görünür yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "datalogic memor 10",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2581",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Newland MT90 Pro: El Terminali Şarj Yuvası (Cradle) Pogo Pin Temassızlığı ve Şarj Olmaması",
+    "hizli_adimlar": [
+      "Newland MT90 Pro cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Pogo pin yaylarının toz ve ter nedeniyle basılı kalması veya oksitlenmesi.",
+      "Saha servis prosedürünü yerine getirin: Şarj pinlerini ve terminal altındaki altın temas noktalarını kontak temizleyici sprey ile temizleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Newland MT90 Pro Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Terminal yuvaya oturtulduğunda şarj LED'inin yanmaması veya temassızlık yapması.",
+    "derin_teknik_analiz": "Kök Neden: Pogo pin yaylarının toz ve ter nedeniyle basılı kalması veya oksitlenmesi. Saha Çözümü: Şarj pinlerini ve terminal altındaki altın temas noktalarını kontak temizleyici sprey ile temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "newland mt90 pro",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2582",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Newland MT90 Pro: Çoklu Raf Alanında Bitişik Barkodları Yanlış Okuma ve Hedefleme Hatası",
+    "hizli_adimlar": [
+      "Newland MT90 Pro cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Barkod okuyucunun geniş açılı okuma yapması ve hedef noktasının (Aiming Dot) pasif olması.",
+      "Saha servis prosedürünü yerine getirin: DataWedge veya ScanSettings menüsünden \"Picklist Mode\" özelliğini etkinleştirerek sadece nişan noktasındaki barkodu okutun.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Newland MT90 Pro Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kullanıcının üstteki barkodu hedeflerken alttaki kutunun barkodunu okutması.",
+    "derin_teknik_analiz": "Kök Neden: Barkod okuyucunun geniş açılı okuma yapması ve hedef noktasının (Aiming Dot) pasif olması. Saha Çözümü: DataWedge veya ScanSettings menüsünden \"Picklist Mode\" özelliğini etkinleştirerek sadece nişan noktasındaki barkodu okutun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "newland mt90 pro",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2583",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Newland MT90 Pro: Android Kurumsal Kiosk Modunda Cihazın Kilitlenip Ayarlar Menüsünün Açılmaması",
+    "hizli_adimlar": [
+      "Newland MT90 Pro cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kiosk modunun şifresinin unutulması veya MDM profilinin kilitli kalması.",
+      "Saha servis prosedürünü yerine getirin: Cihaza StageNow yönetici barkodu okutarak ayarlar uygulamasını geçici olarak görünür yapın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Newland MT90 Pro Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "El terminalinde ayarları değiştirmek isterken kilitli kullanıcı ekranından çıkılamaması.",
+    "derin_teknik_analiz": "Kök Neden: Kiosk modunun şifresinin unutulması veya MDM profilinin kilitli kalması. Saha Çözümü: Cihaza StageNow yönetici barkodu okutarak ayarlar uygulamasını geçici olarak görünür yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "newland mt90 pro",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2584",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Urovo DT50 Enterprise: El Terminali Şarj Yuvası (Cradle) Pogo Pin Temassızlığı ve Şarj Olmaması",
+    "hizli_adimlar": [
+      "Urovo DT50 Enterprise cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Pogo pin yaylarının toz ve ter nedeniyle basılı kalması veya oksitlenmesi.",
+      "Saha servis prosedürünü yerine getirin: Şarj pinlerini ve terminal altındaki altın temas noktalarını kontak temizleyici sprey ile temizleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Urovo DT50 Enterprise Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Terminal yuvaya oturtulduğunda şarj LED'inin yanmaması veya temassızlık yapması.",
+    "derin_teknik_analiz": "Kök Neden: Pogo pin yaylarının toz ve ter nedeniyle basılı kalması veya oksitlenmesi. Saha Çözümü: Şarj pinlerini ve terminal altındaki altın temas noktalarını kontak temizleyici sprey ile temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "urovo dt50 enterprise",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2585",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Urovo DT50 Enterprise: Çoklu Raf Alanında Bitişik Barkodları Yanlış Okuma ve Hedefleme Hatası",
+    "hizli_adimlar": [
+      "Urovo DT50 Enterprise cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Barkod okuyucunun geniş açılı okuma yapması ve hedef noktasının (Aiming Dot) pasif olması.",
+      "Saha servis prosedürünü yerine getirin: DataWedge veya ScanSettings menüsünden \"Picklist Mode\" özelliğini etkinleştirerek sadece nişan noktasındaki barkodu okutun.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Urovo DT50 Enterprise Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kullanıcının üstteki barkodu hedeflerken alttaki kutunun barkodunu okutması.",
+    "derin_teknik_analiz": "Kök Neden: Barkod okuyucunun geniş açılı okuma yapması ve hedef noktasının (Aiming Dot) pasif olması. Saha Çözümü: DataWedge veya ScanSettings menüsünden \"Picklist Mode\" özelliğini etkinleştirerek sadece nişan noktasındaki barkodu okutun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "urovo dt50 enterprise",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2586",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "El Terminali & Barkod Okuyucu",
+    "baslik": "Urovo DT50 Enterprise: Android Kurumsal Kiosk Modunda Cihazın Kilitlenip Ayarlar Menüsünün Açılmaması",
+    "hizli_adimlar": [
+      "Urovo DT50 Enterprise cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kiosk modunun şifresinin unutulması veya MDM profilinin kilitli kalması.",
+      "Saha servis prosedürünü yerine getirin: Cihaza StageNow yönetici barkodu okutarak ayarlar uygulamasını geçici olarak görünür yapın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Urovo DT50 Enterprise Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "El terminalinde ayarları değiştirmek isterken kilitli kullanıcı ekranından çıkılamaması.",
+    "derin_teknik_analiz": "Kök Neden: Kiosk modunun şifresinin unutulması veya MDM profilinin kilitli kalması. Saha Çözümü: Cihaza StageNow yönetici barkodu okutarak ayarlar uygulamasını geçici olarak görünür yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "el terminali & barkod okuyucu",
+      "urovo dt50 enterprise",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  }
+]

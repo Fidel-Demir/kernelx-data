@@ -1,301 +1,3346 @@
-{
-  "versiyon": "2.5.0",
-  "toplam": 7,
-  "modul": "feed_linux.json",
-  "kayitlar": [
-    {
-      "id": "linux_00001",
-      "kategori": "Linux",
-      "alt_kategori": "systemd Servis Çöküşü",
-      "baslik": "systemd Servis Çöküşü & journalctl Teşhisi",
-      "hizli_adimlar": [
-        "Saha arıza/kurulum belirtisini teyit edin: Başlamayan systemd servislerinin hata loglarını ve çekirdek izini analiz etme.",
-        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
-        "Birincil komutu veya eylemi uygulayın: journalctl -u nginx.service -xe --no-pager",
-        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Teşhis ve Uygulama Komutu",
-          "komut": "journalctl -u nginx.service -xe --no-pager",
-          "aciklama": "Servis çökme nedenini listeler."
-        }
-      ],
-      "temel_anlatim": "systemd Servis Çöküşü & journalctl Teşhisi: Başlamayan systemd servislerinin hata loglarını ve çekirdek izini analiz etme. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
-      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. journalctl -u nginx.service -xe --no-pager parametresi durumu optimize eder.",
-      "kenar_durumlar": [
-        {
-          "durum": "Zaman aşımı veya erişim engeli hatası",
-          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
-          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "nginx",
-        "linux",
-        "systemd",
-        "journalctl",
-        "servis"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "linux_00002",
-      "kategori": "Linux",
-      "alt_kategori": "LVM Disk Genişletme",
-      "baslik": "LVM Disk Genişletme & resize2fs / xfs_growfs",
-      "hizli_adimlar": [
-        "Saha arıza/kurulum belirtisini teyit edin: Canlı sunucuda yeni eklenen diski kesintisiz LVM havuzuna ekleme.",
-        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
-        "Birincil komutu veya eylemi uygulayın: pvcreate /dev/sdb; vgextend vg_root /dev/sdb; lvextend -l +100%FREE /dev/vg_root/lv_root; resize2fs /dev/vg_root/lv_root",
-        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Teşhis ve Uygulama Komutu",
-          "komut": "pvcreate /dev/sdb; vgextend vg_root /dev/sdb; lvextend -l +100%FREE /dev/vg_root/lv_root; resize2fs /dev/vg_root/lv_root",
-          "aciklama": "LVM dosya sistemini canlı büyütür."
-        }
-      ],
-      "temel_anlatim": "LVM Disk Genişletme & resize2fs / xfs_growfs: Canlı sunucuda yeni eklenen diski kesintisiz LVM havuzuna ekleme. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
-      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. pvcreate /dev/sdb; vgextend vg_root /dev/sdb; lvextend -l +100%FREE /dev/vg_root/lv_root; resize2fs /dev/vg_root/lv_root parametresi durumu optimize eder.",
-      "kenar_durumlar": [
-        {
-          "durum": "Zaman aşımı veya erişim engeli hatası",
-          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
-          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "lvextend",
-        "linux",
-        "lvm",
-        "xfs_growfs",
-        "disk genisletme"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "win_wsl2_ext4_vhdx_compact",
-      "kategori": "Windows",
-      "alt_kategori": "Linux Alt Sistemi (WSL2)",
-      "baslik": "WSL2 ext4.vhdx Disk Alanını Küçültme",
-      "hizli_adimlar": [
-        "Sorun belirtisini teyit edin: WSL2 içinde dosyalar silinse dahi küçülmeyen sanal diski diskpart ile sıkıştırma.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak açın.",
-        "Sistem parametrelerini ve olay loglarını denetleyin.",
-        "Uygulanacak komut: diskpart /s (Get-ScriptPath)",
-        "Sonucu doğrulamak için servisi veya sistemi yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "WSL2 ext4.vhdx Disk Alanını Küçültme",
-          "komut": "diskpart /s (Get-ScriptPath)",
-          "aciklama": "Kullanılmayan blokları serbest bırakarak 20-50GB yer açar."
-        }
-      ],
-      "temel_anlatim": "WSL2 ext4.vhdx Disk Alanını Küçültme, Windows altyapısında wsl2 içinde dosyalar silinse dahi küçülmeyen sanal diski diskpart ile sıkıştırma.",
-      "derin_teknik_analiz": "WSL2 ext4.vhdx Disk Alanını Küçültme süreci, işletim sistemi çekirdeği ve ilgili donanım/ağ protokolü düzeyinde yürütülür. WSL2 içinde dosyalar silinse dahi küçülmeyen sanal diski diskpart ile sıkıştırma. Kalıcı çözüm için sistem günlükleri ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komut sonuç vermiyor veya erişim reddedildi",
-          "neden": "Kullanıcı Yönetici yetkilerine sahip değildir veya dosya kilitlidir.",
-          "cozum": "Yönetici olarak çalıştırın veya Kurtarma Ortamında (WinRE) deneyin."
-        }
-      ],
-      "etiketler": [
-        "wsl2 ext4.vhdx disk alanını küçültme",
-        "windows",
-        "linux alt sistemi (wsl2)",
-        "ariza",
-        "onarim"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "lnx_ufw_firewall_setup",
-      "kategori": "Linux",
-      "alt_kategori": "Güvenlik & UFW",
-      "baslik": "UFW Güvenlik Duvarı Yapılandırması & SSH Port Kilitleme",
-      "hizli_adimlar": [
-        "UFW varsayılan kurallarını belirle (incoming deny, outgoing allow).",
-        "SSH portuna izin ver (ufw allow 22/tcp).",
-        "UFW'yi etkinleştir (ufw enable) ve durumunu kontrol et."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Varsayılan Politikaları Ayarla",
-          "komut": "sudo ufw default deny incoming && sudo ufw default allow outgoing",
-          "aciklama": "Girişleri kapatır, çıkışlara izin verir."
-        },
-        {
-          "etiket": "SSH ve Web Portlarını Aç",
-          "komut": "sudo ufw allow 22/tcp && sudo ufw allow 80/tcp && sudo ufw allow 443/tcp",
-          "aciklama": "Temel yönetim ve web portlarını açar."
-        },
-        {
-          "etiket": "UFW'yi Başlat & Durum",
-          "komut": "sudo ufw enable && sudo ufw status verbose",
-          "aciklama": "Güvenlik duvarını devreye sokar."
-        }
-      ],
-      "temel_anlatim": "Linux sunucularda dışarıdan gelen izinsiz bağlantıları engellemek için UFW (Uncomplicated Firewall) kullanılır. SSH portu açılmadan UFW etkinleştirilirse sunucuya erişim kilitlenir.",
-      "derin_teknik_analiz": "UFW, arka planda Linux çekirdeğinin netfilter / iptables kurallarını yöneten bir kullanıcı alanı arabirimidir. State-tracking (conntrack) mekanizması ile mevcut oturumların kesilmesini önler.",
-      "kenar_durumlar": [
-        {
-          "durum": "SSH portu 2222 olarak değiştirilmişse",
-          "neden": "Özel SSH portu açılmamıştır.",
-          "cozum": "sudo ufw allow 2222/tcp komutunu girmeden ufw enable yapmayın."
-        }
-      ],
-      "etiketler": [
-        "linux",
-        "ufw",
-        "firewall",
-        "iptables",
-        "ssh",
-        "guvenlik"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "lnx_journalctl_disk_full",
-      "kategori": "Linux",
-      "alt_kategori": "Disk & Depolama",
-      "baslik": "Journalctl Sistem Günlüklerinin Diski Doldurması & Vakumlama",
-      "hizli_adimlar": [
-        "Disk doluluk oranını df -h ile kontrol et.",
-        "systemd-journald günlük boyutunu gör.",
-        "Günlükleri 2 güne veya 500M sınırına vakumla."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Günlük Boyutunu Gör",
-          "komut": "journalctl --disk-usage",
-          "aciklama": "Mevcut sistem loglarının kapladığı boyutu listeler."
-        },
-        {
-          "etiket": "Logları 500 MB ile Sınırla",
-          "komut": "sudo journalctl --vacuum-size=500M",
-          "aciklama": "500 megabayttan eski tüm logları kalıcı olarak temizler."
-        },
-        {
-          "etiket": "Eski Logları Güne Göre Sil",
-          "komut": "sudo journalctl --vacuum-time=3d",
-          "aciklama": "Son 3 günden eski logları temizler."
-        }
-      ],
-      "temel_anlatim": "systemd-journald logları varsayılan olarak diskin %10'una kadar büyüyebilir. Log rotasyonu yapılmadığında /var/log/journal diski tamamen doldurarak servisleri çökertebilir.",
-      "derin_teknik_analiz": "systemd-journald verileri ikili (binary) formatta tutar. Vakumlama işlemi eski parçalanmış journal arşiv bloklarını unmap ederek inode ve disk bloklarını serbest bırakır.",
-      "kenar_durumlar": [
-        {
-          "durum": "Loglar her gün tekrar 10 GB oluyorsa",
-          "neden": "Bir servis döngüsel hata fırlatıyordur.",
-          "cozum": "/etc/systemd/journald.conf içinde SystemMaxUse=1G sabitleyin."
-        }
-      ],
-      "etiketler": [
-        "journalctl",
-        "disk doldu",
-        "var log",
-        "systemd",
-        "vacuum"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "lnx_swap_file_creation",
-      "kategori": "Linux",
-      "alt_kategori": "Performans & Bellek",
-      "baslik": "Linux Swap (Takas Alanı) Oluşturma & OOM Killer Önleme",
-      "hizli_adimlar": [
-        "Mevcut swap durumunu free -h ile gör.",
-        "fallocate ile swapfile oluştur.",
-        "İzinleri 600 yap ve swapon ile devreye al."
-      ],
-      "komutlar": [
-        {
-          "etiket": "4 GB Swap Alanı Ayrır",
-          "komut": "sudo fallocate -l 4G /swapfile",
-          "aciklama": "Diskte 4GB blok rezerve eder."
-        },
-        {
-          "etiket": "İzinleri Güvenli Yap",
-          "komut": "sudo chmod 600 /swapfile && sudo mkswap /swapfile",
-          "aciklama": "Sadece root erişimine açar ve swap alanı biçimlendirir."
-        },
-        {
-          "etiket": "Swap'ı Aç & fstab'a Ekle",
-          "komut": "sudo swapon /swapfile && echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab",
-          "aciklama": "Swap'ı anında açar ve yeniden başlatmalara karşı kalıcı kılar."
-        }
-      ],
-      "temel_anlatim": "RAM tükendiğinde Linux çekirdeği (Kernel OOM Killer) veritabanı veya web sunucusunu aniden öldürür. Swap alanı acil durumlarda diski sanal RAM gibi kullanarak çöküşü önler.",
-      "derin_teknik_analiz": "vm.swappiness parametresi çekirdeğin ne sıklıkla diske takas yapacağını belirler (0-100). Sunucularda ideal swappiness değeri 10-15 aralığıdır.",
-      "kenar_durumlar": [
-        {
-          "durum": "fallocate swapfile desteklenmiyor hatası",
-          "neden": "XFS veya Btrfs dosya sistemi kullanılıyordur.",
-          "cozum": "dd if=/dev/zero of=/swapfile bs=1M count=4096 kullanın."
-        }
-      ],
-      "etiketler": [
-        "swap",
-        "oom killer",
-        "ram yetersiz",
-        "swapon",
-        "fstab"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "lnx_fstab_emergency_mode",
-      "kategori": "Linux",
-      "alt_kategori": "Dosya Sistemi & Başlangıç",
-      "baslik": "Bozuk /etc/fstab Nedeniyle Ubuntu / Debian Sistemin Emergency Mode'a Düşmesi",
-      "hizli_adimlar": [
-        "Root parolasını girerek bakım konsoluna (Emergency Shell) erişin.",
-        "Kök dosya sistemi salt okunur (read-only) açılmışsa yazılabilir yapın: `mount -o remount,rw /`.",
-        "Disk UUID'lerini listeleyin: `blkid`.",
-        "`nano /etc/fstab` açarak mevcut olmayan veya UUID'si eşleşmeyen disk satırlarının başına `#` işareti koyarak devre dışı bırakın.",
-        "İsteğe bağlı disklerin parametresine `defaults,nofail 0 2` ekleyin; `systemctl reboot` ile sunucuyu başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Kök Dosya Sistemini Yazılabilir Yap",
-          "komut": "mount -o remount,rw /",
-          "aciklama": "Salt okunur kök bölümü yazmaya açar."
-        },
-        {
-          "etiket": "Disk UUID'lerini Doğrula",
-          "komut": "blkid",
-          "aciklama": "Tüm fiziksel bölüntülerin gerçek UUID değerlerini listeler."
-        },
-        {
-          "etiket": "Mount Hatalarını Kontrol Et",
-          "komut": "mount -a",
-          "aciklama": "fstab dosyasında hata kalıp kalmadığını test eder."
-        }
-      ],
-      "temel_anlatim": "Linux sunucu yeniden başlatıldığında 'You are in emergency mode. After logging in, type journalctl -xb to view system logs' ekranında kalması.",
-      "derin_teknik_analiz": "Systemd açılış esnasında `/etc/fstab` içindeki tüm bağlı diskleri sırayla monte eder. Çıkarılmış harici bir diskin UUID'si fstab'da kalmışsa veya `nofail` parametresi eklenmemişse systemd timeout yer ve boot döngüsünü durdurur.",
-      "kenar_durumlar": [
-        {
-          "durum": "fstab temiz ama hala emergency moda düşüyor",
-          "neden": "Kök disk bölüntüsünde (ext4/xfs) bozuk inode veya bloklar vardır.",
-          "cozum": "İlgili diske `fsck.ext4 -fy /dev/sda1` çalıştırarak dosya sistemini manuel onarın."
-        }
-      ],
-      "etiketler": [
-        "linux",
-        "fstab",
-        "emergency-mode",
-        "systemd",
-        "blkid",
-        "mount",
-        "fsck"
-      ],
-      "oncelik": 1
-    }
-  ]
-}
+[
+  {
+    "id": "linux_00001",
+    "kategori": "Linux",
+    "alt_kategori": "systemd Servis Çöküşü",
+    "baslik": "systemd Servis Çöküşü & journalctl Teşhisi",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: Başlamayan systemd servislerinin hata loglarını ve çekirdek izini analiz etme.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: journalctl -u nginx.service -xe --no-pager",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "journalctl -u nginx.service -xe --no-pager",
+        "aciklama": "Servis çökme nedenini listeler."
+      }
+    ],
+    "temel_anlatim": "systemd Servis Çöküşü & journalctl Teşhisi: Başlamayan systemd servislerinin hata loglarını ve çekirdek izini analiz etme. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. journalctl -u nginx.service -xe --no-pager parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "nginx linux systemd journalctl servis"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "linux_00002",
+    "kategori": "Linux",
+    "alt_kategori": "LVM Disk Genişletme",
+    "baslik": "LVM Disk Genişletme & resize2fs / xfs_growfs",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: Canlı sunucuda yeni eklenen diski kesintisiz LVM havuzuna ekleme.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: pvcreate /dev/sdb; vgextend vg_root /dev/sdb; lvextend -l +100%FREE /dev/vg_root/lv_root; resize2fs /dev/vg_root/lv_root",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "pvcreate /dev/sdb; vgextend vg_root /dev/sdb; lvextend -l +100%FREE /dev/vg_root/lv_root; resize2fs /dev/vg_root/lv_root",
+        "aciklama": "LVM dosya sistemini canlı büyütür."
+      }
+    ],
+    "temel_anlatim": "LVM Disk Genişletme & resize2fs / xfs_growfs: Canlı sunucuda yeni eklenen diski kesintisiz LVM havuzuna ekleme. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. pvcreate /dev/sdb; vgextend vg_root /dev/sdb; lvextend -l +100%FREE /dev/vg_root/lv_root; resize2fs /dev/vg_root/lv_root parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "lvextend linux lvm xfs_growfs disk genisletme"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "win_wsl2_ext4_vhdx_compact",
+    "kategori": "Windows",
+    "alt_kategori": "Linux Alt Sistemi (WSL2)",
+    "baslik": "WSL2 ext4.vhdx Disk Alanını Küçültme",
+    "hizli_adimlar": [
+      "Sorun belirtisini teyit edin: WSL2 içinde dosyalar silinse dahi küçülmeyen sanal diski diskpart ile sıkıştırma.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak açın.",
+      "Sistem parametrelerini ve olay loglarını denetleyin.",
+      "Uygulanacak komut: diskpart /s (Get-ScriptPath)",
+      "Sonucu doğrulamak için servisi veya sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "WSL2 ext4.vhdx Disk Alanını Küçültme",
+        "komut": "diskpart /s (Get-ScriptPath)",
+        "aciklama": "Kullanılmayan blokları serbest bırakarak 20-50GB yer açar."
+      }
+    ],
+    "temel_anlatim": "WSL2 ext4.vhdx Disk Alanını Küçültme, Windows altyapısında wsl2 içinde dosyalar silinse dahi küçülmeyen sanal diski diskpart ile sıkıştırma.",
+    "derin_teknik_analiz": "WSL2 ext4.vhdx Disk Alanını Küçültme süreci, işletim sistemi çekirdeği ve ilgili donanım/ağ protokolü düzeyinde yürütülür. WSL2 içinde dosyalar silinse dahi küçülmeyen sanal diski diskpart ile sıkıştırma. Kalıcı çözüm için sistem günlükleri ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komut sonuç vermiyor veya erişim reddedildi",
+        "neden": "Kullanıcı Yönetici yetkilerine sahip değildir veya dosya kilitlidir.",
+        "cozum": "Yönetici olarak çalıştırın veya Kurtarma Ortamında (WinRE) deneyin."
+      }
+    ],
+    "etiketler": [
+      "wsl2 ext4.vhdx disk alanını küçültme windows linux alt sistemi (wsl2) ariza onarim"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_ufw_firewall_setup",
+    "kategori": "Linux",
+    "alt_kategori": "Güvenlik & UFW",
+    "baslik": "UFW Güvenlik Duvarı Yapılandırması & SSH Port Kilitleme",
+    "hizli_adimlar": [
+      "UFW varsayılan kurallarını belirle (incoming deny, outgoing allow).",
+      "SSH portuna izin ver (ufw allow 22/tcp).",
+      "UFW'yi etkinleştir (ufw enable) ve durumunu kontrol et."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Varsayılan Politikaları Ayarla",
+        "komut": "sudo ufw default deny incoming && sudo ufw default allow outgoing",
+        "aciklama": "Girişleri kapatır, çıkışlara izin verir."
+      },
+      {
+        "etiket": "SSH ve Web Portlarını Aç",
+        "komut": "sudo ufw allow 22/tcp && sudo ufw allow 80/tcp && sudo ufw allow 443/tcp",
+        "aciklama": "Temel yönetim ve web portlarını açar."
+      },
+      {
+        "etiket": "UFW'yi Başlat & Durum",
+        "komut": "sudo ufw enable && sudo ufw status verbose",
+        "aciklama": "Güvenlik duvarını devreye sokar."
+      }
+    ],
+    "temel_anlatim": "Linux sunucularda dışarıdan gelen izinsiz bağlantıları engellemek için UFW (Uncomplicated Firewall) kullanılır. SSH portu açılmadan UFW etkinleştirilirse sunucuya erişim kilitlenir.",
+    "derin_teknik_analiz": "UFW, arka planda Linux çekirdeğinin netfilter / iptables kurallarını yöneten bir kullanıcı alanı arabirimidir. State-tracking (conntrack) mekanizması ile mevcut oturumların kesilmesini önler.",
+    "kenar_durumlar": [
+      {
+        "durum": "SSH portu 2222 olarak değiştirilmişse",
+        "neden": "Özel SSH portu açılmamıştır.",
+        "cozum": "sudo ufw allow 2222/tcp komutunu girmeden ufw enable yapmayın."
+      }
+    ],
+    "etiketler": [
+      "linux ufw firewall iptables ssh guvenlik"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_journalctl_disk_full",
+    "kategori": "Linux",
+    "alt_kategori": "Disk & Depolama",
+    "baslik": "Journalctl Sistem Günlüklerinin Diski Doldurması & Vakumlama",
+    "hizli_adimlar": [
+      "Disk doluluk oranını df -h ile kontrol et.",
+      "systemd-journald günlük boyutunu gör.",
+      "Günlükleri 2 güne veya 500M sınırına vakumla."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Günlük Boyutunu Gör",
+        "komut": "journalctl --disk-usage",
+        "aciklama": "Mevcut sistem loglarının kapladığı boyutu listeler."
+      },
+      {
+        "etiket": "Logları 500 MB ile Sınırla",
+        "komut": "sudo journalctl --vacuum-size=500M",
+        "aciklama": "500 megabayttan eski tüm logları kalıcı olarak temizler."
+      },
+      {
+        "etiket": "Eski Logları Güne Göre Sil",
+        "komut": "sudo journalctl --vacuum-time=3d",
+        "aciklama": "Son 3 günden eski logları temizler."
+      }
+    ],
+    "temel_anlatim": "systemd-journald logları varsayılan olarak diskin %10'una kadar büyüyebilir. Log rotasyonu yapılmadığında /var/log/journal diski tamamen doldurarak servisleri çökertebilir.",
+    "derin_teknik_analiz": "systemd-journald verileri ikili (binary) formatta tutar. Vakumlama işlemi eski parçalanmış journal arşiv bloklarını unmap ederek inode ve disk bloklarını serbest bırakır.",
+    "kenar_durumlar": [
+      {
+        "durum": "Loglar her gün tekrar 10 GB oluyorsa",
+        "neden": "Bir servis döngüsel hata fırlatıyordur.",
+        "cozum": "/etc/systemd/journald.conf içinde SystemMaxUse=1G sabitleyin."
+      }
+    ],
+    "etiketler": [
+      "journalctl disk doldu var log systemd vacuum"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_swap_file_creation",
+    "kategori": "Linux",
+    "alt_kategori": "Performans & Bellek",
+    "baslik": "Linux Swap (Takas Alanı) Oluşturma & OOM Killer Önleme",
+    "hizli_adimlar": [
+      "Mevcut swap durumunu free -h ile gör.",
+      "fallocate ile swapfile oluştur.",
+      "İzinleri 600 yap ve swapon ile devreye al."
+    ],
+    "komutlar": [
+      {
+        "etiket": "4 GB Swap Alanı Ayrır",
+        "komut": "sudo fallocate -l 4G /swapfile",
+        "aciklama": "Diskte 4GB blok rezerve eder."
+      },
+      {
+        "etiket": "İzinleri Güvenli Yap",
+        "komut": "sudo chmod 600 /swapfile && sudo mkswap /swapfile",
+        "aciklama": "Sadece root erişimine açar ve swap alanı biçimlendirir."
+      },
+      {
+        "etiket": "Swap'ı Aç & fstab'a Ekle",
+        "komut": "sudo swapon /swapfile && echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab",
+        "aciklama": "Swap'ı anında açar ve yeniden başlatmalara karşı kalıcı kılar."
+      }
+    ],
+    "temel_anlatim": "RAM tükendiğinde Linux çekirdeği (Kernel OOM Killer) veritabanı veya web sunucusunu aniden öldürür. Swap alanı acil durumlarda diski sanal RAM gibi kullanarak çöküşü önler.",
+    "derin_teknik_analiz": "vm.swappiness parametresi çekirdeğin ne sıklıkla diske takas yapacağını belirler (0-100). Sunucularda ideal swappiness değeri 10-15 aralığıdır.",
+    "kenar_durumlar": [
+      {
+        "durum": "fallocate swapfile desteklenmiyor hatası",
+        "neden": "XFS veya Btrfs dosya sistemi kullanılıyordur.",
+        "cozum": "dd if=/dev/zero of=/swapfile bs=1M count=4096 kullanın."
+      }
+    ],
+    "etiketler": [
+      "swap oom killer ram yetersiz swapon fstab"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "lnx_fstab_emergency_mode",
+    "kategori": "Linux",
+    "alt_kategori": "Dosya Sistemi & Başlangıç",
+    "baslik": "Bozuk /etc/fstab Nedeniyle Ubuntu / Debian Sistemin Emergency Mode'a Düşmesi",
+    "hizli_adimlar": [
+      "Root parolasını girerek bakım konsoluna (Emergency Shell) erişin.",
+      "Kök dosya sistemi salt okunur (read-only) açılmışsa yazılabilir yapın: `mount -o remount,rw /`.",
+      "Disk UUID'lerini listeleyin: `blkid`.",
+      "`nano /etc/fstab` açarak mevcut olmayan veya UUID'si eşleşmeyen disk satırlarının başına `#` işareti koyarak devre dışı bırakın.",
+      "İsteğe bağlı disklerin parametresine `defaults,nofail 0 2` ekleyin; `systemctl reboot` ile sunucuyu başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Kök Dosya Sistemini Yazılabilir Yap",
+        "komut": "mount -o remount,rw /",
+        "aciklama": "Salt okunur kök bölümü yazmaya açar."
+      },
+      {
+        "etiket": "Disk UUID'lerini Doğrula",
+        "komut": "blkid",
+        "aciklama": "Tüm fiziksel bölüntülerin gerçek UUID değerlerini listeler."
+      },
+      {
+        "etiket": "Mount Hatalarını Kontrol Et",
+        "komut": "mount -a",
+        "aciklama": "fstab dosyasında hata kalıp kalmadığını test eder."
+      }
+    ],
+    "temel_anlatim": "Linux sunucu yeniden başlatıldığında 'You are in emergency mode. After logging in, type journalctl -xb to view system logs' ekranında kalması.",
+    "derin_teknik_analiz": "Systemd açılış esnasında `/etc/fstab` içindeki tüm bağlı diskleri sırayla monte eder. Çıkarılmış harici bir diskin UUID'si fstab'da kalmışsa veya `nofail` parametresi eklenmemişse systemd timeout yer ve boot döngüsünü durdurur.",
+    "kenar_durumlar": [
+      {
+        "durum": "fstab temiz ama hala emergency moda düşüyor",
+        "neden": "Kök disk bölüntüsünde (ext4/xfs) bozuk inode veya bloklar vardır.",
+        "cozum": "İlgili diske `fsck.ext4 -fy /dev/sda1` çalıştırarak dosya sistemini manuel onarın."
+      }
+    ],
+    "etiketler": [
+      "linux fstab emergency-mode systemd blkid mount fsck"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_872",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "LVM Disk Genişletme ve Canlı Dosya Sistemi Büyütme",
+    "hizli_adimlar": [
+      "fdisk /dev/sda ile yeni alanı bölüntüye ekleyin.",
+      "pvresize ile fiziksel hacmi güncelleyin.",
+      "lvextend -r parametresiyle hem LV'yi hem de ext4/xfs dosya sistemini canlı büyütün."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Linux Terminal Komutu",
+        "komut": "pvresize /dev/sda3 & lvextend -r -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv",
+        "aciklama": "Doğrudan çözüm komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal diske eklenen 100 GB alanın kök bölüntüye (/) kesintisiz eklenmesi.",
+    "derin_teknik_analiz": "LVM mimarisinde Physical Volume (PV) -> Volume Group (VG) -> Logical Volume (LV) katmanları sırayla büyütülür.",
+    "kenar_durumlar": [
+      {
+        "durum": "Komut 'Permission Denied' veriyor",
+        "neden": "Root yetkisi eksiktir.",
+        "cozum": "Komutun başına `sudo` ekleyin."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "server",
+      "systemd",
+      "terminal"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_873",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Nginx 502 Bad Gateway ve PHP-FPM Soket İzinleri",
+    "hizli_adimlar": [
+      "systemctl status php8.2-fpm ile servis durumunu kontrol edin.",
+      "Nginx error.log dosyasını inceleyin (`tail -n 20 /var/log/nginx/error.log`).",
+      "Soket izinlerini www-data kullanıcısına atayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Linux Terminal Komutu",
+        "komut": "systemctl restart php8.2-fpm & ls -la /run/php/php8.2-fpm.sock & chown www-data:www-data /run/php/php8.2-fpm.sock",
+        "aciklama": "Doğrudan çözüm komutu."
+      }
+    ],
+    "temel_anlatim": "Nginx web sunucusunda PHP sayfaları açılırken 502 Bad Gateway hatası gelmesi.",
+    "derin_teknik_analiz": "PHP-FPM servisi çökmüştür veya /run/php/php-fpm.sock dosyasının sahibi www-data değildir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Komut 'Permission Denied' veriyor",
+        "neden": "Root yetkisi eksiktir.",
+        "cozum": "Komutun başına `sudo` ekleyin."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "server",
+      "systemd",
+      "terminal"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_874",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "SSH 'Permission Denied (publickey)' ve Yetkilendirme İzinleri",
+    "hizli_adimlar": [
+      "Kullanıcının ev dizinindeki izinleri düzeltin: chmod 700 ~/.ssh.",
+      "authorized_keys dosyasını chmod 600 yapın.",
+      "/etc/ssh/sshd_config dosyasında PubkeyAuthentication yes olduğunu doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Linux Terminal Komutu",
+        "komut": "chmod 700 ~/.ssh & chmod 600 ~/.ssh/authorized_keys & chown -R $USER:$USER ~/.ssh",
+        "aciklama": "Doğrudan çözüm komutu."
+      }
+    ],
+    "temel_anlatim": "SSH anahtarı doğru olmasına rağmen sunucuya şifresiz bağlanılamaması.",
+    "derin_teknik_analiz": "SSH sunucusu .ssh klasörünün (700) ve authorized_keys dosyasının (600) izinleri çok gevşekse güvenlik nedeniyle bağlantıyı reddeder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Komut 'Permission Denied' veriyor",
+        "neden": "Root yetkisi eksiktir.",
+        "cozum": "Komutun başına `sudo` ekleyin."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "server",
+      "systemd",
+      "terminal"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_875",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Systemd Servisinin 'CrashLoopBackOff' ve Coredump Analizi",
+    "hizli_adimlar": [
+      "journalctl -u ile en son çökme loglarını döker.",
+      "Servisin çalıştırılabilir dosyasını doğrudan komut satırından aynı kullanıcıyla manuel çalıştırarak hatayı izole edin.",
+      "Gerekiyorsa coredumpctl gdb ile çağrı yığınını inceleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Linux Terminal Komutu",
+        "komut": "journalctl -u servis_adi.service -e --no-pager & systemctl status servis_adi",
+        "aciklama": "Doğrudan çözüm komutu."
+      }
+    ],
+    "temel_anlatim": "Özel bir daemon servisinin başlar başlamaz exit-code ile çöküp sürekli yeniden başlaması.",
+    "derin_teknik_analiz": "Eksik ortam değişkeni, konfigürasyon sözdizimi hatası veya yetkisiz port dinleme.",
+    "kenar_durumlar": [
+      {
+        "durum": "Komut 'Permission Denied' veriyor",
+        "neden": "Root yetkisi eksiktir.",
+        "cozum": "Komutun başına `sudo` ekleyin."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "server",
+      "systemd",
+      "terminal"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_876",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Docker Daemon Açılmama ve iptables / nftables Çakışması",
+    "hizli_adimlar": [
+      "iptables modunu legacy'ye çekin.",
+      "/etc/docker/daemon.json içinde 'iptables': false yapılandırmasını kontrol edin.",
+      "Docker servisini yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Linux Terminal Komutu",
+        "komut": "update-alternatives --set iptables /usr/sbin/iptables-legacy & systemctl restart docker",
+        "aciklama": "Doğrudan çözüm komutu."
+      }
+    ],
+    "temel_anlatim": "Ubuntu 22.04/24.04 üzerinde dockerd servisinin 'failed to start daemon: Error initializing network controller' vermesi.",
+    "derin_teknik_analiz": "Docker legacy iptables kuralları beklerken sistemin nftables'a geçmiş olması veya UFW kurallarıyla çakışma.",
+    "kenar_durumlar": [
+      {
+        "durum": "Komut 'Permission Denied' veriyor",
+        "neden": "Root yetkisi eksiktir.",
+        "cozum": "Komutun başına `sudo` ekleyin."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "server",
+      "systemd",
+      "terminal"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_877",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Linux Takas Alanı (Swap File) Oluşturma ve Bellek Taşmasını Önleme",
+    "hizli_adimlar": [
+      "fallocate ile 4 GB'lık boş dosya açın.",
+      "Güvenlik için izni chmod 600 yapın.",
+      "mkswap ve swapon ile devreye alın.",
+      "/etc/fstab dosyasına `/swapfile none swap sw 0 0` ekleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Linux Terminal Komutu",
+        "komut": "fallocate -l 4G /swapfile & chmod 600 /swapfile & mkswap /swapfile & swapon /swapfile",
+        "aciklama": "Doğrudan çözüm komutu."
+      }
+    ],
+    "temel_anlatim": "1 GB veya 2 GB RAM'li VPS sunucularda derleme yaparken OOM Killer'ın süreçleri öldürmesi.",
+    "derin_teknik_analiz": "Fiziksel RAM dolduğunda swap alanı yoksa Linux çekirdeği MySQL, Nginx gibi ana süreçleri sonlandırır.",
+    "kenar_durumlar": [
+      {
+        "durum": "Komut 'Permission Denied' veriyor",
+        "neden": "Root yetkisi eksiktir.",
+        "cozum": "Komutun başına `sudo` ekleyin."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "server",
+      "systemd",
+      "terminal"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lin_mat_5",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Linux Emergency Mode: /etc/fstab UUID Uyuşmazlığı ve Boot Kurtarma",
+    "hizli_adimlar": [
+      "Root parolasını girerek bakım konsoluna erişin.",
+      "'mount -o remount,rw /' komutuyla kök dosya sistemine yazma izni verin.",
+      "'blkid' komutuyla sunucudaki mevcut disklerin gerçek UUID'lerini listeleyin.",
+      "'nano /etc/fstab' dosyasını açıp blkid listesinde olmayan satırın başına '#' koyun.",
+      "'systemctl default' veya 'reboot' çalıştırarak sistemi normal modda başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Kök Dizini Yazılabilir Yap",
+        "komut": "mount -o remount,rw /",
+        "aciklama": "Acil durum modundaki salt-okunur kilidi kaldırır."
+      }
+    ],
+    "temel_anlatim": "Sunucu yeniden başlatıldığında 'You are in emergency mode' ekranında kalması ve salt-okunur terminale düşmesi.",
+    "derin_teknik_analiz": "Kök Neden: Çıkarılan bir diskin veya değişen disk UUID'sinin /etc/fstab dosyasında hala bağlama (mount) olarak beklemesi. Çözüm: Kök dizini yazılabilir (rw) olarak yeniden bağlayın, /etc/fstab dosyasındaki hatalı UUID satırını yorum satırı (#) yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "fstab kaydedilemiyor",
+        "neden": "Dosya sistemi salt-okunur (ro) kalmıştır.",
+        "cozum": "remount,rw komutunun başarılı olduğundan emin olun."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "fstab",
+      "emergency-mode",
+      "uuid",
+      "boot-onarimi",
+      "systemd"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lin_mat_6",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "LVM Mantıksal Disk Genişletme ve Canlı Dosya Sistemi Büyütme",
+    "hizli_adimlar": [
+      "'lsblk' ve 'df -hT' ile disk tipini (ext4 veya xfs) ve boş alanı kontrol edin.",
+      "'lvextend -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv' komutuyla mantıksal bölümü genişletin.",
+      "Eğer dosya sistemi ext4 ise: 'resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv' çalıştırın.",
+      "Eğer dosya sistemi XFS ise: 'xfs_growfs /' komutunu çalıştırın.",
+      "'df -h' ile yeni alanın anında eklendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "LVM Canlı Genişletme (Tek Satır)",
+        "komut": "lvextend -r -l +100%FREE /dev/mapper/root_lv",
+        "aciklama": "-r parametresi hem LVM'i hem de altındaki dosya sistemini tek seferde büyütür."
+      }
+    ],
+    "temel_anlatim": "Linux sunucuda /var veya kök dizininin %100 dolması sonucu servislerin durması.",
+    "derin_teknik_analiz": "Kök Neden: LVM mimarisinde sanal diske yeni alan eklendikten sonra Volume Group ve Logical Volume'ün genişletilmemesi. Çözüm: lvextend ve resize2fs (veya xfs_growfs) komutlarıyla sunucuyu kapatmadan alanı canlı olarak büyütün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Volume Group'ta boş alan yok (No free extents)",
+        "neden": "Fiziksel diske hypervisor üzerinden alan eklendikten sonra pvresize yapılmamıştır.",
+        "cozum": "pvresize /dev/sda3 çalıştırarak yeni fiziksel boyutu LVM'e tanıtın."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "lvm",
+      "lvextend",
+      "resize2fs",
+      "xfs_growfs",
+      "disk-genisletme"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_50",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Nginx 502 Bad Gateway: PHP-FPM Socket İzin Hatası (/run/php/php-fpm.sock)",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: chmod 660 /run/php/php-fpm.sock && chown www-data:www-data /run/php/php-fpm.sock",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "chmod 660 /run/php/php-fpm.sock && chown www-data:www-data /run/php/php-fpm.sock",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Nginx 502 Bad Gateway: PHP-FPM Socket İzin Hatası (/run/php/php-fpm.sock) ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: chmod 660 /run/php/php-fpm.sock && chown www-data:www-data /run/php/php-fpm.sock",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "linux",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_51",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Docker Daemon Başlamıyor: failed to mount overlay: invalid argument",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: systemctl stop docker && rm -rf /var/lib/docker/overlay2/* && systemctl start docker",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "systemctl stop docker && rm -rf /var/lib/docker/overlay2/* && systemctl start docker",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Docker Daemon Başlamıyor: failed to mount overlay: invalid argument ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: systemctl stop docker && rm -rf /var/lib/docker/overlay2/* && systemctl start docker",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "linux",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_52",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Linux OOM (Out of Memory) Killer Tarafından MySQL Sürecinin Öldürülmesi",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: dmesg -T | grep -i oom",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "dmesg -T | grep -i oom",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Linux OOM (Out of Memory) Killer Tarafından MySQL Sürecinin Öldürülmesi ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: dmesg -T | grep -i oom",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "linux",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_53",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Swap Alanı Yetersizliği ve /swapfile Oluşturarak Takas Alanı Büyütme",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: fallocate -l 4G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "fallocate -l 4G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Swap Alanı Yetersizliği ve /swapfile Oluşturarak Takas Alanı Büyütme ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: fallocate -l 4G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "linux",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_54",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Logrotate Kilitlenmesi ve /var/log Dizininde Diskin %100 Dolması",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: logrotate -f /etc/logrotate.conf",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "logrotate -f /etc/logrotate.conf",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Logrotate Kilitlenmesi ve /var/log Dizininde Diskin %100 Dolması ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: logrotate -f /etc/logrotate.conf",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "linux",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_55",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "GRUB Rescue: 'error: unknown filesystem' ve Manuel Boot Prosedürü",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: ls (hd0,gpt1)/ && set root=(hd0,gpt1) && set prefix=(hd0,gpt1)/boot/grub && insmod normal && normal",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "ls (hd0,gpt1)/ && set root=(hd0,gpt1) && set prefix=(hd0,gpt1)/boot/grub && insmod normal && normal",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "GRUB Rescue: 'error: unknown filesystem' ve Manuel Boot Prosedürü ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: ls (hd0,gpt1)/ && set root=(hd0,gpt1) && set prefix=(hd0,gpt1)/boot/grub && insmod normal && normal",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "linux",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_56",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Linux Cron Görevinin Ortam Değişkeni (PATH) Eksikliğinden Çalışmaması",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: crontab -e -> PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "crontab -e -> PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Linux Cron Görevinin Ortam Değişkeni (PATH) Eksikliğinden Çalışmaması ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: crontab -e -> PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "linux",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_57",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Apache AH00558: Could not reliably determine the server's fully qualified domain name",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: echo 'ServerName localhost' >> /etc/apache2/apache2.conf && systemctl restart apache2",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "echo 'ServerName localhost' >> /etc/apache2/apache2.conf && systemctl restart apache2",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Apache AH00558: Could not reliably determine the server's fully qualified domain name ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: echo 'ServerName localhost' >> /etc/apache2/apache2.conf && systemctl restart apache2",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "linux",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_58",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Ubuntu 'Held Broken Packages' Apt Bağımlılık Kilidi Onarımı",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: dpkg --configure -a && apt-get install -f && apt-get update",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "dpkg --configure -a && apt-get install -f && apt-get update",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Ubuntu 'Held Broken Packages' Apt Bağımlılık Kilidi Onarımı ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: dpkg --configure -a && apt-get install -f && apt-get update",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "linux",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_59",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "ZFS Havuzunda 'DEGRADED' Durumundaki Bozuk Diskin Değiştirilmesi",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: zpool replace tank /dev/sdb /dev/sde",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "zpool replace tank /dev/sdb /dev/sde",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "ZFS Havuzunda 'DEGRADED' Durumundaki Bozuk Diskin Değiştirilmesi ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: zpool replace tank /dev/sdb /dev/sde",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "linux",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_surge_0",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Ubuntu 22.04 LTS / 24.04 LTS: Netplan YAML Girinti (Indentation) Hatası Nedeniyle Ağın Başlamaması",
+    "hizli_adimlar": [
+      "Ubuntu 22.04 LTS / 24.04 LTS terminalini açıp root yetkisi alın.",
+      "Kök neden analizini uygulayın: YAML dosyasında sekme (TAB) karakteri kullanılması veya boşluk sayısının tutarsızlığı.",
+      "Saha mühendisliği çözüm adımlarını yürütün: netplan generate ile hatalı satırı bulun, TAB'ları iki boşlukla değiştirin ve netplan apply yapın.",
+      "Sistem servislerini yeniden başlatarak hatanın giderildiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Terminal Komutu",
+        "komut": "sudo netplan apply",
+        "aciklama": "Saha çözüm komutu."
+      }
+    ],
+    "temel_anlatim": "Sunucu yeniden başlatıldığında ethernet kartının IP alamayıp 'Invalid YAML' vermesi.",
+    "derin_teknik_analiz": "YAML dosyasında sekme (TAB) karakteri kullanılması veya boşluk sayısının tutarsızlığı. Çözüm: netplan generate ile hatalı satırı bulun, TAB'ları iki boşlukla değiştirin ve netplan apply yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Dosya sistemi salt-okunur moddadır.",
+        "cozum": "mount -o remount,rw / çalıştırın."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "ubuntu",
+      "devops",
+      "systemd"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_surge_1",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Ubuntu 22.04 LTS / 24.04 LTS: UFW Güvenlik Duvarının Docker Portlarını Atlaması (Bypass) Güvenlik Açığı",
+    "hizli_adimlar": [
+      "Ubuntu 22.04 LTS / 24.04 LTS terminalini açıp root yetkisi alın.",
+      "Kök neden analizini uygulayın: Docker daemon'ın IPTables kurallarını doğrudan PREROUTING zincirine enjekte etmesi.",
+      "Saha mühendisliği çözüm adımlarını yürütün: daemon.json içine iptables: false ekleyin veya ufw-docker güvenlik scriptini kurun.",
+      "Sistem servislerini yeniden başlatarak hatanın giderildiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Terminal Komutu",
+        "komut": "sudo ufw status verbose",
+        "aciklama": "Saha çözüm komutu."
+      }
+    ],
+    "temel_anlatim": "UFW'de port kapalı olmasına rağmen Docker konteyner portunun dışarıya açık olması.",
+    "derin_teknik_analiz": "Docker daemon'ın IPTables kurallarını doğrudan PREROUTING zincirine enjekte etmesi. Çözüm: daemon.json içine iptables: false ekleyin veya ufw-docker güvenlik scriptini kurun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Dosya sistemi salt-okunur moddadır.",
+        "cozum": "mount -o remount,rw / çalıştırın."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "ubuntu",
+      "devops",
+      "systemd"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_surge_2",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Ubuntu 22.04 LTS / 24.04 LTS: systemd-resolved DNS Çözümleyici Döngüsü ve 127.0.0.53 Kilitlenmesi",
+    "hizli_adimlar": [
+      "Ubuntu 22.04 LTS / 24.04 LTS terminalini açıp root yetkisi alın.",
+      "Kök neden analizini uygulayın: Dahili systemd-resolved servisinin upstream DNS sunucusuyla el sıkışamaması.",
+      "Saha mühendisliği çözüm adımlarını yürütün: /etc/resolv.conf sembolik bağını kaldırıp doğrudan nameserver 8.8.8.8 tanımlayın.",
+      "Sistem servislerini yeniden başlatarak hatanın giderildiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Terminal Komutu",
+        "komut": "systemd-resolve --status",
+        "aciklama": "Saha çözüm komutu."
+      }
+    ],
+    "temel_anlatim": "Sunucunun hiçbir alan adını çözümleyememesi ve 'Temporary failure in name resolution' vermesi.",
+    "derin_teknik_analiz": "Dahili systemd-resolved servisinin upstream DNS sunucusuyla el sıkışamaması. Çözüm: /etc/resolv.conf sembolik bağını kaldırıp doğrudan nameserver 8.8.8.8 tanımlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Dosya sistemi salt-okunur moddadır.",
+        "cozum": "mount -o remount,rw / çalıştırın."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "ubuntu",
+      "devops",
+      "systemd"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_surge_3",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Ubuntu 22.04 LTS / 24.04 LTS: AppArmor Profilinin MySQL Veri Dizinini Okumasını Engellemesi",
+    "hizli_adimlar": [
+      "Ubuntu 22.04 LTS / 24.04 LTS terminalini açıp root yetkisi alın.",
+      "Kök neden analizini uygulayın: AppArmor /etc/apparmor.d/usr.sbin.mysqld profilinde yeni yolun tanımlı olmaması.",
+      "Saha mühendisliği çözüm adımlarını yürütün: AppArmor profiline /mnt/data/ r ve /mnt/data/** rwk izinlerini ekleyip profili tazeleyin.",
+      "Sistem servislerini yeniden başlatarak hatanın giderildiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Terminal Komutu",
+        "komut": "sudo aa-status",
+        "aciklama": "Saha çözüm komutu."
+      }
+    ],
+    "temel_anlatim": "MySQL veri dizini /mnt/data altına taşındığında servisin 'Permission denied' ile çökmesi.",
+    "derin_teknik_analiz": "AppArmor /etc/apparmor.d/usr.sbin.mysqld profilinde yeni yolun tanımlı olmaması. Çözüm: AppArmor profiline /mnt/data/ r ve /mnt/data/** rwk izinlerini ekleyip profili tazeleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Dosya sistemi salt-okunur moddadır.",
+        "cozum": "mount -o remount,rw / çalıştırın."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "ubuntu",
+      "devops",
+      "systemd"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_surge_4",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Debian 12 Bookworm: Apt 'Non-Free Firmware' Deposu Eksikliği ve Wi-Fi Sürücü Yüklenememesi",
+    "hizli_adimlar": [
+      "Debian 12 Bookworm terminalini açıp root yetkisi alın.",
+      "Kök neden analizini uygulayın: Debian 12'de firmware paketlerinin non-free-firmware deposuna ayrılması.",
+      "Saha mühendisliği çözüm adımlarını yürütün: /etc/apt/sources.list dosyasına non-free-firmware ekleyin ve firmware-iwlwifi kurun.",
+      "Sistem servislerini yeniden başlatarak hatanın giderildiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Terminal Komutu",
+        "komut": "sudo apt update && sudo apt install firmware-iwlwifi",
+        "aciklama": "Saha çözüm komutu."
+      }
+    ],
+    "temel_anlatim": "Debian kurulumu sonrası Intel Wi-Fi kartının tanınmaması.",
+    "derin_teknik_analiz": "Debian 12'de firmware paketlerinin non-free-firmware deposuna ayrılması. Çözüm: /etc/apt/sources.list dosyasına non-free-firmware ekleyin ve firmware-iwlwifi kurun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Dosya sistemi salt-okunur moddadır.",
+        "cozum": "mount -o remount,rw / çalıştırın."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "debian",
+      "devops",
+      "systemd"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_surge_5",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Debian 12 Bookworm: Sudoers Dosyasında Kullanıcı Tanımsız Hatası (is not in the sudoers file)",
+    "hizli_adimlar": [
+      "Debian 12 Bookworm terminalini açıp root yetkisi alın.",
+      "Kök neden analizini uygulayın: Kurulum sırasında root şifresi girildiği için varsayılan kullanıcının sudo grubuna eklenmemesi.",
+      "Saha mühendisliği çözüm adımlarını yürütün: su - komutuyla root olup 'usermod -aG sudo [kullanici]' çalıştırın ve oturumu kapatıp açın.",
+      "Sistem servislerini yeniden başlatarak hatanın giderildiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Terminal Komutu",
+        "komut": "su -c 'usermod -aG sudo $USER'",
+        "aciklama": "Saha çözüm komutu."
+      }
+    ],
+    "temel_anlatim": "Kullanıcı terminalde sudo çalıştırdığında yetki reddi alması.",
+    "derin_teknik_analiz": "Kurulum sırasında root şifresi girildiği için varsayılan kullanıcının sudo grubuna eklenmemesi. Çözüm: su - komutuyla root olup 'usermod -aG sudo [kullanici]' çalıştırın ve oturumu kapatıp açın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Dosya sistemi salt-okunur moddadır.",
+        "cozum": "mount -o remount,rw / çalıştırın."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "debian",
+      "devops",
+      "systemd"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_surge_6",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Debian 12 Bookworm: GRUB Önyükleyici 'Sparse file not allowed' Hatası ve Açılış Durması",
+    "hizli_adimlar": [
+      "Debian 12 Bookworm terminalini açıp root yetkisi alın.",
+      "Kök neden analizini uygulayın: GRUB'ın btrfs sıkıştırma veya sparse dosyalara doğrudan kayıt yazamaması.",
+      "Saha mühendisliği çözüm adımlarını yürütün: /etc/default/grub içine GRUB_SAVEDEFAULT=false ekleyin ve update-grub çalıştırın.",
+      "Sistem servislerini yeniden başlatarak hatanın giderildiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Terminal Komutu",
+        "komut": "sudo update-grub",
+        "aciklama": "Saha çözüm komutu."
+      }
+    ],
+    "temel_anlatim": "Btrfs veya ZFS diskte boot sırasında GRUB'ın uyarı verip beklemesi.",
+    "derin_teknik_analiz": "GRUB'ın btrfs sıkıştırma veya sparse dosyalara doğrudan kayıt yazamaması. Çözüm: /etc/default/grub içine GRUB_SAVEDEFAULT=false ekleyin ve update-grub çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Dosya sistemi salt-okunur moddadır.",
+        "cozum": "mount -o remount,rw / çalıştırın."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "debian",
+      "devops",
+      "systemd"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_surge_7",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Debian 12 Bookworm: Journalctl Disk Kotası Taşması ve Sistem Günlüklerinin Kilitlenmesi",
+    "hizli_adimlar": [
+      "Debian 12 Bookworm terminalini açıp root yetkisi alın.",
+      "Kök neden analizini uygulayın: Systemd journal boyut sınırlama (SystemMaxUse) değerinin tanımlanmamış olması.",
+      "Saha mühendisliği çözüm adımlarını yürütün: /etc/systemd/journald.conf içinde SystemMaxUse=500M tanımlayın ve journalctl --vacuum-size=200M çalıştırın.",
+      "Sistem servislerini yeniden başlatarak hatanın giderildiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Terminal Komutu",
+        "komut": "journalctl --vacuum-size=200M",
+        "aciklama": "Saha çözüm komutu."
+      }
+    ],
+    "temel_anlatim": "/var/log/journal dizininin gigabaytlarca yer kaplaması.",
+    "derin_teknik_analiz": "Systemd journal boyut sınırlama (SystemMaxUse) değerinin tanımlanmamış olması. Çözüm: /etc/systemd/journald.conf içinde SystemMaxUse=500M tanımlayın ve journalctl --vacuum-size=200M çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Dosya sistemi salt-okunur moddadır.",
+        "cozum": "mount -o remount,rw / çalıştırın."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "debian",
+      "devops",
+      "systemd"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_surge_8",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Red Hat Enterprise Linux 9 / Rocky Linux 9: SELinux 'restorecon' ile Web Dizin İzinlerinin Kalıcı Onarımı",
+    "hizli_adimlar": [
+      "Red Hat Enterprise Linux 9 / Rocky Linux 9 terminalini açıp root yetkisi alın.",
+      "Kök neden analizini uygulayın: Dosyaların SELinux bağlamının (Context) httpd_sys_content_t yerine default_t kalması.",
+      "Saha mühendisliği çözüm adımlarını yürütün: semanage fcontext -a -t httpd_sys_content_t '/var/www(/.*)?' ve restorecon -Rv /var/www çalıştırın.",
+      "Sistem servislerini yeniden başlatarak hatanın giderildiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Terminal Komutu",
+        "komut": "sudo restorecon -Rv /var/www",
+        "aciklama": "Saha çözüm komutu."
+      }
+    ],
+    "temel_anlatim": "Apache veya Nginx'in 403 Forbidden vermesi ve chmod 777 ile bile açılmaması.",
+    "derin_teknik_analiz": "Dosyaların SELinux bağlamının (Context) httpd_sys_content_t yerine default_t kalması. Çözüm: semanage fcontext -a -t httpd_sys_content_t '/var/www(/.*)?' ve restorecon -Rv /var/www çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Dosya sistemi salt-okunur moddadır.",
+        "cozum": "mount -o remount,rw / çalıştırın."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "red",
+      "devops",
+      "systemd"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_surge_9",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Red Hat Enterprise Linux 9 / Rocky Linux 9: Firewalld 'Rich Rule' ile Belirli IP'ye SSH Port Yönlendirme",
+    "hizli_adimlar": [
+      "Red Hat Enterprise Linux 9 / Rocky Linux 9 terminalini açıp root yetkisi alın.",
+      "Kök neden analizini uygulayın: Standart port açma kuralının tüm dünyaya açık olması.",
+      "Saha mühendisliği çözüm adımlarını yürütün: firewall-cmd --permanent --add-rich-rule='rule family=\"ipv4\" source address=\"192.168.1.0/24\" port port=\"22\" protocol=\"tcp\" accept' tanımlayın.",
+      "Sistem servislerini yeniden başlatarak hatanın giderildiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Terminal Komutu",
+        "komut": "sudo firewall-cmd --reload",
+        "aciklama": "Saha çözüm komutu."
+      }
+    ],
+    "temel_anlatim": "SSH portuna yabancı ülkelerden gelen kaba kuvvet saldırılarını engelleme.",
+    "derin_teknik_analiz": "Standart port açma kuralının tüm dünyaya açık olması. Çözüm: firewall-cmd --permanent --add-rich-rule='rule family=\"ipv4\" source address=\"192.168.1.0/24\" port port=\"22\" protocol=\"tcp\" accept' tanımlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Dosya sistemi salt-okunur moddadır.",
+        "cozum": "mount -o remount,rw / çalıştırın."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "red",
+      "devops",
+      "systemd"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_surge_10",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Red Hat Enterprise Linux 9 / Rocky Linux 9: LVM Snapshot ile Sistem Güncellemesi Öncesi Geri Dönüş Noktası Oluşturma",
+    "hizli_adimlar": [
+      "Red Hat Enterprise Linux 9 / Rocky Linux 9 terminalini açıp root yetkisi alın.",
+      "Kök neden analizini uygulayın: Güncelleme öncesi kök birimin anlık görüntüsünün (Snapshot) alınmamış olması.",
+      "Saha mühendisliği çözüm adımlarını yürütün: lvcreate --size 5G --snapshot --name root_snap /dev/vg0/root komutuyla geri dönüş noktası oluşturun.",
+      "Sistem servislerini yeniden başlatarak hatanın giderildiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Terminal Komutu",
+        "komut": "sudo lvs",
+        "aciklama": "Saha çözüm komutu."
+      }
+    ],
+    "temel_anlatim": "Kernel güncellemesi sonrası sistem açılmazsa saniyeler içinde eski sürüme dönme.",
+    "derin_teknik_analiz": "Güncelleme öncesi kök birimin anlık görüntüsünün (Snapshot) alınmamış olması. Çözüm: lvcreate --size 5G --snapshot --name root_snap /dev/vg0/root komutuyla geri dönüş noktası oluşturun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Dosya sistemi salt-okunur moddadır.",
+        "cozum": "mount -o remount,rw / çalıştırın."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "red",
+      "devops",
+      "systemd"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_surge_11",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Red Hat Enterprise Linux 9 / Rocky Linux 9: Dnf / Yum Önbellek Kilitlenmesi ve 'Waiting for process' Hatası",
+    "hizli_adimlar": [
+      "Red Hat Enterprise Linux 9 / Rocky Linux 9 terminalini açıp root yetkisi alın.",
+      "Kök neden analizini uygulayın: Arka planda dnf-makecache servisinin çalışıyor olması.",
+      "Saha mühendisliği çözüm adımlarını yürütün: pkill -9 dnf ve rm -f /var/lib/rpm/.rpm.lock komutlarıyla kilidi kaldırın.",
+      "Sistem servislerini yeniden başlatarak hatanın giderildiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Terminal Komutu",
+        "komut": "sudo dnf clean all",
+        "aciklama": "Saha çözüm komutu."
+      }
+    ],
+    "temel_anlatim": "Paket kurarken başka bir sürecin RPM veritabanını kilitlemesi.",
+    "derin_teknik_analiz": "Arka planda dnf-makecache servisinin çalışıyor olması. Çözüm: pkill -9 dnf ve rm -f /var/lib/rpm/.rpm.lock komutlarıyla kilidi kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Dosya sistemi salt-okunur moddadır.",
+        "cozum": "mount -o remount,rw / çalıştırın."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "red",
+      "devops",
+      "systemd"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_f350_10",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Kubernetes / K3s: Pod Durumunun 'CrashLoopBackOff' Hatasında Kalması",
+    "hizli_adimlar": [
+      "Linux konsolunu açıp dmesg ve journalctl loglarını filtreleyin.",
+      "Kök neden analizini uygulayın: Konteyner içi uygulamanın çevre değişkeni (ENV) eksikliği veya veritabanı portuna erişememesi.",
+      "Saha mühendisliği çözümünü yürütün: kubectl logs [pod_adi] --previous komutuyla çöken konteynerin son hata çıktısını okuyun ve ortam değişkenlerini düzeltin.",
+      "Servis ve dosya sistemi durumunu test ederek doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Linux Komutu",
+        "komut": "kubectl logs [pod_name] --previous",
+        "aciklama": "Sistem yönetim komutu."
+      }
+    ],
+    "temel_anlatim": "Konteynerin başlayıp 5 saniye sonra çökmesi ve sürekli yeniden başlama döngüsüne girmesi.",
+    "derin_teknik_analiz": "Konteyner içi uygulamanın çevre değişkeni (ENV) eksikliği veya veritabanı portuna erişememesi. Çözüm: kubectl logs [pod_adi] --previous komutuyla çöken konteynerin son hata çıktısını okuyun ve ortam değişkenlerini düzeltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Komut başarısız",
+        "neden": "Kök dosya sistemi salt-okunurdur.",
+        "cozum": "remount,rw komutunu verin."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "devops",
+      "sysadmin",
+      "terminal"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_f350_11",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Docker: 'Error response from daemon: driver failed programming external connectivity'",
+    "hizli_adimlar": [
+      "Linux konsolunu açıp dmesg ve journalctl loglarını filtreleyin.",
+      "Kök neden analizini uygulayın: Sistemde systemd-resolved, Apache veya başka bir servisin zaten 80 nolu portu dinliyor olması.",
+      "Saha mühendisliği çözümünü yürütün: sudo ss -tulpn | grep :80 komutuyla portu tutan süreci bulun ve kapatın.",
+      "Servis ve dosya sistemi durumunu test ederek doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Linux Komutu",
+        "komut": "sudo ss -tulpn | grep :80",
+        "aciklama": "Sistem yönetim komutu."
+      }
+    ],
+    "temel_anlatim": "Yeni bir Docker konteyneri başlatılırken port yönlendirmesinin (Bind for 0.0.0.0:80) hata vermesi.",
+    "derin_teknik_analiz": "Sistemde systemd-resolved, Apache veya başka bir servisin zaten 80 nolu portu dinliyor olması. Çözüm: sudo ss -tulpn | grep :80 komutuyla portu tutan süreci bulun ve kapatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Komut başarısız",
+        "neden": "Kök dosya sistemi salt-okunurdur.",
+        "cozum": "remount,rw komutunu verin."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "devops",
+      "sysadmin",
+      "terminal"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_f350_12",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Linux Çekirdeği: 'kernel: TCP: out of memory -- consider tuning tcp_mem'",
+    "hizli_adimlar": [
+      "Linux konsolunu açıp dmesg ve journalctl loglarını filtreleyin.",
+      "Kök neden analizini uygulayın: Linux TCP tampon bellek sınırlarının (net.ipv4.tcp_mem) yetersiz kalması.",
+      "Saha mühendisliği çözümünü yürütün: sysctl.conf dosyasında net.ipv4.tcp_mem ve net.ipv4.tcp_rmem değerlerini sunucu RAM'ine göre artırın.",
+      "Servis ve dosya sistemi durumunu test ederek doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Linux Komutu",
+        "komut": "sysctl -w net.ipv4.tcp_mem=\"102400 204800 409600\"",
+        "aciklama": "Sistem yönetim komutu."
+      }
+    ],
+    "temel_anlatim": "Yoğun ağ trafiği altında sunucunun yeni ağ bağlantılarını kabul etmeyi durdurması.",
+    "derin_teknik_analiz": "Linux TCP tampon bellek sınırlarının (net.ipv4.tcp_mem) yetersiz kalması. Çözüm: sysctl.conf dosyasında net.ipv4.tcp_mem ve net.ipv4.tcp_rmem değerlerini sunucu RAM'ine göre artırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Komut başarısız",
+        "neden": "Kök dosya sistemi salt-okunurdur.",
+        "cozum": "remount,rw komutunu verin."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "devops",
+      "sysadmin",
+      "terminal"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_f350_13",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Linux: '/var/spool/postfix' Mail Kuyruğunun Taşması ve Disk Doluluğu",
+    "hizli_adimlar": [
+      "Linux konsolunu açıp dmesg ve journalctl loglarını filtreleyin.",
+      "Kök neden analizini uygulayın: Spam botlarının sunucuyu açık röle (Open Relay) olarak kullanarak milyonlarca sahte e-posta göndermesi.",
+      "Saha mühendisliği çözümünü yürütün: postsuper -d ALL komutuyla kuyruğu boşaltın ve smtpd_relay_restrictions ayarlarını sıkılaştırın.",
+      "Servis ve dosya sistemi durumunu test ederek doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Linux Komutu",
+        "komut": "mailq && postsuper -d ALL",
+        "aciklama": "Sistem yönetim komutu."
+      }
+    ],
+    "temel_anlatim": "Postfix posta sunucusunun durması ve binlerce teslim edilemeyen iletinin kuyrukta birikmesi.",
+    "derin_teknik_analiz": "Spam botlarının sunucuyu açık röle (Open Relay) olarak kullanarak milyonlarca sahte e-posta göndermesi. Çözüm: postsuper -d ALL komutuyla kuyruğu boşaltın ve smtpd_relay_restrictions ayarlarını sıkılaştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Komut başarısız",
+        "neden": "Kök dosya sistemi salt-okunurdur.",
+        "cozum": "remount,rw komutunu verin."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "devops",
+      "sysadmin",
+      "terminal"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_f350_14",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Ubuntu / Debian: 'dpkg was interrupted, you must manually run dpkg --configure -a'",
+    "hizli_adimlar": [
+      "Linux konsolunu açıp dmesg ve journalctl loglarını filtreleyin.",
+      "Kök neden analizini uygulayın: Elektrik kesintisi veya terminalin zorla kapatılması sonucu dpkg kilit dosyasının askıda kalması.",
+      "Saha mühendisliği çözümünü yürütün: sudo rm /var/lib/dpkg/lock-frontend ve sudo dpkg --configure -a komutlarıyla paket yöneticisini onarın.",
+      "Servis ve dosya sistemi durumunu test ederek doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Linux Komutu",
+        "komut": "sudo dpkg --configure -a",
+        "aciklama": "Sistem yönetim komutu."
+      }
+    ],
+    "temel_anlatim": "Paket yüklerken veya güncellerken sistemin yarıda kalıp hiçbir komutu işletmemesi.",
+    "derin_teknik_analiz": "Elektrik kesintisi veya terminalin zorla kapatılması sonucu dpkg kilit dosyasının askıda kalması. Çözüm: sudo rm /var/lib/dpkg/lock-frontend ve sudo dpkg --configure -a komutlarıyla paket yöneticisini onarın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Komut başarısız",
+        "neden": "Kök dosya sistemi salt-okunurdur.",
+        "cozum": "remount,rw komutunu verin."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "devops",
+      "sysadmin",
+      "terminal"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_f350_15",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Linux: Inode Sayısının %100 Dolması (Disk Alanı Boşken 'No Space Left' Hatası)",
+    "hizli_adimlar": [
+      "Linux konsolunu açıp dmesg ve journalctl loglarını filtreleyin.",
+      "Kök neden analizini uygulayın: Milyonlarca sıfır baytlık küçük oturum veya log dosyasının disk Inode tablosunu tüketmesi.",
+      "Saha mühendisliği çözümünü yürütün: df -i komutuyla Inode doluluğunu doğrulayın ve 'find /var/spool -type f -delete' ile temizleyin.",
+      "Servis ve dosya sistemi durumunu test ederek doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Linux Komutu",
+        "komut": "df -i",
+        "aciklama": "Sistem yönetim komutu."
+      }
+    ],
+    "temel_anlatim": "df -h çıktısında 100 GB boş yer görünmesine rağmen dosya oluşturulamaması.",
+    "derin_teknik_analiz": "Milyonlarca sıfır baytlık küçük oturum veya log dosyasının disk Inode tablosunu tüketmesi. Çözüm: df -i komutuyla Inode doluluğunu doğrulayın ve 'find /var/spool -type f -delete' ile temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Komut başarısız",
+        "neden": "Kök dosya sistemi salt-okunurdur.",
+        "cozum": "remount,rw komutunu verin."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "devops",
+      "sysadmin",
+      "terminal"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_f350_16",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Red Hat / Rocky Linux: 'subscription-manager' Olmadan Yerel DVD/ISO Deposu Oluşturma",
+    "hizli_adimlar": [
+      "Linux konsolunu açıp dmesg ve journalctl loglarını filtreleyin.",
+      "Kök neden analizini uygulayın: Red Hat aboneliği olmadan yerel Dnf deposu yapılandırılmaması.",
+      "Saha mühendisliği çözümünü yürütün: ISO dosyasını /mnt dizinine bağlayıp /etc/yum.repos.d/local.repo dosyasına baseurl=file:///mnt/BaseOS tanımlayın.",
+      "Servis ve dosya sistemi durumunu test ederek doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Linux Komutu",
+        "komut": "dnf repolist",
+        "aciklama": "Sistem yönetim komutu."
+      }
+    ],
+    "temel_anlatim": "İnterneti olmayan izole ortamda RHEL paketlerinin yerel ISO üzerinden kurulması.",
+    "derin_teknik_analiz": "Red Hat aboneliği olmadan yerel Dnf deposu yapılandırılmaması. Çözüm: ISO dosyasını /mnt dizinine bağlayıp /etc/yum.repos.d/local.repo dosyasına baseurl=file:///mnt/BaseOS tanımlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Komut başarısız",
+        "neden": "Kök dosya sistemi salt-okunurdur.",
+        "cozum": "remount,rw komutunu verin."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "devops",
+      "sysadmin",
+      "terminal"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_f350_17",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Linux: OpenSSL Sertifika Doğrulama Hatası (certificate verify failed: self-signed certificate)",
+    "hizli_adimlar": [
+      "Linux konsolunu açıp dmesg ve journalctl loglarını filtreleyin.",
+      "Kök neden analizini uygulayın: Şirket kök CA sertifikasının Linux /etc/ssl/certs sistem deposuna eklenmemiş olması.",
+      "Saha mühendisliği çözümünü yürütün: Kök sertifikayı /usr/local/share/ca-certificates/ dizinine kopyalayıp update-ca-certificates çalıştırın.",
+      "Servis ve dosya sistemi durumunu test ederek doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Linux Komutu",
+        "komut": "sudo update-ca-certificates",
+        "aciklama": "Sistem yönetim komutu."
+      }
+    ],
+    "temel_anlatim": "cURL veya Python betiklerinin şirket içi HTTPS adreslerine istek atarken SSL hatası vermesi.",
+    "derin_teknik_analiz": "Şirket kök CA sertifikasının Linux /etc/ssl/certs sistem deposuna eklenmemiş olması. Çözüm: Kök sertifikayı /usr/local/share/ca-certificates/ dizinine kopyalayıp update-ca-certificates çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Komut başarısız",
+        "neden": "Kök dosya sistemi salt-okunurdur.",
+        "cozum": "remount,rw komutunu verin."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "devops",
+      "sysadmin",
+      "terminal"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_f350_18",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Linux Sunucu: 'Too many open files' Hatası ve Ulimit Dosya Tanıtıcı Sınırı",
+    "hizli_adimlar": [
+      "Linux konsolunu açıp dmesg ve journalctl loglarını filtreleyin.",
+      "Kök neden analizini uygulayın: Kullanıcı ve işlem başına düşen nofile limitinin varsayılan 1024'te kalması.",
+      "Saha mühendisliği çözümünü yürütün: /etc/security/limits.conf dosyasına '* soft nofile 65535' ve '* hard nofile 65535' ekleyin.",
+      "Servis ve dosya sistemi durumunu test ederek doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Linux Komutu",
+        "komut": "ulimit -n 65535",
+        "aciklama": "Sistem yönetim komutu."
+      }
+    ],
+    "temel_anlatim": "Yüksek eşzamanlı web veya soket bağlantılarında sunucunun yeni soket açamaması.",
+    "derin_teknik_analiz": "Kullanıcı ve işlem başına düşen nofile limitinin varsayılan 1024'te kalması. Çözüm: /etc/security/limits.conf dosyasına '* soft nofile 65535' ve '* hard nofile 65535' ekleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Komut başarısız",
+        "neden": "Kök dosya sistemi salt-okunurdur.",
+        "cozum": "remount,rw komutunu verin."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "devops",
+      "sysadmin",
+      "terminal"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "lnx_f350_19",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Btrfs Dosya Sistemi: 'read-only file system' Hatası ve Btrfs Check Onarımı",
+    "hizli_adimlar": [
+      "Linux konsolunu açıp dmesg ve journalctl loglarını filtreleyin.",
+      "Kök neden analizini uygulayın: Meta veri ağacındaki (Metadata Tree) tutarsızlık veya bozuk bellek kayması.",
+      "Saha mühendisliği çözümünü yürütün: btrfs check --repair /dev/sdb1 komutuyla dosya sistemi ağaç yapısını onarın.",
+      "Servis ve dosya sistemi durumunu test ederek doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Linux Komutu",
+        "komut": "btrfs check --repair /dev/sdb1",
+        "aciklama": "Sistem yönetim komutu."
+      }
+    ],
+    "temel_anlatim": "Btrfs bölümünün I/O hatası algılayıp diski salt-okunur koruma moduna alması.",
+    "derin_teknik_analiz": "Meta veri ağacındaki (Metadata Tree) tutarsızlık veya bozuk bellek kayması. Çözüm: btrfs check --repair /dev/sdb1 komutuyla dosya sistemi ağaç yapısını onarın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Komut başarısız",
+        "neden": "Kök dosya sistemi salt-okunurdur.",
+        "cozum": "remount,rw komutunu verin."
+      }
+    ],
+    "etiketler": [
+      "linux",
+      "devops",
+      "sysadmin",
+      "terminal"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_120",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Alpine Linux v3.19 Kapsayıcı: Musl libc ve Glibc İkili Dosya (Binary) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Alpine Linux v3.19 Kapsayıcı cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Alpine Linux'un glibc yerine musl libc kütüphanesi kullanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Uygulamayı Alpine musl ortamında derleyin veya gcompat uyumluluk paketini kurun.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "apk add gcompat",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Docker konteyneri içinde derlenen programın \"file not found\" verip çalışmaması.",
+    "derin_teknik_analiz": "Alpine Linux'un glibc yerine musl libc kütüphanesi kullanması. Çözüm: Uygulamayı Alpine musl ortamında derleyin veya gcompat uyumluluk paketini kurun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "alpine linux v3.19 kapsayıcı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_121",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Alpine Linux v3.19 Kapsayıcı: Kernel Modülü (DKMS) Derleme Başarısızlığı ve Sürücü Kaybı",
+    "hizli_adimlar": [
+      "Alpine Linux v3.19 Kapsayıcı cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Yeni çekirdek başlık dosyalarının (kernel-headers / linux-headers) kurulu olmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Mevcut çekirdek sürümüne uygun linux-headers paketini kurup dkms autoinstall çalıştırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "sudo dkms status",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Çekirdek güncellemesi sonrası NVIDIA veya ZFS sürücüsünün kaybolması.",
+    "derin_teknik_analiz": "Yeni çekirdek başlık dosyalarının (kernel-headers / linux-headers) kurulu olmaması. Çözüm: Mevcut çekirdek sürümüne uygun linux-headers paketini kurup dkms autoinstall çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "alpine linux v3.19 kapsayıcı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_122",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Alpine Linux v3.19 Kapsayıcı: Amazon EC2 Bulut Başlangıç Meta Verisi (Cloud-Init) Zaman Aşımı",
+    "hizli_adimlar": [
+      "Alpine Linux v3.19 Kapsayıcı cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: AWS 169.254.169.254 yerel meta veri IP adresine giden rotanın güvenlik duvarında bloklanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Güvenlik grubunda ve yerel IPTables kurallarında meta veri IP erişimine izin verin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "cloud-init status --long",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal sunucu açıldığında SSH anahtarının yüklenmemesi ve içine girilememesi.",
+    "derin_teknik_analiz": "AWS 169.254.169.254 yerel meta veri IP adresine giden rotanın güvenlik duvarında bloklanması. Çözüm: Güvenlik grubunda ve yerel IPTables kurallarında meta veri IP erişimine izin verin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "alpine linux v3.19 kapsayıcı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_123",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Arch Linux Rolling Çekirdek: Musl libc ve Glibc İkili Dosya (Binary) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Arch Linux Rolling Çekirdek cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Alpine Linux'un glibc yerine musl libc kütüphanesi kullanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Uygulamayı Alpine musl ortamında derleyin veya gcompat uyumluluk paketini kurun.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "apk add gcompat",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Docker konteyneri içinde derlenen programın \"file not found\" verip çalışmaması.",
+    "derin_teknik_analiz": "Alpine Linux'un glibc yerine musl libc kütüphanesi kullanması. Çözüm: Uygulamayı Alpine musl ortamında derleyin veya gcompat uyumluluk paketini kurun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "arch linux rolling çekirdek",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_124",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Arch Linux Rolling Çekirdek: Kernel Modülü (DKMS) Derleme Başarısızlığı ve Sürücü Kaybı",
+    "hizli_adimlar": [
+      "Arch Linux Rolling Çekirdek cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Yeni çekirdek başlık dosyalarının (kernel-headers / linux-headers) kurulu olmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Mevcut çekirdek sürümüne uygun linux-headers paketini kurup dkms autoinstall çalıştırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "sudo dkms status",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Çekirdek güncellemesi sonrası NVIDIA veya ZFS sürücüsünün kaybolması.",
+    "derin_teknik_analiz": "Yeni çekirdek başlık dosyalarının (kernel-headers / linux-headers) kurulu olmaması. Çözüm: Mevcut çekirdek sürümüne uygun linux-headers paketini kurup dkms autoinstall çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "arch linux rolling çekirdek",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_125",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Arch Linux Rolling Çekirdek: Amazon EC2 Bulut Başlangıç Meta Verisi (Cloud-Init) Zaman Aşımı",
+    "hizli_adimlar": [
+      "Arch Linux Rolling Çekirdek cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: AWS 169.254.169.254 yerel meta veri IP adresine giden rotanın güvenlik duvarında bloklanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Güvenlik grubunda ve yerel IPTables kurallarında meta veri IP erişimine izin verin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "cloud-init status --long",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal sunucu açıldığında SSH anahtarının yüklenmemesi ve içine girilememesi.",
+    "derin_teknik_analiz": "AWS 169.254.169.254 yerel meta veri IP adresine giden rotanın güvenlik duvarında bloklanması. Çözüm: Güvenlik grubunda ve yerel IPTables kurallarında meta veri IP erişimine izin verin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "arch linux rolling çekirdek",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_126",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "AlmaLinux 9.3 RHEL Tabanlı: Musl libc ve Glibc İkili Dosya (Binary) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "AlmaLinux 9.3 RHEL Tabanlı cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Alpine Linux'un glibc yerine musl libc kütüphanesi kullanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Uygulamayı Alpine musl ortamında derleyin veya gcompat uyumluluk paketini kurun.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "apk add gcompat",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Docker konteyneri içinde derlenen programın \"file not found\" verip çalışmaması.",
+    "derin_teknik_analiz": "Alpine Linux'un glibc yerine musl libc kütüphanesi kullanması. Çözüm: Uygulamayı Alpine musl ortamında derleyin veya gcompat uyumluluk paketini kurun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "almalinux 9.3 rhel tabanlı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_127",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "AlmaLinux 9.3 RHEL Tabanlı: Kernel Modülü (DKMS) Derleme Başarısızlığı ve Sürücü Kaybı",
+    "hizli_adimlar": [
+      "AlmaLinux 9.3 RHEL Tabanlı cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Yeni çekirdek başlık dosyalarının (kernel-headers / linux-headers) kurulu olmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Mevcut çekirdek sürümüne uygun linux-headers paketini kurup dkms autoinstall çalıştırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "sudo dkms status",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Çekirdek güncellemesi sonrası NVIDIA veya ZFS sürücüsünün kaybolması.",
+    "derin_teknik_analiz": "Yeni çekirdek başlık dosyalarının (kernel-headers / linux-headers) kurulu olmaması. Çözüm: Mevcut çekirdek sürümüne uygun linux-headers paketini kurup dkms autoinstall çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "almalinux 9.3 rhel tabanlı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_128",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "AlmaLinux 9.3 RHEL Tabanlı: Amazon EC2 Bulut Başlangıç Meta Verisi (Cloud-Init) Zaman Aşımı",
+    "hizli_adimlar": [
+      "AlmaLinux 9.3 RHEL Tabanlı cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: AWS 169.254.169.254 yerel meta veri IP adresine giden rotanın güvenlik duvarında bloklanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Güvenlik grubunda ve yerel IPTables kurallarında meta veri IP erişimine izin verin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "cloud-init status --long",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal sunucu açıldığında SSH anahtarının yüklenmemesi ve içine girilememesi.",
+    "derin_teknik_analiz": "AWS 169.254.169.254 yerel meta veri IP adresine giden rotanın güvenlik duvarında bloklanması. Çözüm: Güvenlik grubunda ve yerel IPTables kurallarında meta veri IP erişimine izin verin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "almalinux 9.3 rhel tabanlı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_129",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Amazon Linux 2023 EC2: Musl libc ve Glibc İkili Dosya (Binary) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Amazon Linux 2023 EC2 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Alpine Linux'un glibc yerine musl libc kütüphanesi kullanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Uygulamayı Alpine musl ortamında derleyin veya gcompat uyumluluk paketini kurun.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "apk add gcompat",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Docker konteyneri içinde derlenen programın \"file not found\" verip çalışmaması.",
+    "derin_teknik_analiz": "Alpine Linux'un glibc yerine musl libc kütüphanesi kullanması. Çözüm: Uygulamayı Alpine musl ortamında derleyin veya gcompat uyumluluk paketini kurun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "amazon linux 2023 ec2",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_130",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Amazon Linux 2023 EC2: Kernel Modülü (DKMS) Derleme Başarısızlığı ve Sürücü Kaybı",
+    "hizli_adimlar": [
+      "Amazon Linux 2023 EC2 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Yeni çekirdek başlık dosyalarının (kernel-headers / linux-headers) kurulu olmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Mevcut çekirdek sürümüne uygun linux-headers paketini kurup dkms autoinstall çalıştırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "sudo dkms status",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Çekirdek güncellemesi sonrası NVIDIA veya ZFS sürücüsünün kaybolması.",
+    "derin_teknik_analiz": "Yeni çekirdek başlık dosyalarının (kernel-headers / linux-headers) kurulu olmaması. Çözüm: Mevcut çekirdek sürümüne uygun linux-headers paketini kurup dkms autoinstall çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "amazon linux 2023 ec2",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_131",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Amazon Linux 2023 EC2: Amazon EC2 Bulut Başlangıç Meta Verisi (Cloud-Init) Zaman Aşımı",
+    "hizli_adimlar": [
+      "Amazon Linux 2023 EC2 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: AWS 169.254.169.254 yerel meta veri IP adresine giden rotanın güvenlik duvarında bloklanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Güvenlik grubunda ve yerel IPTables kurallarında meta veri IP erişimine izin verin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "cloud-init status --long",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal sunucu açıldığında SSH anahtarının yüklenmemesi ve içine girilememesi.",
+    "derin_teknik_analiz": "AWS 169.254.169.254 yerel meta veri IP adresine giden rotanın güvenlik duvarında bloklanması. Çözüm: Güvenlik grubunda ve yerel IPTables kurallarında meta veri IP erişimine izin verin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "amazon linux 2023 ec2",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_132",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Oracle Linux 9 UEK Çekirdek: Musl libc ve Glibc İkili Dosya (Binary) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Oracle Linux 9 UEK Çekirdek cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Alpine Linux'un glibc yerine musl libc kütüphanesi kullanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Uygulamayı Alpine musl ortamında derleyin veya gcompat uyumluluk paketini kurun.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "apk add gcompat",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Docker konteyneri içinde derlenen programın \"file not found\" verip çalışmaması.",
+    "derin_teknik_analiz": "Alpine Linux'un glibc yerine musl libc kütüphanesi kullanması. Çözüm: Uygulamayı Alpine musl ortamında derleyin veya gcompat uyumluluk paketini kurun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "oracle linux 9 uek çekirdek",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_133",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Oracle Linux 9 UEK Çekirdek: Kernel Modülü (DKMS) Derleme Başarısızlığı ve Sürücü Kaybı",
+    "hizli_adimlar": [
+      "Oracle Linux 9 UEK Çekirdek cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Yeni çekirdek başlık dosyalarının (kernel-headers / linux-headers) kurulu olmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Mevcut çekirdek sürümüne uygun linux-headers paketini kurup dkms autoinstall çalıştırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "sudo dkms status",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Çekirdek güncellemesi sonrası NVIDIA veya ZFS sürücüsünün kaybolması.",
+    "derin_teknik_analiz": "Yeni çekirdek başlık dosyalarının (kernel-headers / linux-headers) kurulu olmaması. Çözüm: Mevcut çekirdek sürümüne uygun linux-headers paketini kurup dkms autoinstall çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "oracle linux 9 uek çekirdek",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_134",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Oracle Linux 9 UEK Çekirdek: Amazon EC2 Bulut Başlangıç Meta Verisi (Cloud-Init) Zaman Aşımı",
+    "hizli_adimlar": [
+      "Oracle Linux 9 UEK Çekirdek cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: AWS 169.254.169.254 yerel meta veri IP adresine giden rotanın güvenlik duvarında bloklanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Güvenlik grubunda ve yerel IPTables kurallarında meta veri IP erişimine izin verin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "cloud-init status --long",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal sunucu açıldığında SSH anahtarının yüklenmemesi ve içine girilememesi.",
+    "derin_teknik_analiz": "AWS 169.254.169.254 yerel meta veri IP adresine giden rotanın güvenlik duvarında bloklanması. Çözüm: Güvenlik grubunda ve yerel IPTables kurallarında meta veri IP erişimine izin verin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "oracle linux 9 uek çekirdek",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_135",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "SUSE Linux Enterprise SLES 15: Musl libc ve Glibc İkili Dosya (Binary) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "SUSE Linux Enterprise SLES 15 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Alpine Linux'un glibc yerine musl libc kütüphanesi kullanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Uygulamayı Alpine musl ortamında derleyin veya gcompat uyumluluk paketini kurun.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "apk add gcompat",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Docker konteyneri içinde derlenen programın \"file not found\" verip çalışmaması.",
+    "derin_teknik_analiz": "Alpine Linux'un glibc yerine musl libc kütüphanesi kullanması. Çözüm: Uygulamayı Alpine musl ortamında derleyin veya gcompat uyumluluk paketini kurun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "suse linux enterprise sles 15",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_136",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "SUSE Linux Enterprise SLES 15: Kernel Modülü (DKMS) Derleme Başarısızlığı ve Sürücü Kaybı",
+    "hizli_adimlar": [
+      "SUSE Linux Enterprise SLES 15 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Yeni çekirdek başlık dosyalarının (kernel-headers / linux-headers) kurulu olmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Mevcut çekirdek sürümüne uygun linux-headers paketini kurup dkms autoinstall çalıştırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "sudo dkms status",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Çekirdek güncellemesi sonrası NVIDIA veya ZFS sürücüsünün kaybolması.",
+    "derin_teknik_analiz": "Yeni çekirdek başlık dosyalarının (kernel-headers / linux-headers) kurulu olmaması. Çözüm: Mevcut çekirdek sürümüne uygun linux-headers paketini kurup dkms autoinstall çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "suse linux enterprise sles 15",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_137",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "SUSE Linux Enterprise SLES 15: Amazon EC2 Bulut Başlangıç Meta Verisi (Cloud-Init) Zaman Aşımı",
+    "hizli_adimlar": [
+      "SUSE Linux Enterprise SLES 15 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: AWS 169.254.169.254 yerel meta veri IP adresine giden rotanın güvenlik duvarında bloklanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Güvenlik grubunda ve yerel IPTables kurallarında meta veri IP erişimine izin verin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "cloud-init status --long",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal sunucu açıldığında SSH anahtarının yüklenmemesi ve içine girilememesi.",
+    "derin_teknik_analiz": "AWS 169.254.169.254 yerel meta veri IP adresine giden rotanın güvenlik duvarında bloklanması. Çözüm: Güvenlik grubunda ve yerel IPTables kurallarında meta veri IP erişimine izin verin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "suse linux enterprise sles 15",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_138",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Fedora Server 39: Musl libc ve Glibc İkili Dosya (Binary) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Fedora Server 39 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Alpine Linux'un glibc yerine musl libc kütüphanesi kullanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Uygulamayı Alpine musl ortamında derleyin veya gcompat uyumluluk paketini kurun.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "apk add gcompat",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Docker konteyneri içinde derlenen programın \"file not found\" verip çalışmaması.",
+    "derin_teknik_analiz": "Alpine Linux'un glibc yerine musl libc kütüphanesi kullanması. Çözüm: Uygulamayı Alpine musl ortamında derleyin veya gcompat uyumluluk paketini kurun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "fedora server 39",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_139",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Fedora Server 39: Kernel Modülü (DKMS) Derleme Başarısızlığı ve Sürücü Kaybı",
+    "hizli_adimlar": [
+      "Fedora Server 39 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Yeni çekirdek başlık dosyalarının (kernel-headers / linux-headers) kurulu olmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Mevcut çekirdek sürümüne uygun linux-headers paketini kurup dkms autoinstall çalıştırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "sudo dkms status",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Çekirdek güncellemesi sonrası NVIDIA veya ZFS sürücüsünün kaybolması.",
+    "derin_teknik_analiz": "Yeni çekirdek başlık dosyalarının (kernel-headers / linux-headers) kurulu olmaması. Çözüm: Mevcut çekirdek sürümüne uygun linux-headers paketini kurup dkms autoinstall çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "fedora server 39",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_140",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Fedora Server 39: Amazon EC2 Bulut Başlangıç Meta Verisi (Cloud-Init) Zaman Aşımı",
+    "hizli_adimlar": [
+      "Fedora Server 39 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: AWS 169.254.169.254 yerel meta veri IP adresine giden rotanın güvenlik duvarında bloklanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Güvenlik grubunda ve yerel IPTables kurallarında meta veri IP erişimine izin verin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "cloud-init status --long",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal sunucu açıldığında SSH anahtarının yüklenmemesi ve içine girilememesi.",
+    "derin_teknik_analiz": "AWS 169.254.169.254 yerel meta veri IP adresine giden rotanın güvenlik duvarında bloklanması. Çözüm: Güvenlik grubunda ve yerel IPTables kurallarında meta veri IP erişimine izin verin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "fedora server 39",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_141",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "openSUSE Leap 15.5: Musl libc ve Glibc İkili Dosya (Binary) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "openSUSE Leap 15.5 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Alpine Linux'un glibc yerine musl libc kütüphanesi kullanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Uygulamayı Alpine musl ortamında derleyin veya gcompat uyumluluk paketini kurun.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "apk add gcompat",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Docker konteyneri içinde derlenen programın \"file not found\" verip çalışmaması.",
+    "derin_teknik_analiz": "Alpine Linux'un glibc yerine musl libc kütüphanesi kullanması. Çözüm: Uygulamayı Alpine musl ortamında derleyin veya gcompat uyumluluk paketini kurun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "opensuse leap 15.5",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_142",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "openSUSE Leap 15.5: Kernel Modülü (DKMS) Derleme Başarısızlığı ve Sürücü Kaybı",
+    "hizli_adimlar": [
+      "openSUSE Leap 15.5 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Yeni çekirdek başlık dosyalarının (kernel-headers / linux-headers) kurulu olmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Mevcut çekirdek sürümüne uygun linux-headers paketini kurup dkms autoinstall çalıştırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "sudo dkms status",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Çekirdek güncellemesi sonrası NVIDIA veya ZFS sürücüsünün kaybolması.",
+    "derin_teknik_analiz": "Yeni çekirdek başlık dosyalarının (kernel-headers / linux-headers) kurulu olmaması. Çözüm: Mevcut çekirdek sürümüne uygun linux-headers paketini kurup dkms autoinstall çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "opensuse leap 15.5",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_143",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "openSUSE Leap 15.5: Amazon EC2 Bulut Başlangıç Meta Verisi (Cloud-Init) Zaman Aşımı",
+    "hizli_adimlar": [
+      "openSUSE Leap 15.5 cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: AWS 169.254.169.254 yerel meta veri IP adresine giden rotanın güvenlik duvarında bloklanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Güvenlik grubunda ve yerel IPTables kurallarında meta veri IP erişimine izin verin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "cloud-init status --long",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal sunucu açıldığında SSH anahtarının yüklenmemesi ve içine girilememesi.",
+    "derin_teknik_analiz": "AWS 169.254.169.254 yerel meta veri IP adresine giden rotanın güvenlik duvarında bloklanması. Çözüm: Güvenlik grubunda ve yerel IPTables kurallarında meta veri IP erişimine izin verin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "opensuse leap 15.5",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_144",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Kali Linux Rolling Adli Bilişim: Musl libc ve Glibc İkili Dosya (Binary) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Kali Linux Rolling Adli Bilişim cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Alpine Linux'un glibc yerine musl libc kütüphanesi kullanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Uygulamayı Alpine musl ortamında derleyin veya gcompat uyumluluk paketini kurun.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "apk add gcompat",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Docker konteyneri içinde derlenen programın \"file not found\" verip çalışmaması.",
+    "derin_teknik_analiz": "Alpine Linux'un glibc yerine musl libc kütüphanesi kullanması. Çözüm: Uygulamayı Alpine musl ortamında derleyin veya gcompat uyumluluk paketini kurun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "kali linux rolling adli bilişim",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_145",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Kali Linux Rolling Adli Bilişim: Kernel Modülü (DKMS) Derleme Başarısızlığı ve Sürücü Kaybı",
+    "hizli_adimlar": [
+      "Kali Linux Rolling Adli Bilişim cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Yeni çekirdek başlık dosyalarının (kernel-headers / linux-headers) kurulu olmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Mevcut çekirdek sürümüne uygun linux-headers paketini kurup dkms autoinstall çalıştırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "sudo dkms status",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Çekirdek güncellemesi sonrası NVIDIA veya ZFS sürücüsünün kaybolması.",
+    "derin_teknik_analiz": "Yeni çekirdek başlık dosyalarının (kernel-headers / linux-headers) kurulu olmaması. Çözüm: Mevcut çekirdek sürümüne uygun linux-headers paketini kurup dkms autoinstall çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "kali linux rolling adli bilişim",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_146",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Kali Linux Rolling Adli Bilişim: Amazon EC2 Bulut Başlangıç Meta Verisi (Cloud-Init) Zaman Aşımı",
+    "hizli_adimlar": [
+      "Kali Linux Rolling Adli Bilişim cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: AWS 169.254.169.254 yerel meta veri IP adresine giden rotanın güvenlik duvarında bloklanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Güvenlik grubunda ve yerel IPTables kurallarında meta veri IP erişimine izin verin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "cloud-init status --long",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal sunucu açıldığında SSH anahtarının yüklenmemesi ve içine girilememesi.",
+    "derin_teknik_analiz": "AWS 169.254.169.254 yerel meta veri IP adresine giden rotanın güvenlik duvarında bloklanması. Çözüm: Güvenlik grubunda ve yerel IPTables kurallarında meta veri IP erişimine izin verin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "kali linux rolling adli bilişim",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_147",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Clear Linux Intel Optimize: Musl libc ve Glibc İkili Dosya (Binary) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Clear Linux Intel Optimize cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Alpine Linux'un glibc yerine musl libc kütüphanesi kullanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Uygulamayı Alpine musl ortamında derleyin veya gcompat uyumluluk paketini kurun.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "apk add gcompat",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Docker konteyneri içinde derlenen programın \"file not found\" verip çalışmaması.",
+    "derin_teknik_analiz": "Alpine Linux'un glibc yerine musl libc kütüphanesi kullanması. Çözüm: Uygulamayı Alpine musl ortamında derleyin veya gcompat uyumluluk paketini kurun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "clear linux intel optimize",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_148",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Clear Linux Intel Optimize: Kernel Modülü (DKMS) Derleme Başarısızlığı ve Sürücü Kaybı",
+    "hizli_adimlar": [
+      "Clear Linux Intel Optimize cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: Yeni çekirdek başlık dosyalarının (kernel-headers / linux-headers) kurulu olmaması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Mevcut çekirdek sürümüne uygun linux-headers paketini kurup dkms autoinstall çalıştırın.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "sudo dkms status",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Çekirdek güncellemesi sonrası NVIDIA veya ZFS sürücüsünün kaybolması.",
+    "derin_teknik_analiz": "Yeni çekirdek başlık dosyalarının (kernel-headers / linux-headers) kurulu olmaması. Çözüm: Mevcut çekirdek sürümüne uygun linux-headers paketini kurup dkms autoinstall çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "clear linux intel optimize",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mstone_149",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Clear Linux Intel Optimize: Amazon EC2 Bulut Başlangıç Meta Verisi (Cloud-Init) Zaman Aşımı",
+    "hizli_adimlar": [
+      "Clear Linux Intel Optimize cihazının/sisteminin yönetim arayüzünü açın.",
+      "Kök neden analizini uygulayın: AWS 169.254.169.254 yerel meta veri IP adresine giden rotanın güvenlik duvarında bloklanması.",
+      "Saha mühendisliği servis prosedürünü yerine getirin: Güvenlik grubunda ve yerel IPTables kurallarında meta veri IP erişimine izin verin.",
+      "Sistem test komutunu çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "cloud-init status --long",
+        "aciklama": "Saha yönetim ve test komutu."
+      }
+    ],
+    "temel_anlatim": "Sanal sunucu açıldığında SSH anahtarının yüklenmemesi ve içine girilememesi.",
+    "derin_teknik_analiz": "AWS 169.254.169.254 yerel meta veri IP adresine giden rotanın güvenlik duvarında bloklanması. Çözüm: Güvenlik grubunda ve yerel IPTables kurallarında meta veri IP erişimine izin verin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök altyapı veya donanım arızası vardır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "clear linux intel optimize",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2434",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Ubuntu Server 22.04 / 24.04: Systemd Servisinin \"Failed with result exit-code\" ile Başlayamaması",
+    "hizli_adimlar": [
+      "Ubuntu Server 22.04 / 24.04 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Konfigürasyon dosyasında sözdizimi hatası olması veya portun başka bir süreç tarafından dinlenmesi.",
+      "Saha servis prosedürünü yerine getirin: journalctl -xeu [SERVIS] komutuyla ayrıntılı hata kaydını okuyun ve hatalı satırı düzeltin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Ubuntu Server 22.04 / 24.04 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Nginx veya Docker servisinin açılışta çöküp aktif duruma geçememesi.",
+    "derin_teknik_analiz": "Kök Neden: Konfigürasyon dosyasında sözdizimi hatası olması veya portun başka bir süreç tarafından dinlenmesi. Saha Çözümü: journalctl -xeu [SERVIS] komutuyla ayrıntılı hata kaydını okuyun ve hatalı satırı düzeltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "ubuntu server 22.04   24.04",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2435",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Ubuntu Server 22.04 / 24.04: SELinux Enforcing Modunda İzin Engeli (Permission Denied) ve Dosya Etiketleme",
+    "hizli_adimlar": [
+      "Ubuntu Server 22.04 / 24.04 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Dosyanın SELinux güvenlik bağlamının (Security Context) httpd_sys_content_t olmaması.",
+      "Saha servis prosedürünü yerine getirin: restorecon -Rv /var/www/html komutuyla varsayılan SELinux etiketlerini uygulayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Ubuntu Server 22.04 / 24.04 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Web sunucusunun doğru izinlere (chmod 755) sahip dosyayı okuyamaması.",
+    "derin_teknik_analiz": "Kök Neden: Dosyanın SELinux güvenlik bağlamının (Security Context) httpd_sys_content_t olmaması. Saha Çözümü: restorecon -Rv /var/www/html komutuyla varsayılan SELinux etiketlerini uygulayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "ubuntu server 22.04   24.04",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2436",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Ubuntu Server 22.04 / 24.04: SSH \"Permission denied (publickey)\" Giriş Hatası ve İzin Hiyerarşisi",
+    "hizli_adimlar": [
+      "Ubuntu Server 22.04 / 24.04 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: ~/.ssh klasörünün veya authorized_keys dosyasının izinlerinin aşırı açık (777) olması.",
+      "Saha servis prosedürünü yerine getirin: chmod 700 ~/.ssh ve chmod 600 ~/.ssh/authorized_keys komutlarıyla doğru izinleri tanımlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Ubuntu Server 22.04 / 24.04 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kullanıcının SSH anahtarıyla sunucuya bağlanırken kimlik doğrulamasının reddedilmesi.",
+    "derin_teknik_analiz": "Kök Neden: ~/.ssh klasörünün veya authorized_keys dosyasının izinlerinin aşırı açık (777) olması. Saha Çözümü: chmod 700 ~/.ssh ve chmod 600 ~/.ssh/authorized_keys komutlarıyla doğru izinleri tanımlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "ubuntu server 22.04   24.04",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2437",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Debian 12 Bookworm: Systemd Servisinin \"Failed with result exit-code\" ile Başlayamaması",
+    "hizli_adimlar": [
+      "Debian 12 Bookworm cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Konfigürasyon dosyasında sözdizimi hatası olması veya portun başka bir süreç tarafından dinlenmesi.",
+      "Saha servis prosedürünü yerine getirin: journalctl -xeu [SERVIS] komutuyla ayrıntılı hata kaydını okuyun ve hatalı satırı düzeltin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Debian 12 Bookworm Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Nginx veya Docker servisinin açılışta çöküp aktif duruma geçememesi.",
+    "derin_teknik_analiz": "Kök Neden: Konfigürasyon dosyasında sözdizimi hatası olması veya portun başka bir süreç tarafından dinlenmesi. Saha Çözümü: journalctl -xeu [SERVIS] komutuyla ayrıntılı hata kaydını okuyun ve hatalı satırı düzeltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "debian 12 bookworm",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2438",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Debian 12 Bookworm: SELinux Enforcing Modunda İzin Engeli (Permission Denied) ve Dosya Etiketleme",
+    "hizli_adimlar": [
+      "Debian 12 Bookworm cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Dosyanın SELinux güvenlik bağlamının (Security Context) httpd_sys_content_t olmaması.",
+      "Saha servis prosedürünü yerine getirin: restorecon -Rv /var/www/html komutuyla varsayılan SELinux etiketlerini uygulayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Debian 12 Bookworm Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Web sunucusunun doğru izinlere (chmod 755) sahip dosyayı okuyamaması.",
+    "derin_teknik_analiz": "Kök Neden: Dosyanın SELinux güvenlik bağlamının (Security Context) httpd_sys_content_t olmaması. Saha Çözümü: restorecon -Rv /var/www/html komutuyla varsayılan SELinux etiketlerini uygulayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "debian 12 bookworm",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2439",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Debian 12 Bookworm: SSH \"Permission denied (publickey)\" Giriş Hatası ve İzin Hiyerarşisi",
+    "hizli_adimlar": [
+      "Debian 12 Bookworm cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: ~/.ssh klasörünün veya authorized_keys dosyasının izinlerinin aşırı açık (777) olması.",
+      "Saha servis prosedürünü yerine getirin: chmod 700 ~/.ssh ve chmod 600 ~/.ssh/authorized_keys komutlarıyla doğru izinleri tanımlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Debian 12 Bookworm Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kullanıcının SSH anahtarıyla sunucuya bağlanırken kimlik doğrulamasının reddedilmesi.",
+    "derin_teknik_analiz": "Kök Neden: ~/.ssh klasörünün veya authorized_keys dosyasının izinlerinin aşırı açık (777) olması. Saha Çözümü: chmod 700 ~/.ssh ve chmod 600 ~/.ssh/authorized_keys komutlarıyla doğru izinleri tanımlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "debian 12 bookworm",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2440",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Rocky Linux 9: Systemd Servisinin \"Failed with result exit-code\" ile Başlayamaması",
+    "hizli_adimlar": [
+      "Rocky Linux 9 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Konfigürasyon dosyasında sözdizimi hatası olması veya portun başka bir süreç tarafından dinlenmesi.",
+      "Saha servis prosedürünü yerine getirin: journalctl -xeu [SERVIS] komutuyla ayrıntılı hata kaydını okuyun ve hatalı satırı düzeltin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Rocky Linux 9 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Nginx veya Docker servisinin açılışta çöküp aktif duruma geçememesi.",
+    "derin_teknik_analiz": "Kök Neden: Konfigürasyon dosyasında sözdizimi hatası olması veya portun başka bir süreç tarafından dinlenmesi. Saha Çözümü: journalctl -xeu [SERVIS] komutuyla ayrıntılı hata kaydını okuyun ve hatalı satırı düzeltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "rocky linux 9",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2441",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Rocky Linux 9: SELinux Enforcing Modunda İzin Engeli (Permission Denied) ve Dosya Etiketleme",
+    "hizli_adimlar": [
+      "Rocky Linux 9 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Dosyanın SELinux güvenlik bağlamının (Security Context) httpd_sys_content_t olmaması.",
+      "Saha servis prosedürünü yerine getirin: restorecon -Rv /var/www/html komutuyla varsayılan SELinux etiketlerini uygulayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Rocky Linux 9 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Web sunucusunun doğru izinlere (chmod 755) sahip dosyayı okuyamaması.",
+    "derin_teknik_analiz": "Kök Neden: Dosyanın SELinux güvenlik bağlamının (Security Context) httpd_sys_content_t olmaması. Saha Çözümü: restorecon -Rv /var/www/html komutuyla varsayılan SELinux etiketlerini uygulayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "rocky linux 9",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2442",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Rocky Linux 9: SSH \"Permission denied (publickey)\" Giriş Hatası ve İzin Hiyerarşisi",
+    "hizli_adimlar": [
+      "Rocky Linux 9 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: ~/.ssh klasörünün veya authorized_keys dosyasının izinlerinin aşırı açık (777) olması.",
+      "Saha servis prosedürünü yerine getirin: chmod 700 ~/.ssh ve chmod 600 ~/.ssh/authorized_keys komutlarıyla doğru izinleri tanımlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Rocky Linux 9 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kullanıcının SSH anahtarıyla sunucuya bağlanırken kimlik doğrulamasının reddedilmesi.",
+    "derin_teknik_analiz": "Kök Neden: ~/.ssh klasörünün veya authorized_keys dosyasının izinlerinin aşırı açık (777) olması. Saha Çözümü: chmod 700 ~/.ssh ve chmod 600 ~/.ssh/authorized_keys komutlarıyla doğru izinleri tanımlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "rocky linux 9",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2443",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Red Hat Enterprise Linux 9: Systemd Servisinin \"Failed with result exit-code\" ile Başlayamaması",
+    "hizli_adimlar": [
+      "Red Hat Enterprise Linux 9 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Konfigürasyon dosyasında sözdizimi hatası olması veya portun başka bir süreç tarafından dinlenmesi.",
+      "Saha servis prosedürünü yerine getirin: journalctl -xeu [SERVIS] komutuyla ayrıntılı hata kaydını okuyun ve hatalı satırı düzeltin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Red Hat Enterprise Linux 9 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Nginx veya Docker servisinin açılışta çöküp aktif duruma geçememesi.",
+    "derin_teknik_analiz": "Kök Neden: Konfigürasyon dosyasında sözdizimi hatası olması veya portun başka bir süreç tarafından dinlenmesi. Saha Çözümü: journalctl -xeu [SERVIS] komutuyla ayrıntılı hata kaydını okuyun ve hatalı satırı düzeltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "red hat enterprise linux 9",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2444",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Red Hat Enterprise Linux 9: SELinux Enforcing Modunda İzin Engeli (Permission Denied) ve Dosya Etiketleme",
+    "hizli_adimlar": [
+      "Red Hat Enterprise Linux 9 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Dosyanın SELinux güvenlik bağlamının (Security Context) httpd_sys_content_t olmaması.",
+      "Saha servis prosedürünü yerine getirin: restorecon -Rv /var/www/html komutuyla varsayılan SELinux etiketlerini uygulayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Red Hat Enterprise Linux 9 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Web sunucusunun doğru izinlere (chmod 755) sahip dosyayı okuyamaması.",
+    "derin_teknik_analiz": "Kök Neden: Dosyanın SELinux güvenlik bağlamının (Security Context) httpd_sys_content_t olmaması. Saha Çözümü: restorecon -Rv /var/www/html komutuyla varsayılan SELinux etiketlerini uygulayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "red hat enterprise linux 9",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2445",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "Red Hat Enterprise Linux 9: SSH \"Permission denied (publickey)\" Giriş Hatası ve İzin Hiyerarşisi",
+    "hizli_adimlar": [
+      "Red Hat Enterprise Linux 9 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: ~/.ssh klasörünün veya authorized_keys dosyasının izinlerinin aşırı açık (777) olması.",
+      "Saha servis prosedürünü yerine getirin: chmod 700 ~/.ssh ve chmod 600 ~/.ssh/authorized_keys komutlarıyla doğru izinleri tanımlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Red Hat Enterprise Linux 9 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kullanıcının SSH anahtarıyla sunucuya bağlanırken kimlik doğrulamasının reddedilmesi.",
+    "derin_teknik_analiz": "Kök Neden: ~/.ssh klasörünün veya authorized_keys dosyasının izinlerinin aşırı açık (777) olması. Saha Çözümü: chmod 700 ~/.ssh ve chmod 600 ~/.ssh/authorized_keys komutlarıyla doğru izinleri tanımlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "red hat enterprise linux 9",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2446",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "CentOS Stream 9: Systemd Servisinin \"Failed with result exit-code\" ile Başlayamaması",
+    "hizli_adimlar": [
+      "CentOS Stream 9 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Konfigürasyon dosyasında sözdizimi hatası olması veya portun başka bir süreç tarafından dinlenmesi.",
+      "Saha servis prosedürünü yerine getirin: journalctl -xeu [SERVIS] komutuyla ayrıntılı hata kaydını okuyun ve hatalı satırı düzeltin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "CentOS Stream 9 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Nginx veya Docker servisinin açılışta çöküp aktif duruma geçememesi.",
+    "derin_teknik_analiz": "Kök Neden: Konfigürasyon dosyasında sözdizimi hatası olması veya portun başka bir süreç tarafından dinlenmesi. Saha Çözümü: journalctl -xeu [SERVIS] komutuyla ayrıntılı hata kaydını okuyun ve hatalı satırı düzeltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "centos stream 9",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2447",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "CentOS Stream 9: SELinux Enforcing Modunda İzin Engeli (Permission Denied) ve Dosya Etiketleme",
+    "hizli_adimlar": [
+      "CentOS Stream 9 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Dosyanın SELinux güvenlik bağlamının (Security Context) httpd_sys_content_t olmaması.",
+      "Saha servis prosedürünü yerine getirin: restorecon -Rv /var/www/html komutuyla varsayılan SELinux etiketlerini uygulayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "CentOS Stream 9 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Web sunucusunun doğru izinlere (chmod 755) sahip dosyayı okuyamaması.",
+    "derin_teknik_analiz": "Kök Neden: Dosyanın SELinux güvenlik bağlamının (Security Context) httpd_sys_content_t olmaması. Saha Çözümü: restorecon -Rv /var/www/html komutuyla varsayılan SELinux etiketlerini uygulayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "centos stream 9",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2448",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "CentOS Stream 9: SSH \"Permission denied (publickey)\" Giriş Hatası ve İzin Hiyerarşisi",
+    "hizli_adimlar": [
+      "CentOS Stream 9 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: ~/.ssh klasörünün veya authorized_keys dosyasının izinlerinin aşırı açık (777) olması.",
+      "Saha servis prosedürünü yerine getirin: chmod 700 ~/.ssh ve chmod 600 ~/.ssh/authorized_keys komutlarıyla doğru izinleri tanımlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "CentOS Stream 9 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kullanıcının SSH anahtarıyla sunucuya bağlanırken kimlik doğrulamasının reddedilmesi.",
+    "derin_teknik_analiz": "Kök Neden: ~/.ssh klasörünün veya authorized_keys dosyasının izinlerinin aşırı açık (777) olması. Saha Çözümü: chmod 700 ~/.ssh ve chmod 600 ~/.ssh/authorized_keys komutlarıyla doğru izinleri tanımlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "centos stream 9",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2449",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "AlmaLinux 9: Systemd Servisinin \"Failed with result exit-code\" ile Başlayamaması",
+    "hizli_adimlar": [
+      "AlmaLinux 9 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Konfigürasyon dosyasında sözdizimi hatası olması veya portun başka bir süreç tarafından dinlenmesi.",
+      "Saha servis prosedürünü yerine getirin: journalctl -xeu [SERVIS] komutuyla ayrıntılı hata kaydını okuyun ve hatalı satırı düzeltin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "AlmaLinux 9 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Nginx veya Docker servisinin açılışta çöküp aktif duruma geçememesi.",
+    "derin_teknik_analiz": "Kök Neden: Konfigürasyon dosyasında sözdizimi hatası olması veya portun başka bir süreç tarafından dinlenmesi. Saha Çözümü: journalctl -xeu [SERVIS] komutuyla ayrıntılı hata kaydını okuyun ve hatalı satırı düzeltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "almalinux 9",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2450",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "AlmaLinux 9: SELinux Enforcing Modunda İzin Engeli (Permission Denied) ve Dosya Etiketleme",
+    "hizli_adimlar": [
+      "AlmaLinux 9 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Dosyanın SELinux güvenlik bağlamının (Security Context) httpd_sys_content_t olmaması.",
+      "Saha servis prosedürünü yerine getirin: restorecon -Rv /var/www/html komutuyla varsayılan SELinux etiketlerini uygulayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "AlmaLinux 9 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Web sunucusunun doğru izinlere (chmod 755) sahip dosyayı okuyamaması.",
+    "derin_teknik_analiz": "Kök Neden: Dosyanın SELinux güvenlik bağlamının (Security Context) httpd_sys_content_t olmaması. Saha Çözümü: restorecon -Rv /var/www/html komutuyla varsayılan SELinux etiketlerini uygulayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "almalinux 9",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2451",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "Linux & Açık Kaynak",
+    "baslik": "AlmaLinux 9: SSH \"Permission denied (publickey)\" Giriş Hatası ve İzin Hiyerarşisi",
+    "hizli_adimlar": [
+      "AlmaLinux 9 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: ~/.ssh klasörünün veya authorized_keys dosyasının izinlerinin aşırı açık (777) olması.",
+      "Saha servis prosedürünü yerine getirin: chmod 700 ~/.ssh ve chmod 600 ~/.ssh/authorized_keys komutlarıyla doğru izinleri tanımlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "AlmaLinux 9 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kullanıcının SSH anahtarıyla sunucuya bağlanırken kimlik doğrulamasının reddedilmesi.",
+    "derin_teknik_analiz": "Kök Neden: ~/.ssh klasörünün veya authorized_keys dosyasının izinlerinin aşırı açık (777) olması. Saha Çözümü: chmod 700 ~/.ssh ve chmod 600 ~/.ssh/authorized_keys komutlarıyla doğru izinleri tanımlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "linux & açık kaynak",
+      "almalinux 9",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  }
+]

@@ -1,83 +1,1888 @@
-{
-  "versiyon": "2.5.0",
-  "toplam": 2,
-  "modul": "feed_ups_enerji.json",
-  "kayitlar": [
-    {
-      "id": "ups_neutral_ground_voltage_high",
-      "kategori": "UPS & Enerji",
-      "alt_kategori": "Topraklama & Voltaj Arızaları",
-      "baslik": "Nötr-Toprak Geriliminin 1V Üzerine Çıkması ve Hassas Sunucu PSU Arızaları",
-      "hizli_adimlar": [
-        "Kalibre edilmiş True-RMS multimetreyi AC Volt moduna alın.",
-        "PDU veya prizde Nötr (mavi) ile Toprak (sarı-yeşil) arasına probları dokundurun.",
-        "Değer 1.5V üzerindeyse pano girişinde 3 fazın akımlarını (Ampermetre ile) ölçüp yükü fazlara eşit dağıtın.",
-        "Topraklama barasının direncini (Megger toprak megeri ile) ölçün; direnç < 2 Ohm olmalıdır.",
-        "Gerekiyorsa sunucu odası için panoya İzole Trafo (Galvanik İzolasyon Trafosu) ekleyin."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Gerilim Tolerans Standardı",
-          "komut": "Nötr-Toprak: < 1.0V AC | Faz-Nötr: 220V - 235V AC | Faz-Toprak: 220V - 235V AC",
-          "aciklama": "Sunucu odası için IEEE 1100 standart enerji sınırları."
-        }
-      ],
-      "temel_anlatim": "Sunucu odasında nötr ile toprak hattı arasında 3V-10V gerilim okunması, sunucuların rastgele yeniden başlaması veya switch portlarının yanması.",
-      "derin_teknik_analiz": "Hassas IT donanımlarında nötr-toprak (N-G) voltajı maksimum 1.0V AC (idealde <0.5V) olmalıdır. 3-fazlı sistemde faz dengesizliği (unbalanced load) nötr hattı üzerinde dönüş akımı yaratarak nötr potansiyelini yükseltir veya bina topraklama çubuğu korozyona uğramıştır.",
-      "kenar_durumlar": [
-        {
-          "durum": "Lazer yazıcı açıldığında nötr-toprak voltajı anlık 20V'a fırlıyor",
-          "neden": "Lazer yazıcının fuser ısıtıcısı anlık 1000-1500W çeker ve nötr hattına harmonik darbe basar.",
-          "cozum": "Lazer yazıcıları ASLA sunucularla aynı online UPS hattına bağlamayın; ayrı bina şebeke hattına takın."
-        }
-      ],
-      "etiketler": [
-        "ups",
-        "notr-toprak",
-        "topraklama",
-        "voltaj",
-        "pano",
-        "server-odasi"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "ups_apc_battery_constant_alarm",
-      "kategori": "UPS & Enerji",
-      "alt_kategori": "APC Smart-UPS",
-      "baslik": "APC Smart-UPS 'Replace Battery' Kırmızı Işığı ve Yeni Akü Kalibrasyon Hatası",
-      "hizli_adimlar": [
-        "Yeni takılan akülerin tam şarj olabilmesi için UPS'i en az 8-12 saat şebekede şarjda bırakın (%100 doluluk).",
-        "UPS arkasına en az %30-35 rezistif yük (örneğin 300-500W ısıtıcı veya halojen lamba, ASLA PC değil) bağlayın.",
-        "Ön paneldeki 'I / Test' düğmesine 3 saniye basılı tutarak dahili Self-Test'i tetikleyin.",
-        "Veya Network Management Card (NMC) web arayüzünden UPS -> Control -> Self-Test -> 'Start Runtime Calibration' yapın.",
-        "Kalibrasyon tamamlandığında kırmızı LED söner ve kalan yedekleme süresi normale döner."
-      ],
-      "komutlar": [
-        {
-          "etiket": "APC Telnet ile Akü Kalibrasyonu",
-          "komut": "upsdiag\n1 (Test)\n4 (Runtime Calibration)",
-          "aciklama": "NMC seri/telnet portundan akü çalışma süresi kalibrasyonu başlatır."
-        }
-      ],
-      "temel_anlatim": "APC UPS'e sıfır akü takılmasına rağmen kırmızı akü değiştir LED'inin sönmemesi ve kesintisiz bip sesi vermeye devam etmesi.",
-      "derin_teknik_analiz": "APC Smart-UPS mikrodenetleyicisi akü iç direncini ve çalışma süresini EEPROM'daki dahili sayaç üzerinden takip eder. Aküler fiziksel olarak değiştirilse bile UPS manuel 'Manual Calibration' (Self-Test) döngüsüne sokulmazsa eski arıza bayrağını temizlemez.",
-      "kenar_durumlar": [
-        {
-          "durum": "Kalibrasyon sırasında UPS aniden kapanıyor",
-          "neden": "Takılan yeni akülerden birinin hücresi ölüdür veya kutup başı vidası gevşektir.",
-          "cozum": "Her bir 12V aküyü ayrı ayrı voltmetreyle ölçün; yüksüz 12.6V - 13.2V arasında olmalıdır."
-        }
-      ],
-      "etiketler": [
-        "ups",
-        "apc",
-        "smart-ups",
-        "replace-battery",
-        "aku-kalibrasyonu",
-        "runtime"
-      ],
-      "oncelik": 1
-    }
-  ]
-}
+[
+  {
+    "id": "ag_csc_005",
+    "kategori": "Ağ",
+    "alt_kategori": "Cisco & Omurga Switch",
+    "baslik": "BPDU Guard Nedeniyle Switch Portunun 'err-disable' Durumuna Düşmesi",
+    "hizli_adimlar": [
+      "Anahtarlama cihazına konsol veya SSH ile bağlanın.",
+      "`show interfaces status err-disabled` komutu ile kilitli portu ve arıza nedenini (bpduguard) doğrulayın.",
+      "Kullanıcının masasında izinsiz loop oluşturan harici switch, AP veya yanlış takılmış RJ45 kablosunu sökün.",
+      "İlgili port arayüzüne girip `shutdown` ve `no shutdown` vererek linki ayağa kaldırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Err-Disable Portları Listele",
+        "komut": "show interfaces status err-disabled",
+        "aciklama": "Kilitlenen portları ve kilitlenme nedenini gösterir"
+      },
+      {
+        "etiket": "Portu Yeniden Başlat",
+        "komut": "configure terminal\ninterface gigabitethernet 0/12\nshutdown\nno shutdown\nexit",
+        "aciklama": "Port kilidini manuel kaldırır"
+      },
+      {
+        "etiket": "Otomatik Kurtarma Ayarla",
+        "komut": "errdisable recovery cause bpduguard\nerrdisable recovery interval 300",
+        "aciklama": "Portu 300 saniye sonra otomatik açmayı dener"
+      }
+    ],
+    "temel_anlatim": "Kullanıcı masasına küçük bir masaüstü switch veya router takıldığında ana omurga switch portunun aniden kapanması.",
+    "derin_teknik_analiz": "Cisco switch portunda 'spanning-tree portfast bpduguard enable' aktifken, porta bağlı cihazdan Spanning Tree BPDU paketi gelirse switch döngüyü (loop) önlemek için portu anında 'err-disable' moduna alır.",
+    "kenar_durumlar": [
+      {
+        "durum": "Port 300 Saniye Sonra Tekrar err-disable Oluyor",
+        "neden": "Kullanıcı hattında takılı döngü oluşturan cihaz hala aktif paket basıyor.",
+        "cozum": "Uç noktadaki kablolamayı fiziksel olarak kontrol edin; VOIP telefonun PC çıkışına çift kablo takılmış olabilir."
+      }
+    ],
+    "etiketler": [
+      "cisco bpduguard errdisable spanning-tree catalyst loop"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "ag_00010",
+    "kategori": "Ağ",
+    "alt_kategori": "Cisco BPDU Guard",
+    "baslik": "Cisco BPDU Guard & Loop Koruması",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: Switch portları arasında yanlışlıkla yapılan döngüleri (Loop) anında kesme.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: interface range gig 1/0/1 - 22; spanning-tree portfast; spanning-tree bpduguard enable",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "interface range gig 1/0/1 - 22; spanning-tree portfast; spanning-tree bpduguard enable",
+        "aciklama": "Döngü anında portu kapatır."
+      }
+    ],
+    "temel_anlatim": "Cisco BPDU Guard & Loop Koruması: Switch portları arasında yanlışlıkla yapılan döngüleri (Loop) anında kesme. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. interface range gig 1/0/1 - 22; spanning-tree portfast; spanning-tree bpduguard enable parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "cisco ağ loop guard dongu bpdu guard switch ag"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "ups_neutral_ground_voltage_high",
+    "kategori": "UPS & Enerji",
+    "alt_kategori": "Topraklama & Voltaj Arızaları",
+    "baslik": "Nötr-Toprak Geriliminin 1V Üzerine Çıkması ve Hassas Sunucu PSU Arızaları",
+    "hizli_adimlar": [
+      "Kalibre edilmiş True-RMS multimetreyi AC Volt moduna alın.",
+      "PDU veya prizde Nötr (mavi) ile Toprak (sarı-yeşil) arasına probları dokundurun.",
+      "Değer 1.5V üzerindeyse pano girişinde 3 fazın akımlarını (Ampermetre ile) ölçüp yükü fazlara eşit dağıtın.",
+      "Topraklama barasının direncini (Megger toprak megeri ile) ölçün; direnç < 2 Ohm olmalıdır.",
+      "Gerekiyorsa sunucu odası için panoya İzole Trafo (Galvanik İzolasyon Trafosu) ekleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Gerilim Tolerans Standardı",
+        "komut": "Nötr-Toprak: < 1.0V AC | Faz-Nötr: 220V - 235V AC | Faz-Toprak: 220V - 235V AC",
+        "aciklama": "Sunucu odası için IEEE 1100 standart enerji sınırları."
+      }
+    ],
+    "temel_anlatim": "Sunucu odasında nötr ile toprak hattı arasında 3V-10V gerilim okunması, sunucuların rastgele yeniden başlaması veya switch portlarının yanması.",
+    "derin_teknik_analiz": "Hassas IT donanımlarında nötr-toprak (N-G) voltajı maksimum 1.0V AC (idealde <0.5V) olmalıdır. 3-fazlı sistemde faz dengesizliği (unbalanced load) nötr hattı üzerinde dönüş akımı yaratarak nötr potansiyelini yükseltir veya bina topraklama çubuğu korozyona uğramıştır.",
+    "kenar_durumlar": [
+      {
+        "durum": "Lazer yazıcı açıldığında nötr-toprak voltajı anlık 20V'a fırlıyor",
+        "neden": "Lazer yazıcının fuser ısıtıcısı anlık 1000-1500W çeker ve nötr hattına harmonik darbe basar.",
+        "cozum": "Lazer yazıcıları ASLA sunucularla aynı online UPS hattına bağlamayın; ayrı bina şebeke hattına takın."
+      }
+    ],
+    "etiketler": [
+      "ups notr-toprak topraklama voltaj pano server-odasi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "ups_apc_battery_constant_alarm",
+    "kategori": "UPS & Enerji",
+    "alt_kategori": "APC Smart-UPS",
+    "baslik": "APC Smart-UPS 'Replace Battery' Kırmızı Işığı ve Yeni Akü Kalibrasyon Hatası",
+    "hizli_adimlar": [
+      "Yeni takılan akülerin tam şarj olabilmesi için UPS'i en az 8-12 saat şebekede şarjda bırakın (%100 doluluk).",
+      "UPS arkasına en az %30-35 rezistif yük (örneğin 300-500W ısıtıcı veya halojen lamba, ASLA PC değil) bağlayın.",
+      "Ön paneldeki 'I / Test' düğmesine 3 saniye basılı tutarak dahili Self-Test'i tetikleyin.",
+      "Veya Network Management Card (NMC) web arayüzünden UPS -> Control -> Self-Test -> 'Start Runtime Calibration' yapın.",
+      "Kalibrasyon tamamlandığında kırmızı LED söner ve kalan yedekleme süresi normale döner."
+    ],
+    "komutlar": [
+      {
+        "etiket": "APC Telnet ile Akü Kalibrasyonu",
+        "komut": "upsdiag\n1 (Test)\n4 (Runtime Calibration)",
+        "aciklama": "NMC seri/telnet portundan akü çalışma süresi kalibrasyonu başlatır."
+      }
+    ],
+    "temel_anlatim": "APC UPS'e sıfır akü takılmasına rağmen kırmızı akü değiştir LED'inin sönmemesi ve kesintisiz bip sesi vermeye devam etmesi.",
+    "derin_teknik_analiz": "APC Smart-UPS mikrodenetleyicisi akü iç direncini ve çalışma süresini EEPROM'daki dahili sayaç üzerinden takip eder. Aküler fiziksel olarak değiştirilse bile UPS manuel 'Manual Calibration' (Self-Test) döngüsüne sokulmazsa eski arıza bayrağını temizlemez.",
+    "kenar_durumlar": [
+      {
+        "durum": "Kalibrasyon sırasında UPS aniden kapanıyor",
+        "neden": "Takılan yeni akülerden birinin hücresi ölüdür veya kutup başı vidası gevşektir.",
+        "cozum": "Her bir 12V aküyü ayrı ayrı voltmetreyle ölçün; yüksüz 12.6V - 13.2V arasında olmalıdır."
+      }
+    ],
+    "etiketler": [
+      "ups apc smart-ups replace-battery aku-kalibrasyonu runtime"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "infra_908",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "Saha Teşhisi",
+    "baslik": "Online UPS Statik Bypass Moduna Geçiş ve İnvertör Aşırı Sıcaklık Arızası",
+    "hizli_adimlar": [
+      "UPS ön panelinden arıza kodunu (Inverter Overtemperature) not edin.",
+      "UPS arkasındaki hava filtrelerini temizleyin.",
+      "Yük miktarını kontrol edin; %80 üzerindeyse gereksiz cihazları devreden çıkarın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "UPS SNMP Sıcaklık Okuma",
+        "komut": "snmpwalk -v2c -c public 192.168.1.200 .1.3.6.1.4.1.318.1.1.1.2.2.2",
+        "aciklama": "Akü ve invertör sıcaklığını okur."
+      }
+    ],
+    "temel_anlatim": "UPS'in kesintisiz çalışma modundan çıkıp şebeke bypass moduna geçmesi ve elektrik kesintisinde yükü besleyememesi.",
+    "derin_teknik_analiz": "İnvertör soğutma fanlarının tozla tıkanması veya tristörlerin aşırı ısınması sonucu UPS sistemi korumak için bypass'a alır.",
+    "kenar_durumlar": [
+      {
+        "durum": "İlk adımda sonuç alınamadı",
+        "neden": "Ağ gecikmesi veya izin kısıtlaması vardır.",
+        "cozum": "Güvenlik duvarı ve izinleri kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "altyapi",
+      "saha",
+      "teknik-cozum"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "infra_909",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "Saha Teşhisi",
+    "baslik": "Sunucu Odasında PDU Faz Dengesizliği ve Nötr Hattı Aşırı Akımı",
+    "hizli_adimlar": [
+      "PDU ekranından veya pensampermetre ile her 3 fazın anlık akımını ölçün.",
+      "Yüksek akımlı sunucuların güç kablolarını (PSU1 ve PSU2) farklı fazlardaki PDU baralarına dağıtın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "PDU Akım Ölçümü",
+        "komut": "L1: 16A | L2: 15A | L3: 16A (İdeal Denge)",
+        "aciklama": "Faz akımları birbirine yakın olmalıdır."
+      }
+    ],
+    "temel_anlatim": "3 fazlı dağıtım panosunda L1 fazına aşırı sunucu yüklenmesi sonucu nötr hattının ısınması.",
+    "derin_teknik_analiz": "Dengesiz yüklerde dönüş akımları nötr iletkeninde birikerek aşırı ısınma ve nötr-toprak voltaj yükselmesi yaratır.",
+    "kenar_durumlar": [
+      {
+        "durum": "İlk adımda sonuç alınamadı",
+        "neden": "Ağ gecikmesi veya izin kısıtlaması vardır.",
+        "cozum": "Güvenlik duvarı ve izinleri kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "altyapi",
+      "saha",
+      "teknik-cozum"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "ups_mat_13",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Nötür-Toprak Gerilim Kaçağı (>2V) ve Sunucu Şasilerinde Elektrik Çarpması",
+    "hizli_adimlar": [
+      "Multimetreyi AC 750V / 200V kademesine getirin.",
+      "Siyah probu toprak pinine, kırmızı probu nötr pinine değdirin.",
+      "Gerilimin 1.5V üzerinde olduğunu teyit edin (3V-10V arası tehlikelidir).",
+      "Pano girişindeki toprak barasını kontrol edin, kablo kesitini yükseltin veya sistem odası için izole trafo (Isolation Transformer) montajı yaptırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Voltaj Eşik Değeri",
+        "komut": "Multimetre: Nötr - Toprak <= 1.5V AC (İdeal: < 1.0V)",
+        "aciklama": "Bilgi işlem odaları için uluslararası kabul gören standarttır."
+      }
+    ],
+    "temel_anlatim": "Sunucu kabinetine dokunulduğunda elektrik çarpması veya hassas cihazlarda anlamsız resetler oluşması.",
+    "derin_teknik_analiz": "Kök Neden: Binanın ana topraklama hattının yetersiz olması veya nötr hattına dengesiz yük binmesi sonucu potansiyel fark oluşması. Saha Çözümü: Multimetre ile Nötr-Toprak arası AC voltajı ölçün (Maksimum 1.5V olmalıdır); gerekirse izole trafo kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Voltaj 30V seviyesinde çıkıyor",
+        "neden": "Topraklama hattı tamamen kopuktur veya prize hiç toprak bağlanmamıştır (Yüzen Şasi).",
+        "cozum": "Panodan prize bağımsız yeni 3x2.5mm² toprak hattı çekin."
+      }
+    ],
+    "etiketler": [
+      "ups",
+      "topraklama",
+      "notr-toprak",
+      "gerilim-kacagi",
+      "izole-trafo"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_256",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "APC Smart-UPS SMT3000I: İnvertör Aşırı Akım (Inverter Overcurrent) Arızası ve Ani Kapanma",
+    "hizli_adimlar": [
+      "APC Smart-UPS SMT3000I sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İnvertör IGBT transistörlerinden birinin delinmesi veya sürücü entegresi arızası.",
+      "Saha mühendisliği servis prosedürünü yürütün: İnvertör katındaki güç mosfetlerini multimetre ile test edin ve arızalı fazı onarın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "UPS Management -> Status",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Elektrik kesildiğinde UPS'in yükü devralamayıp doğrudan kapanması.",
+    "derin_teknik_analiz": "İnvertör IGBT transistörlerinden birinin delinmesi veya sürücü entegresi arızası. Çözüm: İnvertör katındaki güç mosfetlerini multimetre ile test edin ve arızalı fazı onarın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "apc smart-ups smt3000i",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_257",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "APC Smart-UPS SMT3000I: Akü Bağlantı Kesici (DC Circuit Breaker) Termik Açması",
+    "hizli_adimlar": [
+      "APC Smart-UPS SMT3000I sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Akü kutup başı sigortasının yüksek şarj akımı veya gevşek kablo nedeniyle atması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Akü kablo pabuçlarını torklayarak sıkın ve DC sigortayı kaldırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Multimetre DC 200V: Akü Grubu Voltajı",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ekranın Akü Bağlantısını Kontrol Edin uyarısı verip şarj yapmaması.",
+    "derin_teknik_analiz": "Akü kutup başı sigortasının yüksek şarj akımı veya gevşek kablo nedeniyle atması. Çözüm: Akü kablo pabuçlarını torklayarak sıkın ve DC sigortayı kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "apc smart-ups smt3000i",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_258",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "APC Smart-UPS SMT3000I: SNMP Ağ Kartı (NMC) Web Girişinin Java Kısıtlamasına Takılması",
+    "hizli_adimlar": [
+      "APC Smart-UPS SMT3000I sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Eski yönetim kartlarının çağdışı kalmış Java Applet arayüzü kullanması.",
+      "Saha mühendisliği servis prosedürünü yürütün: NMC kartının bellenimini en güncel HTML5 destekli sürüme yükseltin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ftp [NMC_IP] -> put firmware.bin",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "UPS web paneline girmek isterken tarayıcının Java uygulamasını engellemesi.",
+    "derin_teknik_analiz": "Eski yönetim kartlarının çağdışı kalmış Java Applet arayüzü kullanması. Çözüm: NMC kartının bellenimini en güncel HTML5 destekli sürüme yükseltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "apc smart-ups smt3000i",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_259",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "APC Smart-UPS SMT3000I: Jeneratör Şebeke Algılama Frekans Dalgalanması (Hz Kayması)",
+    "hizli_adimlar": [
+      "APC Smart-UPS SMT3000I sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Jeneratör devrinin 50 Hz yerine 53-55 Hz aralığında dalgalanması.",
+      "Saha mühendisliği servis prosedürünü yürütün: UPS giriş frekans toleransını dar moddan (Wide / Generator Modu: 45-65 Hz) geniş moda alın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "UPS Menu -> Sensitivity -> Low",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Jeneratör çalıştığında UPS'in jeneratörü şebeke kabul etmeyip aküde kalması.",
+    "derin_teknik_analiz": "Jeneratör devrinin 50 Hz yerine 53-55 Hz aralığında dalgalanması. Çözüm: UPS giriş frekans toleransını dar moddan (Wide / Generator Modu: 45-65 Hz) geniş moda alın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "apc smart-ups smt3000i",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_260",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Schneider Easy UPS On-Line SRVS 6000VA: İnvertör Aşırı Akım (Inverter Overcurrent) Arızası ve Ani Kapanma",
+    "hizli_adimlar": [
+      "Schneider Easy UPS On-Line SRVS 6000VA sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İnvertör IGBT transistörlerinden birinin delinmesi veya sürücü entegresi arızası.",
+      "Saha mühendisliği servis prosedürünü yürütün: İnvertör katındaki güç mosfetlerini multimetre ile test edin ve arızalı fazı onarın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "UPS Management -> Status",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Elektrik kesildiğinde UPS'in yükü devralamayıp doğrudan kapanması.",
+    "derin_teknik_analiz": "İnvertör IGBT transistörlerinden birinin delinmesi veya sürücü entegresi arızası. Çözüm: İnvertör katındaki güç mosfetlerini multimetre ile test edin ve arızalı fazı onarın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "schneider easy ups on-line srvs 6000va",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_261",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Schneider Easy UPS On-Line SRVS 6000VA: Akü Bağlantı Kesici (DC Circuit Breaker) Termik Açması",
+    "hizli_adimlar": [
+      "Schneider Easy UPS On-Line SRVS 6000VA sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Akü kutup başı sigortasının yüksek şarj akımı veya gevşek kablo nedeniyle atması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Akü kablo pabuçlarını torklayarak sıkın ve DC sigortayı kaldırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Multimetre DC 200V: Akü Grubu Voltajı",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ekranın Akü Bağlantısını Kontrol Edin uyarısı verip şarj yapmaması.",
+    "derin_teknik_analiz": "Akü kutup başı sigortasının yüksek şarj akımı veya gevşek kablo nedeniyle atması. Çözüm: Akü kablo pabuçlarını torklayarak sıkın ve DC sigortayı kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "schneider easy ups on-line srvs 6000va",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_262",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Schneider Easy UPS On-Line SRVS 6000VA: SNMP Ağ Kartı (NMC) Web Girişinin Java Kısıtlamasına Takılması",
+    "hizli_adimlar": [
+      "Schneider Easy UPS On-Line SRVS 6000VA sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Eski yönetim kartlarının çağdışı kalmış Java Applet arayüzü kullanması.",
+      "Saha mühendisliği servis prosedürünü yürütün: NMC kartının bellenimini en güncel HTML5 destekli sürüme yükseltin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ftp [NMC_IP] -> put firmware.bin",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "UPS web paneline girmek isterken tarayıcının Java uygulamasını engellemesi.",
+    "derin_teknik_analiz": "Eski yönetim kartlarının çağdışı kalmış Java Applet arayüzü kullanması. Çözüm: NMC kartının bellenimini en güncel HTML5 destekli sürüme yükseltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "schneider easy ups on-line srvs 6000va",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_263",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Schneider Easy UPS On-Line SRVS 6000VA: Jeneratör Şebeke Algılama Frekans Dalgalanması (Hz Kayması)",
+    "hizli_adimlar": [
+      "Schneider Easy UPS On-Line SRVS 6000VA sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Jeneratör devrinin 50 Hz yerine 53-55 Hz aralığında dalgalanması.",
+      "Saha mühendisliği servis prosedürünü yürütün: UPS giriş frekans toleransını dar moddan (Wide / Generator Modu: 45-65 Hz) geniş moda alın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "UPS Menu -> Sensitivity -> Low",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Jeneratör çalıştığında UPS'in jeneratörü şebeke kabul etmeyip aküde kalması.",
+    "derin_teknik_analiz": "Jeneratör devrinin 50 Hz yerine 53-55 Hz aralığında dalgalanması. Çözüm: UPS giriş frekans toleransını dar moddan (Wide / Generator Modu: 45-65 Hz) geniş moda alın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "schneider easy ups on-line srvs 6000va",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_264",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Inform DSP Multipower 15kVA: İnvertör Aşırı Akım (Inverter Overcurrent) Arızası ve Ani Kapanma",
+    "hizli_adimlar": [
+      "Inform DSP Multipower 15kVA sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İnvertör IGBT transistörlerinden birinin delinmesi veya sürücü entegresi arızası.",
+      "Saha mühendisliği servis prosedürünü yürütün: İnvertör katındaki güç mosfetlerini multimetre ile test edin ve arızalı fazı onarın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "UPS Management -> Status",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Elektrik kesildiğinde UPS'in yükü devralamayıp doğrudan kapanması.",
+    "derin_teknik_analiz": "İnvertör IGBT transistörlerinden birinin delinmesi veya sürücü entegresi arızası. Çözüm: İnvertör katındaki güç mosfetlerini multimetre ile test edin ve arızalı fazı onarın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "inform dsp multipower 15kva",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_265",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Inform DSP Multipower 15kVA: Akü Bağlantı Kesici (DC Circuit Breaker) Termik Açması",
+    "hizli_adimlar": [
+      "Inform DSP Multipower 15kVA sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Akü kutup başı sigortasının yüksek şarj akımı veya gevşek kablo nedeniyle atması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Akü kablo pabuçlarını torklayarak sıkın ve DC sigortayı kaldırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Multimetre DC 200V: Akü Grubu Voltajı",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ekranın Akü Bağlantısını Kontrol Edin uyarısı verip şarj yapmaması.",
+    "derin_teknik_analiz": "Akü kutup başı sigortasının yüksek şarj akımı veya gevşek kablo nedeniyle atması. Çözüm: Akü kablo pabuçlarını torklayarak sıkın ve DC sigortayı kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "inform dsp multipower 15kva",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_266",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Inform DSP Multipower 15kVA: SNMP Ağ Kartı (NMC) Web Girişinin Java Kısıtlamasına Takılması",
+    "hizli_adimlar": [
+      "Inform DSP Multipower 15kVA sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Eski yönetim kartlarının çağdışı kalmış Java Applet arayüzü kullanması.",
+      "Saha mühendisliği servis prosedürünü yürütün: NMC kartının bellenimini en güncel HTML5 destekli sürüme yükseltin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ftp [NMC_IP] -> put firmware.bin",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "UPS web paneline girmek isterken tarayıcının Java uygulamasını engellemesi.",
+    "derin_teknik_analiz": "Eski yönetim kartlarının çağdışı kalmış Java Applet arayüzü kullanması. Çözüm: NMC kartının bellenimini en güncel HTML5 destekli sürüme yükseltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "inform dsp multipower 15kva",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_267",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Inform DSP Multipower 15kVA: Jeneratör Şebeke Algılama Frekans Dalgalanması (Hz Kayması)",
+    "hizli_adimlar": [
+      "Inform DSP Multipower 15kVA sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Jeneratör devrinin 50 Hz yerine 53-55 Hz aralığında dalgalanması.",
+      "Saha mühendisliği servis prosedürünü yürütün: UPS giriş frekans toleransını dar moddan (Wide / Generator Modu: 45-65 Hz) geniş moda alın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "UPS Menu -> Sensitivity -> Low",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Jeneratör çalıştığında UPS'in jeneratörü şebeke kabul etmeyip aküde kalması.",
+    "derin_teknik_analiz": "Jeneratör devrinin 50 Hz yerine 53-55 Hz aralığında dalgalanması. Çözüm: UPS giriş frekans toleransını dar moddan (Wide / Generator Modu: 45-65 Hz) geniş moda alın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "inform dsp multipower 15kva",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_268",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Makelsan LevelEx 10kVA: İnvertör Aşırı Akım (Inverter Overcurrent) Arızası ve Ani Kapanma",
+    "hizli_adimlar": [
+      "Makelsan LevelEx 10kVA sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İnvertör IGBT transistörlerinden birinin delinmesi veya sürücü entegresi arızası.",
+      "Saha mühendisliği servis prosedürünü yürütün: İnvertör katındaki güç mosfetlerini multimetre ile test edin ve arızalı fazı onarın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "UPS Management -> Status",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Elektrik kesildiğinde UPS'in yükü devralamayıp doğrudan kapanması.",
+    "derin_teknik_analiz": "İnvertör IGBT transistörlerinden birinin delinmesi veya sürücü entegresi arızası. Çözüm: İnvertör katındaki güç mosfetlerini multimetre ile test edin ve arızalı fazı onarın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "makelsan levelex 10kva",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_269",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Makelsan LevelEx 10kVA: Akü Bağlantı Kesici (DC Circuit Breaker) Termik Açması",
+    "hizli_adimlar": [
+      "Makelsan LevelEx 10kVA sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Akü kutup başı sigortasının yüksek şarj akımı veya gevşek kablo nedeniyle atması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Akü kablo pabuçlarını torklayarak sıkın ve DC sigortayı kaldırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Multimetre DC 200V: Akü Grubu Voltajı",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ekranın Akü Bağlantısını Kontrol Edin uyarısı verip şarj yapmaması.",
+    "derin_teknik_analiz": "Akü kutup başı sigortasının yüksek şarj akımı veya gevşek kablo nedeniyle atması. Çözüm: Akü kablo pabuçlarını torklayarak sıkın ve DC sigortayı kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "makelsan levelex 10kva",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_270",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Makelsan LevelEx 10kVA: SNMP Ağ Kartı (NMC) Web Girişinin Java Kısıtlamasına Takılması",
+    "hizli_adimlar": [
+      "Makelsan LevelEx 10kVA sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Eski yönetim kartlarının çağdışı kalmış Java Applet arayüzü kullanması.",
+      "Saha mühendisliği servis prosedürünü yürütün: NMC kartının bellenimini en güncel HTML5 destekli sürüme yükseltin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ftp [NMC_IP] -> put firmware.bin",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "UPS web paneline girmek isterken tarayıcının Java uygulamasını engellemesi.",
+    "derin_teknik_analiz": "Eski yönetim kartlarının çağdışı kalmış Java Applet arayüzü kullanması. Çözüm: NMC kartının bellenimini en güncel HTML5 destekli sürüme yükseltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "makelsan levelex 10kva",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_271",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Makelsan LevelEx 10kVA: Jeneratör Şebeke Algılama Frekans Dalgalanması (Hz Kayması)",
+    "hizli_adimlar": [
+      "Makelsan LevelEx 10kVA sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Jeneratör devrinin 50 Hz yerine 53-55 Hz aralığında dalgalanması.",
+      "Saha mühendisliği servis prosedürünü yürütün: UPS giriş frekans toleransını dar moddan (Wide / Generator Modu: 45-65 Hz) geniş moda alın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "UPS Menu -> Sensitivity -> Low",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Jeneratör çalıştığında UPS'in jeneratörü şebeke kabul etmeyip aküde kalması.",
+    "derin_teknik_analiz": "Jeneratör devrinin 50 Hz yerine 53-55 Hz aralığında dalgalanması. Çözüm: UPS giriş frekans toleransını dar moddan (Wide / Generator Modu: 45-65 Hz) geniş moda alın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "makelsan levelex 10kva",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_272",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Tescom Apex 3000VA: İnvertör Aşırı Akım (Inverter Overcurrent) Arızası ve Ani Kapanma",
+    "hizli_adimlar": [
+      "Tescom Apex 3000VA sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İnvertör IGBT transistörlerinden birinin delinmesi veya sürücü entegresi arızası.",
+      "Saha mühendisliği servis prosedürünü yürütün: İnvertör katındaki güç mosfetlerini multimetre ile test edin ve arızalı fazı onarın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "UPS Management -> Status",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Elektrik kesildiğinde UPS'in yükü devralamayıp doğrudan kapanması.",
+    "derin_teknik_analiz": "İnvertör IGBT transistörlerinden birinin delinmesi veya sürücü entegresi arızası. Çözüm: İnvertör katındaki güç mosfetlerini multimetre ile test edin ve arızalı fazı onarın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "tescom apex 3000va",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_273",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Tescom Apex 3000VA: Akü Bağlantı Kesici (DC Circuit Breaker) Termik Açması",
+    "hizli_adimlar": [
+      "Tescom Apex 3000VA sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Akü kutup başı sigortasının yüksek şarj akımı veya gevşek kablo nedeniyle atması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Akü kablo pabuçlarını torklayarak sıkın ve DC sigortayı kaldırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Multimetre DC 200V: Akü Grubu Voltajı",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ekranın Akü Bağlantısını Kontrol Edin uyarısı verip şarj yapmaması.",
+    "derin_teknik_analiz": "Akü kutup başı sigortasının yüksek şarj akımı veya gevşek kablo nedeniyle atması. Çözüm: Akü kablo pabuçlarını torklayarak sıkın ve DC sigortayı kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "tescom apex 3000va",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_274",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Tescom Apex 3000VA: SNMP Ağ Kartı (NMC) Web Girişinin Java Kısıtlamasına Takılması",
+    "hizli_adimlar": [
+      "Tescom Apex 3000VA sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Eski yönetim kartlarının çağdışı kalmış Java Applet arayüzü kullanması.",
+      "Saha mühendisliği servis prosedürünü yürütün: NMC kartının bellenimini en güncel HTML5 destekli sürüme yükseltin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ftp [NMC_IP] -> put firmware.bin",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "UPS web paneline girmek isterken tarayıcının Java uygulamasını engellemesi.",
+    "derin_teknik_analiz": "Eski yönetim kartlarının çağdışı kalmış Java Applet arayüzü kullanması. Çözüm: NMC kartının bellenimini en güncel HTML5 destekli sürüme yükseltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "tescom apex 3000va",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_275",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Tescom Apex 3000VA: Jeneratör Şebeke Algılama Frekans Dalgalanması (Hz Kayması)",
+    "hizli_adimlar": [
+      "Tescom Apex 3000VA sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Jeneratör devrinin 50 Hz yerine 53-55 Hz aralığında dalgalanması.",
+      "Saha mühendisliği servis prosedürünü yürütün: UPS giriş frekans toleransını dar moddan (Wide / Generator Modu: 45-65 Hz) geniş moda alın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "UPS Menu -> Sensitivity -> Low",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Jeneratör çalıştığında UPS'in jeneratörü şebeke kabul etmeyip aküde kalması.",
+    "derin_teknik_analiz": "Jeneratör devrinin 50 Hz yerine 53-55 Hz aralığında dalgalanması. Çözüm: UPS giriş frekans toleransını dar moddan (Wide / Generator Modu: 45-65 Hz) geniş moda alın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "tescom apex 3000va",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_276",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Eaton 9PX 3000VA RT: İnvertör Aşırı Akım (Inverter Overcurrent) Arızası ve Ani Kapanma",
+    "hizli_adimlar": [
+      "Eaton 9PX 3000VA RT sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İnvertör IGBT transistörlerinden birinin delinmesi veya sürücü entegresi arızası.",
+      "Saha mühendisliği servis prosedürünü yürütün: İnvertör katındaki güç mosfetlerini multimetre ile test edin ve arızalı fazı onarın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "UPS Management -> Status",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Elektrik kesildiğinde UPS'in yükü devralamayıp doğrudan kapanması.",
+    "derin_teknik_analiz": "İnvertör IGBT transistörlerinden birinin delinmesi veya sürücü entegresi arızası. Çözüm: İnvertör katındaki güç mosfetlerini multimetre ile test edin ve arızalı fazı onarın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "eaton 9px 3000va rt",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_277",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Eaton 9PX 3000VA RT: Akü Bağlantı Kesici (DC Circuit Breaker) Termik Açması",
+    "hizli_adimlar": [
+      "Eaton 9PX 3000VA RT sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Akü kutup başı sigortasının yüksek şarj akımı veya gevşek kablo nedeniyle atması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Akü kablo pabuçlarını torklayarak sıkın ve DC sigortayı kaldırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Multimetre DC 200V: Akü Grubu Voltajı",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ekranın Akü Bağlantısını Kontrol Edin uyarısı verip şarj yapmaması.",
+    "derin_teknik_analiz": "Akü kutup başı sigortasının yüksek şarj akımı veya gevşek kablo nedeniyle atması. Çözüm: Akü kablo pabuçlarını torklayarak sıkın ve DC sigortayı kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "eaton 9px 3000va rt",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_278",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Eaton 9PX 3000VA RT: SNMP Ağ Kartı (NMC) Web Girişinin Java Kısıtlamasına Takılması",
+    "hizli_adimlar": [
+      "Eaton 9PX 3000VA RT sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Eski yönetim kartlarının çağdışı kalmış Java Applet arayüzü kullanması.",
+      "Saha mühendisliği servis prosedürünü yürütün: NMC kartının bellenimini en güncel HTML5 destekli sürüme yükseltin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ftp [NMC_IP] -> put firmware.bin",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "UPS web paneline girmek isterken tarayıcının Java uygulamasını engellemesi.",
+    "derin_teknik_analiz": "Eski yönetim kartlarının çağdışı kalmış Java Applet arayüzü kullanması. Çözüm: NMC kartının bellenimini en güncel HTML5 destekli sürüme yükseltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "eaton 9px 3000va rt",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_279",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Eaton 9PX 3000VA RT: Jeneratör Şebeke Algılama Frekans Dalgalanması (Hz Kayması)",
+    "hizli_adimlar": [
+      "Eaton 9PX 3000VA RT sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Jeneratör devrinin 50 Hz yerine 53-55 Hz aralığında dalgalanması.",
+      "Saha mühendisliği servis prosedürünü yürütün: UPS giriş frekans toleransını dar moddan (Wide / Generator Modu: 45-65 Hz) geniş moda alın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "UPS Menu -> Sensitivity -> Low",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Jeneratör çalıştığında UPS'in jeneratörü şebeke kabul etmeyip aküde kalması.",
+    "derin_teknik_analiz": "Jeneratör devrinin 50 Hz yerine 53-55 Hz aralığında dalgalanması. Çözüm: UPS giriş frekans toleransını dar moddan (Wide / Generator Modu: 45-65 Hz) geniş moda alın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "eaton 9px 3000va rt",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_280",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Riello Sentinel Pro 2200: İnvertör Aşırı Akım (Inverter Overcurrent) Arızası ve Ani Kapanma",
+    "hizli_adimlar": [
+      "Riello Sentinel Pro 2200 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İnvertör IGBT transistörlerinden birinin delinmesi veya sürücü entegresi arızası.",
+      "Saha mühendisliği servis prosedürünü yürütün: İnvertör katındaki güç mosfetlerini multimetre ile test edin ve arızalı fazı onarın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "UPS Management -> Status",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Elektrik kesildiğinde UPS'in yükü devralamayıp doğrudan kapanması.",
+    "derin_teknik_analiz": "İnvertör IGBT transistörlerinden birinin delinmesi veya sürücü entegresi arızası. Çözüm: İnvertör katındaki güç mosfetlerini multimetre ile test edin ve arızalı fazı onarın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "riello sentinel pro 2200",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_281",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Riello Sentinel Pro 2200: Akü Bağlantı Kesici (DC Circuit Breaker) Termik Açması",
+    "hizli_adimlar": [
+      "Riello Sentinel Pro 2200 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Akü kutup başı sigortasının yüksek şarj akımı veya gevşek kablo nedeniyle atması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Akü kablo pabuçlarını torklayarak sıkın ve DC sigortayı kaldırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Multimetre DC 200V: Akü Grubu Voltajı",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ekranın Akü Bağlantısını Kontrol Edin uyarısı verip şarj yapmaması.",
+    "derin_teknik_analiz": "Akü kutup başı sigortasının yüksek şarj akımı veya gevşek kablo nedeniyle atması. Çözüm: Akü kablo pabuçlarını torklayarak sıkın ve DC sigortayı kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "riello sentinel pro 2200",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_282",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Riello Sentinel Pro 2200: SNMP Ağ Kartı (NMC) Web Girişinin Java Kısıtlamasına Takılması",
+    "hizli_adimlar": [
+      "Riello Sentinel Pro 2200 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Eski yönetim kartlarının çağdışı kalmış Java Applet arayüzü kullanması.",
+      "Saha mühendisliği servis prosedürünü yürütün: NMC kartının bellenimini en güncel HTML5 destekli sürüme yükseltin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ftp [NMC_IP] -> put firmware.bin",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "UPS web paneline girmek isterken tarayıcının Java uygulamasını engellemesi.",
+    "derin_teknik_analiz": "Eski yönetim kartlarının çağdışı kalmış Java Applet arayüzü kullanması. Çözüm: NMC kartının bellenimini en güncel HTML5 destekli sürüme yükseltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "riello sentinel pro 2200",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_283",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Riello Sentinel Pro 2200: Jeneratör Şebeke Algılama Frekans Dalgalanması (Hz Kayması)",
+    "hizli_adimlar": [
+      "Riello Sentinel Pro 2200 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Jeneratör devrinin 50 Hz yerine 53-55 Hz aralığında dalgalanması.",
+      "Saha mühendisliği servis prosedürünü yürütün: UPS giriş frekans toleransını dar moddan (Wide / Generator Modu: 45-65 Hz) geniş moda alın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "UPS Menu -> Sensitivity -> Low",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Jeneratör çalıştığında UPS'in jeneratörü şebeke kabul etmeyip aküde kalması.",
+    "derin_teknik_analiz": "Jeneratör devrinin 50 Hz yerine 53-55 Hz aralığında dalgalanması. Çözüm: UPS giriş frekans toleransını dar moddan (Wide / Generator Modu: 45-65 Hz) geniş moda alın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "riello sentinel pro 2200",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_284",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Socomec Masterys GP4 20kVA: İnvertör Aşırı Akım (Inverter Overcurrent) Arızası ve Ani Kapanma",
+    "hizli_adimlar": [
+      "Socomec Masterys GP4 20kVA sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: İnvertör IGBT transistörlerinden birinin delinmesi veya sürücü entegresi arızası.",
+      "Saha mühendisliği servis prosedürünü yürütün: İnvertör katındaki güç mosfetlerini multimetre ile test edin ve arızalı fazı onarın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "UPS Management -> Status",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Elektrik kesildiğinde UPS'in yükü devralamayıp doğrudan kapanması.",
+    "derin_teknik_analiz": "İnvertör IGBT transistörlerinden birinin delinmesi veya sürücü entegresi arızası. Çözüm: İnvertör katındaki güç mosfetlerini multimetre ile test edin ve arızalı fazı onarın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "socomec masterys gp4 20kva",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_285",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Socomec Masterys GP4 20kVA: Akü Bağlantı Kesici (DC Circuit Breaker) Termik Açması",
+    "hizli_adimlar": [
+      "Socomec Masterys GP4 20kVA sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Akü kutup başı sigortasının yüksek şarj akımı veya gevşek kablo nedeniyle atması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Akü kablo pabuçlarını torklayarak sıkın ve DC sigortayı kaldırın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Multimetre DC 200V: Akü Grubu Voltajı",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Ekranın Akü Bağlantısını Kontrol Edin uyarısı verip şarj yapmaması.",
+    "derin_teknik_analiz": "Akü kutup başı sigortasının yüksek şarj akımı veya gevşek kablo nedeniyle atması. Çözüm: Akü kablo pabuçlarını torklayarak sıkın ve DC sigortayı kaldırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "socomec masterys gp4 20kva",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_286",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Socomec Masterys GP4 20kVA: SNMP Ağ Kartı (NMC) Web Girişinin Java Kısıtlamasına Takılması",
+    "hizli_adimlar": [
+      "Socomec Masterys GP4 20kVA sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Eski yönetim kartlarının çağdışı kalmış Java Applet arayüzü kullanması.",
+      "Saha mühendisliği servis prosedürünü yürütün: NMC kartının bellenimini en güncel HTML5 destekli sürüme yükseltin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ftp [NMC_IP] -> put firmware.bin",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "UPS web paneline girmek isterken tarayıcının Java uygulamasını engellemesi.",
+    "derin_teknik_analiz": "Eski yönetim kartlarının çağdışı kalmış Java Applet arayüzü kullanması. Çözüm: NMC kartının bellenimini en güncel HTML5 destekli sürüme yükseltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "socomec masterys gp4 20kva",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_287",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Socomec Masterys GP4 20kVA: Jeneratör Şebeke Algılama Frekans Dalgalanması (Hz Kayması)",
+    "hizli_adimlar": [
+      "Socomec Masterys GP4 20kVA sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Jeneratör devrinin 50 Hz yerine 53-55 Hz aralığında dalgalanması.",
+      "Saha mühendisliği servis prosedürünü yürütün: UPS giriş frekans toleransını dar moddan (Wide / Generator Modu: 45-65 Hz) geniş moda alın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "UPS Menu -> Sensitivity -> Low",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Jeneratör çalıştığında UPS'in jeneratörü şebeke kabul etmeyip aküde kalması.",
+    "derin_teknik_analiz": "Jeneratör devrinin 50 Hz yerine 53-55 Hz aralığında dalgalanması. Çözüm: UPS giriş frekans toleransını dar moddan (Wide / Generator Modu: 45-65 Hz) geniş moda alın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "socomec masterys gp4 20kva",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2542",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "APC Smart-UPS RT 5000VA: UPS Statik Bypass Moduna Kilitlenmesi ve Şebekeden Kesintisiz Besleyememe",
+    "hizli_adimlar": [
+      "APC Smart-UPS RT 5000VA cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: İnvertör çıkışında aşırı yük (Overload) algılanması veya DC bus kapasitörlerinin gerilim tutamaması.",
+      "Saha servis prosedürünü yerine getirin: Yükleri kademeli kapatın, UPS hata günlüğünü inceleyin ve invertörü panelden manuel olarak devreye alın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "APC Smart-UPS RT 5000VA Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "UPS ekranında Bypass LED'inin sürekli yanması ve aküye geçiş yapamaması.",
+    "derin_teknik_analiz": "Kök Neden: İnvertör çıkışında aşırı yük (Overload) algılanması veya DC bus kapasitörlerinin gerilim tutamaması. Saha Çözümü: Yükleri kademeli kapatın, UPS hata günlüğünü inceleyin ve invertörü panelden manuel olarak devreye alın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "apc smart-ups rt 5000va",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2543",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "APC Smart-UPS RT 5000VA: Akü Değişimi Sonrası UPS Çalışma Süresinin (Runtime) Kısa Görünmesi",
+    "hizli_adimlar": [
+      "APC Smart-UPS RT 5000VA cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: UPS mikrodenetleyicisinin hafızasındaki eski akü deşarj eğrisi katsayılarını koruması.",
+      "Saha servis prosedürünü yerine getirin: UPS yönetim yazılımı üzerinden tam akü kalibrasyon testi (Runtime Calibration) çalıştırarak sayacı sıfırlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "APC Smart-UPS RT 5000VA Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sıfır akü takılmasına rağmen ekranda 5 dakika yedekleme süresi yazması.",
+    "derin_teknik_analiz": "Kök Neden: UPS mikrodenetleyicisinin hafızasındaki eski akü deşarj eğrisi katsayılarını koruması. Saha Çözümü: UPS yönetim yazılımı üzerinden tam akü kalibrasyon testi (Runtime Calibration) çalıştırarak sayacı sıfırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "apc smart-ups rt 5000va",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2544",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "APC Smart-UPS RT 5000VA: PDU 3 Fazlı Dağıtımda Faz Dengesizliği (Phase Unbalance) Uyarısı",
+    "hizli_adimlar": [
+      "APC Smart-UPS RT 5000VA cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Tüm sunucu kabinlerinin aynı faza tek yönlü bağlanması sonucu nötr hattında aşırı akım oluşması.",
+      "Saha servis prosedürünü yerine getirin: Kabinlerdeki sunucu güç kaynaklarını A ve B besleme PDU'larına 3 faza dengeli dağılacak şekilde paylaştırın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "APC Smart-UPS RT 5000VA Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sistem odası ana panosunda L1 fazının %90, L2 ve L3 fazlarının %10 yükte çalışması.",
+    "derin_teknik_analiz": "Kök Neden: Tüm sunucu kabinlerinin aynı faza tek yönlü bağlanması sonucu nötr hattında aşırı akım oluşması. Saha Çözümü: Kabinlerdeki sunucu güç kaynaklarını A ve B besleme PDU'larına 3 faza dengeli dağılacak şekilde paylaştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "apc smart-ups rt 5000va",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2545",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Schneider Easy UPS 3S: UPS Statik Bypass Moduna Kilitlenmesi ve Şebekeden Kesintisiz Besleyememe",
+    "hizli_adimlar": [
+      "Schneider Easy UPS 3S cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: İnvertör çıkışında aşırı yük (Overload) algılanması veya DC bus kapasitörlerinin gerilim tutamaması.",
+      "Saha servis prosedürünü yerine getirin: Yükleri kademeli kapatın, UPS hata günlüğünü inceleyin ve invertörü panelden manuel olarak devreye alın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Schneider Easy UPS 3S Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "UPS ekranında Bypass LED'inin sürekli yanması ve aküye geçiş yapamaması.",
+    "derin_teknik_analiz": "Kök Neden: İnvertör çıkışında aşırı yük (Overload) algılanması veya DC bus kapasitörlerinin gerilim tutamaması. Saha Çözümü: Yükleri kademeli kapatın, UPS hata günlüğünü inceleyin ve invertörü panelden manuel olarak devreye alın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "schneider easy ups 3s",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2546",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Schneider Easy UPS 3S: Akü Değişimi Sonrası UPS Çalışma Süresinin (Runtime) Kısa Görünmesi",
+    "hizli_adimlar": [
+      "Schneider Easy UPS 3S cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: UPS mikrodenetleyicisinin hafızasındaki eski akü deşarj eğrisi katsayılarını koruması.",
+      "Saha servis prosedürünü yerine getirin: UPS yönetim yazılımı üzerinden tam akü kalibrasyon testi (Runtime Calibration) çalıştırarak sayacı sıfırlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Schneider Easy UPS 3S Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sıfır akü takılmasına rağmen ekranda 5 dakika yedekleme süresi yazması.",
+    "derin_teknik_analiz": "Kök Neden: UPS mikrodenetleyicisinin hafızasındaki eski akü deşarj eğrisi katsayılarını koruması. Saha Çözümü: UPS yönetim yazılımı üzerinden tam akü kalibrasyon testi (Runtime Calibration) çalıştırarak sayacı sıfırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "schneider easy ups 3s",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2547",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Schneider Easy UPS 3S: PDU 3 Fazlı Dağıtımda Faz Dengesizliği (Phase Unbalance) Uyarısı",
+    "hizli_adimlar": [
+      "Schneider Easy UPS 3S cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Tüm sunucu kabinlerinin aynı faza tek yönlü bağlanması sonucu nötr hattında aşırı akım oluşması.",
+      "Saha servis prosedürünü yerine getirin: Kabinlerdeki sunucu güç kaynaklarını A ve B besleme PDU'larına 3 faza dengeli dağılacak şekilde paylaştırın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Schneider Easy UPS 3S Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sistem odası ana panosunda L1 fazının %90, L2 ve L3 fazlarının %10 yükte çalışması.",
+    "derin_teknik_analiz": "Kök Neden: Tüm sunucu kabinlerinin aynı faza tek yönlü bağlanması sonucu nötr hattında aşırı akım oluşması. Saha Çözümü: Kabinlerdeki sunucu güç kaynaklarını A ve B besleme PDU'larına 3 faza dengeli dağılacak şekilde paylaştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "schneider easy ups 3s",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2548",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Inform Saver DSP 10kVA: UPS Statik Bypass Moduna Kilitlenmesi ve Şebekeden Kesintisiz Besleyememe",
+    "hizli_adimlar": [
+      "Inform Saver DSP 10kVA cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: İnvertör çıkışında aşırı yük (Overload) algılanması veya DC bus kapasitörlerinin gerilim tutamaması.",
+      "Saha servis prosedürünü yerine getirin: Yükleri kademeli kapatın, UPS hata günlüğünü inceleyin ve invertörü panelden manuel olarak devreye alın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Inform Saver DSP 10kVA Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "UPS ekranında Bypass LED'inin sürekli yanması ve aküye geçiş yapamaması.",
+    "derin_teknik_analiz": "Kök Neden: İnvertör çıkışında aşırı yük (Overload) algılanması veya DC bus kapasitörlerinin gerilim tutamaması. Saha Çözümü: Yükleri kademeli kapatın, UPS hata günlüğünü inceleyin ve invertörü panelden manuel olarak devreye alın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "inform saver dsp 10kva",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2549",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Inform Saver DSP 10kVA: Akü Değişimi Sonrası UPS Çalışma Süresinin (Runtime) Kısa Görünmesi",
+    "hizli_adimlar": [
+      "Inform Saver DSP 10kVA cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: UPS mikrodenetleyicisinin hafızasındaki eski akü deşarj eğrisi katsayılarını koruması.",
+      "Saha servis prosedürünü yerine getirin: UPS yönetim yazılımı üzerinden tam akü kalibrasyon testi (Runtime Calibration) çalıştırarak sayacı sıfırlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Inform Saver DSP 10kVA Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sıfır akü takılmasına rağmen ekranda 5 dakika yedekleme süresi yazması.",
+    "derin_teknik_analiz": "Kök Neden: UPS mikrodenetleyicisinin hafızasındaki eski akü deşarj eğrisi katsayılarını koruması. Saha Çözümü: UPS yönetim yazılımı üzerinden tam akü kalibrasyon testi (Runtime Calibration) çalıştırarak sayacı sıfırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "inform saver dsp 10kva",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2550",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Inform Saver DSP 10kVA: PDU 3 Fazlı Dağıtımda Faz Dengesizliği (Phase Unbalance) Uyarısı",
+    "hizli_adimlar": [
+      "Inform Saver DSP 10kVA cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Tüm sunucu kabinlerinin aynı faza tek yönlü bağlanması sonucu nötr hattında aşırı akım oluşması.",
+      "Saha servis prosedürünü yerine getirin: Kabinlerdeki sunucu güç kaynaklarını A ve B besleme PDU'larına 3 faza dengeli dağılacak şekilde paylaştırın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Inform Saver DSP 10kVA Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sistem odası ana panosunda L1 fazının %90, L2 ve L3 fazlarının %10 yükte çalışması.",
+    "derin_teknik_analiz": "Kök Neden: Tüm sunucu kabinlerinin aynı faza tek yönlü bağlanması sonucu nötr hattında aşırı akım oluşması. Saha Çözümü: Kabinlerdeki sunucu güç kaynaklarını A ve B besleme PDU'larına 3 faza dengeli dağılacak şekilde paylaştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "inform saver dsp 10kva",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2551",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Makelsan Boxer 20kVA: UPS Statik Bypass Moduna Kilitlenmesi ve Şebekeden Kesintisiz Besleyememe",
+    "hizli_adimlar": [
+      "Makelsan Boxer 20kVA cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: İnvertör çıkışında aşırı yük (Overload) algılanması veya DC bus kapasitörlerinin gerilim tutamaması.",
+      "Saha servis prosedürünü yerine getirin: Yükleri kademeli kapatın, UPS hata günlüğünü inceleyin ve invertörü panelden manuel olarak devreye alın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Makelsan Boxer 20kVA Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "UPS ekranında Bypass LED'inin sürekli yanması ve aküye geçiş yapamaması.",
+    "derin_teknik_analiz": "Kök Neden: İnvertör çıkışında aşırı yük (Overload) algılanması veya DC bus kapasitörlerinin gerilim tutamaması. Saha Çözümü: Yükleri kademeli kapatın, UPS hata günlüğünü inceleyin ve invertörü panelden manuel olarak devreye alın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "makelsan boxer 20kva",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2552",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Makelsan Boxer 20kVA: Akü Değişimi Sonrası UPS Çalışma Süresinin (Runtime) Kısa Görünmesi",
+    "hizli_adimlar": [
+      "Makelsan Boxer 20kVA cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: UPS mikrodenetleyicisinin hafızasındaki eski akü deşarj eğrisi katsayılarını koruması.",
+      "Saha servis prosedürünü yerine getirin: UPS yönetim yazılımı üzerinden tam akü kalibrasyon testi (Runtime Calibration) çalıştırarak sayacı sıfırlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Makelsan Boxer 20kVA Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sıfır akü takılmasına rağmen ekranda 5 dakika yedekleme süresi yazması.",
+    "derin_teknik_analiz": "Kök Neden: UPS mikrodenetleyicisinin hafızasındaki eski akü deşarj eğrisi katsayılarını koruması. Saha Çözümü: UPS yönetim yazılımı üzerinden tam akü kalibrasyon testi (Runtime Calibration) çalıştırarak sayacı sıfırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "makelsan boxer 20kva",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2553",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Makelsan Boxer 20kVA: PDU 3 Fazlı Dağıtımda Faz Dengesizliği (Phase Unbalance) Uyarısı",
+    "hizli_adimlar": [
+      "Makelsan Boxer 20kVA cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Tüm sunucu kabinlerinin aynı faza tek yönlü bağlanması sonucu nötr hattında aşırı akım oluşması.",
+      "Saha servis prosedürünü yerine getirin: Kabinlerdeki sunucu güç kaynaklarını A ve B besleme PDU'larına 3 faza dengeli dağılacak şekilde paylaştırın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Makelsan Boxer 20kVA Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sistem odası ana panosunda L1 fazının %90, L2 ve L3 fazlarının %10 yükte çalışması.",
+    "derin_teknik_analiz": "Kök Neden: Tüm sunucu kabinlerinin aynı faza tek yönlü bağlanması sonucu nötr hattında aşırı akım oluşması. Saha Çözümü: Kabinlerdeki sunucu güç kaynaklarını A ve B besleme PDU'larına 3 faza dengeli dağılacak şekilde paylaştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "makelsan boxer 20kva",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2554",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Tescom Leo 30kVA: UPS Statik Bypass Moduna Kilitlenmesi ve Şebekeden Kesintisiz Besleyememe",
+    "hizli_adimlar": [
+      "Tescom Leo 30kVA cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: İnvertör çıkışında aşırı yük (Overload) algılanması veya DC bus kapasitörlerinin gerilim tutamaması.",
+      "Saha servis prosedürünü yerine getirin: Yükleri kademeli kapatın, UPS hata günlüğünü inceleyin ve invertörü panelden manuel olarak devreye alın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Tescom Leo 30kVA Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "UPS ekranında Bypass LED'inin sürekli yanması ve aküye geçiş yapamaması.",
+    "derin_teknik_analiz": "Kök Neden: İnvertör çıkışında aşırı yük (Overload) algılanması veya DC bus kapasitörlerinin gerilim tutamaması. Saha Çözümü: Yükleri kademeli kapatın, UPS hata günlüğünü inceleyin ve invertörü panelden manuel olarak devreye alın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "tescom leo 30kva",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2555",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Tescom Leo 30kVA: Akü Değişimi Sonrası UPS Çalışma Süresinin (Runtime) Kısa Görünmesi",
+    "hizli_adimlar": [
+      "Tescom Leo 30kVA cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: UPS mikrodenetleyicisinin hafızasındaki eski akü deşarj eğrisi katsayılarını koruması.",
+      "Saha servis prosedürünü yerine getirin: UPS yönetim yazılımı üzerinden tam akü kalibrasyon testi (Runtime Calibration) çalıştırarak sayacı sıfırlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Tescom Leo 30kVA Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sıfır akü takılmasına rağmen ekranda 5 dakika yedekleme süresi yazması.",
+    "derin_teknik_analiz": "Kök Neden: UPS mikrodenetleyicisinin hafızasındaki eski akü deşarj eğrisi katsayılarını koruması. Saha Çözümü: UPS yönetim yazılımı üzerinden tam akü kalibrasyon testi (Runtime Calibration) çalıştırarak sayacı sıfırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "tescom leo 30kva",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2556",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "UPS & Şebeke Enerji",
+    "baslik": "Tescom Leo 30kVA: PDU 3 Fazlı Dağıtımda Faz Dengesizliği (Phase Unbalance) Uyarısı",
+    "hizli_adimlar": [
+      "Tescom Leo 30kVA cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Tüm sunucu kabinlerinin aynı faza tek yönlü bağlanması sonucu nötr hattında aşırı akım oluşması.",
+      "Saha servis prosedürünü yerine getirin: Kabinlerdeki sunucu güç kaynaklarını A ve B besleme PDU'larına 3 faza dengeli dağılacak şekilde paylaştırın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Tescom Leo 30kVA Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Sistem odası ana panosunda L1 fazının %90, L2 ve L3 fazlarının %10 yükte çalışması.",
+    "derin_teknik_analiz": "Kök Neden: Tüm sunucu kabinlerinin aynı faza tek yönlü bağlanması sonucu nötr hattında aşırı akım oluşması. Saha Çözümü: Kabinlerdeki sunucu güç kaynaklarını A ve B besleme PDU'larına 3 faza dengeli dağılacak şekilde paylaştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "ups & şebeke enerji",
+      "tescom leo 30kva",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  }
+]

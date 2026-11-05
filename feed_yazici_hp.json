@@ -1,199 +1,2217 @@
-{
-  "versiyon": "2.5.0",
-  "toplam": 5,
-  "modul": "feed_yazici_hp.json",
-  "kayitlar": [
-    {
-      "id": "prn_hp_error_49_38_07",
-      "kategori": "Yazıcı",
-      "alt_kategori": "HP LaserJet & Formatter",
-      "baslik": "HP LaserJet 49.38.07 Service Error (Bozuk Yazdırma İşi ve Formatter Donması)",
-      "hizli_adimlar": [
-        "Yazıcının arkasındaki ağ ve USB kablosunu anında çıkarın.",
-        "Yazıcıyı kapatıp açın; ağ kablosu yokken 'Ready' olduğunu teyit edin.",
-        "Tüm bilgisayarlardaki Print Spooler kuyruklarını temizleyin.",
-        "HP Embedded Web Server (EWS) üzerinden firmware güncelleyin.",
-        "Ağ kablosunu geri takın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Windows Kuyruğunu Temizle",
-          "komut": "net stop spooler & del /Q /F %systemroot%\\System32\\Spool\\Printers\\* & net start spooler",
-          "aciklama": "Bekleyen bozuk işleri siler."
-        }
-      ],
-      "temel_anlatim": "Yazıcı açılırken veya bir bilgisayardan çıktı gönderildiğinde '49.XX.XX Error' verip yazıcının kendiliğinden yeniden başlaması veya kilitlenmesi.",
-      "derin_teknik_analiz": "Hata 49 bir ürün yazılımı (Firmware) bellek istisnasıdır. Genellikle ağdaki bir istemcinin gönderdiği bozuk bir PDF, PostScript (PS) komutu veya PCL6 bellek taşması formatter kartının CPU'sunu kilitler.",
-      "kenar_durumlar": [
-        {
-          "durum": "Ağ kablosu takılı değilken bile açılışta 49 veriyor",
-          "neden": "Formatter kartı NVRAM belleği bozulmuştur.",
-          "cozum": "Pre-Boot menüsünden Cold Reset (NVRAM Init) yapın."
-        }
-      ],
-      "etiketler": [
-        "yazici",
-        "hp",
-        "error-49",
-        "laserjet",
-        "formatter",
-        "spooler"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "prn_hp_error_50_fuser",
-      "kategori": "Yazıcı",
-      "alt_kategori": "HP LaserJet & Fuser",
-      "baslik": "HP LaserJet 50.4 / 50.X Fuser Error (Isıtıcı Ünitesi Güç ve Isınma Arızası)",
-      "hizli_adimlar": [
-        "Yazıcıyı UPS veya grup prizden çıkarıp doğrudan duvar prizine takın.",
-        "Yazıcıyı kapatıp fırının soğuması için 20 dakika bekleyin.",
-        "Arka kapağı açıp fuser ünitesini çıkarın; termistör soketini temizleyin.",
-        "Fuser filminin yırtık olup olmadığını kontrol edin.",
-        "Hata devam ederse fuser ünitesini değiştirin."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Şebeke Voltaj Standardı",
-          "komut": "Fuser Isınma Voltajı: 220V - 240V AC (Nominal 50Hz, min 207V)",
-          "aciklama": "Düşük voltaj fuser timeout üretir."
-        }
-      ],
-      "temel_anlatim": "Yazıcı ekranında '50.4 Fuser Error' çıkması ve tonerin kağıda yapışmayıp parmakla dokunulduğunda dağılması.",
-      "derin_teknik_analiz": "50.X hataları Fuser ünitesinin termistör veya seramik rezistans arızalarıdır. 50.4 hatası şebeke voltajının dalgalanması veya yetersiz güç veren bir UPS arkasına bağlanması sonucu oluşur.",
-      "kenar_durumlar": [
-        {
-          "durum": "Yeni fuser takıldı ama hata silinmiyor",
-          "neden": "Low-Voltage Power Supply (LVPS) kartındaki fuser triyakı arızalıdır.",
-          "cozum": "Anakart/LVPS güç kartını onarın."
-        }
-      ],
-      "etiketler": [
-        "yazici",
-        "hp",
-        "fuser",
-        "error-50",
-        "isitici-firin",
-        "lvps"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "prn_hp_error_59_f0_motor",
-      "kategori": "Yazıcı",
-      "alt_kategori": "HP Color LaserJet",
-      "baslik": "HP Color LaserJet 59.F0 Error (Transfer Silindiri ve ITB Motor Kilidi)",
-      "hizli_adimlar": [
-        "Sağ kapağı açıp ITB transfer kayışını yerinden çıkarın.",
-        "ITB üzerindeki beyaz dişlileri elinizle çevirerek mekanik sıkışma olup olmadığını test edin.",
-        "Fuser tahrik tertibatındaki selenoidi (Disengagement Solenoid) bulun.",
-        "Eski erimiş yapışkan sünger parçasını izopropil alkol ile temizleyip yerine elektrik bandı yapıştırın.",
-        "Cihazı toplayıp 'Diagnostics Menu' altından 'Manual Sensor Test' yapın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "HP Servis Modu Diagnostics",
-          "komut": "Diagnostics -> Manual Sensor Test -> Fuser / ITB Sensor Flag",
-          "aciklama": "Selenoid algılama bayrağını test eder."
-        }
-      ],
-      "temel_anlatim": "HP renkli lazer yazıcılarda yazdırma başlatıldığında motor sesinin zorlanıp ekranda '59.F0 Error' vermesi.",
-      "derin_teknik_analiz": "59.F0 hatası ITB (Intermediate Transfer Belt) ayırma mekanizmasını çalıştıran fuser tahrik motorunun (Primary Transfer Disengagement Mechanism) kilitlenmesidir. Genellikle mekanik selenoid süngerinin yapışkan hale gelmesi bayrağın geri dönmesini engeller.",
-      "kenar_durumlar": [
-        {
-          "durum": "Selenoid temizlendi ama 59.F0 devam ediyor",
-          "neden": "Transfer silindiri tahrik motoru sargıları yanmıştır.",
-          "cozum": "DC Controller kartını veya motor modülünü değiştirin."
-        }
-      ],
-      "etiketler": [
-        "yazici",
-        "hp",
-        "59.f0",
-        "color-laserjet",
-        "itb",
-        "selenoid",
-        "motor-kilidi"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "prn_hp_designjet_86_01_carriage",
-      "kategori": "Yazıcı",
-      "alt_kategori": "HP DesignJet Plotter",
-      "baslik": "HP DesignJet Plotter 86:01 Error (Taşıyıcı Kayış Sıkışması ve Aşınması)",
-      "hizli_adimlar": [
-        "Plotter'ın arka güç anahtarını kapatın ve kapağı açın.",
-        "Kafa taşıyıcı arabayı elinizle sağa sola kaydırın; hareketin pürüzsüz olduğunu kontrol edin.",
-        "Taşıyıcı kayışın üzerinde dökülen siyah kauçuk tozlarını ve diş eksikliklerini inceleyin.",
-        "Kayar çelik mili (Slider Rod) temizleyip sentetik sentetik yağ (mineral yağ ASLA değil) ile 2 damla yağlayın.",
-        "Kayış kopuk veya deforme ise yeni kayış takıp servis modundan 'Scan Axis Calibration' yapın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Plotter Servis Modu",
-          "komut": "Power + Down Arrow -> Service Calibrations -> Scan Axis Calibration",
-          "aciklama": "Kayış gerginliğini ve motor PWM değerini kalibre eder."
-        }
-      ],
-      "temel_anlatim": "Plotter kafa taşıyıcısının hareket ederken takılması, takırtı sesi gelmesi ve ekranda '86:01 Error' vermesi.",
-      "derin_teknik_analiz": "86:01 hatası Scan Axis motorunun aşırı akım çekmesi veya taşıyıcı araba (Carriage) sürtünmesinin eşik değeri aşmasıdır. En yaygın kök neden poliüretan taşıyıcı kayışın (Carriage Belt) dişlerinin dökülmesi veya kayar milin kurumasıdır.",
-      "kenar_durumlar": [
-        {
-          "durum": "Kayış sıfır takıldı ama 86:01 veriyor",
-          "neden": "Kafanın arkasındaki şeffaf enkoder şeridi (Encoder Strip) kirlenmiştir veya ters takılmıştır.",
-          "cozum": "Enkoder şeridini kuru mikrofiber bezle silin; 'This Side Up' okuna dikkat edin."
-        }
-      ],
-      "etiketler": [
-        "yazici",
-        "hp",
-        "designjet",
-        "plotter",
-        "86:01",
-        "carriage-belt",
-        "enkoder"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "prn_hp_laserjet_smart_install_disable",
-      "kategori": "Yazıcı",
-      "alt_kategori": "HP LaserJet & USB",
-      "baslik": "HP LaserJet P1102 / P1606 Smart Install Sanal CD Çakışmasını Kaldırma",
-      "hizli_adimlar": [
-        "HP resmi sitesinden 'HP Smart Install Disable Utility' (SIUtility.exe / SIUtility64.exe) aracını indirin.",
-        "Yazıcı USB ile bağlıyken aracı çalıştırın.",
-        "'Printer' seçeneğini seçip yazıcıyı seçin ve 'Disable HP Smart Install on the selected Printer' deyin.",
-        "Yazıcıyı kapatıp açın.",
-        "Aygıt Yöneticisi'nde sanal CD-ROM kaybolacak ve doğrudan standart USB Yazıcı olarak tanınacaktır."
-      ],
-      "komutlar": [
-        {
-          "etiket": "USB Yazıcı Bağlantısını Sorgula",
-          "komut": "Get-PnpDevice -Class \"USB\" | findstr /i \"HP\"",
-          "aciklama": "Yazıcının USB aygıt durumunu doğrular."
-        }
-      ],
-      "temel_anlatim": "Yazıcı USB ile bağlandığında bilgisayarda yazıcı yerine sanal CD-ROM sürücüsü açılması ve sürücü kurulumunun donması.",
-      "derin_teknik_analiz": "HP'nin eski 'Smart Install' özelliği yazıcı içindeki flaş belleği USB mass storage (CD-ROM) olarak tanıtır. Windows 10/11 bu sanal sürücüyü güvenilmez gördüğü için yazıcı USB portunu askıya alır.",
-      "kenar_durumlar": [
-        {
-          "durum": "SIUtility yazıcıyı görmüyor",
-          "neden": "USB 3.0 portu akıllı kurulumla uyumsuz çalışmaktadır.",
-          "cozum": "Yazıcıyı bilgisayarın arkasındaki siyah USB 2.0 portuna takın."
-        }
-      ],
-      "etiketler": [
-        "yazici",
-        "hp",
-        "smart-install",
-        "p1102",
-        "usb-cdrom",
-        "siutility"
-      ],
-      "oncelik": 2
-    }
-  ]
-}
+[
+  {
+    "id": "prn_878",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı Hata Kodları",
+    "baslik": "HP LaserJet 10.XX.YY Toner Çip Hatası",
+    "hizli_adimlar": [
+      "Toner kartuşunu çıkarıp sağ taraftaki metal temas pimlerini kontrol edin.",
+      "EWS web arayüzünden 'Cartridge Policy' ayarını kapatın.",
+      "Toner çipini izopropil alkollü pamukla silip yerine sıkı oturtun."
+    ],
+    "komutlar": [
+      {
+        "etiket": "HP EWS Kartuş Korumasını Kapat",
+        "komut": "EWS -> System -> Supply Settings -> Cartridge Policy: Off",
+        "aciklama": "Muadil toner blokajını kaldırır."
+      }
+    ],
+    "temel_anlatim": "Toner kartuşu takıldığında '10.00.00 Supply Memory Error' veya 'Toner Bellek Hatası' vermesi.",
+    "derin_teknik_analiz": "Muadil toner üzerindeki RFID/e-Label temas çipinin oksitlenmesi veya yazıcının kartuş koruma (Cartridge Policy) ayarı.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata temizlenmesine rağmen tekrar ediyor",
+        "neden": "Mekanik parçada aşınma vardır.",
+        "cozum": "İlgili sensör veya mekanik modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazici",
+      "hp",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_879",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı Hata Kodları",
+    "baslik": "HP LaserJet 13.XX Kağıt Sıkışması Kodları",
+    "hizli_adimlar": [
+      "Ön ve arka kapağı açıp sıkışan kağıdı çekiş yönünde yavaşça çekin.",
+      "Tepsi çekme lastiklerini kauçuk temizleyici veya alkolle silin.",
+      "Fırın girişindeki plastik bayrağın serbest hareket ettiğini yayın sağlam olduğunu teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Kağıt Yolu Sensör Testi",
+        "komut": "Diagnostics -> Paper Path Sensors -> Manual Flag Test",
+        "aciklama": "Sensör bayraklarının fiziksel durumunu okur."
+      }
+    ],
+    "temel_anlatim": "Yazıcı ekranında 13.01 (Tepsi 1), 13.02 (Tepsi 2) veya 13.20 (Fuser İçi) hatasında takılması.",
+    "derin_teknik_analiz": "Kağıt çekme patenlerinin (Pick-up roller) tozlanıp kayması veya fuser çıkışındaki optik bayrak sensörünün takılı kalması.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata temizlenmesine rağmen tekrar ediyor",
+        "neden": "Mekanik parçada aşınma vardır.",
+        "cozum": "İlgili sensör veya mekanik modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazici",
+      "hp",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_880",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı Hata Kodları",
+    "baslik": "HP LaserJet 41.03 Beklenmeyen Kağıt Boyutu Hatası",
+    "hizli_adimlar": [
+      "Tepsideki mavi plastik kılavuz mandallarını kağıda tam sıfır yanaştırın.",
+      "Yazıcı kontrol panelinden Tepsi 1 Boyutu: A4 olarak sabitleyin.",
+      "Windows Yazdırma Tercihleri'nde Kağıt Boyutu'nu Letter'dan A4'e çevirin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Varsayılan Boyutu A4 Yap (PowerShell)",
+        "komut": "Set-PrintConfiguration -PrinterName \"HPLaserJet\" -PaperSize A4",
+        "aciklama": "Sürücü varsayılanını A4 yapar."
+      }
+    ],
+    "temel_anlatim": "Yazıcıya A4 kağıt koyulduğu halde 'Unexpected Paper Size' hatası verip durması.",
+    "derin_teknik_analiz": "Tepsi yan kılavuzlarının gevşemesi veya sürücüde 'Letter' boyutu seçili kalması sonucu sayfa geçiş süresinin sensörle uyuşmaması.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata temizlenmesine rağmen tekrar ediyor",
+        "neden": "Mekanik parçada aşınma vardır.",
+        "cozum": "İlgili sensör veya mekanik modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazici",
+      "hp",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_881",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı Hata Kodları",
+    "baslik": "HP LaserJet 51.XX Lazer Tarayıcı (LSU) Motor Hatası",
+    "hizli_adimlar": [
+      "Yazıcı üst kapağını söküp LSU siyah kutusunu açın.",
+      "Döner çokgen aynanın miline 1 damla yüksek devirli sentetik yağ damlatın.",
+      "Optik lensleri tüy bırakmayan bezle temizleyin; düzelmezse LSU'yu değiştirin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "LSU Testi",
+        "komut": "Diagnostics -> Component Test -> Scanner Motor Run",
+        "aciklama": "Poligon motorunu manuel çalıştırır."
+      }
+    ],
+    "temel_anlatim": "Yazıcı motor sesini başlattıktan 2 saniye sonra 51.10 veya 51.20 Error verip durması.",
+    "derin_teknik_analiz": "Lazer Tarayıcı Ünitesi (LSU) içindeki poligon aynanın (Polygon Mirror Motor) devir hızına ulaşamaması veya tozlanması.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata temizlenmesine rağmen tekrar ediyor",
+        "neden": "Mekanik parçada aşınma vardır.",
+        "cozum": "İlgili sensör veya mekanik modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazici",
+      "hp",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_882",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı Hata Kodları",
+    "baslik": "HP LaserJet 57.XX Fan Hatası (Soğutma Fanı Dönmüyor)",
+    "hizli_adimlar": [
+      "Yazıcının arka ve yan havalandırma ızgaralarını kontrol edin.",
+      "Fan pervanesini elinizle çevirerek serbest döndüğünü teyit edin.",
+      "Fan soketinin anakarta tam oturduğunu multimetre ile 12V beslemesini ölçün."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Fan Hız Sensörü Teşhisi",
+        "komut": "Diagnostics -> Component Test -> Fan 1 / Fan 2",
+        "aciklama": "Fanların devir sinyallerini test eder."
+      }
+    ],
+    "temel_anlatim": "Yazıcı açıldığında '57.01 Fan Failure' veya '57.03 Error' vermesi ve acil kapanması.",
+    "derin_teknik_analiz": "Anakart veya güç kaynağı soğutma fanının pervanesine kablo sıkışması, toz yumakları veya PWM takometre arızası.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata temizlenmesine rağmen tekrar ediyor",
+        "neden": "Mekanik parçada aşınma vardır.",
+        "cozum": "İlgili sensör veya mekanik modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazici",
+      "hp",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_883",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı Hata Kodları",
+    "baslik": "HP DesignJet Plotter 08:11 Dokunmatik Panel İletişim Hatası",
+    "hizli_adimlar": [
+      "Plotter'ı kapatıp fişini çekin.",
+      "Ön panel ekranının arkasındaki yassı flex kabloyu söküp alkolle temizleyip tekrar takın.",
+      "Formatter üzerindeki bellek modülünü söküp yeniden takın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Pre-Boot Diagnostics",
+        "komut": "Power + Down Arrow -> Diagnostic Tests -> Front Panel Test",
+        "aciklama": "Ekran ve dokunmatik testi yapar."
+      }
+    ],
+    "temel_anlatim": "Plotter açılışında %50'de donması veya '08:11 Front Panel Error' vermesi.",
+    "derin_teknik_analiz": "Ön dokunmatik ekran kontrolcüsü ile ana kart (Formatter) arasındaki USB/LVDS kablosunun gevşemesi.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata temizlenmesine rağmen tekrar ediyor",
+        "neden": "Mekanik parçada aşınma vardır.",
+        "cozum": "İlgili sensör veya mekanik modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazici",
+      "hp",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_884",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı Hata Kodları",
+    "baslik": "HP DesignJet Plotter 21:01 Servis İstasyonu Çamurlaşması",
+    "hizli_adimlar": [
+      "Sağ yan kapağı söküp servis istasyonunu dışarı alın.",
+      "Sıcak su altında kuruyan mürekkep tortularını ve dişlileri tamamen yıkayıp kurutun.",
+      "Dişlileri beyaz lityum gres ile yağlayıp monte edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis İstasyonu Testi",
+        "komut": "Service Menu -> 2. Diagnostics -> Service Station -> Exercise",
+        "aciklama": "İstasyonu ileri geri hareket ettirir."
+      }
+    ],
+    "temel_anlatim": "Plotter kafasının sağ tarafta kilitlenmesi ve ekranda '21:01 Service Station Error' çıkması.",
+    "derin_teknik_analiz": "Kafa temizleme istasyonunun altındaki atık mürekkep haznesinin kuruyan mürekkep çamuruyla dolup mekanizmayı sıkıştırması.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata temizlenmesine rağmen tekrar ediyor",
+        "neden": "Mekanik parçada aşınma vardır.",
+        "cozum": "İlgili sensör veya mekanik modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazici",
+      "hp",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_hp_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet Pro M402 / M404: Kağıt Giriş Pateninin (Tray 2 Pick-up Roller) Kağıt Çekememesi",
+    "hizli_adimlar": [
+      "Ön kaset tepsisini çekip tamamen çıkarın.",
+      "Tavan arkasındaki mavi tırnaklı çekme lastiğini tırnağından kurtarıp çıkarın.",
+      "Lastiğin tersini çevirin veya yeni orijinal RM2-5399 lastik takımını takın.",
+      "Tepsi ayrıştırma pedini de (Separation Pad) kontrol edip tepsiyi yerine itin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Sarf Malzeme Durumu",
+        "komut": "EWS -> Home -> Device Status -> Consumables",
+        "aciklama": "Yazıcının dahili web sunucusundan rulo ve ped ömür sayacını okur."
+      }
+    ],
+    "temel_anlatim": "Tepsiden kağıt çekerken patinaj sesi gelmesi fakat kağıdın tepside kalıp 'Tepsi 2 Boş' uyarısı vermesi.",
+    "derin_teknik_analiz": "Kök Neden Analizi: Kauçuk paten yüzeyinin kağıt tozu ve toner buharıyla camlaşması veya pürüzsüzleşmesi. Saha Çözümü: RM2-5399 Pick-up ve Separation Roller çiftini yenileyin veya izopropil alkol ile temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Yeni lastik takılmasına rağmen çekmiyor",
+        "neden": "Tepsi kaldırma dişlisi (Lifter Gear) tırnağı kırıktır.",
+        "cozum": "Tepsi mekanik yayını ve yan kaldırma rayını kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "hp",
+      "laserjet",
+      "m402",
+      "pickup-roller",
+      "kagit-sikismasi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_hp_2",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet Enterprise M605 / M608: Fuser Tahrik Dişlisi (Swing Arm Assembly) Aşınması ve Takırtı Sesi",
+    "hizli_adimlar": [
+      "Sağ yan kapağı ve ana güç kartı koruma kalkanını sökün.",
+      "Fuser tahrik mekanizmasındaki salıncak dişlisini inceleyin; plastik dişlerin sivrileşip yuvarlandığını gözlemleyin.",
+      "RC2-2432 kodlu orijinal dişli kitiyle değiştirin.",
+      "Yeni dişlilere yüksek ısıya dayanıklı silikon bazlı PTFE gres sürün."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Motor Testi",
+        "komut": "Engine Test Button (Arka delikteki butona ataçla bas)",
+        "aciklama": "Anakarttan bağımsız motor ve fırın mekanik test sayfası bastırır."
+      }
+    ],
+    "temel_anlatim": "Yazdırma başladığında arka fırın ünitesinden şiddetli dişli atlama ve 'tık-tık-tık' mekanik vuruntu sesi gelmesi.",
+    "derin_teknik_analiz": "Kök Neden Analizi: Fuser fırınını çeviren 29T/75T salıncak dişli grubunun (Swing Arm) plastik tırnaklarının aşınması. Saha Çözümü: RC2-2432 Swing Arm Assembly dişli tertibatını yenileyin ve fuser baskı basıncını ayarlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Fuser ünitesi yeni takılmasına rağmen dişli atlıyor",
+        "neden": "Fuser montaj kızak tırnakları kırılmış ve açı sapmıştır.",
+        "cozum": "Fuser kaset kilitleme tırnaklarını (Locking Levers) değiştirin."
+      }
+    ],
+    "etiketler": [
+      "hp",
+      "laserjet",
+      "m605",
+      "fuser",
+      "swing-arm",
+      "disli-sesi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_hp_3",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP Color LaserJet Pro M254dw / M281fdw: Baskıda Renklerin Üst Üste Binmesi ve Kayması (Misregistration)",
+    "hizli_adimlar": [
+      "Ön kapağı açıp 4 toneri çıkarın.",
+      "Transfer kayışının altındaki koruma panelini çekip CPR sensör deliklerini bulun.",
+      "Kuru, tüy bırakmayan optik çubukla sensör camlarındaki toner tozunu temizleyin.",
+      "Yazıcı menüsünden Sistem -> Baskı Kalitesi -> Kalibrasyon -> Şimdi Kalibre Et adımlarını 3 kez çalıştırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Web Arayüzünden Kalibrasyon",
+        "komut": "curl -X POST http://[PRINTER_IP]/DevMgmt/ProductConfigDyn.xml -d '<Calibration>Full</Calibration>'",
+        "aciklama": "EWS üzerinden tam optik kalibrasyonu tetikler."
+      }
+    ],
+    "temel_anlatim": "Renkli çıktılarda özellikle metinlerin ve tabloların kenarlarında kırmızı (Magenta) veya sarı (Yellow) gölgeler oluşması.",
+    "derin_teknik_analiz": "Kök Neden Analizi: Ara Transfer Kayışı (ITB) altındaki optik renk kayıt sensörlerinin (CPR Sensor) toner tozuyla kaplanması. Saha Çözümü: CPR sensör optiklerini temizleyin ve EWS üzerinden 'Tam Renk Kalibrasyonu' çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Kalibrasyon sonrası hala renk kayıyor",
+        "neden": "ITB kayışının ev konumu bayrağı (Home Position Flag) çatlamıştır.",
+        "cozum": "RM2-5907 Transfer Belt ünitesini yenileyin."
+      }
+    ],
+    "etiketler": [
+      "hp",
+      "color-laserjet",
+      "m254",
+      "renk-kaymasi",
+      "kalibrasyon",
+      "itb"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_hp_4",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP DesignJet T520 / T730 Plotter: Baskı Kafası (Printhead) 'Missing or Failed Printhead' Hatası",
+    "hizli_adimlar": [
+      "Plotter'ı kapatıp fişini çekin; kapağı açıp kafayı mandalından kurtararak sökün.",
+      "Arka altın kaplama flex temas noktalarını mikrofiber bez ve %99 IPA ile oksit kalmayacak şekilde silin.",
+      "Carriage arabası üzerindeki yaylı pogo pinleri gözle kontrol edin (eğik pinleri düzeltin).",
+      "Kafayı yerine oturtup mandalı kilitleyin ve plotter'ı açarak kafa hizalama desenini bastırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Plotter Servis Menüsü",
+        "komut": "Güç tuşuna basılı tutarken Cancel tuşuna 4 kez, OK tuşuna 1 kez basın",
+        "aciklama": "DesignJet donanım teşhis ve kafa direnç test menüsünü açar."
+      }
+    ],
+    "temel_anlatim": "Geniş format plotter ekranında baskı kafasının bulunamadığı veya bozulduğu uyarısı verip çizimin durması.",
+    "derin_teknik_analiz": "Kök Neden Analizi: Baskı kafası flex kablo temas noktalarının mürekkep buharıyla oksitlenmesi veya kafa seramik ısıtıcılarının çatlaması. Saha Çözümü: HP 711 / HP 729 baskı kafası temas pinlerini izopropil alkol ile temizleyin veya yeni kafa kiti takın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Temizlik sonrası hata devam ediyor",
+        "neden": "Kafa seramik rezistansı aşırı ısınmadan patlamıştır.",
+        "cozum": "C1Q10A HP 711 Baskı Kafası Yenileme Kiti montajı yapın."
+      }
+    ],
+    "etiketler": [
+      "hp",
+      "designjet",
+      "t520",
+      "plotter",
+      "printhead",
+      "baski-kafasi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_hp_5",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP PageWide Pro 477dw / 577dw: Baskı Çubuğu Bakım Modülü (Printhead Wiper) Mekanizma Sıkışması",
+    "hizli_adimlar": [
+      "Arka sol servis kapağını açıp atık mürekkep toplama kasetini çıkarın.",
+      "Silecek kızak tertibatını elle ileri geri oynatarak hareket serbestliğini test edin.",
+      "Kurumuş mürekkep kabuklarını distile su ve solvent ile yumuşatıp tahliye edin.",
+      "Dişli raylarına silikon gres sürüp servis modundan 'Wiper Motor Test' çalıştırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "PageWide BIST Testi",
+        "komut": "Geri tuşuna 4 kez bas -> Support Menu -> System Configuration -> Wiper Reset",
+        "aciklama": "Silecek mekanizmasının adım motorunu sıfırlayıp kalibre eder."
+      }
+    ],
+    "temel_anlatim": "Yazıcı açılırken 'Baskı çubuğu hazırlanıyor' ekranında takılması ve '0x6100004a' hata kodu vermesi.",
+    "derin_teknik_analiz": "Kök Neden Analizi: Sayfa boyu sabit baskı kafasını temizleyen silecek (wiper) mekanizmasının kurumuş pigment mürekkeple yapışması. Saha Çözümü: PageWide Servis İstasyonu modülünü söküp silecek kızaklarını temizleyin ve sentetik gres uygulayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu 0x6100004a gitmiyor",
+        "neden": "Silecek adım motorunun plastik planet dişlisi sıyırmıştır.",
+        "cozum": "D3Q20-67017 PageWide Servis İstasyonunu komple değiştirin."
+      }
+    ],
+    "etiketler": [
+      "hp",
+      "pagewide",
+      "477dw",
+      "wiper",
+      "servis-istasyonu",
+      "0x6100004a"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_hp_6",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet MFP M428fdw: 59.00.F0 Transfer Alienation Error",
+    "hizli_adimlar": [
+      "Cihazın fişini çekip 60 saniye bekleyin.",
+      "İlgili sensör ve mekanik aksamı gözle kontrol edin.",
+      "Parçayı yenileyip kalibrasyon çalıştırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Sıfırlama",
+        "komut": "Engine Reset / Firmware Update",
+        "aciklama": "Yazıcıyı en güncel sürüme güncelleyin."
+      }
+    ],
+    "temel_anlatim": "Motor kam mekanizmasının ITB kayışını ayıramaması.",
+    "derin_teknik_analiz": "Kök Neden Analizi: RM2-6544 Fuser Drive Assembly kam solenoidinin yapışması. Saha Çözümü: Yetkili HP servis bültenine göre parça ve yazılım revizyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata sürerse",
+        "neden": "Anakart DC Controller arızası.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "hp",
+      "laserjet",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_hp_7",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet Enterprise M507dn: 13.00.00 Kağıt Giriş Sensörü Gecikmesi",
+    "hizli_adimlar": [
+      "Cihazın fişini çekip 60 saniye bekleyin.",
+      "İlgili sensör ve mekanik aksamı gözle kontrol edin.",
+      "Parçayı yenileyip kalibrasyon çalıştırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Sıfırlama",
+        "komut": "Engine Reset / Firmware Update",
+        "aciklama": "Yazıcıyı en güncel sürüme güncelleyin."
+      }
+    ],
+    "temel_anlatim": "Kağıdın sensör bayrağına takılı kalması.",
+    "derin_teknik_analiz": "Kök Neden Analizi: Giriş fotosensör tırnağının toner tozundan yayını kaybetmesi. Saha Çözümü: Yetkili HP servis bültenine göre parça ve yazılım revizyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata sürerse",
+        "neden": "Anakart DC Controller arızası.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "hp",
+      "laserjet",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_hp_8",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP Color LaserJet CP1025nw: Döner Drum Karuseli (Carousel Lock) Hizalama Hatası",
+    "hizli_adimlar": [
+      "Cihazın fişini çekip 60 saniye bekleyin.",
+      "İlgili sensör ve mekanik aksamı gözle kontrol edin.",
+      "Parçayı yenileyip kalibrasyon çalıştırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Sıfırlama",
+        "komut": "Engine Reset / Firmware Update",
+        "aciklama": "Yazıcıyı en güncel sürüme güncelleyin."
+      }
+    ],
+    "temel_anlatim": "Renkli drum tamburunun dönerken takılıp motorun kilitlenmesi.",
+    "derin_teknik_analiz": "Kök Neden Analizi: Carousel optik ev konumu sensörünün kirlenmesi. Saha Çözümü: Yetkili HP servis bültenine göre parça ve yazılım revizyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata sürerse",
+        "neden": "Anakart DC Controller arızası.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "hp",
+      "laserjet",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_hp_9",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet Pro M102a: Hata E0: Toner Çipi Algılanamadı Uyarısı",
+    "hizli_adimlar": [
+      "Cihazın fişini çekip 60 saniye bekleyin.",
+      "İlgili sensör ve mekanik aksamı gözle kontrol edin.",
+      "Parçayı yenileyip kalibrasyon çalıştırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Sıfırlama",
+        "komut": "Engine Reset / Firmware Update",
+        "aciklama": "Yazıcıyı en güncel sürüme güncelleyin."
+      }
+    ],
+    "temel_anlatim": "Toner takılı olmasına rağmen sarı ünlem ışığının yanıp sönmesi.",
+    "derin_teknik_analiz": "Kök Neden Analizi: Kartuş temas yaylarının eğrilmesi veya CF217A çipinin temassızlığı. Saha Çözümü: Yetkili HP servis bültenine göre parça ve yazılım revizyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata sürerse",
+        "neden": "Anakart DC Controller arızası.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "hp",
+      "laserjet",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_hp_10",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet P2035 / P2055: Tepsi 1 (Çok Amaçlı Tepsi) Çift Kağıt Alma Sorunu",
+    "hizli_adimlar": [
+      "Cihazın fişini çekip 60 saniye bekleyin.",
+      "İlgili sensör ve mekanik aksamı gözle kontrol edin.",
+      "Parçayı yenileyip kalibrasyon çalıştırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Sıfırlama",
+        "komut": "Engine Reset / Firmware Update",
+        "aciklama": "Yazıcıyı en güncel sürüme güncelleyin."
+      }
+    ],
+    "temel_anlatim": "Ön kapaktan kağıt beslerken 2-3 sayfayı birden çekip fırında sıkıştırması.",
+    "derin_teknik_analiz": "Kök Neden Analizi: RL1-2120 Separation Pad kauçuk yüzeyinin eriyip aşınması. Saha Çözümü: Yetkili HP servis bültenine göre parça ve yazılım revizyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata sürerse",
+        "neden": "Anakart DC Controller arızası.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "hp",
+      "laserjet",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_hp_11",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP DesignJet T830: 08:11 Dokunmatik Ön Panel İletişim Hatası",
+    "hizli_adimlar": [
+      "Cihazın fişini çekip 60 saniye bekleyin.",
+      "İlgili sensör ve mekanik aksamı gözle kontrol edin.",
+      "Parçayı yenileyip kalibrasyon çalıştırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Sıfırlama",
+        "komut": "Engine Reset / Firmware Update",
+        "aciklama": "Yazıcıyı en güncel sürüme güncelleyin."
+      }
+    ],
+    "temel_anlatim": "Plotter ana kartı ile ön ekran arasındaki LVDS kablo veri kaybı.",
+    "derin_teknik_analiz": "Kök Neden Analizi: Ön panel flex kablosunun kilit soketinden oynaması. Saha Çözümü: Yetkili HP servis bültenine göre parça ve yazılım revizyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata sürerse",
+        "neden": "Anakart DC Controller arızası.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "hp",
+      "laserjet",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_hp_12",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet M602: 50.4 Fuser Error Fırın Isınma Gerilim Düşüklüğü",
+    "hizli_adimlar": [
+      "Cihazın fişini çekip 60 saniye bekleyin.",
+      "İlgili sensör ve mekanik aksamı gözle kontrol edin.",
+      "Parçayı yenileyip kalibrasyon çalıştırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Sıfırlama",
+        "komut": "Engine Reset / Firmware Update",
+        "aciklama": "Yazıcıyı en güncel sürüme güncelleyin."
+      }
+    ],
+    "temel_anlatim": "Şebeke voltajının 200V altına düşmesi sonucu fırın rezistansının ısınamaması.",
+    "derin_teknik_analiz": "Kök Neden Analizi: UPS veya jeneratör hattındaki harmonik dalgalanma. Saha Çözümü: Yetkili HP servis bültenine göre parça ve yazılım revizyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata sürerse",
+        "neden": "Anakart DC Controller arızası.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "hp",
+      "laserjet",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_hp_13",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP Color LaserJet M479fdw: 49.38.07 Firmware Assert Hatası",
+    "hizli_adimlar": [
+      "Cihazın fişini çekip 60 saniye bekleyin.",
+      "İlgili sensör ve mekanik aksamı gözle kontrol edin.",
+      "Parçayı yenileyip kalibrasyon çalıştırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Sıfırlama",
+        "komut": "Engine Reset / Firmware Update",
+        "aciklama": "Yazıcıyı en güncel sürüme güncelleyin."
+      }
+    ],
+    "temel_anlatim": "Ağdan gelen bozuk PostScript veya PDF yazdırma işinin işletim sistemini çökertmesi.",
+    "derin_teknik_analiz": "Kök Neden Analizi: Bozuk spool kuyruğu işi ve eski bellenim sürümü. Saha Çözümü: Yetkili HP servis bültenine göre parça ve yazılım revizyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata sürerse",
+        "neden": "Anakart DC Controller arızası.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "hp",
+      "laserjet",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_hp_14",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet Pro M404dn: EWS Yönetici Şifresi Unutulduğunda NVRAM Reset",
+    "hizli_adimlar": [
+      "Cihazın fişini çekip 60 saniye bekleyin.",
+      "İlgili sensör ve mekanik aksamı gözle kontrol edin.",
+      "Parçayı yenileyip kalibrasyon çalıştırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Sıfırlama",
+        "komut": "Engine Reset / Firmware Update",
+        "aciklama": "Yazıcıyı en güncel sürüme güncelleyin."
+      }
+    ],
+    "temel_anlatim": "Yazıcının web arayüzüne admin girişi yapılamaması.",
+    "derin_teknik_analiz": "Kök Neden Analizi: Önceki teknisyenin şifre belirleyip not bırakmaması. Saha Çözümü: Yetkili HP servis bültenine göre parça ve yazılım revizyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata sürerse",
+        "neden": "Anakart DC Controller arızası.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "hp",
+      "laserjet",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_hp_15",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP DesignJet T120: 21:10 Servis İstasyonu Motoru Kilitlendi",
+    "hizli_adimlar": [
+      "Cihazın fişini çekip 60 saniye bekleyin.",
+      "İlgili sensör ve mekanik aksamı gözle kontrol edin.",
+      "Parçayı yenileyip kalibrasyon çalıştırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Sıfırlama",
+        "komut": "Engine Reset / Firmware Update",
+        "aciklama": "Yazıcıyı en güncel sürüme güncelleyin."
+      }
+    ],
+    "temel_anlatim": "Plotter kafasının sağ park alanında takılıp hareket edememesi.",
+    "derin_teknik_analiz": "Kök Neden Analizi: Servis istasyonu mürekkep emici keçelerinin taşarak motoru kilitlemesi. Saha Çözümü: Yetkili HP servis bültenine göre parça ve yazılım revizyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata sürerse",
+        "neden": "Anakart DC Controller arızası.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "hp",
+      "laserjet",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hp_exp_8",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet Pro P1102 / P1102w: Smart Install Kilidi Nedeniyle Yazıcının USB'den Algılanmaması",
+    "hizli_adimlar": [
+      "HP LaserJet Pro P1102 / P1102w cihazının ön kapağını ve servis menüsünü açın.",
+      "Kök neden analizini uygulayın: HP Smart Install yazılımının USB depolama olarak kendini tanıtması.",
+      "Saha mühendisliği çözümünü devreye alın: SIUtility.exe ile Smart Install özelliğini kalıcı olarak devre dışı bırakın.",
+      "Self-test sayfası bastırarak baskı kalitesini ve mekanik sessizliği teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "HP Servis Komutu",
+        "komut": "Engine Test / EWS Calibration",
+        "aciklama": "Yazıcı mekanik ve elektronik sağlığını test eder."
+      }
+    ],
+    "temel_anlatim": "USB takıldığında yazıcı yerine sanal CD-ROM sürücüsünün açılması.",
+    "derin_teknik_analiz": "HP Smart Install yazılımının USB depolama olarak kendini tanıtması. Çözüm: SIUtility.exe ile Smart Install özelliğini kalıcı olarak devre dışı bırakın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun düzelmedi",
+        "neden": "Anakart DC Controller kartı arızalıdır.",
+        "cozum": "Anakart voltajlarını kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "hp",
+      "laserjet",
+      "hp laserjet pro p1102   p1102w",
+      "donanim-onarimi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hp_exp_9",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet MFP M130a / M130fn: Drum Ömrü Sonu (Imaging Drum Very Low) Uyarısını Sıfırlama",
+    "hizli_adimlar": [
+      "HP LaserJet MFP M130a / M130fn cihazının ön kapağını ve servis menüsünü açın.",
+      "Kök neden analizini uygulayın: Drum sayacının 12.000 sayfa sınırına ulaşması.",
+      "Saha mühendisliği çözümünü devreye alın: Yazıcı menüsünden Servis -> Drum Reset adımlarını onaylayın.",
+      "Self-test sayfası bastırarak baskı kalitesini ve mekanik sessizliği teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "HP Servis Komutu",
+        "komut": "Engine Test / EWS Calibration",
+        "aciklama": "Yazıcı mekanik ve elektronik sağlığını test eder."
+      }
+    ],
+    "temel_anlatim": "Ekranda CF219A drum uyarısı çıkıp yazdırmanın kilitlenmesi.",
+    "derin_teknik_analiz": "Drum sayacının 12.000 sayfa sınırına ulaşması. Çözüm: Yazıcı menüsünden Servis -> Drum Reset adımlarını onaylayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun düzelmedi",
+        "neden": "Anakart DC Controller kartı arızalıdır.",
+        "cozum": "Anakart voltajlarını kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "hp",
+      "laserjet",
+      "hp laserjet mfp m130a   m130fn",
+      "donanim-onarimi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hp_exp_10",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet Pro M227fdw: Dublex Çift Taraflı Yazdırmada 13.B2.FF Fırın Giriş Sıkışması",
+    "hizli_adimlar": [
+      "HP LaserJet Pro M227fdw cihazının ön kapağını ve servis menüsünü açın.",
+      "Kök neden analizini uygulayın: Dublex çevirme yönlendirici kapağının plastik tırnağının kırılması.",
+      "Saha mühendisliği çözümünü devreye alın: Arka dublex kapağını ve yaylı tırnak mekanizmasını yenileyin.",
+      "Self-test sayfası bastırarak baskı kalitesini ve mekanik sessizliği teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "HP Servis Komutu",
+        "komut": "Engine Test / EWS Calibration",
+        "aciklama": "Yazıcı mekanik ve elektronik sağlığını test eder."
+      }
+    ],
+    "temel_anlatim": "Sayfa arkasını çevirirken kağıdın fırına girmeden katlanması.",
+    "derin_teknik_analiz": "Dublex çevirme yönlendirici kapağının plastik tırnağının kırılması. Çözüm: Arka dublex kapağını ve yaylı tırnak mekanizmasını yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun düzelmedi",
+        "neden": "Anakart DC Controller kartı arızalıdır.",
+        "cozum": "Anakart voltajlarını kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "hp",
+      "laserjet",
+      "hp laserjet pro m227fdw",
+      "donanim-onarimi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hp_exp_11",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet Enterprise M506dn: 59.F0 Transfer Silindiri Ayrıştırma Motoru Arızası",
+    "hizli_adimlar": [
+      "HP LaserJet Enterprise M506dn cihazının ön kapağını ve servis menüsünü açın.",
+      "Kök neden analizini uygulayın: RM2-5640 kam tahrik mekanizmasının sıkışması.",
+      "Saha mühendisliği çözümünü devreye alın: Fuser motor grubu ve transfer alienation sensörünü temizleyin.",
+      "Self-test sayfası bastırarak baskı kalitesini ve mekanik sessizliği teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "HP Servis Komutu",
+        "komut": "Engine Test / EWS Calibration",
+        "aciklama": "Yazıcı mekanik ve elektronik sağlığını test eder."
+      }
+    ],
+    "temel_anlatim": "Baskı sırasında motordan yüksek ses gelmesi ve yazıcının donması.",
+    "derin_teknik_analiz": "RM2-5640 kam tahrik mekanizmasının sıkışması. Çözüm: Fuser motor grubu ve transfer alienation sensörünü temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun düzelmedi",
+        "neden": "Anakart DC Controller kartı arızalıdır.",
+        "cozum": "Anakart voltajlarını kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "hp",
+      "laserjet",
+      "hp laserjet enterprise m506dn",
+      "donanim-onarimi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hp_exp_12",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP Color LaserJet Pro M454dn: Baskıda Sarı / Kırmızı Lekeler ve Drum Temizleme Hatası",
+    "hizli_adimlar": [
+      "HP Color LaserJet Pro M454dn cihazının ön kapağını ve servis menüsünü açın.",
+      "Kök neden analizini uygulayın: Toner kartuşunun altındaki silikon bıçağın aşınması.",
+      "Saha mühendisliği çözümünü devreye alın: Noktalar arası mesafeyi ölçerek hatalı renk kartuşunu tespit edin ve değiştirin.",
+      "Self-test sayfası bastırarak baskı kalitesini ve mekanik sessizliği teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "HP Servis Komutu",
+        "komut": "Engine Test / EWS Calibration",
+        "aciklama": "Yazıcı mekanik ve elektronik sağlığını test eder."
+      }
+    ],
+    "temel_anlatim": "Sayfanın arkasında veya önünde düzenli aralıklarla renkli noktalar.",
+    "derin_teknik_analiz": "Toner kartuşunun altındaki silikon bıçağın aşınması. Çözüm: Noktalar arası mesafeyi ölçerek hatalı renk kartuşunu tespit edin ve değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun düzelmedi",
+        "neden": "Anakart DC Controller kartı arızalıdır.",
+        "cozum": "Anakart voltajlarını kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "hp",
+      "laserjet",
+      "hp color laserjet pro m454dn",
+      "donanim-onarimi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hp_exp_13",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP DesignJet Z6 / Z9 PostScript Plotter: 79:04 Firmware Assertion Crash Hatası",
+    "hizli_adimlar": [
+      "HP DesignJet Z6 / Z9 PostScript Plotter cihazının ön kapağını ve servis menüsünü açın.",
+      "Kök neden analizini uygulayın: Bozuk TIFF/PDF dosyasının dahili RIP motorunu kilitletmesi.",
+      "Saha mühendisliği çözümünü devreye alın: Plotter sabit diskindeki spool kuyruğunu temizleyin ve bellenimi USB'den güncelleyin.",
+      "Self-test sayfası bastırarak baskı kalitesini ve mekanik sessizliği teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "HP Servis Komutu",
+        "komut": "Engine Test / EWS Calibration",
+        "aciklama": "Yazıcı mekanik ve elektronik sağlığını test eder."
+      }
+    ],
+    "temel_anlatim": "Geniş format baskı gönderildiğinde plotter ekranının donup maviye düşmesi.",
+    "derin_teknik_analiz": "Bozuk TIFF/PDF dosyasının dahili RIP motorunu kilitletmesi. Çözüm: Plotter sabit diskindeki spool kuyruğunu temizleyin ve bellenimi USB'den güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun düzelmedi",
+        "neden": "Anakart DC Controller kartı arızalıdır.",
+        "cozum": "Anakart voltajlarını kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "hp",
+      "laserjet",
+      "hp designjet z6   z9 postscript plotter",
+      "donanim-onarimi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hp_exp_14",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP PageWide Enterprise Color 556dn: 0x610000d8 Kağıt Yolu Giriş Asansörü Motor Hatası",
+    "hizli_adimlar": [
+      "HP PageWide Enterprise Color 556dn cihazının ön kapağını ve servis menüsünü açın.",
+      "Kök neden analizini uygulayın: Sayfa boyu kafa asansör dişlilerinin mürekkep tortusuyla yapışması.",
+      "Saha mühendisliği çözümünü devreye alın: Asansör raylarını sentetik PTFE gres ile yağlayın ve servis modundan sıfırlayın.",
+      "Self-test sayfası bastırarak baskı kalitesini ve mekanik sessizliği teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "HP Servis Komutu",
+        "komut": "Engine Test / EWS Calibration",
+        "aciklama": "Yazıcı mekanik ve elektronik sağlığını test eder."
+      }
+    ],
+    "temel_anlatim": "Yazıcı açılırken mekanik takırtı gelmesi ve hata vermesi.",
+    "derin_teknik_analiz": "Sayfa boyu kafa asansör dişlilerinin mürekkep tortusuyla yapışması. Çözüm: Asansör raylarını sentetik PTFE gres ile yağlayın ve servis modundan sıfırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun düzelmedi",
+        "neden": "Anakart DC Controller kartı arızalıdır.",
+        "cozum": "Anakart voltajlarını kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "hp",
+      "laserjet",
+      "hp pagewide enterprise color 556dn",
+      "donanim-onarimi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hp_exp_15",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet 1020: Kağıt Giriş Tepsisi Tek Seferde 5 Sayfa Çekme Sorunu",
+    "hizli_adimlar": [
+      "HP LaserJet 1020 cihazının ön kapağını ve servis menüsünü açın.",
+      "Kök neden analizini uygulayın: Tepsi tabanındaki ayrıştırma pedinin (Separation Pad) süngerinin erimesi.",
+      "Saha mühendisliği çözümünü devreye alın: RM1-4006 Separation Pad parçasını yenisiyle değiştirin.",
+      "Self-test sayfası bastırarak baskı kalitesini ve mekanik sessizliği teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "HP Servis Komutu",
+        "komut": "Engine Test / EWS Calibration",
+        "aciklama": "Yazıcı mekanik ve elektronik sağlığını test eder."
+      }
+    ],
+    "temel_anlatim": "Yazdırmaya başlar başlamaz tüm kağıt destesini birden içeri çekip sıkıştırması.",
+    "derin_teknik_analiz": "Tepsi tabanındaki ayrıştırma pedinin (Separation Pad) süngerinin erimesi. Çözüm: RM1-4006 Separation Pad parçasını yenisiyle değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun düzelmedi",
+        "neden": "Anakart DC Controller kartı arızalıdır.",
+        "cozum": "Anakart voltajlarını kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "hp",
+      "laserjet",
+      "hp laserjet 1020",
+      "donanim-onarimi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hp_exp_16",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet Enterprise M706n: A3 Kağıt Boyutu Tanımlama ve Kaset Algılama Arızası",
+    "hizli_adimlar": [
+      "HP LaserJet Enterprise M706n cihazının ön kapağını ve servis menüsünü açın.",
+      "Kök neden analizini uygulayın: Kaset yan kılavuzlarındaki mikro-anahtar algılayıcı tırnakların kırılması.",
+      "Saha mühendisliği çözümünü devreye alın: Kaset boyut seçici tırnaklarını onarın veya menüden kaset boyutunu A3 sabitleyin.",
+      "Self-test sayfası bastırarak baskı kalitesini ve mekanik sessizliği teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "HP Servis Komutu",
+        "komut": "Engine Test / EWS Calibration",
+        "aciklama": "Yazıcı mekanik ve elektronik sağlığını test eder."
+      }
+    ],
+    "temel_anlatim": "A3 kağıt konulmasına rağmen ekranın A4 istemesi.",
+    "derin_teknik_analiz": "Kaset yan kılavuzlarındaki mikro-anahtar algılayıcı tırnakların kırılması. Çözüm: Kaset boyut seçici tırnaklarını onarın veya menüden kaset boyutunu A3 sabitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun düzelmedi",
+        "neden": "Anakart DC Controller kartı arızalıdır.",
+        "cozum": "Anakart voltajlarını kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "hp",
+      "laserjet",
+      "hp laserjet enterprise m706n",
+      "donanim-onarimi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hp_exp_17",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP Color LaserJet CP5225 A3: 54.06 Renk Yoğunluğu Sensörü (Color Density Sensor) Hatası",
+    "hizli_adimlar": [
+      "HP Color LaserJet CP5225 A3 cihazının ön kapağını ve servis menüsünü açın.",
+      "Kök neden analizini uygulayın: Transfer kayışının altındaki yoğunluk okuma sensör camının toner tozuyla kaplanması.",
+      "Saha mühendisliği çözümünü devreye alın: Sensör koruma kapağını çekip optik camı kuru optik bezle temizleyin.",
+      "Self-test sayfası bastırarak baskı kalitesini ve mekanik sessizliği teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "HP Servis Komutu",
+        "komut": "Engine Test / EWS Calibration",
+        "aciklama": "Yazıcı mekanik ve elektronik sağlığını test eder."
+      }
+    ],
+    "temel_anlatim": "Otomatik kalibrasyonun yarıda kalıp renk ayarı yapılamaması.",
+    "derin_teknik_analiz": "Transfer kayışının altındaki yoğunluk okuma sensör camının toner tozuyla kaplanması. Çözüm: Sensör koruma kapağını çekip optik camı kuru optik bezle temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun düzelmedi",
+        "neden": "Anakart DC Controller kartı arızalıdır.",
+        "cozum": "Anakart voltajlarını kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "hp",
+      "laserjet",
+      "hp color laserjet cp5225 a3",
+      "donanim-onarimi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_0",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet Enterprise M608dn: Baskıda Dikey Siyah Çizgi ve Drum Bıçak Bozulması",
+    "hizli_adimlar": [
+      "HP LaserJet Enterprise M608dn cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Toner kartuşunun atık haznesi temizleme bıçağının sertleşip tamburu çizmesi.",
+      "Saha servis prosedürünü yürütün: Kartuşu yenileyin veya tambur ve bıçağı değiştirin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "EWS -> Print Quality -> Cleaning Page",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Çıktının sol tarafında baştan aşağı düzenli siyah çizgi inmesi.",
+    "derin_teknik_analiz": "Toner kartuşunun atık haznesi temizleme bıçağının sertleşip tamburu çizmesi. Çözüm: Kartuşu yenileyin veya tambur ve bıçağı değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp laserjet enterprise m608dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet Enterprise M608dn: Kağıt Çıkış Sensörü Bayrak Sıkışması (13.B9.FF)",
+    "hizli_adimlar": [
+      "HP LaserJet Enterprise M608dn cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Çıkış fotosensörünün plastik bayrağının yayının yerinden fırlaması.",
+      "Saha servis prosedürünü yürütün: Arka kapağı açıp sensör bayrağını yuvasına oturtun ve yayını takın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Engine Test Button",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kağıt tamamen çıktığı halde ekranda çıkış kapağında sıkışma uyarısının kalması.",
+    "derin_teknik_analiz": "Çıkış fotosensörünün plastik bayrağının yayının yerinden fırlaması. Çözüm: Arka kapağı açıp sensör bayrağını yuvasına oturtun ve yayını takın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp laserjet enterprise m608dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_2",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet Enterprise M608dn: Ağdan Yazdırırken 49.XXXX Bellenim Çökmesi",
+    "hizli_adimlar": [
+      "HP LaserJet Enterprise M608dn cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: PostScript ayrıştırıcısının bozuk font nesnesini işleyememesi.",
+      "Saha servis prosedürünü yürütün: Yazıcı sürücüsünü PCL6 olarak değiştirin ve bellenimi güncelleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "curl -T firmware.rfu ftp://printer/",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Büyük PDF yazdırılırken yazıcı ekranının donup kendini yeniden başlatması.",
+    "derin_teknik_analiz": "PostScript ayrıştırıcısının bozuk font nesnesini işleyememesi. Çözüm: Yazıcı sürücüsünü PCL6 olarak değiştirin ve bellenimi güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp laserjet enterprise m608dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_3",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet Enterprise M608dn: Lazer Tarayıcı (Laser Scanner Unit) Poligon Ayna Hatası 51.00.19",
+    "hizli_adimlar": [
+      "HP LaserJet Enterprise M608dn cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Dönen lazer poligon aynasının tozlanması veya motor milinin yağsız kalması.",
+      "Saha servis prosedürünü yürütün: Lazer ünitesini söküp ayna yüzeyini optik bezle temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Service Menu -> Laser Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yazdırma başladığında motorun devrini alamaması ve 51 hatası.",
+    "derin_teknik_analiz": "Dönen lazer poligon aynasının tozlanması veya motor milinin yağsız kalması. Çözüm: Lazer ünitesini söküp ayna yüzeyini optik bezle temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp laserjet enterprise m608dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_4",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet Pro M501dn: Baskıda Dikey Siyah Çizgi ve Drum Bıçak Bozulması",
+    "hizli_adimlar": [
+      "HP LaserJet Pro M501dn cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Toner kartuşunun atık haznesi temizleme bıçağının sertleşip tamburu çizmesi.",
+      "Saha servis prosedürünü yürütün: Kartuşu yenileyin veya tambur ve bıçağı değiştirin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "EWS -> Print Quality -> Cleaning Page",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Çıktının sol tarafında baştan aşağı düzenli siyah çizgi inmesi.",
+    "derin_teknik_analiz": "Toner kartuşunun atık haznesi temizleme bıçağının sertleşip tamburu çizmesi. Çözüm: Kartuşu yenileyin veya tambur ve bıçağı değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp laserjet pro m501dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_5",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet Pro M501dn: Kağıt Çıkış Sensörü Bayrak Sıkışması (13.B9.FF)",
+    "hizli_adimlar": [
+      "HP LaserJet Pro M501dn cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Çıkış fotosensörünün plastik bayrağının yayının yerinden fırlaması.",
+      "Saha servis prosedürünü yürütün: Arka kapağı açıp sensör bayrağını yuvasına oturtun ve yayını takın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Engine Test Button",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kağıt tamamen çıktığı halde ekranda çıkış kapağında sıkışma uyarısının kalması.",
+    "derin_teknik_analiz": "Çıkış fotosensörünün plastik bayrağının yayının yerinden fırlaması. Çözüm: Arka kapağı açıp sensör bayrağını yuvasına oturtun ve yayını takın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp laserjet pro m501dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_6",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet Pro M501dn: Ağdan Yazdırırken 49.XXXX Bellenim Çökmesi",
+    "hizli_adimlar": [
+      "HP LaserJet Pro M501dn cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: PostScript ayrıştırıcısının bozuk font nesnesini işleyememesi.",
+      "Saha servis prosedürünü yürütün: Yazıcı sürücüsünü PCL6 olarak değiştirin ve bellenimi güncelleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "curl -T firmware.rfu ftp://printer/",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Büyük PDF yazdırılırken yazıcı ekranının donup kendini yeniden başlatması.",
+    "derin_teknik_analiz": "PostScript ayrıştırıcısının bozuk font nesnesini işleyememesi. Çözüm: Yazıcı sürücüsünü PCL6 olarak değiştirin ve bellenimi güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp laserjet pro m501dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_7",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet Pro M501dn: Lazer Tarayıcı (Laser Scanner Unit) Poligon Ayna Hatası 51.00.19",
+    "hizli_adimlar": [
+      "HP LaserJet Pro M501dn cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Dönen lazer poligon aynasının tozlanması veya motor milinin yağsız kalması.",
+      "Saha servis prosedürünü yürütün: Lazer ünitesini söküp ayna yüzeyini optik bezle temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Service Menu -> Laser Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yazdırma başladığında motorun devrini alamaması ve 51 hatası.",
+    "derin_teknik_analiz": "Dönen lazer poligon aynasının tozlanması veya motor milinin yağsız kalması. Çözüm: Lazer ünitesini söküp ayna yüzeyini optik bezle temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp laserjet pro m501dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_8",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP Color LaserJet Enterprise M553: Baskıda Dikey Siyah Çizgi ve Drum Bıçak Bozulması",
+    "hizli_adimlar": [
+      "HP Color LaserJet Enterprise M553 cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Toner kartuşunun atık haznesi temizleme bıçağının sertleşip tamburu çizmesi.",
+      "Saha servis prosedürünü yürütün: Kartuşu yenileyin veya tambur ve bıçağı değiştirin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "EWS -> Print Quality -> Cleaning Page",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Çıktının sol tarafında baştan aşağı düzenli siyah çizgi inmesi.",
+    "derin_teknik_analiz": "Toner kartuşunun atık haznesi temizleme bıçağının sertleşip tamburu çizmesi. Çözüm: Kartuşu yenileyin veya tambur ve bıçağı değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp color laserjet enterprise m553",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_9",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP Color LaserJet Enterprise M553: Kağıt Çıkış Sensörü Bayrak Sıkışması (13.B9.FF)",
+    "hizli_adimlar": [
+      "HP Color LaserJet Enterprise M553 cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Çıkış fotosensörünün plastik bayrağının yayının yerinden fırlaması.",
+      "Saha servis prosedürünü yürütün: Arka kapağı açıp sensör bayrağını yuvasına oturtun ve yayını takın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Engine Test Button",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kağıt tamamen çıktığı halde ekranda çıkış kapağında sıkışma uyarısının kalması.",
+    "derin_teknik_analiz": "Çıkış fotosensörünün plastik bayrağının yayının yerinden fırlaması. Çözüm: Arka kapağı açıp sensör bayrağını yuvasına oturtun ve yayını takın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp color laserjet enterprise m553",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_10",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP Color LaserJet Enterprise M553: Ağdan Yazdırırken 49.XXXX Bellenim Çökmesi",
+    "hizli_adimlar": [
+      "HP Color LaserJet Enterprise M553 cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: PostScript ayrıştırıcısının bozuk font nesnesini işleyememesi.",
+      "Saha servis prosedürünü yürütün: Yazıcı sürücüsünü PCL6 olarak değiştirin ve bellenimi güncelleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "curl -T firmware.rfu ftp://printer/",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Büyük PDF yazdırılırken yazıcı ekranının donup kendini yeniden başlatması.",
+    "derin_teknik_analiz": "PostScript ayrıştırıcısının bozuk font nesnesini işleyememesi. Çözüm: Yazıcı sürücüsünü PCL6 olarak değiştirin ve bellenimi güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp color laserjet enterprise m553",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_11",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP Color LaserJet Enterprise M553: Lazer Tarayıcı (Laser Scanner Unit) Poligon Ayna Hatası 51.00.19",
+    "hizli_adimlar": [
+      "HP Color LaserJet Enterprise M553 cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Dönen lazer poligon aynasının tozlanması veya motor milinin yağsız kalması.",
+      "Saha servis prosedürünü yürütün: Lazer ünitesini söküp ayna yüzeyini optik bezle temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Service Menu -> Laser Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yazdırma başladığında motorun devrini alamaması ve 51 hatası.",
+    "derin_teknik_analiz": "Dönen lazer poligon aynasının tozlanması veya motor milinin yağsız kalması. Çözüm: Lazer ünitesini söküp ayna yüzeyini optik bezle temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp color laserjet enterprise m553",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_12",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet Pro MFP 3102fdw: Baskıda Dikey Siyah Çizgi ve Drum Bıçak Bozulması",
+    "hizli_adimlar": [
+      "HP LaserJet Pro MFP 3102fdw cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Toner kartuşunun atık haznesi temizleme bıçağının sertleşip tamburu çizmesi.",
+      "Saha servis prosedürünü yürütün: Kartuşu yenileyin veya tambur ve bıçağı değiştirin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "EWS -> Print Quality -> Cleaning Page",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Çıktının sol tarafında baştan aşağı düzenli siyah çizgi inmesi.",
+    "derin_teknik_analiz": "Toner kartuşunun atık haznesi temizleme bıçağının sertleşip tamburu çizmesi. Çözüm: Kartuşu yenileyin veya tambur ve bıçağı değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp laserjet pro mfp 3102fdw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_13",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet Pro MFP 3102fdw: Kağıt Çıkış Sensörü Bayrak Sıkışması (13.B9.FF)",
+    "hizli_adimlar": [
+      "HP LaserJet Pro MFP 3102fdw cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Çıkış fotosensörünün plastik bayrağının yayının yerinden fırlaması.",
+      "Saha servis prosedürünü yürütün: Arka kapağı açıp sensör bayrağını yuvasına oturtun ve yayını takın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Engine Test Button",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kağıt tamamen çıktığı halde ekranda çıkış kapağında sıkışma uyarısının kalması.",
+    "derin_teknik_analiz": "Çıkış fotosensörünün plastik bayrağının yayının yerinden fırlaması. Çözüm: Arka kapağı açıp sensör bayrağını yuvasına oturtun ve yayını takın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp laserjet pro mfp 3102fdw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_14",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet Pro MFP 3102fdw: Ağdan Yazdırırken 49.XXXX Bellenim Çökmesi",
+    "hizli_adimlar": [
+      "HP LaserJet Pro MFP 3102fdw cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: PostScript ayrıştırıcısının bozuk font nesnesini işleyememesi.",
+      "Saha servis prosedürünü yürütün: Yazıcı sürücüsünü PCL6 olarak değiştirin ve bellenimi güncelleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "curl -T firmware.rfu ftp://printer/",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Büyük PDF yazdırılırken yazıcı ekranının donup kendini yeniden başlatması.",
+    "derin_teknik_analiz": "PostScript ayrıştırıcısının bozuk font nesnesini işleyememesi. Çözüm: Yazıcı sürücüsünü PCL6 olarak değiştirin ve bellenimi güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp laserjet pro mfp 3102fdw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_15",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet Pro MFP 3102fdw: Lazer Tarayıcı (Laser Scanner Unit) Poligon Ayna Hatası 51.00.19",
+    "hizli_adimlar": [
+      "HP LaserJet Pro MFP 3102fdw cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Dönen lazer poligon aynasının tozlanması veya motor milinin yağsız kalması.",
+      "Saha servis prosedürünü yürütün: Lazer ünitesini söküp ayna yüzeyini optik bezle temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Service Menu -> Laser Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yazdırma başladığında motorun devrini alamaması ve 51 hatası.",
+    "derin_teknik_analiz": "Dönen lazer poligon aynasının tozlanması veya motor milinin yağsız kalması. Çözüm: Lazer ünitesini söküp ayna yüzeyini optik bezle temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp laserjet pro mfp 3102fdw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_16",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP DesignJet T230 Plotter: Baskıda Dikey Siyah Çizgi ve Drum Bıçak Bozulması",
+    "hizli_adimlar": [
+      "HP DesignJet T230 Plotter cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Toner kartuşunun atık haznesi temizleme bıçağının sertleşip tamburu çizmesi.",
+      "Saha servis prosedürünü yürütün: Kartuşu yenileyin veya tambur ve bıçağı değiştirin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "EWS -> Print Quality -> Cleaning Page",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Çıktının sol tarafında baştan aşağı düzenli siyah çizgi inmesi.",
+    "derin_teknik_analiz": "Toner kartuşunun atık haznesi temizleme bıçağının sertleşip tamburu çizmesi. Çözüm: Kartuşu yenileyin veya tambur ve bıçağı değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp designjet t230 plotter",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_17",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP DesignJet T230 Plotter: Kağıt Çıkış Sensörü Bayrak Sıkışması (13.B9.FF)",
+    "hizli_adimlar": [
+      "HP DesignJet T230 Plotter cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Çıkış fotosensörünün plastik bayrağının yayının yerinden fırlaması.",
+      "Saha servis prosedürünü yürütün: Arka kapağı açıp sensör bayrağını yuvasına oturtun ve yayını takın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Engine Test Button",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kağıt tamamen çıktığı halde ekranda çıkış kapağında sıkışma uyarısının kalması.",
+    "derin_teknik_analiz": "Çıkış fotosensörünün plastik bayrağının yayının yerinden fırlaması. Çözüm: Arka kapağı açıp sensör bayrağını yuvasına oturtun ve yayını takın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp designjet t230 plotter",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_18",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP DesignJet T230 Plotter: Ağdan Yazdırırken 49.XXXX Bellenim Çökmesi",
+    "hizli_adimlar": [
+      "HP DesignJet T230 Plotter cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: PostScript ayrıştırıcısının bozuk font nesnesini işleyememesi.",
+      "Saha servis prosedürünü yürütün: Yazıcı sürücüsünü PCL6 olarak değiştirin ve bellenimi güncelleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "curl -T firmware.rfu ftp://printer/",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Büyük PDF yazdırılırken yazıcı ekranının donup kendini yeniden başlatması.",
+    "derin_teknik_analiz": "PostScript ayrıştırıcısının bozuk font nesnesini işleyememesi. Çözüm: Yazıcı sürücüsünü PCL6 olarak değiştirin ve bellenimi güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp designjet t230 plotter",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_19",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP DesignJet T230 Plotter: Lazer Tarayıcı (Laser Scanner Unit) Poligon Ayna Hatası 51.00.19",
+    "hizli_adimlar": [
+      "HP DesignJet T230 Plotter cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Dönen lazer poligon aynasının tozlanması veya motor milinin yağsız kalması.",
+      "Saha servis prosedürünü yürütün: Lazer ünitesini söküp ayna yüzeyini optik bezle temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Service Menu -> Laser Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yazdırma başladığında motorun devrini alamaması ve 51 hatası.",
+    "derin_teknik_analiz": "Dönen lazer poligon aynasının tozlanması veya motor milinin yağsız kalması. Çözüm: Lazer ünitesini söküp ayna yüzeyini optik bezle temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp designjet t230 plotter",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_20",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP PageWide Color MFP 774dn: Baskıda Dikey Siyah Çizgi ve Drum Bıçak Bozulması",
+    "hizli_adimlar": [
+      "HP PageWide Color MFP 774dn cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Toner kartuşunun atık haznesi temizleme bıçağının sertleşip tamburu çizmesi.",
+      "Saha servis prosedürünü yürütün: Kartuşu yenileyin veya tambur ve bıçağı değiştirin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "EWS -> Print Quality -> Cleaning Page",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Çıktının sol tarafında baştan aşağı düzenli siyah çizgi inmesi.",
+    "derin_teknik_analiz": "Toner kartuşunun atık haznesi temizleme bıçağının sertleşip tamburu çizmesi. Çözüm: Kartuşu yenileyin veya tambur ve bıçağı değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp pagewide color mfp 774dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_21",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP PageWide Color MFP 774dn: Kağıt Çıkış Sensörü Bayrak Sıkışması (13.B9.FF)",
+    "hizli_adimlar": [
+      "HP PageWide Color MFP 774dn cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Çıkış fotosensörünün plastik bayrağının yayının yerinden fırlaması.",
+      "Saha servis prosedürünü yürütün: Arka kapağı açıp sensör bayrağını yuvasına oturtun ve yayını takın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Engine Test Button",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kağıt tamamen çıktığı halde ekranda çıkış kapağında sıkışma uyarısının kalması.",
+    "derin_teknik_analiz": "Çıkış fotosensörünün plastik bayrağının yayının yerinden fırlaması. Çözüm: Arka kapağı açıp sensör bayrağını yuvasına oturtun ve yayını takın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp pagewide color mfp 774dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_22",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP PageWide Color MFP 774dn: Ağdan Yazdırırken 49.XXXX Bellenim Çökmesi",
+    "hizli_adimlar": [
+      "HP PageWide Color MFP 774dn cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: PostScript ayrıştırıcısının bozuk font nesnesini işleyememesi.",
+      "Saha servis prosedürünü yürütün: Yazıcı sürücüsünü PCL6 olarak değiştirin ve bellenimi güncelleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "curl -T firmware.rfu ftp://printer/",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Büyük PDF yazdırılırken yazıcı ekranının donup kendini yeniden başlatması.",
+    "derin_teknik_analiz": "PostScript ayrıştırıcısının bozuk font nesnesini işleyememesi. Çözüm: Yazıcı sürücüsünü PCL6 olarak değiştirin ve bellenimi güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp pagewide color mfp 774dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_23",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP PageWide Color MFP 774dn: Lazer Tarayıcı (Laser Scanner Unit) Poligon Ayna Hatası 51.00.19",
+    "hizli_adimlar": [
+      "HP PageWide Color MFP 774dn cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Dönen lazer poligon aynasının tozlanması veya motor milinin yağsız kalması.",
+      "Saha servis prosedürünü yürütün: Lazer ünitesini söküp ayna yüzeyini optik bezle temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Service Menu -> Laser Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yazdırma başladığında motorun devrini alamaması ve 51 hatası.",
+    "derin_teknik_analiz": "Dönen lazer poligon aynasının tozlanması veya motor milinin yağsız kalması. Çözüm: Lazer ünitesini söküp ayna yüzeyini optik bezle temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp pagewide color mfp 774dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_24",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet MFP M234sdw: Baskıda Dikey Siyah Çizgi ve Drum Bıçak Bozulması",
+    "hizli_adimlar": [
+      "HP LaserJet MFP M234sdw cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Toner kartuşunun atık haznesi temizleme bıçağının sertleşip tamburu çizmesi.",
+      "Saha servis prosedürünü yürütün: Kartuşu yenileyin veya tambur ve bıçağı değiştirin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "EWS -> Print Quality -> Cleaning Page",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Çıktının sol tarafında baştan aşağı düzenli siyah çizgi inmesi.",
+    "derin_teknik_analiz": "Toner kartuşunun atık haznesi temizleme bıçağının sertleşip tamburu çizmesi. Çözüm: Kartuşu yenileyin veya tambur ve bıçağı değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp laserjet mfp m234sdw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_25",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet MFP M234sdw: Kağıt Çıkış Sensörü Bayrak Sıkışması (13.B9.FF)",
+    "hizli_adimlar": [
+      "HP LaserJet MFP M234sdw cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Çıkış fotosensörünün plastik bayrağının yayının yerinden fırlaması.",
+      "Saha servis prosedürünü yürütün: Arka kapağı açıp sensör bayrağını yuvasına oturtun ve yayını takın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Engine Test Button",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kağıt tamamen çıktığı halde ekranda çıkış kapağında sıkışma uyarısının kalması.",
+    "derin_teknik_analiz": "Çıkış fotosensörünün plastik bayrağının yayının yerinden fırlaması. Çözüm: Arka kapağı açıp sensör bayrağını yuvasına oturtun ve yayını takın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp laserjet mfp m234sdw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_26",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet MFP M234sdw: Ağdan Yazdırırken 49.XXXX Bellenim Çökmesi",
+    "hizli_adimlar": [
+      "HP LaserJet MFP M234sdw cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: PostScript ayrıştırıcısının bozuk font nesnesini işleyememesi.",
+      "Saha servis prosedürünü yürütün: Yazıcı sürücüsünü PCL6 olarak değiştirin ve bellenimi güncelleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "curl -T firmware.rfu ftp://printer/",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Büyük PDF yazdırılırken yazıcı ekranının donup kendini yeniden başlatması.",
+    "derin_teknik_analiz": "PostScript ayrıştırıcısının bozuk font nesnesini işleyememesi. Çözüm: Yazıcı sürücüsünü PCL6 olarak değiştirin ve bellenimi güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp laserjet mfp m234sdw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_27",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP LaserJet MFP M234sdw: Lazer Tarayıcı (Laser Scanner Unit) Poligon Ayna Hatası 51.00.19",
+    "hizli_adimlar": [
+      "HP LaserJet MFP M234sdw cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Dönen lazer poligon aynasının tozlanması veya motor milinin yağsız kalması.",
+      "Saha servis prosedürünü yürütün: Lazer ünitesini söküp ayna yüzeyini optik bezle temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Service Menu -> Laser Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yazdırma başladığında motorun devrini alamaması ve 51 hatası.",
+    "derin_teknik_analiz": "Dönen lazer poligon aynasının tozlanması veya motor milinin yağsız kalması. Çözüm: Lazer ünitesini söküp ayna yüzeyini optik bezle temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp laserjet mfp m234sdw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_28",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP Color LaserJet Pro MFP M183fw: Baskıda Dikey Siyah Çizgi ve Drum Bıçak Bozulması",
+    "hizli_adimlar": [
+      "HP Color LaserJet Pro MFP M183fw cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Toner kartuşunun atık haznesi temizleme bıçağının sertleşip tamburu çizmesi.",
+      "Saha servis prosedürünü yürütün: Kartuşu yenileyin veya tambur ve bıçağı değiştirin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "EWS -> Print Quality -> Cleaning Page",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Çıktının sol tarafında baştan aşağı düzenli siyah çizgi inmesi.",
+    "derin_teknik_analiz": "Toner kartuşunun atık haznesi temizleme bıçağının sertleşip tamburu çizmesi. Çözüm: Kartuşu yenileyin veya tambur ve bıçağı değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp color laserjet pro mfp m183fw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_29",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP Color LaserJet Pro MFP M183fw: Kağıt Çıkış Sensörü Bayrak Sıkışması (13.B9.FF)",
+    "hizli_adimlar": [
+      "HP Color LaserJet Pro MFP M183fw cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Çıkış fotosensörünün plastik bayrağının yayının yerinden fırlaması.",
+      "Saha servis prosedürünü yürütün: Arka kapağı açıp sensör bayrağını yuvasına oturtun ve yayını takın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Engine Test Button",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Kağıt tamamen çıktığı halde ekranda çıkış kapağında sıkışma uyarısının kalması.",
+    "derin_teknik_analiz": "Çıkış fotosensörünün plastik bayrağının yayının yerinden fırlaması. Çözüm: Arka kapağı açıp sensör bayrağını yuvasına oturtun ve yayını takın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp color laserjet pro mfp m183fw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_30",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP Color LaserJet Pro MFP M183fw: Ağdan Yazdırırken 49.XXXX Bellenim Çökmesi",
+    "hizli_adimlar": [
+      "HP Color LaserJet Pro MFP M183fw cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: PostScript ayrıştırıcısının bozuk font nesnesini işleyememesi.",
+      "Saha servis prosedürünü yürütün: Yazıcı sürücüsünü PCL6 olarak değiştirin ve bellenimi güncelleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "curl -T firmware.rfu ftp://printer/",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Büyük PDF yazdırılırken yazıcı ekranının donup kendini yeniden başlatması.",
+    "derin_teknik_analiz": "PostScript ayrıştırıcısının bozuk font nesnesini işleyememesi. Çözüm: Yazıcı sürücüsünü PCL6 olarak değiştirin ve bellenimi güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp color laserjet pro mfp m183fw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_31",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "HP LaserJet & DesignJet",
+    "baslik": "HP Color LaserJet Pro MFP M183fw: Lazer Tarayıcı (Laser Scanner Unit) Poligon Ayna Hatası 51.00.19",
+    "hizli_adimlar": [
+      "HP Color LaserJet Pro MFP M183fw cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Dönen lazer poligon aynasının tozlanması veya motor milinin yağsız kalması.",
+      "Saha servis prosedürünü yürütün: Lazer ünitesini söküp ayna yüzeyini optik bezle temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Service Menu -> Laser Test",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yazdırma başladığında motorun devrini alamaması ve 51 hatası.",
+    "derin_teknik_analiz": "Dönen lazer poligon aynasının tozlanması veya motor milinin yağsız kalması. Çözüm: Lazer ünitesini söküp ayna yüzeyini optik bezle temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "hp laserjet & designjet",
+      "hp color laserjet pro mfp m183fw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  }
+]

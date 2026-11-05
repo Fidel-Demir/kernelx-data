@@ -1,87 +1,1817 @@
-{
-  "versiyon": "2.5.0",
-  "toplam": 2,
-  "modul": "feed_pdks_gecis_kontrol.json",
-  "kayitlar": [
-    {
-      "id": "pdks_zkteco_network_port_4370",
-      "kategori": "PDKS & Geçiş Kontrol",
-      "alt_kategori": "ZKTeco & Parmak İzi",
-      "baslik": "ZKTeco Parmak İzi / Yüz Tanıma Terminalinin Ağ Bağlantısının Kopması (Port 4370)",
-      "hizli_adimlar": [
-        "Terminal menüsünden Ağ Ayarları -> Ethernet bölümüne girip IP, Ağ Maskesi ve Ağ Geçidini kontrol edin.",
-        "İletişim Ayarları -> 'İletişim Şifresi' (Comm Key) değerine bakın (genellikle 0'dır).",
-        "PDKS sunucu bilgisayarından terminale ping atın: `ping 192.168.1.201`.",
-        "Port 4370 erişimini PowerShell `Test-NetConnection` ile test edin.",
-        "Güvenlik duvarında TCP/UDP 4370 portlarına gelen/giden izin kuralı ekleyin."
-      ],
-      "komutlar": [
-        {
-          "etiket": "ZKTeco Port 4370 Testi",
-          "komut": "Test-NetConnection -ComputerName 192.168.1.201 -Port 4370",
-          "aciklama": "PDKS terminalinin port seviyesinde dinlemede olduğunu teyit eder."
-        },
-        {
-          "etiket": "Arp Tablosundan MAC Doğrula",
-          "komut": "arp -a 192.168.1.201",
-          "aciklama": "IP adresinin başka bir cihazla çakışıp çakışmadığını MAC adresinden anlar."
-        }
-      ],
-      "temel_anlatim": "PDKS personel takip yazılımında 'Cihaza Bağlanılamadı' hatası çıkması ve giriş-çıkış loglarının bilgisayara aktarılamaması.",
-      "derin_teknik_analiz": "ZKTeco cihazları yönetim yazılımıyla UDP ve TCP 4370 portu üzerinden haberleşir. Cihaz üzerinde 'Comm Key' (İletişim Şifresi) varsayılan olarak '0'dır; yazılım tarafında bu şifre uyuşmazsa veya switch'te IP çakışması varsa bağlantı reddedilir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Ping gidiyor ama log çekerken 'Hafıza Dolu / Zaman Aşımı' veriyor",
-          "neden": "Cihazın dahili flaş belleğindeki işlem kayıtları (Attendance Logs) 100.000 sınırına ulaşmıştır.",
-          "cozum": "Yazılımdan tüm logları yedekledikten sonra terminal menüsünden 'İşlem Kayıtlarını Temizle' işlemi yapın."
-        }
-      ],
-      "etiketler": [
-        "pdks",
-        "zkteco",
-        "parmak-izi",
-        "port4370",
-        "turnike",
-        "personel-takip"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "pdks_wiegand_bit_mismatch",
-      "kategori": "PDKS & Geçiş Kontrol",
-      "alt_kategori": "Turnike & Kart Okuyucular",
-      "baslik": "Turnike Kart Okuyucularda Wiegand 26-bit vs 34-bit Uyuşmazlığı ve Hatalı Kart Numarası",
-      "hizli_adimlar": [
-        "Kart okuyucunun arka etiketindeki veya yazılımındaki Wiegand formatını kontrol edin (26-bit / 34-bit).",
-        "Kontrol paneli arayüzünde (ZKTeco C3, Rosslare, Honeywell) ilgili okuyucu portunun Wiegand formatını okuyucuyla eşitleyin.",
-        "Data0 ve Data1 kablolarının ters bağlanmadığını multimetre veya osiloskop ile kontrol edin.",
-        "Farklı bir test kartı okutarak hex ve dec dönüşümünü yazılım log ekranında karşılaştırın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Wiegand Kablolama Standardı",
-          "komut": "Kırmızı: +12V DC | Siyah: GND | Yeşil: Data 0 (D0) | Beyaz: Data 1 (D1) | Mavi: LED Kontrol | Sarı: Buzzer",
-          "aciklama": "Standart Wiegand kart okuyucu renk şeması."
-        }
-      ],
-      "temel_anlatim": "Manyetik personel kartı turnikeye okutulduğunda yeşil ışık yanmaması veya yazılıma kart numarasının tamamen alakasız/eksik basılması.",
-      "derin_teknik_analiz": "Wiegand protokolünde Data0 (yeşil) ve Data1 (beyaz) hatları üzerinden darbe sinyalleri iletilir. Standart Wiegand 26-bit (1 bit parity + 8 bit facility + 16 bit card ID + 1 bit parity) formatıdır. Yeni nesil Mifare okuyucular 34-bit veya 66-bit basarsa kontrol paneli kart kodunu yanlış ayrıştırır.",
-      "kenar_durumlar": [
-        {
-          "durum": "Kart okutulunca bip sesi geliyor ama turnike açılmıyor",
-          "neden": "Panel rölesinin COM-NO kontakları turnike tetik kartına sinyal göndermiyor veya kuru kontak rölesi yapışmıştır.",
-          "cozum": "Multimetreyi kısa devre moduna alıp röle çıkışının kart okutulduğunda 1 saniye kısa devre olduğunu teyit edin."
-        }
-      ],
-      "etiketler": [
-        "pdks",
-        "wiegand",
-        "wiegand-26",
-        "turnike",
-        "kartli-gecis",
-        "mifare"
-      ],
-      "oncelik": 2
-    }
-  ]
-}
+[
+  {
+    "id": "pdks_zkteco_network_port_4370",
+    "kategori": "PDKS & Geçiş Kontrol",
+    "alt_kategori": "ZKTeco & Parmak İzi",
+    "baslik": "ZKTeco Parmak İzi / Yüz Tanıma Terminalinin Ağ Bağlantısının Kopması (Port 4370)",
+    "hizli_adimlar": [
+      "Terminal menüsünden Ağ Ayarları -> Ethernet bölümüne girip IP, Ağ Maskesi ve Ağ Geçidini kontrol edin.",
+      "İletişim Ayarları -> 'İletişim Şifresi' (Comm Key) değerine bakın (genellikle 0'dır).",
+      "PDKS sunucu bilgisayarından terminale ping atın: `ping 192.168.1.201`.",
+      "Port 4370 erişimini PowerShell `Test-NetConnection` ile test edin.",
+      "Güvenlik duvarında TCP/UDP 4370 portlarına gelen/giden izin kuralı ekleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "ZKTeco Port 4370 Testi",
+        "komut": "Test-NetConnection -ComputerName 192.168.1.201 -Port 4370",
+        "aciklama": "PDKS terminalinin port seviyesinde dinlemede olduğunu teyit eder."
+      },
+      {
+        "etiket": "Arp Tablosundan MAC Doğrula",
+        "komut": "arp -a 192.168.1.201",
+        "aciklama": "IP adresinin başka bir cihazla çakışıp çakışmadığını MAC adresinden anlar."
+      }
+    ],
+    "temel_anlatim": "PDKS personel takip yazılımında 'Cihaza Bağlanılamadı' hatası çıkması ve giriş-çıkış loglarının bilgisayara aktarılamaması.",
+    "derin_teknik_analiz": "ZKTeco cihazları yönetim yazılımıyla UDP ve TCP 4370 portu üzerinden haberleşir. Cihaz üzerinde 'Comm Key' (İletişim Şifresi) varsayılan olarak '0'dır; yazılım tarafında bu şifre uyuşmazsa veya switch'te IP çakışması varsa bağlantı reddedilir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Ping gidiyor ama log çekerken 'Hafıza Dolu / Zaman Aşımı' veriyor",
+        "neden": "Cihazın dahili flaş belleğindeki işlem kayıtları (Attendance Logs) 100.000 sınırına ulaşmıştır.",
+        "cozum": "Yazılımdan tüm logları yedekledikten sonra terminal menüsünden 'İşlem Kayıtlarını Temizle' işlemi yapın."
+      }
+    ],
+    "etiketler": [
+      "pdks zkteco parmak-izi port4370 turnike personel-takip"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "pdks_wiegand_bit_mismatch",
+    "kategori": "PDKS & Geçiş Kontrol",
+    "alt_kategori": "Turnike & Kart Okuyucular",
+    "baslik": "Turnike Kart Okuyucularda Wiegand 26-bit vs 34-bit Uyuşmazlığı ve Hatalı Kart Numarası",
+    "hizli_adimlar": [
+      "Kart okuyucunun arka etiketindeki veya yazılımındaki Wiegand formatını kontrol edin (26-bit / 34-bit).",
+      "Kontrol paneli arayüzünde (ZKTeco C3, Rosslare, Honeywell) ilgili okuyucu portunun Wiegand formatını okuyucuyla eşitleyin.",
+      "Data0 ve Data1 kablolarının ters bağlanmadığını multimetre veya osiloskop ile kontrol edin.",
+      "Farklı bir test kartı okutarak hex ve dec dönüşümünü yazılım log ekranında karşılaştırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Wiegand Kablolama Standardı",
+        "komut": "Kırmızı: +12V DC | Siyah: GND | Yeşil: Data 0 (D0) | Beyaz: Data 1 (D1) | Mavi: LED Kontrol | Sarı: Buzzer",
+        "aciklama": "Standart Wiegand kart okuyucu renk şeması."
+      }
+    ],
+    "temel_anlatim": "Manyetik personel kartı turnikeye okutulduğunda yeşil ışık yanmaması veya yazılıma kart numarasının tamamen alakasız/eksik basılması.",
+    "derin_teknik_analiz": "Wiegand protokolünde Data0 (yeşil) ve Data1 (beyaz) hatları üzerinden darbe sinyalleri iletilir. Standart Wiegand 26-bit (1 bit parity + 8 bit facility + 16 bit card ID + 1 bit parity) formatıdır. Yeni nesil Mifare okuyucular 34-bit veya 66-bit basarsa kontrol paneli kart kodunu yanlış ayrıştırır.",
+    "kenar_durumlar": [
+      {
+        "durum": "Kart okutulunca bip sesi geliyor ama turnike açılmıyor",
+        "neden": "Panel rölesinin COM-NO kontakları turnike tetik kartına sinyal göndermiyor veya kuru kontak rölesi yapışmıştır.",
+        "cozum": "Multimetreyi kısa devre moduna alıp röle çıkışının kart okutulduğunda 1 saniye kısa devre olduğunu teyit edin."
+      }
+    ],
+    "etiketler": [
+      "pdks wiegand wiegand-26 turnike kartli-gecis mifare"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "infra_910",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "Saha Teşhisi",
+    "baslik": "ZKTeco Terminalinde 'İşlem Kayıtları Dolu' Uyarısı ve Turnikenin Açılmaması",
+    "hizli_adimlar": [
+      "PDKS yönetim yazılımından tüm ham logları bilgisayara aktarın.",
+      "Cihaz Yönetimi menüsünden 'İşlem Kayıtlarını Temizle' seçeneğini çalıştırın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "PDKS Log Temizleme Prosedürü",
+        "komut": "PDKS Yazılımı -> Cihaz İşlemleri -> Tüm Hareketleri İndir -> Cihazdaki Logları Sil",
+        "aciklama": "Logları veritabanına aktarıp terminal hafızasını boşaltır."
+      }
+    ],
+    "temel_anlatim": "Personel kart okuttuğunda 'Kayıt Dolu' uyarısı gelmesi ve geçiş hakkı verilmemesi.",
+    "derin_teknik_analiz": "Terminalin dahili flaş belleğindeki hareket log kapasitesi (Örn: 50.000 log) dolmuştur.",
+    "kenar_durumlar": [
+      {
+        "durum": "İlk adımda sonuç alınamadı",
+        "neden": "Ağ gecikmesi veya izin kısıtlaması vardır.",
+        "cozum": "Güvenlik duvarı ve izinleri kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "altyapi",
+      "saha",
+      "teknik-cozum"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "infra_911",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "Saha Teşhisi",
+    "baslik": "Manyetik Kilitlerde (Maglock) Kuru Kontak Rölesine Koruma Diyotu (1N4007) Takılması",
+    "hizli_adimlar": [
+      "Manyetik kilidin tam klemens girişine ters paralel 1N4007 diyot lehimleyin.",
+      "Kontrol paneli röle kontaklarının ark yapmasını engelleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Diyot Bağlantı Standardı",
+        "komut": "1N4007 Diyot: Çizgili uç (Katot) +12V'a, Çizgisiz uç (Anot) GND'ye ters paralel bağlanır",
+        "aciklama": "Ters indüksiyon darbesini sönümler."
+      }
+    ],
+    "temel_anlatim": "Turnike veya kapı manyetik kilidi her açılıp kapandığında kontrol panelinin reset atması veya donması.",
+    "derin_teknik_analiz": "Endüktif yük olan manyetik kilit bobini enerji kesildiğinde yüzlerce voltluk ters indüksiyon gerilimi (Flyback EMF) üretir.",
+    "kenar_durumlar": [
+      {
+        "durum": "İlk adımda sonuç alınamadı",
+        "neden": "Ağ gecikmesi veya izin kısıtlaması vardır.",
+        "cozum": "Güvenlik duvarı ve izinleri kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "altyapi",
+      "saha",
+      "teknik-cozum"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "pdks_mat_14",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Manyetik Kilit (Maglock) Ters Endüksiyon Voltajı ve Röle Kartı Donması",
+    "hizli_adimlar": [
+      "Maglock kilidinin 12V/24V besleme klemenslerini sökün.",
+      "1N4007 veya benzeri bir diyodun çizgili ucunu (Katot) Pozitif (+) hatta bağlayın.",
+      "Diyodun çizgisiz ucunu (Anot) Negatif (-) hatta bağlayın.",
+      "Tetikleme sırasında multimetrenin pik voltajı sönümlediğini ve kartın reset atmadığını doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Diyot Bağlantı Şeması",
+        "komut": "1N4007: Katot (Çizgili) -> 12V (+), Anot -> GND (-)",
+        "aciklama": "Bobin ters indüksiyon gerilimini anında kendi içinde yok eder."
+      }
+    ],
+    "temel_anlatim": "Manyetik kapı açılıp kapandığında PDKS panelinin reset atması veya ekranının donup kalması.",
+    "derin_teknik_analiz": "Kök Neden: Maglock bobini enerjisi kesildiğinde oluşan ters EMK (Flyback EMF) yüksek voltaj pikinin kontrol kartına sızması. Saha Montajı: Manyetik kilit klemenslerine bobine ters yönde 1N4007 sönümleme diyodu (Flyback Diode) paralel bağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Diyot aşırı ısınıyor",
+        "neden": "Diyot kutupları ters bağlanmış ve kısa devre yapmaktadır.",
+        "cozum": "Çizgili ucun mutlaka artı hatta bağlı olduğunu teyit edin."
+      }
+    ],
+    "etiketler": [
+      "pdks",
+      "maglock",
+      "flyback-diyot",
+      "manyetik-kilit",
+      "role-kart"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_288",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "ZKTeco inBio 260 Pro: Parmak İzi Optik Prizma Çizilmesi ve Tanımama",
+    "hizli_adimlar": [
+      "ZKTeco inBio 260 Pro sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Prizma üzerindeki silikon kaplamanın aşınması veya anahtarlıkla çizilmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Optik prizma silikon katmanını yenileyin veya sensör kafasını değiştirin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Sensor Test -> Calibration",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Personelin parmağını basmasına rağmen cihazın algılamaması.",
+    "derin_teknik_analiz": "Prizma üzerindeki silikon kaplamanın aşınması veya anahtarlıkla çizilmesi. Çözüm: Optik prizma silikon katmanını yenileyin veya sensör kafasını değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "zkteco inbio 260 pro",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_289",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "ZKTeco inBio 260 Pro: Wiegand 26-bit Tesis Kodu (Facility Code) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "ZKTeco inBio 260 Pro sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Yeni kartların Site Code numarasının kontrol paneline tanımlanmamış olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: PDKS yazılımından Wiegand formatına yeni Tesis Kodunu (Örn: FC 120) ekleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "PDKS Admin -> Card Format",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yeni alınan kartların sistemde \"Geçersiz Tesis\" uyarısı vermesi.",
+    "derin_teknik_analiz": "Yeni kartların Site Code numarasının kontrol paneline tanımlanmamış olması. Çözüm: PDKS yazılımından Wiegand formatına yeni Tesis Kodunu (Örn: FC 120) ekleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "zkteco inbio 260 pro",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_290",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "ZKTeco inBio 260 Pro: TCP/IP Ağ İletişim Anahtarı (Comms Key) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "ZKTeco inBio 260 Pro sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Cihaz menüsündeki iletişim şifresinin varsayılan 0 yerine değiştirilmiş olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Cihaz menüsünden Ağ -> İletişim Şifresini sıfırlayın veya yazılıma kaydedin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Ping 192.168.1.201",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yazılımın terminale bağlanırken \"Parola Hatalı\" uyarısı vermesi.",
+    "derin_teknik_analiz": "Cihaz menüsündeki iletişim şifresinin varsayılan 0 yerine değiştirilmiş olması. Çözüm: Cihaz menüsünden Ağ -> İletişim Şifresini sıfırlayın veya yazılıma kaydedin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "zkteco inbio 260 pro",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_291",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "ZKTeco inBio 260 Pro: Manyetik Kapı Kontağı (Door Sensor) Açık Alarmı",
+    "hizli_adimlar": [
+      "ZKTeco inBio 260 Pro sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kapı pervazındaki manyetik kontak kablosunun kopması veya mıknatısın düşmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Manyetik kontak uçlarını multimetre ile ölçün ve mıknatıs mesafesini ayarlayın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Panel Status -> Door 1 Input",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kapı kapalı olduğu halde PDKS panelinin aralıksız buzzer ötmesi.",
+    "derin_teknik_analiz": "Kapı pervazındaki manyetik kontak kablosunun kopması veya mıknatısın düşmesi. Çözüm: Manyetik kontak uçlarını multimetre ile ölçün ve mıknatıs mesafesini ayarlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "zkteco inbio 260 pro",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_292",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Suprema BioStation 2: Parmak İzi Optik Prizma Çizilmesi ve Tanımama",
+    "hizli_adimlar": [
+      "Suprema BioStation 2 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Prizma üzerindeki silikon kaplamanın aşınması veya anahtarlıkla çizilmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Optik prizma silikon katmanını yenileyin veya sensör kafasını değiştirin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Sensor Test -> Calibration",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Personelin parmağını basmasına rağmen cihazın algılamaması.",
+    "derin_teknik_analiz": "Prizma üzerindeki silikon kaplamanın aşınması veya anahtarlıkla çizilmesi. Çözüm: Optik prizma silikon katmanını yenileyin veya sensör kafasını değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "suprema biostation 2",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_293",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Suprema BioStation 2: Wiegand 26-bit Tesis Kodu (Facility Code) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Suprema BioStation 2 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Yeni kartların Site Code numarasının kontrol paneline tanımlanmamış olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: PDKS yazılımından Wiegand formatına yeni Tesis Kodunu (Örn: FC 120) ekleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "PDKS Admin -> Card Format",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yeni alınan kartların sistemde \"Geçersiz Tesis\" uyarısı vermesi.",
+    "derin_teknik_analiz": "Yeni kartların Site Code numarasının kontrol paneline tanımlanmamış olması. Çözüm: PDKS yazılımından Wiegand formatına yeni Tesis Kodunu (Örn: FC 120) ekleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "suprema biostation 2",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_294",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Suprema BioStation 2: TCP/IP Ağ İletişim Anahtarı (Comms Key) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Suprema BioStation 2 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Cihaz menüsündeki iletişim şifresinin varsayılan 0 yerine değiştirilmiş olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Cihaz menüsünden Ağ -> İletişim Şifresini sıfırlayın veya yazılıma kaydedin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Ping 192.168.1.201",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yazılımın terminale bağlanırken \"Parola Hatalı\" uyarısı vermesi.",
+    "derin_teknik_analiz": "Cihaz menüsündeki iletişim şifresinin varsayılan 0 yerine değiştirilmiş olması. Çözüm: Cihaz menüsünden Ağ -> İletişim Şifresini sıfırlayın veya yazılıma kaydedin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "suprema biostation 2",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_295",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Suprema BioStation 2: Manyetik Kapı Kontağı (Door Sensor) Açık Alarmı",
+    "hizli_adimlar": [
+      "Suprema BioStation 2 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kapı pervazındaki manyetik kontak kablosunun kopması veya mıknatısın düşmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Manyetik kontak uçlarını multimetre ile ölçün ve mıknatıs mesafesini ayarlayın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Panel Status -> Door 1 Input",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kapı kapalı olduğu halde PDKS panelinin aralıksız buzzer ötmesi.",
+    "derin_teknik_analiz": "Kapı pervazındaki manyetik kontak kablosunun kopması veya mıknatısın düşmesi. Çözüm: Manyetik kontak uçlarını multimetre ile ölçün ve mıknatıs mesafesini ayarlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "suprema biostation 2",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_296",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Meyer Parmak İzi Terminali: Parmak İzi Optik Prizma Çizilmesi ve Tanımama",
+    "hizli_adimlar": [
+      "Meyer Parmak İzi Terminali sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Prizma üzerindeki silikon kaplamanın aşınması veya anahtarlıkla çizilmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Optik prizma silikon katmanını yenileyin veya sensör kafasını değiştirin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Sensor Test -> Calibration",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Personelin parmağını basmasına rağmen cihazın algılamaması.",
+    "derin_teknik_analiz": "Prizma üzerindeki silikon kaplamanın aşınması veya anahtarlıkla çizilmesi. Çözüm: Optik prizma silikon katmanını yenileyin veya sensör kafasını değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "meyer parmak i̇zi terminali",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_297",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Meyer Parmak İzi Terminali: Wiegand 26-bit Tesis Kodu (Facility Code) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Meyer Parmak İzi Terminali sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Yeni kartların Site Code numarasının kontrol paneline tanımlanmamış olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: PDKS yazılımından Wiegand formatına yeni Tesis Kodunu (Örn: FC 120) ekleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "PDKS Admin -> Card Format",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yeni alınan kartların sistemde \"Geçersiz Tesis\" uyarısı vermesi.",
+    "derin_teknik_analiz": "Yeni kartların Site Code numarasının kontrol paneline tanımlanmamış olması. Çözüm: PDKS yazılımından Wiegand formatına yeni Tesis Kodunu (Örn: FC 120) ekleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "meyer parmak i̇zi terminali",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_298",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Meyer Parmak İzi Terminali: TCP/IP Ağ İletişim Anahtarı (Comms Key) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Meyer Parmak İzi Terminali sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Cihaz menüsündeki iletişim şifresinin varsayılan 0 yerine değiştirilmiş olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Cihaz menüsünden Ağ -> İletişim Şifresini sıfırlayın veya yazılıma kaydedin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Ping 192.168.1.201",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yazılımın terminale bağlanırken \"Parola Hatalı\" uyarısı vermesi.",
+    "derin_teknik_analiz": "Cihaz menüsündeki iletişim şifresinin varsayılan 0 yerine değiştirilmiş olması. Çözüm: Cihaz menüsünden Ağ -> İletişim Şifresini sıfırlayın veya yazılıma kaydedin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "meyer parmak i̇zi terminali",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_299",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Meyer Parmak İzi Terminali: Manyetik Kapı Kontağı (Door Sensor) Açık Alarmı",
+    "hizli_adimlar": [
+      "Meyer Parmak İzi Terminali sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kapı pervazındaki manyetik kontak kablosunun kopması veya mıknatısın düşmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Manyetik kontak uçlarını multimetre ile ölçün ve mıknatıs mesafesini ayarlayın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Panel Status -> Door 1 Input",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kapı kapalı olduğu halde PDKS panelinin aralıksız buzzer ötmesi.",
+    "derin_teknik_analiz": "Kapı pervazındaki manyetik kontak kablosunun kopması veya mıknatısın düşmesi. Çözüm: Manyetik kontak uçlarını multimetre ile ölçün ve mıknatıs mesafesini ayarlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "meyer parmak i̇zi terminali",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_300",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Polimek Turnike Kart Okuyucu: Parmak İzi Optik Prizma Çizilmesi ve Tanımama",
+    "hizli_adimlar": [
+      "Polimek Turnike Kart Okuyucu sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Prizma üzerindeki silikon kaplamanın aşınması veya anahtarlıkla çizilmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Optik prizma silikon katmanını yenileyin veya sensör kafasını değiştirin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Sensor Test -> Calibration",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Personelin parmağını basmasına rağmen cihazın algılamaması.",
+    "derin_teknik_analiz": "Prizma üzerindeki silikon kaplamanın aşınması veya anahtarlıkla çizilmesi. Çözüm: Optik prizma silikon katmanını yenileyin veya sensör kafasını değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "polimek turnike kart okuyucu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_301",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Polimek Turnike Kart Okuyucu: Wiegand 26-bit Tesis Kodu (Facility Code) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Polimek Turnike Kart Okuyucu sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Yeni kartların Site Code numarasının kontrol paneline tanımlanmamış olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: PDKS yazılımından Wiegand formatına yeni Tesis Kodunu (Örn: FC 120) ekleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "PDKS Admin -> Card Format",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yeni alınan kartların sistemde \"Geçersiz Tesis\" uyarısı vermesi.",
+    "derin_teknik_analiz": "Yeni kartların Site Code numarasının kontrol paneline tanımlanmamış olması. Çözüm: PDKS yazılımından Wiegand formatına yeni Tesis Kodunu (Örn: FC 120) ekleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "polimek turnike kart okuyucu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_302",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Polimek Turnike Kart Okuyucu: TCP/IP Ağ İletişim Anahtarı (Comms Key) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Polimek Turnike Kart Okuyucu sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Cihaz menüsündeki iletişim şifresinin varsayılan 0 yerine değiştirilmiş olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Cihaz menüsünden Ağ -> İletişim Şifresini sıfırlayın veya yazılıma kaydedin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Ping 192.168.1.201",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yazılımın terminale bağlanırken \"Parola Hatalı\" uyarısı vermesi.",
+    "derin_teknik_analiz": "Cihaz menüsündeki iletişim şifresinin varsayılan 0 yerine değiştirilmiş olması. Çözüm: Cihaz menüsünden Ağ -> İletişim Şifresini sıfırlayın veya yazılıma kaydedin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "polimek turnike kart okuyucu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_303",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Polimek Turnike Kart Okuyucu: Manyetik Kapı Kontağı (Door Sensor) Açık Alarmı",
+    "hizli_adimlar": [
+      "Polimek Turnike Kart Okuyucu sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kapı pervazındaki manyetik kontak kablosunun kopması veya mıknatısın düşmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Manyetik kontak uçlarını multimetre ile ölçün ve mıknatıs mesafesini ayarlayın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Panel Status -> Door 1 Input",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kapı kapalı olduğu halde PDKS panelinin aralıksız buzzer ötmesi.",
+    "derin_teknik_analiz": "Kapı pervazındaki manyetik kontak kablosunun kopması veya mıknatısın düşmesi. Çözüm: Manyetik kontak uçlarını multimetre ile ölçün ve mıknatıs mesafesini ayarlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "polimek turnike kart okuyucu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_304",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "HID iCLASS SE R40: Parmak İzi Optik Prizma Çizilmesi ve Tanımama",
+    "hizli_adimlar": [
+      "HID iCLASS SE R40 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Prizma üzerindeki silikon kaplamanın aşınması veya anahtarlıkla çizilmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Optik prizma silikon katmanını yenileyin veya sensör kafasını değiştirin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Sensor Test -> Calibration",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Personelin parmağını basmasına rağmen cihazın algılamaması.",
+    "derin_teknik_analiz": "Prizma üzerindeki silikon kaplamanın aşınması veya anahtarlıkla çizilmesi. Çözüm: Optik prizma silikon katmanını yenileyin veya sensör kafasını değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "hid iclass se r40",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_305",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "HID iCLASS SE R40: Wiegand 26-bit Tesis Kodu (Facility Code) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "HID iCLASS SE R40 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Yeni kartların Site Code numarasının kontrol paneline tanımlanmamış olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: PDKS yazılımından Wiegand formatına yeni Tesis Kodunu (Örn: FC 120) ekleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "PDKS Admin -> Card Format",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yeni alınan kartların sistemde \"Geçersiz Tesis\" uyarısı vermesi.",
+    "derin_teknik_analiz": "Yeni kartların Site Code numarasının kontrol paneline tanımlanmamış olması. Çözüm: PDKS yazılımından Wiegand formatına yeni Tesis Kodunu (Örn: FC 120) ekleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "hid iclass se r40",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_306",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "HID iCLASS SE R40: TCP/IP Ağ İletişim Anahtarı (Comms Key) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "HID iCLASS SE R40 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Cihaz menüsündeki iletişim şifresinin varsayılan 0 yerine değiştirilmiş olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Cihaz menüsünden Ağ -> İletişim Şifresini sıfırlayın veya yazılıma kaydedin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Ping 192.168.1.201",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yazılımın terminale bağlanırken \"Parola Hatalı\" uyarısı vermesi.",
+    "derin_teknik_analiz": "Cihaz menüsündeki iletişim şifresinin varsayılan 0 yerine değiştirilmiş olması. Çözüm: Cihaz menüsünden Ağ -> İletişim Şifresini sıfırlayın veya yazılıma kaydedin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "hid iclass se r40",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_307",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "HID iCLASS SE R40: Manyetik Kapı Kontağı (Door Sensor) Açık Alarmı",
+    "hizli_adimlar": [
+      "HID iCLASS SE R40 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kapı pervazındaki manyetik kontak kablosunun kopması veya mıknatısın düşmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Manyetik kontak uçlarını multimetre ile ölçün ve mıknatıs mesafesini ayarlayın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Panel Status -> Door 1 Input",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kapı kapalı olduğu halde PDKS panelinin aralıksız buzzer ötmesi.",
+    "derin_teknik_analiz": "Kapı pervazındaki manyetik kontak kablosunun kopması veya mıknatısın düşmesi. Çözüm: Manyetik kontak uçlarını multimetre ile ölçün ve mıknatıs mesafesini ayarlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "hid iclass se r40",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_308",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Rosslare AC-225IP: Parmak İzi Optik Prizma Çizilmesi ve Tanımama",
+    "hizli_adimlar": [
+      "Rosslare AC-225IP sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Prizma üzerindeki silikon kaplamanın aşınması veya anahtarlıkla çizilmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Optik prizma silikon katmanını yenileyin veya sensör kafasını değiştirin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Sensor Test -> Calibration",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Personelin parmağını basmasına rağmen cihazın algılamaması.",
+    "derin_teknik_analiz": "Prizma üzerindeki silikon kaplamanın aşınması veya anahtarlıkla çizilmesi. Çözüm: Optik prizma silikon katmanını yenileyin veya sensör kafasını değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "rosslare ac-225ip",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_309",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Rosslare AC-225IP: Wiegand 26-bit Tesis Kodu (Facility Code) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Rosslare AC-225IP sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Yeni kartların Site Code numarasının kontrol paneline tanımlanmamış olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: PDKS yazılımından Wiegand formatına yeni Tesis Kodunu (Örn: FC 120) ekleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "PDKS Admin -> Card Format",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yeni alınan kartların sistemde \"Geçersiz Tesis\" uyarısı vermesi.",
+    "derin_teknik_analiz": "Yeni kartların Site Code numarasının kontrol paneline tanımlanmamış olması. Çözüm: PDKS yazılımından Wiegand formatına yeni Tesis Kodunu (Örn: FC 120) ekleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "rosslare ac-225ip",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_310",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Rosslare AC-225IP: TCP/IP Ağ İletişim Anahtarı (Comms Key) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Rosslare AC-225IP sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Cihaz menüsündeki iletişim şifresinin varsayılan 0 yerine değiştirilmiş olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Cihaz menüsünden Ağ -> İletişim Şifresini sıfırlayın veya yazılıma kaydedin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Ping 192.168.1.201",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yazılımın terminale bağlanırken \"Parola Hatalı\" uyarısı vermesi.",
+    "derin_teknik_analiz": "Cihaz menüsündeki iletişim şifresinin varsayılan 0 yerine değiştirilmiş olması. Çözüm: Cihaz menüsünden Ağ -> İletişim Şifresini sıfırlayın veya yazılıma kaydedin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "rosslare ac-225ip",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_311",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Rosslare AC-225IP: Manyetik Kapı Kontağı (Door Sensor) Açık Alarmı",
+    "hizli_adimlar": [
+      "Rosslare AC-225IP sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kapı pervazındaki manyetik kontak kablosunun kopması veya mıknatısın düşmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Manyetik kontak uçlarını multimetre ile ölçün ve mıknatıs mesafesini ayarlayın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Panel Status -> Door 1 Input",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kapı kapalı olduğu halde PDKS panelinin aralıksız buzzer ötmesi.",
+    "derin_teknik_analiz": "Kapı pervazındaki manyetik kontak kablosunun kopması veya mıknatısın düşmesi. Çözüm: Manyetik kontak uçlarını multimetre ile ölçün ve mıknatıs mesafesini ayarlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "rosslare ac-225ip",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_312",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Anviz FacePass 7 Pro: Parmak İzi Optik Prizma Çizilmesi ve Tanımama",
+    "hizli_adimlar": [
+      "Anviz FacePass 7 Pro sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Prizma üzerindeki silikon kaplamanın aşınması veya anahtarlıkla çizilmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Optik prizma silikon katmanını yenileyin veya sensör kafasını değiştirin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Sensor Test -> Calibration",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Personelin parmağını basmasına rağmen cihazın algılamaması.",
+    "derin_teknik_analiz": "Prizma üzerindeki silikon kaplamanın aşınması veya anahtarlıkla çizilmesi. Çözüm: Optik prizma silikon katmanını yenileyin veya sensör kafasını değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "anviz facepass 7 pro",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_313",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Anviz FacePass 7 Pro: Wiegand 26-bit Tesis Kodu (Facility Code) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Anviz FacePass 7 Pro sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Yeni kartların Site Code numarasının kontrol paneline tanımlanmamış olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: PDKS yazılımından Wiegand formatına yeni Tesis Kodunu (Örn: FC 120) ekleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "PDKS Admin -> Card Format",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yeni alınan kartların sistemde \"Geçersiz Tesis\" uyarısı vermesi.",
+    "derin_teknik_analiz": "Yeni kartların Site Code numarasının kontrol paneline tanımlanmamış olması. Çözüm: PDKS yazılımından Wiegand formatına yeni Tesis Kodunu (Örn: FC 120) ekleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "anviz facepass 7 pro",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_314",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Anviz FacePass 7 Pro: TCP/IP Ağ İletişim Anahtarı (Comms Key) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Anviz FacePass 7 Pro sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Cihaz menüsündeki iletişim şifresinin varsayılan 0 yerine değiştirilmiş olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Cihaz menüsünden Ağ -> İletişim Şifresini sıfırlayın veya yazılıma kaydedin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Ping 192.168.1.201",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yazılımın terminale bağlanırken \"Parola Hatalı\" uyarısı vermesi.",
+    "derin_teknik_analiz": "Cihaz menüsündeki iletişim şifresinin varsayılan 0 yerine değiştirilmiş olması. Çözüm: Cihaz menüsünden Ağ -> İletişim Şifresini sıfırlayın veya yazılıma kaydedin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "anviz facepass 7 pro",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_315",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Anviz FacePass 7 Pro: Manyetik Kapı Kontağı (Door Sensor) Açık Alarmı",
+    "hizli_adimlar": [
+      "Anviz FacePass 7 Pro sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kapı pervazındaki manyetik kontak kablosunun kopması veya mıknatısın düşmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Manyetik kontak uçlarını multimetre ile ölçün ve mıknatıs mesafesini ayarlayın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Panel Status -> Door 1 Input",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kapı kapalı olduğu halde PDKS panelinin aralıksız buzzer ötmesi.",
+    "derin_teknik_analiz": "Kapı pervazındaki manyetik kontak kablosunun kopması veya mıknatısın düşmesi. Çözüm: Manyetik kontak uçlarını multimetre ile ölçün ve mıknatıs mesafesini ayarlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "anviz facepass 7 pro",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_316",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "ZKTeco ProFace X: Parmak İzi Optik Prizma Çizilmesi ve Tanımama",
+    "hizli_adimlar": [
+      "ZKTeco ProFace X sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Prizma üzerindeki silikon kaplamanın aşınması veya anahtarlıkla çizilmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Optik prizma silikon katmanını yenileyin veya sensör kafasını değiştirin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Sensor Test -> Calibration",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Personelin parmağını basmasına rağmen cihazın algılamaması.",
+    "derin_teknik_analiz": "Prizma üzerindeki silikon kaplamanın aşınması veya anahtarlıkla çizilmesi. Çözüm: Optik prizma silikon katmanını yenileyin veya sensör kafasını değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "zkteco proface x",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_317",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "ZKTeco ProFace X: Wiegand 26-bit Tesis Kodu (Facility Code) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "ZKTeco ProFace X sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Yeni kartların Site Code numarasının kontrol paneline tanımlanmamış olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: PDKS yazılımından Wiegand formatına yeni Tesis Kodunu (Örn: FC 120) ekleyin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "PDKS Admin -> Card Format",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yeni alınan kartların sistemde \"Geçersiz Tesis\" uyarısı vermesi.",
+    "derin_teknik_analiz": "Yeni kartların Site Code numarasının kontrol paneline tanımlanmamış olması. Çözüm: PDKS yazılımından Wiegand formatına yeni Tesis Kodunu (Örn: FC 120) ekleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "zkteco proface x",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_318",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "ZKTeco ProFace X: TCP/IP Ağ İletişim Anahtarı (Comms Key) Uyuşmazlığı",
+    "hizli_adimlar": [
+      "ZKTeco ProFace X sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Cihaz menüsündeki iletişim şifresinin varsayılan 0 yerine değiştirilmiş olması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Cihaz menüsünden Ağ -> İletişim Şifresini sıfırlayın veya yazılıma kaydedin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Ping 192.168.1.201",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Yazılımın terminale bağlanırken \"Parola Hatalı\" uyarısı vermesi.",
+    "derin_teknik_analiz": "Cihaz menüsündeki iletişim şifresinin varsayılan 0 yerine değiştirilmiş olması. Çözüm: Cihaz menüsünden Ağ -> İletişim Şifresini sıfırlayın veya yazılıma kaydedin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "zkteco proface x",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_319",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "ZKTeco ProFace X: Manyetik Kapı Kontağı (Door Sensor) Açık Alarmı",
+    "hizli_adimlar": [
+      "ZKTeco ProFace X sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kapı pervazındaki manyetik kontak kablosunun kopması veya mıknatısın düşmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Manyetik kontak uçlarını multimetre ile ölçün ve mıknatıs mesafesini ayarlayın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Panel Status -> Door 1 Input",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kapı kapalı olduğu halde PDKS panelinin aralıksız buzzer ötmesi.",
+    "derin_teknik_analiz": "Kapı pervazındaki manyetik kontak kablosunun kopması veya mıknatısın düşmesi. Çözüm: Manyetik kontak uçlarını multimetre ile ölçün ve mıknatıs mesafesini ayarlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "zkteco proface x",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2557",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "ZKTeco SpeedFace-V5L: Wiegand 26/34 Bit Veri Hattında Parazit Nedeniyle Kartların Okunmaması",
+    "hizli_adimlar": [
+      "ZKTeco SpeedFace-V5L cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Wiegand D0 ve D1 data kablolarının 220V yüksek gerilim kablolarıyla aynı tavadan geçmesi sonucu indüklenen elektriksel gürültü.",
+      "Saha servis prosedürünü yerine getirin: Veri kablosunu ekranlı (STP/FTP) kabloyla değiştirin ve kablo zırhını kontrol paneli tarafında toprağa bağlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "ZKTeco SpeedFace-V5L Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Personel kartı okuttuğunda turnikenin açılmaması veya panoda geçersiz kart ID logu düşmesi.",
+    "derin_teknik_analiz": "Kök Neden: Wiegand D0 ve D1 data kablolarının 220V yüksek gerilim kablolarıyla aynı tavadan geçmesi sonucu indüklenen elektriksel gürültü. Saha Çözümü: Veri kablosunu ekranlı (STP/FTP) kabloyla değiştirin ve kablo zırhını kontrol paneli tarafında toprağa bağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "zkteco speedface-v5l",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2558",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "ZKTeco SpeedFace-V5L: Yüz Tanıma Terminalinde Güneş Işığı ve Karşı Işık Nedeniyle Tanıma Başarısızlığı",
+    "hizli_adimlar": [
+      "ZKTeco SpeedFace-V5L cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kızılötesi (NIR) kameraların doğrudan gelen güneş ışınları nedeniyle parlama yapması.",
+      "Saha servis prosedürünü yerine getirin: Cihaz montaj yerine siperlik takın veya cihaz menüsünden HDR / WDR arka ışık telafisi modunu etkinleştirin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "ZKTeco SpeedFace-V5L Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Giriş kapısındaki terminalin sabah saatlerinde personelin yüzünü tanıyamayıp kapıda kuyruk oluşturması.",
+    "derin_teknik_analiz": "Kök Neden: Kızılötesi (NIR) kameraların doğrudan gelen güneş ışınları nedeniyle parlama yapması. Saha Çözümü: Cihaz montaj yerine siperlik takın veya cihaz menüsünden HDR / WDR arka ışık telafisi modunu etkinleştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "zkteco speedface-v5l",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2559",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "ZKTeco SpeedFace-V5L: Turnike Kuru Kontak (Dry Contact) Röle Darbe Süresi Uyuşmazlığı",
+    "hizli_adimlar": [
+      "ZKTeco SpeedFace-V5L cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: PDKS panelinin tetikleme röle süresinin 50 ms gibi çok dar bir aralığa ayarlı olması.",
+      "Saha servis prosedürünü yerine getirin: Panel yazılımından kapı açılma süresini (Pulse Duration) 3 saniye olarak yeniden yapılandırın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "ZKTeco SpeedFace-V5L Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kart okutulduğunda turnikenin çok kısa bir an kilidi açıp hemen kilitlemesi ve personelin geçememesi.",
+    "derin_teknik_analiz": "Kök Neden: PDKS panelinin tetikleme röle süresinin 50 ms gibi çok dar bir aralığa ayarlı olması. Saha Çözümü: Panel yazılımından kapı açılma süresini (Pulse Duration) 3 saniye olarak yeniden yapılandırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "zkteco speedface-v5l",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2560",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "ZKTeco inBio 460: Wiegand 26/34 Bit Veri Hattında Parazit Nedeniyle Kartların Okunmaması",
+    "hizli_adimlar": [
+      "ZKTeco inBio 460 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Wiegand D0 ve D1 data kablolarının 220V yüksek gerilim kablolarıyla aynı tavadan geçmesi sonucu indüklenen elektriksel gürültü.",
+      "Saha servis prosedürünü yerine getirin: Veri kablosunu ekranlı (STP/FTP) kabloyla değiştirin ve kablo zırhını kontrol paneli tarafında toprağa bağlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "ZKTeco inBio 460 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Personel kartı okuttuğunda turnikenin açılmaması veya panoda geçersiz kart ID logu düşmesi.",
+    "derin_teknik_analiz": "Kök Neden: Wiegand D0 ve D1 data kablolarının 220V yüksek gerilim kablolarıyla aynı tavadan geçmesi sonucu indüklenen elektriksel gürültü. Saha Çözümü: Veri kablosunu ekranlı (STP/FTP) kabloyla değiştirin ve kablo zırhını kontrol paneli tarafında toprağa bağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "zkteco inbio 460",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2561",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "ZKTeco inBio 460: Yüz Tanıma Terminalinde Güneş Işığı ve Karşı Işık Nedeniyle Tanıma Başarısızlığı",
+    "hizli_adimlar": [
+      "ZKTeco inBio 460 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kızılötesi (NIR) kameraların doğrudan gelen güneş ışınları nedeniyle parlama yapması.",
+      "Saha servis prosedürünü yerine getirin: Cihaz montaj yerine siperlik takın veya cihaz menüsünden HDR / WDR arka ışık telafisi modunu etkinleştirin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "ZKTeco inBio 460 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Giriş kapısındaki terminalin sabah saatlerinde personelin yüzünü tanıyamayıp kapıda kuyruk oluşturması.",
+    "derin_teknik_analiz": "Kök Neden: Kızılötesi (NIR) kameraların doğrudan gelen güneş ışınları nedeniyle parlama yapması. Saha Çözümü: Cihaz montaj yerine siperlik takın veya cihaz menüsünden HDR / WDR arka ışık telafisi modunu etkinleştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "zkteco inbio 460",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2562",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "ZKTeco inBio 460: Turnike Kuru Kontak (Dry Contact) Röle Darbe Süresi Uyuşmazlığı",
+    "hizli_adimlar": [
+      "ZKTeco inBio 460 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: PDKS panelinin tetikleme röle süresinin 50 ms gibi çok dar bir aralığa ayarlı olması.",
+      "Saha servis prosedürünü yerine getirin: Panel yazılımından kapı açılma süresini (Pulse Duration) 3 saniye olarak yeniden yapılandırın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "ZKTeco inBio 460 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kart okutulduğunda turnikenin çok kısa bir an kilidi açıp hemen kilitlemesi ve personelin geçememesi.",
+    "derin_teknik_analiz": "Kök Neden: PDKS panelinin tetikleme röle süresinin 50 ms gibi çok dar bir aralığa ayarlı olması. Saha Çözümü: Panel yazılımından kapı açılma süresini (Pulse Duration) 3 saniye olarak yeniden yapılandırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "zkteco inbio 460",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2563",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Meyer Biyometrik Terminal: Wiegand 26/34 Bit Veri Hattında Parazit Nedeniyle Kartların Okunmaması",
+    "hizli_adimlar": [
+      "Meyer Biyometrik Terminal cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Wiegand D0 ve D1 data kablolarının 220V yüksek gerilim kablolarıyla aynı tavadan geçmesi sonucu indüklenen elektriksel gürültü.",
+      "Saha servis prosedürünü yerine getirin: Veri kablosunu ekranlı (STP/FTP) kabloyla değiştirin ve kablo zırhını kontrol paneli tarafında toprağa bağlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Meyer Biyometrik Terminal Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Personel kartı okuttuğunda turnikenin açılmaması veya panoda geçersiz kart ID logu düşmesi.",
+    "derin_teknik_analiz": "Kök Neden: Wiegand D0 ve D1 data kablolarının 220V yüksek gerilim kablolarıyla aynı tavadan geçmesi sonucu indüklenen elektriksel gürültü. Saha Çözümü: Veri kablosunu ekranlı (STP/FTP) kabloyla değiştirin ve kablo zırhını kontrol paneli tarafında toprağa bağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "meyer biyometrik terminal",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2564",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Meyer Biyometrik Terminal: Yüz Tanıma Terminalinde Güneş Işığı ve Karşı Işık Nedeniyle Tanıma Başarısızlığı",
+    "hizli_adimlar": [
+      "Meyer Biyometrik Terminal cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kızılötesi (NIR) kameraların doğrudan gelen güneş ışınları nedeniyle parlama yapması.",
+      "Saha servis prosedürünü yerine getirin: Cihaz montaj yerine siperlik takın veya cihaz menüsünden HDR / WDR arka ışık telafisi modunu etkinleştirin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Meyer Biyometrik Terminal Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Giriş kapısındaki terminalin sabah saatlerinde personelin yüzünü tanıyamayıp kapıda kuyruk oluşturması.",
+    "derin_teknik_analiz": "Kök Neden: Kızılötesi (NIR) kameraların doğrudan gelen güneş ışınları nedeniyle parlama yapması. Saha Çözümü: Cihaz montaj yerine siperlik takın veya cihaz menüsünden HDR / WDR arka ışık telafisi modunu etkinleştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "meyer biyometrik terminal",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2565",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Meyer Biyometrik Terminal: Turnike Kuru Kontak (Dry Contact) Röle Darbe Süresi Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Meyer Biyometrik Terminal cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: PDKS panelinin tetikleme röle süresinin 50 ms gibi çok dar bir aralığa ayarlı olması.",
+      "Saha servis prosedürünü yerine getirin: Panel yazılımından kapı açılma süresini (Pulse Duration) 3 saniye olarak yeniden yapılandırın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Meyer Biyometrik Terminal Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kart okutulduğunda turnikenin çok kısa bir an kilidi açıp hemen kilitlemesi ve personelin geçememesi.",
+    "derin_teknik_analiz": "Kök Neden: PDKS panelinin tetikleme röle süresinin 50 ms gibi çok dar bir aralığa ayarlı olması. Saha Çözümü: Panel yazılımından kapı açılma süresini (Pulse Duration) 3 saniye olarak yeniden yapılandırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "meyer biyometrik terminal",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2566",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Polimek Turnike Kart Okuyucu: Wiegand 26/34 Bit Veri Hattında Parazit Nedeniyle Kartların Okunmaması",
+    "hizli_adimlar": [
+      "Polimek Turnike Kart Okuyucu cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Wiegand D0 ve D1 data kablolarının 220V yüksek gerilim kablolarıyla aynı tavadan geçmesi sonucu indüklenen elektriksel gürültü.",
+      "Saha servis prosedürünü yerine getirin: Veri kablosunu ekranlı (STP/FTP) kabloyla değiştirin ve kablo zırhını kontrol paneli tarafında toprağa bağlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Polimek Turnike Kart Okuyucu Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Personel kartı okuttuğunda turnikenin açılmaması veya panoda geçersiz kart ID logu düşmesi.",
+    "derin_teknik_analiz": "Kök Neden: Wiegand D0 ve D1 data kablolarının 220V yüksek gerilim kablolarıyla aynı tavadan geçmesi sonucu indüklenen elektriksel gürültü. Saha Çözümü: Veri kablosunu ekranlı (STP/FTP) kabloyla değiştirin ve kablo zırhını kontrol paneli tarafında toprağa bağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "polimek turnike kart okuyucu",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2567",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Polimek Turnike Kart Okuyucu: Yüz Tanıma Terminalinde Güneş Işığı ve Karşı Işık Nedeniyle Tanıma Başarısızlığı",
+    "hizli_adimlar": [
+      "Polimek Turnike Kart Okuyucu cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kızılötesi (NIR) kameraların doğrudan gelen güneş ışınları nedeniyle parlama yapması.",
+      "Saha servis prosedürünü yerine getirin: Cihaz montaj yerine siperlik takın veya cihaz menüsünden HDR / WDR arka ışık telafisi modunu etkinleştirin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Polimek Turnike Kart Okuyucu Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Giriş kapısındaki terminalin sabah saatlerinde personelin yüzünü tanıyamayıp kapıda kuyruk oluşturması.",
+    "derin_teknik_analiz": "Kök Neden: Kızılötesi (NIR) kameraların doğrudan gelen güneş ışınları nedeniyle parlama yapması. Saha Çözümü: Cihaz montaj yerine siperlik takın veya cihaz menüsünden HDR / WDR arka ışık telafisi modunu etkinleştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "polimek turnike kart okuyucu",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2568",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Polimek Turnike Kart Okuyucu: Turnike Kuru Kontak (Dry Contact) Röle Darbe Süresi Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Polimek Turnike Kart Okuyucu cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: PDKS panelinin tetikleme röle süresinin 50 ms gibi çok dar bir aralığa ayarlı olması.",
+      "Saha servis prosedürünü yerine getirin: Panel yazılımından kapı açılma süresini (Pulse Duration) 3 saniye olarak yeniden yapılandırın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Polimek Turnike Kart Okuyucu Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kart okutulduğunda turnikenin çok kısa bir an kilidi açıp hemen kilitlemesi ve personelin geçememesi.",
+    "derin_teknik_analiz": "Kök Neden: PDKS panelinin tetikleme röle süresinin 50 ms gibi çok dar bir aralığa ayarlı olması. Saha Çözümü: Panel yazılımından kapı açılma süresini (Pulse Duration) 3 saniye olarak yeniden yapılandırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "polimek turnike kart okuyucu",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2569",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Suprema FaceStation 2: Wiegand 26/34 Bit Veri Hattında Parazit Nedeniyle Kartların Okunmaması",
+    "hizli_adimlar": [
+      "Suprema FaceStation 2 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Wiegand D0 ve D1 data kablolarının 220V yüksek gerilim kablolarıyla aynı tavadan geçmesi sonucu indüklenen elektriksel gürültü.",
+      "Saha servis prosedürünü yerine getirin: Veri kablosunu ekranlı (STP/FTP) kabloyla değiştirin ve kablo zırhını kontrol paneli tarafında toprağa bağlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Suprema FaceStation 2 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Personel kartı okuttuğunda turnikenin açılmaması veya panoda geçersiz kart ID logu düşmesi.",
+    "derin_teknik_analiz": "Kök Neden: Wiegand D0 ve D1 data kablolarının 220V yüksek gerilim kablolarıyla aynı tavadan geçmesi sonucu indüklenen elektriksel gürültü. Saha Çözümü: Veri kablosunu ekranlı (STP/FTP) kabloyla değiştirin ve kablo zırhını kontrol paneli tarafında toprağa bağlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "suprema facestation 2",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2570",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Suprema FaceStation 2: Yüz Tanıma Terminalinde Güneş Işığı ve Karşı Işık Nedeniyle Tanıma Başarısızlığı",
+    "hizli_adimlar": [
+      "Suprema FaceStation 2 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kızılötesi (NIR) kameraların doğrudan gelen güneş ışınları nedeniyle parlama yapması.",
+      "Saha servis prosedürünü yerine getirin: Cihaz montaj yerine siperlik takın veya cihaz menüsünden HDR / WDR arka ışık telafisi modunu etkinleştirin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Suprema FaceStation 2 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Giriş kapısındaki terminalin sabah saatlerinde personelin yüzünü tanıyamayıp kapıda kuyruk oluşturması.",
+    "derin_teknik_analiz": "Kök Neden: Kızılötesi (NIR) kameraların doğrudan gelen güneş ışınları nedeniyle parlama yapması. Saha Çözümü: Cihaz montaj yerine siperlik takın veya cihaz menüsünden HDR / WDR arka ışık telafisi modunu etkinleştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "suprema facestation 2",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2571",
+    "kategori": "Güvenlik & Kamera",
+    "alt_kategori": "PDKS & Geçiş Kontrol",
+    "baslik": "Suprema FaceStation 2: Turnike Kuru Kontak (Dry Contact) Röle Darbe Süresi Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Suprema FaceStation 2 cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: PDKS panelinin tetikleme röle süresinin 50 ms gibi çok dar bir aralığa ayarlı olması.",
+      "Saha servis prosedürünü yerine getirin: Panel yazılımından kapı açılma süresini (Pulse Duration) 3 saniye olarak yeniden yapılandırın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "Suprema FaceStation 2 Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kart okutulduğunda turnikenin çok kısa bir an kilidi açıp hemen kilitlemesi ve personelin geçememesi.",
+    "derin_teknik_analiz": "Kök Neden: PDKS panelinin tetikleme röle süresinin 50 ms gibi çok dar bir aralığa ayarlı olması. Saha Çözümü: Panel yazılımından kapı açılma süresini (Pulse Duration) 3 saniye olarak yeniden yapılandırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "güvenlik & kamera",
+      "pdks & geçiş kontrol",
+      "suprema facestation 2",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  }
+]

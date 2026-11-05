@@ -1,852 +1,3172 @@
-{
-  "versiyon": "2.5.0",
-  "toplam": 22,
-  "modul": "feed_donanim.json",
-  "kayitlar": [
-    {
-      "id": "donanim_00001",
-      "kategori": "Donanım",
-      "alt_kategori": "Anakart VRM Mosfet Kısa Devre Tespiti",
-      "baslik": "Anakart VRM Mosfet Kısa Devre Tespiti",
-      "hizli_adimlar": [
-        "Saha arıza/kurulum belirtisini teyit edin: İşlemci güç girişindeki (EPS 12V 8-pin) mosfetlerin multimetre diyot modunda incelenmesi.",
-        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
-        "Birincil komutu veya eylemi uygulayın: Multimetre Diyot Modu -> Siyah prob şaseye, kırmızı prob Mosfet Drain bacağına -> 0.00V ötüyorsa kısa devre",
-        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Teşhis ve Uygulama Komutu",
-          "komut": "Multimetre Diyot Modu -> Siyah prob şaseye, kırmızı prob Mosfet Drain bacağına -> 0.00V ötüyorsa kısa devre",
-          "aciklama": "Kısa devre fazını belirler."
-        }
-      ],
-      "temel_anlatim": "Anakart VRM Mosfet Kısa Devre Tespiti: İşlemci güç girişindeki (EPS 12V 8-pin) mosfetlerin multimetre diyot modunda incelenmesi. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
-      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. Multimetre Diyot Modu -> Siyah prob şaseye, kırmızı prob Mosfet Drain bacağına -> 0.00V ötüyorsa kısa devre parametresi durumu optimize eder.",
-      "kenar_durumlar": [
-        {
-          "durum": "Zaman aşımı veya erişim engeli hatası",
-          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
-          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "mosfet",
-        "kisa devre",
-        "donanim",
-        "vrm",
-        "donanım",
-        "anakart",
-        "multimetre"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "donanim_00003",
-      "kategori": "Donanım",
-      "alt_kategori": "RAM Kararlılık Testi",
-      "baslik": "RAM Kararlılık Testi & MemTest86 Hata Analizi",
-      "hizli_adimlar": [
-        "Saha arıza/kurulum belirtisini teyit edin: Mavi ekran veren sistemlerde RAM modüllerinin PassMark MemTest86 ile analizi.",
-        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
-        "Birincil komutu veya eylemi uygulayın: USB Boot MemTest86 -> Test 6 (Block Move) ve Test 7 (Inversion) taraması",
-        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Teşhis ve Uygulama Komutu",
-          "komut": "USB Boot MemTest86 -> Test 6 (Block Move) ve Test 7 (Inversion) taraması",
-          "aciklama": "RAM hücre bozulmalarını listeler."
-        }
-      ],
-      "temel_anlatim": "RAM Kararlılık Testi & MemTest86 Hata Analizi: Mavi ekran veren sistemlerde RAM modüllerinin PassMark MemTest86 ile analizi. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
-      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. USB Boot MemTest86 -> Test 6 (Block Move) ve Test 7 (Inversion) taraması parametresi durumu optimize eder.",
-      "kenar_durumlar": [
-        {
-          "durum": "Zaman aşımı veya erişim engeli hatası",
-          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
-          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "ram",
-        "bellek arizasi",
-        "donanim",
-        "xmp",
-        "mavi ekran",
-        "donanım",
-        "memtest86"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "donanim_00004",
-      "kategori": "Donanım",
-      "alt_kategori": "Ekran Kartı GPU VRAM Arızası",
-      "baslik": "Ekran Kartı GPU VRAM Arızası (MATS/MODS)",
-      "hizli_adimlar": [
-        "Saha arıza/kurulum belirtisini teyit edin: NVIDIA ekran kartında ekrana çizgi gelmesi veya sürücü yükleyince çökmesi.",
-        "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
-        "Birincil komutu veya eylemi uygulayın: ./mats -e 20 -> Raporu oku: 'FAIL: Subpartition B0, Byte 15'",
-        "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Teşhis ve Uygulama Komutu",
-          "komut": "./mats -e 20 -> Raporu oku: 'FAIL: Subpartition B0, Byte 15'",
-          "aciklama": "Arızalı VRAM çipini belirler."
-        }
-      ],
-      "temel_anlatim": "Ekran Kartı GPU VRAM Arızası (MATS/MODS): NVIDIA ekran kartında ekrana çizgi gelmesi veya sürücü yükleyince çökmesi. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
-      "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. ./mats -e 20 -> Raporu oku: 'FAIL: Subpartition B0, Byte 15' parametresi durumu optimize eder.",
-      "kenar_durumlar": [
-        {
-          "durum": "Zaman aşımı veya erişim engeli hatası",
-          "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
-          "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "vram",
-        "mods",
-        "mats",
-        "donanim",
-        "gpu",
-        "donanım",
-        "ekran karti"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "yaz_yazici_uzerinden_ag_taramasi_smbv2_",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Ağ Yazıcıları & Port Protokolleri",
-      "baslik": "Yazıcı Üzerinden Ağ Taraması (SMBv2/v3)",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: Klasöre tara ayarlarında NTLMv2 desteği.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Spooler Servisini Yeniden Başlat",
-          "komut": "net stop spooler && net start spooler",
-          "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
-        }
-      ],
-      "temel_anlatim": "Yazıcı Üzerinden Ağ Taraması (SMBv2/v3), bilişim altyapılarında klasöre tara ayarlarında ntlmv2 desteği. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "Yazıcı Üzerinden Ağ Taraması (SMBv2/v3) mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Klasöre tara ayarlarında NTLMv2 desteği. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "yazici uzerinden ag taramasi smbv2 ",
-        "yazıcı",
-        "ag yazicilari port protokolleri",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "print_scan_to_smb_windows_11_ntlm",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Tarayıcı & Ağa Tarama (SMB)",
-      "baslik": "Fotokopi Makinelerinden Klasöre Tarama (Scan to SMB)",
-      "hizli_adimlar": [
-        "Kyocera, Konica Minolta veya Canon fotokopiden bilgisayardaki klasöre tarama 'Bağlantı Hatası' veriyorsa:",
-        "Bilgisayarda hedef klasöre (Örn: C:\\Tarama) sağ tıklayıp Paylaşım sekmesinden 'Everyone' ve yerel kullanıcıya 'Tam Yetki' verin.",
-        "Windows 11'de eski SMBv1 kapalı olduğu için fotokopi web arayüzünde protokolü 'SMB v2/v3'e çekin.",
-        "Fotokopi makinesi adres defterinde ana makine adı yerine doğrudan IP (192.168.1.x) yazın.",
-        "Kullanıcı adı kısmına bilgisayar adı ile birlikte yazın: 'BilgisayarAdi\\KullaniciAdi' ve Windows oturum şifresini girin."
-      ],
-      "komutlar": [
-        {
-          "etiket": "SMB Sunucu Güvenlik Ayarlarını Doğrula",
-          "komut": "powershell -Command \"Get-SmbServerConfiguration | Select-Object EnableSMB2Protocol, AutoShareServer\"",
-          "aciklama": "Windows SMBv2/v3 protokolünün açık olduğunu teyit eder."
-        }
-      ],
-      "temel_anlatim": "Büyük ofis tipi fotokopi makineleri taranan belgeleri ağdaki bilgisayarların paylaşılan klasörlerine SMB protokolüyle doğrudan kaydeder. Windows 11 güvenlik sıkılaştırmaları eski fotokopi yazılımlarının klasöre yazmasını engelleyebilir.",
-      "derin_teknik_analiz": "Windows 11 sürüm 22H2/23H2 sonrası SMB sunucusunda NTLMv1 ve şifresiz konuk oturumları tamamen yasaklanmıştır. Ayrıca SMB imzalama (SMB signing) zorunlu kılınmıştır. Eski fotokopi cihazları SMB imzalama desteklemiyorsa 'Gelişmiş Denetim İlkeleri'nden imzalama esnetilmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Kullanıcı adı ve şifre doğru olmasına rağmen 'Auth Error' veriyor",
-          "neden": "Windows hesabı Microsoft e-posta hesabına (Outlook.com) bağlıdır.",
-          "cozum": "Yalnızca tarama için şifreli yerel bir kullanıcı (Örn: 'tarama' / '1234') oluşturup klasöre yetki verin."
-        }
-      ],
-      "etiketler": [
-        "scan to smb",
-        "klasore tarama",
-        "fotokopi tarama",
-        "kyocera tarama",
-        "smb v2"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "print_0007_119",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Ağa Tarama (Scan to SMB/FTP)",
-      "baslik": "Ağa Tarama (Scan to SMB/FTP) - Saha Arıza Vakası",
-      "hizli_adimlar": [
-        "Arıza belirtisini sahada teyit edin: Fotokopi makinelerinden Windows paylaşılan klasöre tarama, NTLMv2 zorunluluğu ve WIA/TWAIN kilitleri.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini, olay günlüklerini ve donanım voltajlarını denetleyin.",
-        "Önerilen teşhis komutunu çalıştırın: powershell -Command \"Get-SmbServerConfiguration\"",
-        "Değişikliğin devreye girmesi için servisi veya cihazı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Ağa Tarama (Scan to SMB/FTP) Teşhis Komutu",
-          "komut": "powershell -Command \"Get-SmbServerConfiguration\"",
-          "aciklama": "SMB sunucu güvenlik yapılandırmasını listeler."
-        }
-      ],
-      "temel_anlatim": "Bu saha rehberi, Yazıcı alanında Ağa Tarama (Scan to SMB/FTP) odaklı fotokopi makinelerinden windows paylaşılan klasöre tarama, ntlmv2 zorunluluğu ve wia/twain kilitleri. Sahada karşılaşılan tipik kilitlenmeleri çözmek için standart prosedürleri sunar.",
-      "derin_teknik_analiz": "Ağa Tarama (Scan to SMB/FTP) mekanizması, işletim sistemi çekirdeği, donanım register'ları ve ağ I/O kuyrukları düzeyinde çalışır. Fotokopi makinelerinden Windows paylaşılan klasöre tarama, NTLMv2 zorunluluğu ve WIA/TWAIN kilitleri. Arızanın tekrarlanmaması için sinyal zayıflaması ve kayıt defteri kovanları düzenli olarak denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komut hata veriyor veya yanıt vermiyor",
-          "neden": "Kaynak başka bir işlem tarafından kilitlenmiş veya donanım bağlantısı kesilmiş olabilir.",
-          "cozum": "Yönetici yetkileriyle çalıştırın veya Kurtarma Ortamında (WinRE) deneyin."
-        }
-      ],
-      "etiketler": [
-        "ağa tarama (scan to smb/ftp)",
-        "yazıcı",
-        "saha vaka 119",
-        "ariza",
-        "onarim"
-      ],
-      "oncelik": 2
-    },
-    {
-      "id": "ağ_jumbo_frames_mtu_9000",
-      "kategori": "Ağ",
-      "alt_kategori": "Yönlendirme",
-      "baslik": "Jumbo Frames (MTU 9000)",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: Depolama ağlarında (iSCSI) performans optimizasyonu.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Ağ Durumu ve Rota Tablosu",
-          "komut": "route print -4",
-          "aciklama": "Aktif yönlendirme tablosunu ve ağ geçitlerini listeler."
-        },
-        {
-          "etiket": "Netsh Arayüz Bilgisi",
-          "komut": "netsh interface ipv4 show subinterfaces",
-          "aciklama": "Ağ kartı MTU ve paket durumlarını dökümler."
-        }
-      ],
-      "temel_anlatim": "Jumbo Frames (MTU 9000), bilişim altyapılarında depolama ağlarında (iscsi) performans optimizasyonu. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "Jumbo Frames (MTU 9000) mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Depolama ağlarında (iSCSI) performans optimizasyonu. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "jumbo frames mtu 9000",
-        "ağ",
-        "yonlendirme",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "win_baslangic_programlari_kovani",
-      "kategori": "Windows",
-      "alt_kategori": "Kayıt Defteri",
-      "baslik": "Başlangıç Programları Kovanı",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: `HKLM\\Software\\...\\Run` temizliği.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Sistem Dosya Doğrulama",
-          "komut": "sfc /scannow",
-          "aciklama": "Bozulmuş Windows sistem DLL dosyalarını onarır."
-        },
-        {
-          "etiket": "DISM İmaj Sağlığı Kontrolü",
-          "komut": "dism /online /cleanup-image /restorehealth",
-          "aciklama": "Bileşen deposu bozulmalarını Windows Update üzerinden giderir."
-        }
-      ],
-      "temel_anlatim": "Başlangıç Programları Kovanı, bilişim altyapılarında `hklm\\software\\...\\run` temizliği. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "Başlangıç Programları Kovanı mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. `HKLM\\Software\\...\\Run` temizliği. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "baslangic programlari kovani",
-        "windows",
-        "kayit defteri",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "win_surucu_arama_suresini_azaltma",
-      "kategori": "Windows",
-      "alt_kategori": "Kayıt Defteri",
-      "baslik": "Sürücü Arama Süresini Azaltma",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: Menü gecikmesini (MenuShowDelay) sıfırlama.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Sistem Dosya Doğrulama",
-          "komut": "sfc /scannow",
-          "aciklama": "Bozulmuş Windows sistem DLL dosyalarını onarır."
-        },
-        {
-          "etiket": "DISM İmaj Sağlığı Kontrolü",
-          "komut": "dism /online /cleanup-image /restorehealth",
-          "aciklama": "Bileşen deposu bozulmalarını Windows Update üzerinden giderir."
-        }
-      ],
-      "temel_anlatim": "Sürücü Arama Süresini Azaltma, bilişim altyapılarında menü gecikmesini (menushowdelay) sıfırlama. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "Sürücü Arama Süresini Azaltma mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Menü gecikmesini (MenuShowDelay) sıfırlama. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "surucu arama suresini azaltma",
-        "windows",
-        "kayit defteri",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "win_dotnet_mscorsvw_cpu",
-      "kategori": "Windows",
-      "alt_kategori": "NET Framework Optimizasyonu",
-      "baslik": "mscorsvw.exe & 100% CPU Kullanımı",
-      "hizli_adimlar": [
-        "Sorun belirtisini teyit edin: Windows Update sonrası arka planda derleme yapan NGEN kuyruğunu hızlandırma.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak açın.",
-        "Sistem parametrelerini ve olay loglarını denetleyin.",
-        "Uygulanacak komut: C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\ngen.exe executeQueuedItems",
-        "Sonucu doğrulamak için servisi veya sistemi yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "mscorsvw.exe & 100% CPU Kullanımı",
-          "komut": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\ngen.exe executeQueuedItems",
-          "aciklama": "Bekleyen tüm .NET derleme görevlerini anında tamamlar."
-        }
-      ],
-      "temel_anlatim": "mscorsvw.exe & 100% CPU Kullanımı, Windows altyapısında windows update sonrası arka planda derleme yapan ngen kuyruğunu hızlandırma.",
-      "derin_teknik_analiz": "mscorsvw.exe & 100% CPU Kullanımı süreci, işletim sistemi çekirdeği ve ilgili donanım/ağ protokolü düzeyinde yürütülür. Windows Update sonrası arka planda derleme yapan NGEN kuyruğunu hızlandırma. Kalıcı çözüm için sistem günlükleri ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komut sonuç vermiyor veya erişim reddedildi",
-          "neden": "Kullanıcı Yönetici yetkilerine sahip değildir veya dosya kilitlidir.",
-          "cozum": "Yönetici olarak çalıştırın veya Kurtarma Ortamında (WinRE) deneyin."
-        }
-      ],
-      "etiketler": [
-        "mscorsvw.exe & 100% cpu kullanımı",
-        "windows",
-        "net framework optimizasyonu",
-        "ariza",
-        "onarim"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "rec_winpe_scratch_space_512",
-      "kategori": "Kurtarma",
-      "alt_kategori": "WinPE Bellek Yönetimi",
-      "baslik": "WinPE Scratch Space (Geçici RAM) Boyutu",
-      "hizli_adimlar": [
-        "Sorun belirtisini teyit edin: Kurtarma ortamında DISM veya antivirüs taraması yaparken 'Disk dolu' hatasını çözme.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak açın.",
-        "Sistem parametrelerini ve olay loglarını denetleyin.",
-        "Uygulanacak komut: dism /image:C:\\WinPE /set-scratchspace:512",
-        "Sonucu doğrulamak için servisi veya sistemi yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "WinPE Scratch Space (Geçici RAM) Boyutu",
-          "komut": "dism /image:C:\\WinPE /set-scratchspace:512",
-          "aciklama": "WinPE RAM yazma alanını 512MB'a çıkarır."
-        }
-      ],
-      "temel_anlatim": "WinPE Scratch Space (Geçici RAM) Boyutu, Kurtarma altyapısında kurtarma ortamında dism veya antivirüs taraması yaparken 'disk dolu' hatasını çözme.",
-      "derin_teknik_analiz": "WinPE Scratch Space (Geçici RAM) Boyutu süreci, işletim sistemi çekirdeği ve ilgili donanım/ağ protokolü düzeyinde yürütülür. Kurtarma ortamında DISM veya antivirüs taraması yaparken 'Disk dolu' hatasını çözme. Kalıcı çözüm için sistem günlükleri ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komut sonuç vermiyor veya erişim reddedildi",
-          "neden": "Kullanıcı Yönetici yetkilerine sahip değildir veya dosya kilitlidir.",
-          "cozum": "Yönetici olarak çalıştırın veya Kurtarma Ortamında (WinRE) deneyin."
-        }
-      ],
-      "etiketler": [
-        "winpe scratch space (geçici ram) boyutu",
-        "kurtarma",
-        "winpe bellek yönetimi",
-        "ariza",
-        "onarim"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "hw_psu_voltage_multimeter_test",
-      "kategori": "Donanım",
-      "alt_kategori": "Güç Kaynağı (PSU)",
-      "baslik": "PSU Voltaj Testi & Ataş Tetikleme",
-      "hizli_adimlar": [
-        "PSU güç kablosunu prizden çek ve tüm anakart bağlantılarını sök.",
-        "24-pin ana güç soketinde YEŞİL kabloyu (PS_ON) bul.",
-        "Bir ataş yardımıyla YEŞİL kablo pini ile herhangi bir SİYAH (GND) kablo pinini köprüle.",
-        "Güç kablosunu tak; PSU fanı dönüyorsa temel tetikleme devresi sağlamdır.",
-        "Multimetreyi DC 20V kademesine al:",
-        "SARI kablo = +12V (Tolerans: 11.40V - 12.60V)",
-        "KIRMIZI kablo = +5V (Tolerans: 4.75V - 5.25V)",
-        "TURUNCU kablo = +3.3V (Tolerans: 3.14V - 3.47V)"
-      ],
-      "komutlar": [
-        {
-          "etiket": "Dahili Pil / Enerji Raporu Çıkar",
-          "komut": "powercfg /batteryreport",
-          "aciklama": "Laptoplar için batarya sağlık raporu üretir."
-        }
-      ],
-      "temel_anlatim": "Bilgisayarın güç tuşuna basıldığında hiç tepki vermiyorsa sorun anakartta mı yoksa güç kaynağında (PSU) mı olduğunu anlamak için yeşil kabloyu ataşla şaseleyerek test ederiz.",
-      "derin_teknik_analiz": "ATX12V standardında anakart PS_ON sinyalini toprağa (GND) çekerek PSU'yu uyandırır. PSU ray voltajları stabilize olduğunda gri kablodan (Power Good / PWR_OK) +5V sinyal gönderir. PG sinyali 100-500ms gecikmeyle gelmezse anakart açılışı durdurur.",
-      "kenar_durumlar": [
-        {
-          "durum": "Fanı dönüyor fakat bilgisayara bağlayınca açmıyor",
-          "neden": "Yüksüz durumda voltajlar normal görünse de yüke bindiğinde 12V hattı çöküyordur (Kondansatör kuruması).",
-          "cozum": "PSU test cihazı ile yük altında ölçüm yapın."
-        }
-      ],
-      "etiketler": [
-        "psu",
-        "guc kaynagi",
-        "multimetre",
-        "atas testi",
-        "12v",
-        "acilmıyor"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "hw_memtest86_ram_slot_diag",
-      "kategori": "Donanım",
-      "alt_kategori": "RAM & Bellek Hataları",
-      "baslik": "MemTest86 & RAM Slot Teşhisi",
-      "hizli_adimlar": [
-        "MemTest86 yüklü bir USB bellek hazırla ve bilgisayarı USB'den başlat.",
-        "Testi başlat; tek bir kırmızı hata (Error) bile çıksa o RAM stabil değildir.",
-        "Hatanın hangi modülden kaynaklandığını bulmak için RAM'leri TEKER TEKER test et.",
-        "Eğer tek modülde de hata veriyorsa RAM'i farklı bir slota takarak anakart slot arızasını ele.",
-        "BIOS'tan XMP/EXPO profilini kapatıp standart JEDEC hızında (Örn: 2133/4800 MHz) tekrar test et."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Windows Bellek Tanılama Aracını Başlat",
-          "komut": "mdsched.exe",
-          "aciklama": "USB olmadan temel Windows bellek testini başlatır."
-        }
-      ],
-      "temel_anlatim": "Bilgisayar rasgele zamanlarda farklı mavi ekranlar veriyorsa (bir gün 0x3B, bir gün 0x1A), sorun neredeyse kesinlikle bozuk RAM çipidir. MemTest86 belleğin her hücresine veri yazıp okuyarak bozuk hücreyi yakalar.",
-      "derin_teknik_analiz": "MemTest86 Test 7 (Block Move) ve Test 8 (Random Number Sequence) algoritmaları bellek hücreleri arasındaki kapasitans kaçaklarını test eder. Hatalar belirli bir hex adresinde sabitse (Örn: 0x1F4A0...) doğrudan tekil DRAM çipi hasarlıdır.",
-      "kenar_durumlar": [
-        {
-          "durum": "RAM'ler tek tek sağlam fakat çift kanal (Dual Channel) takılınca hata veriyor",
-          "neden": "İşlemci bellek kontrolcüsü (IMC) zayıftır veya işlemci soket pinlerinde yamulma vardır.",
-          "cozum": "İşlemciyi söküp soket pinlerini büyüteçle kontrol edin; SoC voltajını bir miktar artırın."
-        }
-      ],
-      "etiketler": [
-        "memtest86",
-        "ram hatasi",
-        "mdsched",
-        "xmp",
-        "mavi ekran",
-        "dual channel"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "hw_gpu_vram_error_code_43",
-      "kategori": "Donanım",
-      "alt_kategori": "Ekran Kartı (GPU)",
-      "baslik": "Ekran Kartı Hata Kodu 43 & VRAM",
-      "hizli_adimlar": [
-        "Ekranda pembe/yeşil yatay çizgiler, karelenmeler (Artifact) varsa:",
-        "Önce DDU (Display Driver Uninstaller) ile Güvenli Modda sürücüyü temizle ve baştan kur.",
-        "Sürücü kurulduğu anda ekran siyah kalıyor veya Aygıt Yöneticisinde 'Sorun bildirdiğinden bu aygıt durduruldu (Kod 43)' diyorsa:",
-        "MATS/MODS bellek test yazılımı ile VRAM çiplerini test et.",
-        "Hata genelde GPU çekirdeğinin çatlaması veya VRAM çipinin lehim bilyelerinin (BGA) kopmasıdır."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Ekran Kartı Sürücülerini Sıfırla (Kısayol)",
-          "komut": "Win + Ctrl + Shift + B",
-          "aciklama": "Grafik alt sistemini yeniden başlatır (Ekran 1 kez bip sesiyle yanıp söner)."
-        }
-      ],
-      "temel_anlatim": "Ekran kartı bozulmaya başladığında masaüstünde yeşil çizgiler çıkar ve Windows sürücüyü devre dışı bırakıp düşük çözünürlüğe geçer. Bu arıza genellikle aşırı ısınmadan kaynaklanan lehim çatlağıdır.",
-      "derin_teknik_analiz": "Nvidia/AMD sürücüsü PCIe link eğitimi ve VRAM doğrulaması aşamasında GPU BIOS'undaki imza ile iletişim kuramazsa Windows PNP yöneticisi CM_PROB_FAILED_POSTSTART (Kod 43) bayrağı koyar. Isıl işlem (Reballing) veya arızalı VRAM çip değişimi gerekir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Kod 43 sadece AMD Radeon kartlarda BIOS modundan sonra çıkıyor",
-          "neden": "Mining BIOS'u yüklendiği için sürücü dijital imzayı reddediyordur.",
-          "cozum": "'atikmdag-patcher' çalıştırarak sürücü imza kontrolünü baypas edin veya orijinal VBIOS yükleyin."
-        }
-      ],
-      "etiketler": [
-        "kod 43",
-        "ekran karti",
-        "vram",
-        "artifact",
-        "ddu",
-        "cizgi cikiyor"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "don_ram_modullerinin_uyusmazligi",
-      "kategori": "Donanım",
-      "alt_kategori": "Bellek",
-      "baslik": "RAM Modüllerinin Uyuşmazlığı",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: Farklı çip üreticisi (Samsung B-die vs Hynix) çakışmaları.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "WMI Donanım Bellek Bilgisi",
-          "komut": "wmic memorychip get speed, capacity, partnumber",
-          "aciklama": "Takılı RAM modüllerinin frekans ve parça kodunu verir."
-        }
-      ],
-      "temel_anlatim": "RAM Modüllerinin Uyuşmazlığı, bilişim altyapılarında farklı çip üreticisi (samsung b-die vs hynix) çakışmaları. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "RAM Modüllerinin Uyuşmazlığı mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Farklı çip üreticisi (Samsung B-die vs Hynix) çakışmaları. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "ram modullerinin uyusmazligi",
-        "donanım",
-        "bellek",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "don_ram_kontak_temizligi",
-      "kategori": "Donanım",
-      "alt_kategori": "Bellek",
-      "baslik": "RAM Kontak Temizliği",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: Oksitlenen altın pinleri beyaz silgi ve izopropil alkolle temizleme.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "WMI Donanım Bellek Bilgisi",
-          "komut": "wmic memorychip get speed, capacity, partnumber",
-          "aciklama": "Takılı RAM modüllerinin frekans ve parça kodunu verir."
-        }
-      ],
-      "temel_anlatim": "RAM Kontak Temizliği, bilişim altyapılarında oksitlenen altın pinleri beyaz silgi ve izopropil alkolle temizleme. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "RAM Kontak Temizliği mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Oksitlenen altın pinleri beyaz silgi ve izopropil alkolle temizleme. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "ram kontak temizligi",
-        "donanım",
-        "bellek",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "don_dram_less_ssd_yavaslamasi",
-      "kategori": "Donanım",
-      "alt_kategori": "Depolama",
-      "baslik": "DRAM-Less SSD Yavaşlaması",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: SLC önbellek dolduktan sonra yazma hızının 30 MB'a çökmesi.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "WMI Donanım Bellek Bilgisi",
-          "komut": "wmic memorychip get speed, capacity, partnumber",
-          "aciklama": "Takılı RAM modüllerinin frekans ve parça kodunu verir."
-        }
-      ],
-      "temel_anlatim": "DRAM-Less SSD Yavaşlaması, bilişim altyapılarında slc önbellek dolduktan sonra yazma hızının 30 mb'a çökmesi. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "DRAM-Less SSD Yavaşlaması mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. SLC önbellek dolduktan sonra yazma hızının 30 MB'a çökmesi. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "dram less ssd yavaslamasi",
-        "donanım",
-        "depolama",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "mav_q_led_sari_turuncu_dram",
-      "kategori": "Mavi Ekran",
-      "alt_kategori": "Donanım Bip Kodları & Q-LED Hata Tablosu",
-      "baslik": "Q-LED Sarı/Turuncu (DRAM)",
-      "hizli_adimlar": [
-        "Arıza belirtisini teyit edin: Bellek zamanlama eğitimi başarısız veya RAM slotu kirli.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
-        "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
-        "Önerilen komut veya yapılandırma adımını uygulayın.",
-        "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Minidump Bellek Dökümü Analizi",
-          "komut": "kd -z C:\\Windows\\Minidump\\latest.dmp",
-          "aciklama": "Crash dump dosyasını WinDbg motoruyla inceler."
-        }
-      ],
-      "temel_anlatim": "Q-LED Sarı/Turuncu (DRAM), bilişim altyapılarında bellek zamanlama eğitimi başarısız veya ram slotu kirli. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
-      "derin_teknik_analiz": "Q-LED Sarı/Turuncu (DRAM) mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Bellek zamanlama eğitimi başarısız veya RAM slotu kirli. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
-          "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
-          "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
-        }
-      ],
-      "etiketler": [
-        "q led sari turuncu dram",
-        "mavi ekran",
-        "donanim bip kodlari q led hata tabl",
-        "ariza",
-        "onarım"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "bsod_0x50_page_fault_nonpaged",
-      "kategori": "Mavi Ekran",
-      "alt_kategori": "Bellek & RAM",
-      "baslik": "PAGE_FAULT_IN_NONPAGED_AREA (0x50)",
-      "hizli_adimlar": [
-        "Sorun belirtisini teyit edin: Diske takas edilemeyen Nonpaged bellek alanında geçersiz bellek sayfası istenmesi; RAM/VRAM arızası.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak açın.",
-        "Sistem parametrelerini ve olay loglarını denetleyin.",
-        "Uygulanacak komut: wmic memorychip get speed, status",
-        "Sonucu doğrulamak için servisi veya sistemi yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "PAGE_FAULT_IN_NONPAGED_AREA (0x50)",
-          "komut": "wmic memorychip get speed, status",
-          "aciklama": "Takılı RAM modüllerinin durumunu listeler."
-        }
-      ],
-      "temel_anlatim": "PAGE_FAULT_IN_NONPAGED_AREA (0x50), Mavi Ekran altyapısında diske takas edilemeyen nonpaged bellek alanında geçersiz bellek sayfası istenmesi; ram/vram arızası.",
-      "derin_teknik_analiz": "PAGE_FAULT_IN_NONPAGED_AREA (0x50) süreci, işletim sistemi çekirdeği ve ilgili donanım/ağ protokolü düzeyinde yürütülür. Diske takas edilemeyen Nonpaged bellek alanında geçersiz bellek sayfası istenmesi; RAM/VRAM arızası. Kalıcı çözüm için sistem günlükleri ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komut sonuç vermiyor veya erişim reddedildi",
-          "neden": "Kullanıcı Yönetici yetkilerine sahip değildir veya dosya kilitlidir.",
-          "cozum": "Yönetici olarak çalıştırın veya Kurtarma Ortamında (WinRE) deneyin."
-        }
-      ],
-      "etiketler": [
-        "page_fault_in_nonpaged_area (0x50)",
-        "mavi ekran",
-        "bellek & ram",
-        "ariza",
-        "onarim"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "bsod_0x10e_video_memory_internal",
-      "kategori": "Mavi Ekran",
-      "alt_kategori": "Video Belleği (VRAM)",
-      "baslik": "VIDEO_MEMORY_MANAGEMENT_INTERNAL (0x10E)",
-      "hizli_adimlar": [
-        "Sorun belirtisini teyit edin: Video bellek yöneticisinin dahili veri yapılarında bozulma algılaması; arızalı VRAM.",
-        "İlgili yönetim konsolunu veya terminali Yönetici olarak açın.",
-        "Sistem parametrelerini ve olay loglarını denetleyin.",
-        "Uygulanacak komut: dxdiag",
-        "Sonucu doğrulamak için servisi veya sistemi yeniden başlatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "VIDEO_MEMORY_MANAGEMENT_INTERNAL (0x10E)",
-          "komut": "dxdiag",
-          "aciklama": "VRAM boyut ve sürücü sürümünü kontrol eder."
-        }
-      ],
-      "temel_anlatim": "VIDEO_MEMORY_MANAGEMENT_INTERNAL (0x10E), Mavi Ekran altyapısında video bellek yöneticisinin dahili veri yapılarında bozulma algılaması; arızalı vram.",
-      "derin_teknik_analiz": "VIDEO_MEMORY_MANAGEMENT_INTERNAL (0x10E) süreci, işletim sistemi çekirdeği ve ilgili donanım/ağ protokolü düzeyinde yürütülür. Video bellek yöneticisinin dahili veri yapılarında bozulma algılaması; arızalı VRAM. Kalıcı çözüm için sistem günlükleri ve I/O kuyrukları denetlenmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Standart komut sonuç vermiyor veya erişim reddedildi",
-          "neden": "Kullanıcı Yönetici yetkilerine sahip değildir veya dosya kilitlidir.",
-          "cozum": "Yönetici olarak çalıştırın veya Kurtarma Ortamında (WinRE) deneyin."
-        }
-      ],
-      "etiketler": [
-        "video_memory_management_internal (0x10e)",
-        "mavi ekran",
-        "video belleği (vram)",
-        "ariza",
-        "onarim"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "win_error_0xc0000005_access_violation",
-      "kategori": "Windows",
-      "alt_kategori": "Windows Hata Kodları",
-      "baslik": "Hata 0xC0000005: STATUS_ACCESS_VIOLATION (Bellek İhlali / RAM Çökmesi)",
-      "hizli_adimlar": [
-        "Uygulama açılırken veya oyunda çöküyorsa: RAM XMP/DOCP profilini BIOS'tan kapatıp standart frekansta test edin.",
-        "Windows Bellek Tanılama (mdsched.exe) veya MemTest86 ile RAM modüllerini test edin.",
-        "Eksik veya bozuk Visual C++ Redistributable paketlerini (2015-2022 x86/x64) yeniden kurun.",
-        "SFC /scannow komutuyla bozuk sistem DLL dosyalarını onarın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Sistem Dosyalarını Onar",
-          "komut": "sfc /scannow",
-          "aciklama": "Bozuk sistem DLL ve sistem dosyalarını orijinal kopyalarıyla değiştirir."
-        },
-        {
-          "etiket": "Bellek Tanılama Aracını Başlat",
-          "komut": "mdsched.exe",
-          "aciklama": "Bilgisayarı yeniden başlatarak donanımsal RAM hücre testi yapar."
-        }
-      ],
-      "temel_anlatim": "0xC0000005, bir programın kendisine ait olmayan, erişim izni bulunmayan veya fiziksel olarak var olmayan bir bellek adresine okuma/yazma yapmaya çalışması sonucu işletim sistemi tarafından zorla kapatılmasıdır.",
-      "derin_teknik_analiz": "CPU bellek yönetim birimi (MMU) Sayfa Tablosu (Page Table) kontrolünde 'Page Fault' üretir. Eğer okunan adres geçersizse çekirdek EXCEPTION_ACCESS_VIOLATION istisnası fırlatır. Donanımsal olarak kararsız RAM zamanlamaları veya aşırı ısınan bellek çipleri en büyük etkendir.",
-      "kenar_durumlar": [
-        {
-          "durum": "Sadece tek bir tarayıcıda sekme çökmeleri oluyorsa",
-          "neden": "Tarayıcı donanım hızlandırması GPU VRAM hatasına çarpıyordur.",
-          "cozum": "Tarayıcı ayarlarından 'Donanım ivmesini kullan' seçeneğini kapatın."
-        }
-      ],
-      "etiketler": [
-        "0xc0000005",
-        "access violation",
-        "bellek ihlali",
-        "ram arizasi",
-        "memtest",
-        "uygulama cokmesi"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "hw_vcore_mosfet_short_circuit",
-      "kategori": "Donanım",
-      "alt_kategori": "Anakart & Güç Katı",
-      "baslik": "Anakartta Güç Tuşuna Basınca Fanların 1 Saniye Dönüp Durması (12V Vcore Kısa Devresi)",
-      "hizli_adimlar": [
-        "İşlemciye güç veren 4-pin veya 8-pin 12V EPS güç kablosunu anakarttan sökün.",
-        "24-pin ana anakart kablosu takılıyken bilgisayarı açın. Eğer fanlar sürekli dönmeye başlarsa arıza KESİN olarak Vcore fazlarındadır.",
-        "Multimetreyi diyot/kısa devre (bip) moduna alın; anakarttaki 8-pin soketin 12V pinleri ile GND pinleri arasındaki direnci ölçün (0 Ohm okuyorsanız kısa devre vardır).",
-        "İşlemciyi soketten çıkarın; kısa devre devam ediyorsa bobinlerin yanındaki MOSFET'leri tek tek ölçerek arızalı olanı bulun.",
-        "Sıcak hava istasyonu ile delinen MOSFET'i söküp aynı amper/voltaj değerine sahip muadili ile değiştirin."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Multimetre Test Standardı",
-          "komut": "Normal 12V Vcore Direnci: > 500 Ohm | Kısa Devreli Faz Direnci: 0.1 - 2.0 Ohm (Bip sesi)",
-          "aciklama": "VRM faz kısa devre kontrol eşikleri."
-        }
-      ],
-      "temel_anlatim": "Bilgisayarın açma düğmesine basıldığında fanların yarım tur dönüp anında sistemin enerjiyi kesmesi; PSU'nun korumaya geçmesi.",
-      "derin_teknik_analiz": "İşlemci çevresindeki VRM (Voltage Regulator Module) güç katındaki High-Side veya Low-Side MOSFET'lerden biri delindiğinde (kısa devre), 12V EPS hattı doğrudan şaseye (GND) bağlanır. ATX güç kaynağı Short Circuit Protection (SCP) korumasıyla sistemi milisaniyeler içinde kapatır.",
-      "kenar_durumlar": [
-        {
-          "durum": "8-pin soket çıkarıldığında bile fanlar 1 saniyede duruyor",
-          "neden": "Kısa devre Vcore hattında değil, güney köprüsü (PCH), anakart 5V/3.3V standby hattında veya ekran kartı PCIe slotundadır.",
-          "cozum": "Ekran kartını ve tüm çevre birimlerini söküp sadece anakartı masada çıplak test edin."
-        }
-      ],
-      "etiketler": [
-        "donanim",
-        "anakart",
-        "vcore",
-        "mosfet",
-        "kisa-devre",
-        "psu-koruma",
-        "vrm"
-      ],
-      "oncelik": 1
-    }
-  ]
-}
+[
+  {
+    "id": "hw_pcie_lane_downgrade_x1",
+    "kategori": "Donanım",
+    "alt_kategori": "PCIe Veri Yolu Teşhisi",
+    "baslik": "PCIe x16 Yerine x1/x4 Çalışma Teşhisi",
+    "hizli_adimlar": [
+      "GPU-Z programını aç ve 'Bus Interface' satırına bak.",
+      "Ekran kartı x16 desteklemesine rağmen 'PCIe x16 4.0 @ x1 1.1' veya '@ x4' olarak görünüyorsa:",
+      "Yandaki '?' simgesine tıklayıp Render Testini başlat (Kart güç tasarrufundan çıkıp tam hıza geçmelidir).",
+      "Yük altındayken de x1 veya x4 kalıyorsa:",
+      "Ekran kartını sök; PCIe altın kontaklarını izopropil alkol ve diş fırçasıyla temizle.",
+      "Anakart slotunun içine hava üfle (Toz birikmesi PCIe hatlarını köreltir)."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Ekran Kartı Modelini Sorgula",
+        "komut": "wmic path win32_VideoController get name",
+        "aciklama": "Sistemdeki ekran kartlarını listeler."
+      }
+    ],
+    "temel_anlatim": "Ekran kartının anakarta bağlanan 16 adet veri şeridi (lane) vardır. Slotun içine toz kaçtığında veya kart ağır olduğu için sarkıp temassızlık yaptığında kart sadece 1 şerit üzerinden çalışır ve oyunlarda devasa takılmalara yol açar.",
+    "derin_teknik_analiz": "PCIe protokolü 'Lane Degradation' yeteneğine sahiptir. Başlatma sırasında Tx/Rx diferansiyel çiftlerinden biri bile sinyal kalitesi testini (Link Training Status and State Machine - LTSSM) geçemezse kontrolcü bağlantıyı güvenli alt moda (x8 -> x4 -> x1) düşürür.",
+    "kenar_durumlar": [
+      {
+        "durum": "Temizlenmesine rağmen kart hala x4 çalışıyor",
+        "neden": "İşlemci soğutucusu çok sıkıldığı için işlemci soket pinlerindeki PCIe veri hatları temas etmiyordur.",
+        "cozum": "Soğutucu vidalarını çeyrek tur gevşetin."
+      }
+    ],
+    "etiketler": [
+      "pcie x16 gpuz lane degradation x1 calisiyor ekran karti temassizlik fps takilma"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "don_pcie_x16_yerine_x1_calismasi",
+    "kategori": "Donanım",
+    "alt_kategori": "Ekran Kartı",
+    "baslik": "PCIe x16 Yerine x1 Çalışması",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: GPU-Z ile bus hızını ve pin temassızlığını görme.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "WMI Donanım Bellek Bilgisi",
+        "komut": "wmic memorychip get speed, capacity, partnumber",
+        "aciklama": "Takılı RAM modüllerinin frekans ve parça kodunu verir."
+      }
+    ],
+    "temel_anlatim": "PCIe x16 Yerine x1 Çalışması, bilişim altyapılarında gpu-z ile bus hızını ve pin temassızlığını görme. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "PCIe x16 Yerine x1 Çalışması mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. GPU-Z ile bus hızını ve pin temassızlığını görme. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "pcie x16 yerine x1 calismasi donanım ekran karti ariza onarım"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "don_ekran_karti_sarkmasi_gpu_sag",
+    "kategori": "Donanım",
+    "alt_kategori": "Ekran Kartı",
+    "baslik": "Ekran Kartı Sarkması (GPU Sag)",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: Ağır kartların bükülüp PCIe slotunu kırması.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "WMI Donanım Bellek Bilgisi",
+        "komut": "wmic memorychip get speed, capacity, partnumber",
+        "aciklama": "Takılı RAM modüllerinin frekans ve parça kodunu verir."
+      }
+    ],
+    "temel_anlatim": "Ekran Kartı Sarkması (GPU Sag), bilişim altyapılarında ağır kartların bükülüp pcie slotunu kırması. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "Ekran Kartı Sarkması (GPU Sag) mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Ağır kartların bükülüp PCIe slotunu kırması. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "ekran karti sarkmasi gpu sag donanım ekran karti ariza onarım"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "don_pcie_guc_kablosu_papatya_daisy_chai",
+    "kategori": "Donanım",
+    "alt_kategori": "Ekran Kartı",
+    "baslik": "PCIe Güç Kablosu Papatya (Daisy Chain) Hatası",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: Tek kablodan iki soket besleme riski.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "WMI Donanım Bellek Bilgisi",
+        "komut": "wmic memorychip get speed, capacity, partnumber",
+        "aciklama": "Takılı RAM modüllerinin frekans ve parça kodunu verir."
+      }
+    ],
+    "temel_anlatim": "PCIe Güç Kablosu Papatya (Daisy Chain) Hatası, bilişim altyapılarında tek kablodan iki soket besleme riski. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "PCIe Güç Kablosu Papatya (Daisy Chain) Hatası mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Tek kablodan iki soket besleme riski. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "pcie guc kablosu papatya daisy chai donanım ekran karti ariza onarım"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "don_nvme_pcie_gen3_vs_gen4_vs_gen5",
+    "kategori": "Donanım",
+    "alt_kategori": "Depolama",
+    "baslik": "NVMe PCIe Gen3 vs Gen4 vs Gen5",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: Slot bant genişliği uyumsuzlukları.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "WMI Donanım Bellek Bilgisi",
+        "komut": "wmic memorychip get speed, capacity, partnumber",
+        "aciklama": "Takılı RAM modüllerinin frekans ve parça kodunu verir."
+      }
+    ],
+    "temel_anlatim": "NVMe PCIe Gen3 vs Gen4 vs Gen5, bilişim altyapılarında slot bant genişliği uyumsuzlukları. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "NVMe PCIe Gen3 vs Gen4 vs Gen5 mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Slot bant genişliği uyumsuzlukları. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "nvme pcie gen3 vs gen4 vs gen5 donanım depolama ariza onarım"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hw_device_manager_code_10",
+    "kategori": "Donanım",
+    "alt_kategori": "Aygıt Yöneticisi Kodları",
+    "baslik": "Kod 10: Bu Aygıt Başlatılamıyor (Sürücü / Donanım Kaynak Uyuşmazlığı)",
+    "hizli_adimlar": [
+      "Aygıt Yöneticisinde sarı ünlemli aygıtın özelliklerine girip 'Cihazı Kaldır' deyin.",
+      "Anakart BIOS güncellemesi yapın ve BIOS'tan PCIe bağlantı hızını 'Auto' yerine 'Gen 3' veya 'Gen 4' olarak sabitleyin.",
+      "Wi-Fi / Bluetooth kartlarında oluşuyorsa sürücüyü Intel/Realtek resmi sitesinden en güncel INF paketiyle kurun.",
+      "Kayıt Defterinde ilgili sınıf anahtarındaki UpperFilters ve LowerFilters girdilerini kontrol edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Aygıt Sürücülerini Yeniden Tara",
+        "komut": "pnputil /scan-devices",
+        "aciklama": "Sistem veri yollarındaki takılı aygıtları yeniden tespit eder."
+      }
+    ],
+    "temel_anlatim": "Kod 10, sürücünün aygıtı başlatmaya çalıştığı ancak donanımın I/O portları, IRQ veya bellek adresleri arasında kaynak çakışması yaşadığı anlamına gelir.",
+    "derin_teknik_analiz": "ACPI D3 güç durumundan D0 çalışma durumuna geçerken cihaz IRP_MN_START_DEVICE isteğine STATUS_UNSUCCESSFUL veya STATUS_DEVICE_POWER_FAILURE yanıtı dönerse Kod 10 fırlatılır.",
+    "kenar_durumlar": [
+      {
+        "durum": "Riser kablo takılıyken GPU Kod 10 veriyor",
+        "neden": "Riser kablosu PCIe Gen4 sinyal hızını taşıyamıyordur.",
+        "cozum": "BIOS'tan PCIe hızını Gen3 yapın."
+      }
+    ],
+    "etiketler": [
+      "kod 10 code 10 bu aygit baslatilamiyor pcie gen3 surucu uyuşmazligi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hw_device_manager_code_28",
+    "kategori": "Donanım",
+    "alt_kategori": "Aygıt Yöneticisi Kodları",
+    "baslik": "Kod 28: Bu Aygıtın Sürücüleri Yüklenmemiş (Bilinmeyen Aygıt Çözümü)",
+    "hizli_adimlar": [
+      "Aygıt Yöneticisinde 'Bilinmeyen Aygıt' üzerine sağ tıklayıp 'Özellikler' > 'Ayrıntılar' sekmesine geçin.",
+      "Özellik açılır kutusundan 'Donanım Kimlikleri'ni (Hardware Ids) seçin.",
+      "İlk satırdaki VEN_XXXX ve DEV_YYYY kodlarını okuyun (VEN: Satıcı/Vendor, DEV: Cihaz/Device).",
+      "Örn: VEN_8086 Intel, VEN_10DE Nvidia, VEN_10EC Realtek'tir. Sürücüyü INF olarak indirin.",
+      "pnputil komutuyla sürücüyü sisteme zorla tanıtın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "INF Sürücüsünü Sisteme Ekle ve Yükle",
+        "komut": "pnputil /add-driver C:\\Suruculer\\*.inf /install",
+        "aciklama": "Klasördeki tüm INF sürücülerini sisteme kaydeder ve eşleşen donanımlara yükler."
+      },
+      {
+        "etiket": "Tüm Bilinmeyen Aygıtları Donanım Kimliğiyle Listele",
+        "komut": "Get-PnpDevice | Where-Object { $_.Status -eq 'Error' } | Select-Object FriendlyName, InstanceId",
+        "aciklama": "Sürücüsü eksik aygıtların donanım kimlik dizesini gösterir."
+      }
+    ],
+    "temel_anlatim": "Kod 28, takılan donanımın Windows sürücü deposunda (DriverStore) uyumlu bir INF dosyasının bulunmadığını gösterir. Doğru donanım kimliği (VEN/DEV) bulunarak üretici sürücüsü yüklenmelidir.",
+    "derin_teknik_analiz": "Windows tak ve çalıştır (PnP) yöneticisi cihaz takıldığında PCI Configuration Space veya USB Descriptor okur. CompatibleID dizesi driver inf dosyalarındaki [Manufacturer] modelleriyle eşleşmezse aygıt Kod 28 olarak askıya alınır.",
+    "kenar_durumlar": [
+      {
+        "durum": "ACPI\\INT34C5 veya benzeri sistem aygıtı Kod 28",
+        "neden": "Intel Serial IO veya Intel ME (Management Engine) sürücüsü eksiktir.",
+        "cozum": "Anakart yonga seti (Chipset) sürücüsünü kurun."
+      }
+    ],
+    "etiketler": [
+      "kod 28 code 28 bilinmeyen aygit donanim kimligi ven dev pnputil inf"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hw_device_manager_code_19",
+    "kategori": "Donanım",
+    "alt_kategori": "Aygıt Yöneticisi Kodları",
+    "baslik": "Kod 19: Kayıt Defterindeki Yapılandırma Bilgileri Eksik veya Bozuk (Upper/LowerFilters)",
+    "hizli_adimlar": [
+      "Genellikle DVD/CD sürücülerinde, klavyelerde veya ses kartlarında görülür.",
+      "Regedit'i açın: HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class yoluna gidin.",
+      "Klavye için: {4d36e96b-e325-11ce-bfc1-08002be10318} anahtarını bulun.",
+      "DVD/CD için: {4d36e965-e325-11ce-bfc1-08002be10318} anahtarını bulun.",
+      "Sağ paneldeki 'UpperFilters' ve 'LowerFilters' değerlerini silin ve bilgisayarı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "DVD-ROM Upper/LowerFilters Temizle (CMD)",
+        "komut": "reg delete \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e965-e325-11ce-bfc1-08002be10318}\" /v UpperFilters /f ; reg delete \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e965-e325-11ce-bfc1-08002be10318}\" /v LowerFilters /f",
+        "aciklama": "Bozuk filtre sürücüsü referanslarını siler."
+      }
+    ],
+    "temel_anlatim": "Kod 19, eski bir programın (örneğin eski CD yazma veya sanal sürücü yazılımları) kayıt defterine eklediği filtre sürücüsünün silinmesi ama referansının registry'de kalması sonucu donanımın kilitlenmesidir.",
+    "derin_teknik_analiz": "Sürücü yığınında (Driver Stack) Filter Driver kaldırıldığında PnP yöneticisi Function Driver'a (FDO) ulaşamaz. I/O istekleri çöker ve Windows cihazı başlatmayı reddederek Kod 19 üretir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Klavye çalışmıyor ve Kod 19 veriyor",
+        "neden": "Klavye UpperFilters 'kbdclass' dışında üçüncü parti bozuk bir filtre içeriyordur.",
+        "cozum": "UpperFilters değerini sadece 'kbdclass' olarak düzeltin."
+      }
+    ],
+    "etiketler": [
+      "kod 19 code 19 upperfilters lowerfilters kayit defteri klavye calismiyor"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hw_device_manager_code_52",
+    "kategori": "Donanım",
+    "alt_kategori": "Aygıt Yöneticisi Kodları",
+    "baslik": "Kod 52: Sürücünün Dijital İmzası Doğrulanamıyor",
+    "hizli_adimlar": [
+      "Windows 64-bit sürümlerde dijital olarak Microsoft WHQL veya geçerli bir sertifika ile imzalanmamış sürücüler bloklanır.",
+      "Test veya modlu sürücü kullanıyorsanız: Windows Gelişmiş Başlangıç menüsünden '7) Sürücü imza zorlamasını devre dışı bırak' seçeneğiyle açın.",
+      "Kalıcı çözüm için: Üreticinin SHA-256 ile imzalanmış güncel WHQL sürücüsünü indirin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Windows Test Modunu Aç (Geliştirici Sürücüler İçin)",
+        "komut": "bcdedit /set testsigning on",
+        "aciklama": "İmzasız test sürücülerinin yüklenmesine izin verir (Sağ altta Test Modu yazar)."
+      },
+      {
+        "etiket": "Test Modunu Kapat (Normale Dön)",
+        "komut": "bcdedit /set testsigning off",
+        "aciklama": "Sürücü imza güvenliğini tekrar tam seviyeye getirir."
+      }
+    ],
+    "temel_anlatim": "Windows 64-bit çekirdek güvenliği gereği (Driver Signature Enforcement) çekirdek alanında çalışacak tüm .sys sürücülerinin geçerli bir Microsoft imza sertifikasına sahip olmasını şart koşar.",
+    "derin_teknik_analiz": "Boot Manager ve CI.dll (Code Integrity) sürücüyü belleğe yüklemeden önce Authenticode imzasını ve SHA-256 özetini kontrol eder. İmza geçersizse NTSTATUS 0xC0000428 döner ve Aygıt Yöneticisinde Kod 52 görünür.",
+    "kenar_durumlar": [
+      {
+        "durum": "Secure Boot açıkken Testsigning açılmıyor",
+        "neden": "Güvenli Önyükleme (Secure Boot) test modunu donanım seviyesinde engeller.",
+        "cozum": "BIOS'tan Secure Boot kapatılmalıdır."
+      }
+    ],
+    "etiketler": [
+      "kod 52 code 52 dijital imza driver signature enforcement testsigning whql"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "twopc_jumbo_frames_10gbe",
+    "kategori": "İki PC Bağlama",
+    "alt_kategori": "Yüksek Hızlı Veri Taşıma",
+    "baslik": "İki PC Arasında Jumbo Frames (9000 MTU) ile 2.5G / 10G Doğrudan Hat Yapılandırması",
+    "hizli_adimlar": [
+      "Her iki PC'de Aygıt Yöneticisi -> Ağ Bağdaştırıcıları -> 10G/2.5G karta sağ tıklayıp Özellikler'e girin.",
+      "Gelişmiş sekmesine gelin -> 'Jumbo Packet' veya 'Jumbo Frame' ayarını bulun.",
+      "Değeri 9KB MTU veya 9014 Bytes olarak seçin.",
+      "Aynı işlemi 2. PC'deki ağ kartında da birebir aynı değerle yapın.",
+      "CMD'den `ping -f -l 8972 <Hedef_IP>` ile paket parçalanmadan geçtiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Jumbo Frame Ping Testi",
+        "komut": "ping 192.168.10.2 -f -l 8972",
+        "aciklama": "9000 MTU'luk paketlerin parçalanmadan ulaştığını test eder (8972 + 28 = 9000)."
+      },
+      {
+        "etiket": "Ağ Kartı MTU Kontrolü",
+        "komut": "netsh interface ipv4 show subinterfaces",
+        "aciklama": "Ağ kartlarının geçerli MTU değerlerini döker."
+      }
+    ],
+    "temel_anlatim": "İki bilgisayar arasına takılan 2.5 Gbps veya 10 Gbps ağ kartlarında MTU'yu 9000 bayta çıkararak CPU yükünü düşürme ve 1000 MB/sn transfer hızına ulaşma.",
+    "derin_teknik_analiz": "Standart MTU 1500 bayttır. 10 Gbps hat tam kapasite çalıştığında saniyede yaklaşık 800.000 paket CPU kesmesi (interrupt) üretir. Jumbo Frame (9014 bayt) kullanıldığında paket sayısı saniyede 130.000'e düşer; CPU üzerindeki DPC/ISR yükü %80 azalır.",
+    "kenar_durumlar": [
+      {
+        "durum": "Jumbo Frame açılınca ping tamamen kesiliyor",
+        "neden": "Araya takılan switch Jumbo Frame desteklemiyor veya karşı PC'deki MTU 1500'de unutulmuştur.",
+        "cozum": "İki tarafın ve aradaki switch'in MTU değerlerinin birebir 9000 bayta eşit olduğundan emin olun."
+      }
+    ],
+    "etiketler": [
+      "iki-pc jumbo-frames 10gbe 2.5gbe mtu9000 performans"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "win_run_devmgmt_msc",
+    "kategori": "Windows",
+    "alt_kategori": "Aygıt Yöneticisi & Sürücüler",
+    "baslik": "devmgmt.msc (Aygıt Yöneticisi)",
+    "hizli_adimlar": [
+      "Win + R -> 'devmgmt.msc' yaz ve Enter'a bas.",
+      "Sarı ünlem (!) işaretli tanınmayan aygıta sağ tıkla -> 'Özellikler'.",
+      "'Ayrıntılar' sekmesini aç ve açılır menüden 'Donanım Kimlikleri'ni (Hardware IDs) seç.",
+      "'VEN_xxxx&DEV_xxxx' kodunu kopyalayıp tarayıcıda aratarak doğru sürücüyü bul."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Aygıt Yöneticisini Aç",
+        "komut": "devmgmt.msc",
+        "aciklama": "Donanım listesi konsolunu açar."
+      }
+    ],
+    "temel_anlatim": "Format sonrası çalışmayan ses, Wi-Fi veya ekran kartlarının sürücülerini bulmak için aygıtın üretici (Vendor) ve cihaz (Device) kodunu tespit etmeye yarar.",
+    "derin_teknik_analiz": "PCI-SIG ve USB-IF standartlarında her yonga setinin benzersiz kimliği vardır. Örneğin 'VEN_10DE' Nvidia, 'VEN_8086' Intel'dir. DEV kodu ise doğrudan model numarasını gösterir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Aygıt Yöneticisinde Hata Kodu 43",
+        "neden": "Sürücü çökmüştür veya donanım (VRAM/Çip) fiziksel arızalıdır.",
+        "cozum": "DDU ile sürücüyü temizleyip kurun; düzelmezse donanım kontrolü yapın."
+      }
+    ],
+    "etiketler": [
+      "devmgmt.msc aygit yoneticisi surucu bulma hardware id ven dev sari unlem"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "win_run_gpupdate_force",
+    "kategori": "Windows",
+    "alt_kategori": "Grup İlkeleri & GPO",
+    "baslik": "gpupdate /force (Grup İlkeleri)",
+    "hizli_adimlar": [
+      "Win + R -> 'cmd' yaz ve Enter'a bas.",
+      "'gpupdate /force' komutunu çalıştır.",
+      "Kullanıcı ve Bilgisayar ilkelerinin başarıyla güncellendiğini doğrula.",
+      "Oturum kapatma veya yeniden başlatma sorarsa gerekiyorsa 'Y' tuşuna bas."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Grup İlkesini Zorla Yenile",
+        "komut": "gpupdate /force",
+        "aciklama": "GPO kurallarını anında uygular."
+      },
+      {
+        "etiket": "Uygulanan GPO Raporunu Üret (HTML)",
+        "komut": "gpresult /h \"%userprofile%\\Desktop\\gpo.html\"",
+        "aciklama": "Aktif ilkeleri raporlar."
+      }
+    ],
+    "temel_anlatim": "Şirket ağlarında veya yerel bilgisayarda bir kural değiştirdiğinizde (örneğin USB engelleme), Windows normalde 90 dakika sonra devreye sokar. Bu komut beklemeden saniyeler içinde kuralı aktif eder.",
+    "derin_teknik_analiz": "Client-Side Extensions (CSE) DLL'leri tetiklenir. Active Directory SYSVOL paylaşımındaki Registry.pol dosyaları okunarak 'HKLM\\Software\\Policies' kovanı baştan yazılır.",
+    "kenar_durumlar": [
+      {
+        "durum": "gpupdate çalışırken DNS zaman aşımı hatası",
+        "neden": "Bilgisayar şirket Domain Controller sunucusuna erişemiyordur.",
+        "cozum": "ncpa.cpl ayarlarından DNS'in Domain Controller IP'si olduğunu teyit edin."
+      }
+    ],
+    "etiketler": [
+      "gpupdate gpupdate /force gpo grup ilkesi gpresult active directory"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hw_device_manager_code_43",
+    "kategori": "Donanım",
+    "alt_kategori": "Aygıt Yöneticisi Kodları",
+    "baslik": "Kod 43: Sorun Bildirdiğinden Windows Bu Aygıtı Durdurdu (Ekran Kartı / USB)",
+    "hizli_adimlar": [
+      "Ekran Kartında Kod 43: Donanımsal VRAM lehim çatlağı veya sürücü çökmesi. Güvenli Modda DDU ile sürücüyü kaldırıp temiz WHQL sürücü kurun.",
+      "USB Hub / Aygıtında Kod 43: USB aşırı akım (Overcurrent) kilidi. Bilgisayarı kapatın, elektrik fişini çekin, güç tuşuna 30 saniye basılı tutarak statik elektriği boşaltın.",
+      "Aygıt Yöneticisinden aygıtı sağ tıklayıp 'Cihazı kaldır' seçin, 'Donanım değişikliklerini tara' ile tekrar yükletin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Arızalı Donanımları PowerShell ile Listele",
+        "komut": "Get-PnpDevice | Where-Object { $_.Status -eq 'Error' -or $_.ConfigManagerErrorCode -eq 43 } | Select-Object FriendlyName, InstanceId, ConfigManagerErrorCode",
+        "aciklama": "Kod 43 alan donanımları ve donanım kimliklerini listeler."
+      },
+      {
+        "etiket": "PNP Aygıtını Yeniden Başlat",
+        "komut": "pnputil /restart-device \"PCI\\VEN_10DE&DEV_1C03...\"",
+        "aciklama": "Donanımı sürücü seviyesinde sıfırlayarak yeniden başlatır."
+      }
+    ],
+    "temel_anlatim": "Kod 43, donanım sürücüsünün Windows işletim sistemine 'cihaz yanıt vermiyor veya beklenen sinyali üretmiyor' bildirmesiyle oluşur. Ekran kartlarında %80 donanımsal VRAM arızasıdır.",
+    "derin_teknik_analiz": "PCIe bus üzerinde Transaction Layer Packet (TLP) zaman aşımına uğradığında veya GPU BIOS (VBIOS) PCI Config alanını okuyamadığında Windows çekirdeği cihazın elektrik beslemesini keser ve Kod 43 basar.",
+    "kenar_durumlar": [
+      {
+        "durum": "Mining yapılmış kartlarda sürücü kurulunca Kod 43 veriyor",
+        "neden": "Karta modlu VBIOS yazılmıştır, sürücü dijital imza kontrolünü geçemez.",
+        "cozum": "Orijinal fabrika VBIOS'unu NVFlash ile geri yükleyin veya 'atikmdag-patcher' uygulayın."
+      }
+    ],
+    "etiketler": [
+      "kod 43 code 43 aygit durduruldu ekran karti kod 43 usb kod 43 vram arizasi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hw_device_manager_code_31",
+    "kategori": "Donanım",
+    "alt_kategori": "Aygıt Yöneticisi Kodları",
+    "baslik": "Kod 31: Windows Bu Aygıt İçin Gereken Sürücüleri Yükleyemedi",
+    "hizli_adimlar": [
+      "Genellikle TAP-Windows adaptörlerinde, sanal ağ kartlarında (VirtualBox/VMware) veya ses kartlarında görülür.",
+      "Aygıt Yöneticisinden aygıtı sağ tıklayıp kaldırın.",
+      "Ağ bağdaştırıcıları için: Windows Ağ Sıfırlama (Network Reset) çalıştırın.",
+      "Bozuk kayıt defteri anahtarlarını silip üretici sürücüsünü Yönetici olarak yeniden kurun."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Windows Ağ Yığınını Sıfırla (CMD)",
+        "komut": "netsh winsock reset && netsh int ip reset",
+        "aciklama": "Bozuk ağ filtre sürücüsü zincirini sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Kod 31, sürücünün bağımlı olduğu ikincil bir sistem dosyasının (örneğin ndis.sys veya bir DLL) eksik veya uyumsuz olması sebebiyle sürücünün belleğe yüklenememesidir.",
+    "derin_teknik_analiz": "ZwLoadDriver çağrısı STATUS_OBJECT_NAME_NOT_FOUND veya STATUS_IMAGE_CHECKSUM_MISMATCH döndüğünde PnP yöneticisi CM_PROB_FAILED_ADD (Kod 31) bayrağını atar.",
+    "kenar_durumlar": [
+      {
+        "durum": "VPN yazılımı kurulduktan sonra ağ kartı Kod 31 veriyor",
+        "neden": "VPN'in NDIS filtre sürücüsü Windows 11 ile uyumsuzdur.",
+        "cozum": "Ağ bağdaştırıcısı özelliklerinden ilgili VPN filtre onay kutusunu kaldırın."
+      }
+    ],
+    "etiketler": [
+      "kod 31 code 31 surucu yuklenemedi ag karti kod 31 winsock reset"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "win_tpm_bypass_clean_install",
+    "kategori": "Windows",
+    "alt_kategori": "Kurulum & WinPE",
+    "baslik": "Windows 11 Kurulumunda 'Bu Bilgisayar Windows 11'i Çalıştıramaz' TPM ve RAM Bypass",
+    "hizli_adimlar": [
+      "Hata ekranındayken klavyeden `Shift + F10` tuşlarına basarak Komut İstemi'ni açın.",
+      "Konsola `regedit` yazıp Enter'a basın.",
+      "`HKEY_LOCAL_MACHINE\\SYSTEM\\Setup` anahtarına gidin; sağ tıklayıp Yeni -> Anahtar seçin ve adını `LabConfig` yapın.",
+      "LabConfig içine şu DWORD (32-bit) değerlerini oluşturup değerlerini `1` yapın: `BypassTPMCheck`, `BypassSecureBootCheck`, `BypassRAMCheck`, `BypassCPUCheck`.",
+      "Regedit'i kapatın, kurulum ekranında sol üstteki 'Geri' okuna basıp lisans sözleşmesini tekrar kabul ederek kuruluma devam edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Tek Komutla LabConfig Enjeksiyonu (CMD)",
+        "komut": "reg add HKLM\\SYSTEM\\Setup\\LabConfig /v BypassTPMCheck /t REG_DWORD /d 1 /f & reg add HKLM\\SYSTEM\\Setup\\LabConfig /v BypassSecureBootCheck /t REG_DWORD /d 1 /f & reg add HKLM\\SYSTEM\\Setup\\LabConfig /v BypassCPUCheck /t REG_DWORD /d 1 /f",
+        "aciklama": "Kurulum ortamında tüm donanım engellerini kaldırır."
+      }
+    ],
+    "temel_anlatim": "Eski nesil işlemci veya TPM 2.0 çipi bulunmayan bilgisayarlarda Windows 11 kurulumunun 'Bu bilgisayar minimum gereksinimleri karşılamıyor' diyerek durması.",
+    "derin_teknik_analiz": "Windows Setup (setup.exe) PE ortamında donanım kontrolleri yapar. `HKLM\\SYSTEM\\Setup\\LabConfig` kayıt defteri dalı altına eklenen bypass anahtarları PE çekirdeğinin TPM, Secure Boot ve 4GB RAM kontrollerini atlamasını sağlar.",
+    "kenar_durumlar": [
+      {
+        "durum": "Shift+F10 basıldığında hiçbir şey açılmıyor",
+        "neden": "Bazı laptoplarda Fn tuşu kilitlidir.",
+        "cozum": "`Shift + Fn + F10` tuşlarına birlikte basın."
+      }
+    ],
+    "etiketler": [
+      "windows win11 tpm-bypass labconfig secure-boot shift-f10"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_pos_turkish_characters_codepage",
+    "kategori": "Yazıcı",
+    "alt_kategori": "Termal POS & Adisyon",
+    "baslik": "Termal Fiş Yazıcılarında Türkçe Ş, Ğ, İ Karakterlerinin Bozulması ve Code Page 857 / 1254",
+    "hizli_adimlar": [
+      "Yazıcı kapalıyken 'FEED' tuşuna basılı tutarak açın (Self-Test / Yapılandırma Fişi).",
+      "Fiş üzerindeki 'Supported Code Pages' listesinden Türkçe tablosunun sayfa numarasını bulun (Genellikle 18 veya 67).",
+      "Adisyon yazılımında yazıcı ayarlarından 'Karakter Tablosu / Kod Sayfası' seçeneğini 'CP857' veya 'Windows-1254' yapın.",
+      "Doğrudan ESC/POS basılıyorsa her yazdırma işinin en başına `CHR(27) + \"t\" + CHR(18)` kodunu enjekte edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "ESC/POS Türkçe Kod Sayfası Seçimi",
+        "komut": "CHR(27) + CHR(116) + CHR(18)",
+        "aciklama": "Yazıcıyı Code Page 857 (Turkish) moduna geçirir."
+      }
+    ],
+    "temel_anlatim": "Lokanta adisyon fişinde veya market fişinde 'KÖFTE', 'ŞİŞ', 'İÇECEK' kelimelerinin garip simgelerle basılması.",
+    "derin_teknik_analiz": "Termal fiş yazıcılar metinleri dahili ROM karakter tablolarından çeker. ESC/POS dilinde varsayılan karakter tablosu Page 0 (PC437 USA)'dır. Türkçe karakterler için yazıcıya `ESC t 18` (Code Page 857 Turkish) veya `ESC t 67` (Windows-1254) komutu gönderilmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "CP857 seçildiğinde büyük 'İ' harfi yerine farklı simge çıkıyor",
+        "neden": "CP857 tablosunda noktalı büyük İ harfi bazı eski modellerde tanımsızdır.",
+        "cozum": "Adisyon yazılımında metni göndermeden önce 'İ' harflerini 'I' ile değiştiren metin filtresi uygulayın veya Windows Yazıcı Sürücüsü (Graphics Mode) üzerinden yazdırın."
+      }
+    ],
+    "etiketler": [
+      "yazici pos esc-pos turkce-karakter cp857 adisyon termal-fis"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "donanim_00001",
+    "kategori": "Donanım",
+    "alt_kategori": "Anakart VRM Mosfet Kısa Devre Tespiti",
+    "baslik": "Anakart VRM Mosfet Kısa Devre Tespiti",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: İşlemci güç girişindeki (EPS 12V 8-pin) mosfetlerin multimetre diyot modunda incelenmesi.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: Multimetre Diyot Modu -> Siyah prob şaseye, kırmızı prob Mosfet Drain bacağına -> 0.00V ötüyorsa kısa devre",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "Multimetre Diyot Modu -> Siyah prob şaseye, kırmızı prob Mosfet Drain bacağına -> 0.00V ötüyorsa kısa devre",
+        "aciklama": "Kısa devre fazını belirler."
+      }
+    ],
+    "temel_anlatim": "Anakart VRM Mosfet Kısa Devre Tespiti: İşlemci güç girişindeki (EPS 12V 8-pin) mosfetlerin multimetre diyot modunda incelenmesi. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. Multimetre Diyot Modu -> Siyah prob şaseye, kırmızı prob Mosfet Drain bacağına -> 0.00V ötüyorsa kısa devre parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "mosfet kisa devre donanim vrm donanım anakart multimetre"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "donanim_00003",
+    "kategori": "Donanım",
+    "alt_kategori": "RAM Kararlılık Testi",
+    "baslik": "RAM Kararlılık Testi & MemTest86 Hata Analizi",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: Mavi ekran veren sistemlerde RAM modüllerinin PassMark MemTest86 ile analizi.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: USB Boot MemTest86 -> Test 6 (Block Move) ve Test 7 (Inversion) taraması",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "USB Boot MemTest86 -> Test 6 (Block Move) ve Test 7 (Inversion) taraması",
+        "aciklama": "RAM hücre bozulmalarını listeler."
+      }
+    ],
+    "temel_anlatim": "RAM Kararlılık Testi & MemTest86 Hata Analizi: Mavi ekran veren sistemlerde RAM modüllerinin PassMark MemTest86 ile analizi. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. USB Boot MemTest86 -> Test 6 (Block Move) ve Test 7 (Inversion) taraması parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "ram bellek arizasi donanim xmp mavi ekran donanım memtest86"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "donanim_00004",
+    "kategori": "Donanım",
+    "alt_kategori": "Ekran Kartı GPU VRAM Arızası",
+    "baslik": "Ekran Kartı GPU VRAM Arızası (MATS/MODS)",
+    "hizli_adimlar": [
+      "Saha arıza/kurulum belirtisini teyit edin: NVIDIA ekran kartında ekrana çizgi gelmesi veya sürücü yükleyince çökmesi.",
+      "Gerekli yönetim arayüzünü veya terminali Yönetici olarak açın.",
+      "Birincil komutu veya eylemi uygulayın: ./mats -e 20 -> Raporu oku: 'FAIL: Subpartition B0, Byte 15'",
+      "Değişiklikleri kaydedip servisi veya donanımı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Teşhis ve Uygulama Komutu",
+        "komut": "./mats -e 20 -> Raporu oku: 'FAIL: Subpartition B0, Byte 15'",
+        "aciklama": "Arızalı VRAM çipini belirler."
+      }
+    ],
+    "temel_anlatim": "Ekran Kartı GPU VRAM Arızası (MATS/MODS): NVIDIA ekran kartında ekrana çizgi gelmesi veya sürücü yükleyince çökmesi. Sahada kararlılık ve güvenlik için hayati öneme sahiptir.",
+    "derin_teknik_analiz": "Layer 2/3 ağ yığını, çekirdek sürücüleri, I/O kuyrukları veya donanım kayıt defterleri seviyesinde çalışır. ./mats -e 20 -> Raporu oku: 'FAIL: Subpartition B0, Byte 15' parametresi durumu optimize eder.",
+    "kenar_durumlar": [
+      {
+        "durum": "Zaman aşımı veya erişim engeli hatası",
+        "neden": "Kullanıcı yetkisi yetersiz, güvenlik duvarı kuralı eksik veya port başka işlem tarafından kilitli.",
+        "cozum": "Yönetici olarak çalıştırın ve kilitli tanıtıcıları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "vram mods mats donanim gpu donanım ekran karti"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "yaz_yazici_uzerinden_ag_taramasi_smbv2_",
+    "kategori": "Yazıcı",
+    "alt_kategori": "Ağ Yazıcıları & Port Protokolleri",
+    "baslik": "Yazıcı Üzerinden Ağ Taraması (SMBv2/v3)",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: Klasöre tara ayarlarında NTLMv2 desteği.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Spooler Servisini Yeniden Başlat",
+        "komut": "net stop spooler && net start spooler",
+        "aciklama": "Kilitlenen yazdırma biriktiricisini sıfırlar."
+      }
+    ],
+    "temel_anlatim": "Yazıcı Üzerinden Ağ Taraması (SMBv2/v3), bilişim altyapılarında klasöre tara ayarlarında ntlmv2 desteği. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "Yazıcı Üzerinden Ağ Taraması (SMBv2/v3) mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Klasöre tara ayarlarında NTLMv2 desteği. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "yazici uzerinden ag taramasi smbv2  yazıcı ag yazicilari port protokolleri ariza onarım"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "print_scan_to_smb_windows_11_ntlm",
+    "kategori": "Yazıcı",
+    "alt_kategori": "Tarayıcı & Ağa Tarama (SMB)",
+    "baslik": "Fotokopi Makinelerinden Klasöre Tarama (Scan to SMB)",
+    "hizli_adimlar": [
+      "Kyocera, Konica Minolta veya Canon fotokopiden bilgisayardaki klasöre tarama 'Bağlantı Hatası' veriyorsa:",
+      "Bilgisayarda hedef klasöre (Örn: C:\\Tarama) sağ tıklayıp Paylaşım sekmesinden 'Everyone' ve yerel kullanıcıya 'Tam Yetki' verin.",
+      "Windows 11'de eski SMBv1 kapalı olduğu için fotokopi web arayüzünde protokolü 'SMB v2/v3'e çekin.",
+      "Fotokopi makinesi adres defterinde ana makine adı yerine doğrudan IP (192.168.1.x) yazın.",
+      "Kullanıcı adı kısmına bilgisayar adı ile birlikte yazın: 'BilgisayarAdi\\KullaniciAdi' ve Windows oturum şifresini girin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "SMB Sunucu Güvenlik Ayarlarını Doğrula",
+        "komut": "powershell -Command \"Get-SmbServerConfiguration | Select-Object EnableSMB2Protocol, AutoShareServer\"",
+        "aciklama": "Windows SMBv2/v3 protokolünün açık olduğunu teyit eder."
+      }
+    ],
+    "temel_anlatim": "Büyük ofis tipi fotokopi makineleri taranan belgeleri ağdaki bilgisayarların paylaşılan klasörlerine SMB protokolüyle doğrudan kaydeder. Windows 11 güvenlik sıkılaştırmaları eski fotokopi yazılımlarının klasöre yazmasını engelleyebilir.",
+    "derin_teknik_analiz": "Windows 11 sürüm 22H2/23H2 sonrası SMB sunucusunda NTLMv1 ve şifresiz konuk oturumları tamamen yasaklanmıştır. Ayrıca SMB imzalama (SMB signing) zorunlu kılınmıştır. Eski fotokopi cihazları SMB imzalama desteklemiyorsa 'Gelişmiş Denetim İlkeleri'nden imzalama esnetilmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Kullanıcı adı ve şifre doğru olmasına rağmen 'Auth Error' veriyor",
+        "neden": "Windows hesabı Microsoft e-posta hesabına (Outlook.com) bağlıdır.",
+        "cozum": "Yalnızca tarama için şifreli yerel bir kullanıcı (Örn: 'tarama' / '1234') oluşturup klasöre yetki verin."
+      }
+    ],
+    "etiketler": [
+      "scan to smb klasore tarama fotokopi tarama kyocera tarama smb v2"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "print_0007_119",
+    "kategori": "Yazıcı",
+    "alt_kategori": "Ağa Tarama (Scan to SMB/FTP)",
+    "baslik": "Ağa Tarama (Scan to SMB/FTP) - Saha Arıza Vakası",
+    "hizli_adimlar": [
+      "Arıza belirtisini sahada teyit edin: Fotokopi makinelerinden Windows paylaşılan klasöre tarama, NTLMv2 zorunluluğu ve WIA/TWAIN kilitleri.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini, olay günlüklerini ve donanım voltajlarını denetleyin.",
+      "Önerilen teşhis komutunu çalıştırın: powershell -Command \"Get-SmbServerConfiguration\"",
+      "Değişikliğin devreye girmesi için servisi veya cihazı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Ağa Tarama (Scan to SMB/FTP) Teşhis Komutu",
+        "komut": "powershell -Command \"Get-SmbServerConfiguration\"",
+        "aciklama": "SMB sunucu güvenlik yapılandırmasını listeler."
+      }
+    ],
+    "temel_anlatim": "Bu saha rehberi, Yazıcı alanında Ağa Tarama (Scan to SMB/FTP) odaklı fotokopi makinelerinden windows paylaşılan klasöre tarama, ntlmv2 zorunluluğu ve wia/twain kilitleri. Sahada karşılaşılan tipik kilitlenmeleri çözmek için standart prosedürleri sunar.",
+    "derin_teknik_analiz": "Ağa Tarama (Scan to SMB/FTP) mekanizması, işletim sistemi çekirdeği, donanım register'ları ve ağ I/O kuyrukları düzeyinde çalışır. Fotokopi makinelerinden Windows paylaşılan klasöre tarama, NTLMv2 zorunluluğu ve WIA/TWAIN kilitleri. Arızanın tekrarlanmaması için sinyal zayıflaması ve kayıt defteri kovanları düzenli olarak denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komut hata veriyor veya yanıt vermiyor",
+        "neden": "Kaynak başka bir işlem tarafından kilitlenmiş veya donanım bağlantısı kesilmiş olabilir.",
+        "cozum": "Yönetici yetkileriyle çalıştırın veya Kurtarma Ortamında (WinRE) deneyin."
+      }
+    ],
+    "etiketler": [
+      "ağa tarama (scan to smb/ftp) yazıcı saha vaka 119 ariza onarim"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "ağ_jumbo_frames_mtu_9000",
+    "kategori": "Ağ",
+    "alt_kategori": "Yönlendirme",
+    "baslik": "Jumbo Frames (MTU 9000)",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: Depolama ağlarında (iSCSI) performans optimizasyonu.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Ağ Durumu ve Rota Tablosu",
+        "komut": "route print -4",
+        "aciklama": "Aktif yönlendirme tablosunu ve ağ geçitlerini listeler."
+      },
+      {
+        "etiket": "Netsh Arayüz Bilgisi",
+        "komut": "netsh interface ipv4 show subinterfaces",
+        "aciklama": "Ağ kartı MTU ve paket durumlarını dökümler."
+      }
+    ],
+    "temel_anlatim": "Jumbo Frames (MTU 9000), bilişim altyapılarında depolama ağlarında (iscsi) performans optimizasyonu. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "Jumbo Frames (MTU 9000) mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Depolama ağlarında (iSCSI) performans optimizasyonu. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "jumbo frames mtu 9000 ağ yonlendirme ariza onarım"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "win_baslangic_programlari_kovani",
+    "kategori": "Windows",
+    "alt_kategori": "Kayıt Defteri",
+    "baslik": "Başlangıç Programları Kovanı",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: `HKLM\\Software\\...\\Run` temizliği.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Sistem Dosya Doğrulama",
+        "komut": "sfc /scannow",
+        "aciklama": "Bozulmuş Windows sistem DLL dosyalarını onarır."
+      },
+      {
+        "etiket": "DISM İmaj Sağlığı Kontrolü",
+        "komut": "dism /online /cleanup-image /restorehealth",
+        "aciklama": "Bileşen deposu bozulmalarını Windows Update üzerinden giderir."
+      }
+    ],
+    "temel_anlatim": "Başlangıç Programları Kovanı, bilişim altyapılarında `hklm\\software\\...\\run` temizliği. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "Başlangıç Programları Kovanı mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. `HKLM\\Software\\...\\Run` temizliği. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "baslangic programlari kovani windows kayit defteri ariza onarım"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "win_surucu_arama_suresini_azaltma",
+    "kategori": "Windows",
+    "alt_kategori": "Kayıt Defteri",
+    "baslik": "Sürücü Arama Süresini Azaltma",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: Menü gecikmesini (MenuShowDelay) sıfırlama.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Sistem Dosya Doğrulama",
+        "komut": "sfc /scannow",
+        "aciklama": "Bozulmuş Windows sistem DLL dosyalarını onarır."
+      },
+      {
+        "etiket": "DISM İmaj Sağlığı Kontrolü",
+        "komut": "dism /online /cleanup-image /restorehealth",
+        "aciklama": "Bileşen deposu bozulmalarını Windows Update üzerinden giderir."
+      }
+    ],
+    "temel_anlatim": "Sürücü Arama Süresini Azaltma, bilişim altyapılarında menü gecikmesini (menushowdelay) sıfırlama. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "Sürücü Arama Süresini Azaltma mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Menü gecikmesini (MenuShowDelay) sıfırlama. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "surucu arama suresini azaltma windows kayit defteri ariza onarım"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "win_dotnet_mscorsvw_cpu",
+    "kategori": "Windows",
+    "alt_kategori": "NET Framework Optimizasyonu",
+    "baslik": "mscorsvw.exe & 100% CPU Kullanımı",
+    "hizli_adimlar": [
+      "Sorun belirtisini teyit edin: Windows Update sonrası arka planda derleme yapan NGEN kuyruğunu hızlandırma.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak açın.",
+      "Sistem parametrelerini ve olay loglarını denetleyin.",
+      "Uygulanacak komut: C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\ngen.exe executeQueuedItems",
+      "Sonucu doğrulamak için servisi veya sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "mscorsvw.exe & 100% CPU Kullanımı",
+        "komut": "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\ngen.exe executeQueuedItems",
+        "aciklama": "Bekleyen tüm .NET derleme görevlerini anında tamamlar."
+      }
+    ],
+    "temel_anlatim": "mscorsvw.exe & 100% CPU Kullanımı, Windows altyapısında windows update sonrası arka planda derleme yapan ngen kuyruğunu hızlandırma.",
+    "derin_teknik_analiz": "mscorsvw.exe & 100% CPU Kullanımı süreci, işletim sistemi çekirdeği ve ilgili donanım/ağ protokolü düzeyinde yürütülür. Windows Update sonrası arka planda derleme yapan NGEN kuyruğunu hızlandırma. Kalıcı çözüm için sistem günlükleri ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komut sonuç vermiyor veya erişim reddedildi",
+        "neden": "Kullanıcı Yönetici yetkilerine sahip değildir veya dosya kilitlidir.",
+        "cozum": "Yönetici olarak çalıştırın veya Kurtarma Ortamında (WinRE) deneyin."
+      }
+    ],
+    "etiketler": [
+      "mscorsvw.exe & 100% cpu kullanımı windows net framework optimizasyonu ariza onarim"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "rec_winpe_scratch_space_512",
+    "kategori": "Kurtarma",
+    "alt_kategori": "WinPE Bellek Yönetimi",
+    "baslik": "WinPE Scratch Space (Geçici RAM) Boyutu",
+    "hizli_adimlar": [
+      "Sorun belirtisini teyit edin: Kurtarma ortamında DISM veya antivirüs taraması yaparken 'Disk dolu' hatasını çözme.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak açın.",
+      "Sistem parametrelerini ve olay loglarını denetleyin.",
+      "Uygulanacak komut: dism /image:C:\\WinPE /set-scratchspace:512",
+      "Sonucu doğrulamak için servisi veya sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "WinPE Scratch Space (Geçici RAM) Boyutu",
+        "komut": "dism /image:C:\\WinPE /set-scratchspace:512",
+        "aciklama": "WinPE RAM yazma alanını 512MB'a çıkarır."
+      }
+    ],
+    "temel_anlatim": "WinPE Scratch Space (Geçici RAM) Boyutu, Kurtarma altyapısında kurtarma ortamında dism veya antivirüs taraması yaparken 'disk dolu' hatasını çözme.",
+    "derin_teknik_analiz": "WinPE Scratch Space (Geçici RAM) Boyutu süreci, işletim sistemi çekirdeği ve ilgili donanım/ağ protokolü düzeyinde yürütülür. Kurtarma ortamında DISM veya antivirüs taraması yaparken 'Disk dolu' hatasını çözme. Kalıcı çözüm için sistem günlükleri ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komut sonuç vermiyor veya erişim reddedildi",
+        "neden": "Kullanıcı Yönetici yetkilerine sahip değildir veya dosya kilitlidir.",
+        "cozum": "Yönetici olarak çalıştırın veya Kurtarma Ortamında (WinRE) deneyin."
+      }
+    ],
+    "etiketler": [
+      "winpe scratch space (geçici ram) boyutu kurtarma winpe bellek yönetimi ariza onarim"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hw_psu_voltage_multimeter_test",
+    "kategori": "Donanım",
+    "alt_kategori": "Güç Kaynağı (PSU)",
+    "baslik": "PSU Voltaj Testi & Ataş Tetikleme",
+    "hizli_adimlar": [
+      "PSU güç kablosunu prizden çek ve tüm anakart bağlantılarını sök.",
+      "24-pin ana güç soketinde YEŞİL kabloyu (PS_ON) bul.",
+      "Bir ataş yardımıyla YEŞİL kablo pini ile herhangi bir SİYAH (GND) kablo pinini köprüle.",
+      "Güç kablosunu tak; PSU fanı dönüyorsa temel tetikleme devresi sağlamdır.",
+      "Multimetreyi DC 20V kademesine al:",
+      "SARI kablo = +12V (Tolerans: 11.40V - 12.60V)",
+      "KIRMIZI kablo = +5V (Tolerans: 4.75V - 5.25V)",
+      "TURUNCU kablo = +3.3V (Tolerans: 3.14V - 3.47V)"
+    ],
+    "komutlar": [
+      {
+        "etiket": "Dahili Pil / Enerji Raporu Çıkar",
+        "komut": "powercfg /batteryreport",
+        "aciklama": "Laptoplar için batarya sağlık raporu üretir."
+      }
+    ],
+    "temel_anlatim": "Bilgisayarın güç tuşuna basıldığında hiç tepki vermiyorsa sorun anakartta mı yoksa güç kaynağında (PSU) mı olduğunu anlamak için yeşil kabloyu ataşla şaseleyerek test ederiz.",
+    "derin_teknik_analiz": "ATX12V standardında anakart PS_ON sinyalini toprağa (GND) çekerek PSU'yu uyandırır. PSU ray voltajları stabilize olduğunda gri kablodan (Power Good / PWR_OK) +5V sinyal gönderir. PG sinyali 100-500ms gecikmeyle gelmezse anakart açılışı durdurur.",
+    "kenar_durumlar": [
+      {
+        "durum": "Fanı dönüyor fakat bilgisayara bağlayınca açmıyor",
+        "neden": "Yüksüz durumda voltajlar normal görünse de yüke bindiğinde 12V hattı çöküyordur (Kondansatör kuruması).",
+        "cozum": "PSU test cihazı ile yük altında ölçüm yapın."
+      }
+    ],
+    "etiketler": [
+      "psu guc kaynagi multimetre atas testi 12v acilmıyor"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hw_memtest86_ram_slot_diag",
+    "kategori": "Donanım",
+    "alt_kategori": "RAM & Bellek Hataları",
+    "baslik": "MemTest86 & RAM Slot Teşhisi",
+    "hizli_adimlar": [
+      "MemTest86 yüklü bir USB bellek hazırla ve bilgisayarı USB'den başlat.",
+      "Testi başlat; tek bir kırmızı hata (Error) bile çıksa o RAM stabil değildir.",
+      "Hatanın hangi modülden kaynaklandığını bulmak için RAM'leri TEKER TEKER test et.",
+      "Eğer tek modülde de hata veriyorsa RAM'i farklı bir slota takarak anakart slot arızasını ele.",
+      "BIOS'tan XMP/EXPO profilini kapatıp standart JEDEC hızında (Örn: 2133/4800 MHz) tekrar test et."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Windows Bellek Tanılama Aracını Başlat",
+        "komut": "mdsched.exe",
+        "aciklama": "USB olmadan temel Windows bellek testini başlatır."
+      }
+    ],
+    "temel_anlatim": "Bilgisayar rasgele zamanlarda farklı mavi ekranlar veriyorsa (bir gün 0x3B, bir gün 0x1A), sorun neredeyse kesinlikle bozuk RAM çipidir. MemTest86 belleğin her hücresine veri yazıp okuyarak bozuk hücreyi yakalar.",
+    "derin_teknik_analiz": "MemTest86 Test 7 (Block Move) ve Test 8 (Random Number Sequence) algoritmaları bellek hücreleri arasındaki kapasitans kaçaklarını test eder. Hatalar belirli bir hex adresinde sabitse (Örn: 0x1F4A0...) doğrudan tekil DRAM çipi hasarlıdır.",
+    "kenar_durumlar": [
+      {
+        "durum": "RAM'ler tek tek sağlam fakat çift kanal (Dual Channel) takılınca hata veriyor",
+        "neden": "İşlemci bellek kontrolcüsü (IMC) zayıftır veya işlemci soket pinlerinde yamulma vardır.",
+        "cozum": "İşlemciyi söküp soket pinlerini büyüteçle kontrol edin; SoC voltajını bir miktar artırın."
+      }
+    ],
+    "etiketler": [
+      "memtest86 ram hatasi mdsched xmp mavi ekran dual channel"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hw_gpu_vram_error_code_43",
+    "kategori": "Donanım",
+    "alt_kategori": "Ekran Kartı (GPU)",
+    "baslik": "Ekran Kartı Hata Kodu 43 & VRAM",
+    "hizli_adimlar": [
+      "Ekranda pembe/yeşil yatay çizgiler, karelenmeler (Artifact) varsa:",
+      "Önce DDU (Display Driver Uninstaller) ile Güvenli Modda sürücüyü temizle ve baştan kur.",
+      "Sürücü kurulduğu anda ekran siyah kalıyor veya Aygıt Yöneticisinde 'Sorun bildirdiğinden bu aygıt durduruldu (Kod 43)' diyorsa:",
+      "MATS/MODS bellek test yazılımı ile VRAM çiplerini test et.",
+      "Hata genelde GPU çekirdeğinin çatlaması veya VRAM çipinin lehim bilyelerinin (BGA) kopmasıdır."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Ekran Kartı Sürücülerini Sıfırla (Kısayol)",
+        "komut": "Win + Ctrl + Shift + B",
+        "aciklama": "Grafik alt sistemini yeniden başlatır (Ekran 1 kez bip sesiyle yanıp söner)."
+      }
+    ],
+    "temel_anlatim": "Ekran kartı bozulmaya başladığında masaüstünde yeşil çizgiler çıkar ve Windows sürücüyü devre dışı bırakıp düşük çözünürlüğe geçer. Bu arıza genellikle aşırı ısınmadan kaynaklanan lehim çatlağıdır.",
+    "derin_teknik_analiz": "Nvidia/AMD sürücüsü PCIe link eğitimi ve VRAM doğrulaması aşamasında GPU BIOS'undaki imza ile iletişim kuramazsa Windows PNP yöneticisi CM_PROB_FAILED_POSTSTART (Kod 43) bayrağı koyar. Isıl işlem (Reballing) veya arızalı VRAM çip değişimi gerekir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Kod 43 sadece AMD Radeon kartlarda BIOS modundan sonra çıkıyor",
+        "neden": "Mining BIOS'u yüklendiği için sürücü dijital imzayı reddediyordur.",
+        "cozum": "'atikmdag-patcher' çalıştırarak sürücü imza kontrolünü baypas edin veya orijinal VBIOS yükleyin."
+      }
+    ],
+    "etiketler": [
+      "kod 43 ekran karti vram artifact ddu cizgi cikiyor"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "don_ram_modullerinin_uyusmazligi",
+    "kategori": "Donanım",
+    "alt_kategori": "Bellek",
+    "baslik": "RAM Modüllerinin Uyuşmazlığı",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: Farklı çip üreticisi (Samsung B-die vs Hynix) çakışmaları.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "WMI Donanım Bellek Bilgisi",
+        "komut": "wmic memorychip get speed, capacity, partnumber",
+        "aciklama": "Takılı RAM modüllerinin frekans ve parça kodunu verir."
+      }
+    ],
+    "temel_anlatim": "RAM Modüllerinin Uyuşmazlığı, bilişim altyapılarında farklı çip üreticisi (samsung b-die vs hynix) çakışmaları. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "RAM Modüllerinin Uyuşmazlığı mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Farklı çip üreticisi (Samsung B-die vs Hynix) çakışmaları. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "ram modullerinin uyusmazligi donanım bellek ariza onarım"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "don_ram_kontak_temizligi",
+    "kategori": "Donanım",
+    "alt_kategori": "Bellek",
+    "baslik": "RAM Kontak Temizliği",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: Oksitlenen altın pinleri beyaz silgi ve izopropil alkolle temizleme.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "WMI Donanım Bellek Bilgisi",
+        "komut": "wmic memorychip get speed, capacity, partnumber",
+        "aciklama": "Takılı RAM modüllerinin frekans ve parça kodunu verir."
+      }
+    ],
+    "temel_anlatim": "RAM Kontak Temizliği, bilişim altyapılarında oksitlenen altın pinleri beyaz silgi ve izopropil alkolle temizleme. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "RAM Kontak Temizliği mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Oksitlenen altın pinleri beyaz silgi ve izopropil alkolle temizleme. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "ram kontak temizligi donanım bellek ariza onarım"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "don_dram_less_ssd_yavaslamasi",
+    "kategori": "Donanım",
+    "alt_kategori": "Depolama",
+    "baslik": "DRAM-Less SSD Yavaşlaması",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: SLC önbellek dolduktan sonra yazma hızının 30 MB'a çökmesi.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "WMI Donanım Bellek Bilgisi",
+        "komut": "wmic memorychip get speed, capacity, partnumber",
+        "aciklama": "Takılı RAM modüllerinin frekans ve parça kodunu verir."
+      }
+    ],
+    "temel_anlatim": "DRAM-Less SSD Yavaşlaması, bilişim altyapılarında slc önbellek dolduktan sonra yazma hızının 30 mb'a çökmesi. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "DRAM-Less SSD Yavaşlaması mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. SLC önbellek dolduktan sonra yazma hızının 30 MB'a çökmesi. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "dram less ssd yavaslamasi donanım depolama ariza onarım"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mav_q_led_sari_turuncu_dram",
+    "kategori": "Mavi Ekran",
+    "alt_kategori": "Donanım Bip Kodları & Q-LED Hata Tablosu",
+    "baslik": "Q-LED Sarı/Turuncu (DRAM)",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: Bellek zamanlama eğitimi başarısız veya RAM slotu kirli.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Minidump Bellek Dökümü Analizi",
+        "komut": "kd -z C:\\Windows\\Minidump\\latest.dmp",
+        "aciklama": "Crash dump dosyasını WinDbg motoruyla inceler."
+      }
+    ],
+    "temel_anlatim": "Q-LED Sarı/Turuncu (DRAM), bilişim altyapılarında bellek zamanlama eğitimi başarısız veya ram slotu kirli. Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "Q-LED Sarı/Turuncu (DRAM) mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. Bellek zamanlama eğitimi başarısız veya RAM slotu kirli. Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "q led sari turuncu dram mavi ekran donanim bip kodlari q led hata tabl ariza onarım"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "bsod_0x50_page_fault_nonpaged",
+    "kategori": "Mavi Ekran",
+    "alt_kategori": "Bellek & RAM",
+    "baslik": "PAGE_FAULT_IN_NONPAGED_AREA (0x50)",
+    "hizli_adimlar": [
+      "Sorun belirtisini teyit edin: Diske takas edilemeyen Nonpaged bellek alanında geçersiz bellek sayfası istenmesi; RAM/VRAM arızası.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak açın.",
+      "Sistem parametrelerini ve olay loglarını denetleyin.",
+      "Uygulanacak komut: wmic memorychip get speed, status",
+      "Sonucu doğrulamak için servisi veya sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "PAGE_FAULT_IN_NONPAGED_AREA (0x50)",
+        "komut": "wmic memorychip get speed, status",
+        "aciklama": "Takılı RAM modüllerinin durumunu listeler."
+      }
+    ],
+    "temel_anlatim": "PAGE_FAULT_IN_NONPAGED_AREA (0x50), Mavi Ekran altyapısında diske takas edilemeyen nonpaged bellek alanında geçersiz bellek sayfası istenmesi; ram/vram arızası.",
+    "derin_teknik_analiz": "PAGE_FAULT_IN_NONPAGED_AREA (0x50) süreci, işletim sistemi çekirdeği ve ilgili donanım/ağ protokolü düzeyinde yürütülür. Diske takas edilemeyen Nonpaged bellek alanında geçersiz bellek sayfası istenmesi; RAM/VRAM arızası. Kalıcı çözüm için sistem günlükleri ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komut sonuç vermiyor veya erişim reddedildi",
+        "neden": "Kullanıcı Yönetici yetkilerine sahip değildir veya dosya kilitlidir.",
+        "cozum": "Yönetici olarak çalıştırın veya Kurtarma Ortamında (WinRE) deneyin."
+      }
+    ],
+    "etiketler": [
+      "page_fault_in_nonpaged_area (0x50) mavi ekran bellek & ram ariza onarim"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "win_error_0xc0000005_access_violation",
+    "kategori": "Windows",
+    "alt_kategori": "Windows Hata Kodları",
+    "baslik": "Hata 0xC0000005: STATUS_ACCESS_VIOLATION (Bellek İhlali / RAM Çökmesi)",
+    "hizli_adimlar": [
+      "Uygulama açılırken veya oyunda çöküyorsa: RAM XMP/DOCP profilini BIOS'tan kapatıp standart frekansta test edin.",
+      "Windows Bellek Tanılama (mdsched.exe) veya MemTest86 ile RAM modüllerini test edin.",
+      "Eksik veya bozuk Visual C++ Redistributable paketlerini (2015-2022 x86/x64) yeniden kurun.",
+      "SFC /scannow komutuyla bozuk sistem DLL dosyalarını onarın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Sistem Dosyalarını Onar",
+        "komut": "sfc /scannow",
+        "aciklama": "Bozuk sistem DLL ve sistem dosyalarını orijinal kopyalarıyla değiştirir."
+      },
+      {
+        "etiket": "Bellek Tanılama Aracını Başlat",
+        "komut": "mdsched.exe",
+        "aciklama": "Bilgisayarı yeniden başlatarak donanımsal RAM hücre testi yapar."
+      }
+    ],
+    "temel_anlatim": "0xC0000005, bir programın kendisine ait olmayan, erişim izni bulunmayan veya fiziksel olarak var olmayan bir bellek adresine okuma/yazma yapmaya çalışması sonucu işletim sistemi tarafından zorla kapatılmasıdır.",
+    "derin_teknik_analiz": "CPU bellek yönetim birimi (MMU) Sayfa Tablosu (Page Table) kontrolünde 'Page Fault' üretir. Eğer okunan adres geçersizse çekirdek EXCEPTION_ACCESS_VIOLATION istisnası fırlatır. Donanımsal olarak kararsız RAM zamanlamaları veya aşırı ısınan bellek çipleri en büyük etkendir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sadece tek bir tarayıcıda sekme çökmeleri oluyorsa",
+        "neden": "Tarayıcı donanım hızlandırması GPU VRAM hatasına çarpıyordur.",
+        "cozum": "Tarayıcı ayarlarından 'Donanım ivmesini kullan' seçeneğini kapatın."
+      }
+    ],
+    "etiketler": [
+      "0xc0000005 access violation bellek ihlali ram arizasi memtest uygulama cokmesi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hw_vcore_mosfet_short_circuit",
+    "kategori": "Donanım",
+    "alt_kategori": "Anakart & Güç Katı",
+    "baslik": "Anakartta Güç Tuşuna Basınca Fanların 1 Saniye Dönüp Durması (12V Vcore Kısa Devresi)",
+    "hizli_adimlar": [
+      "İşlemciye güç veren 4-pin veya 8-pin 12V EPS güç kablosunu anakarttan sökün.",
+      "24-pin ana anakart kablosu takılıyken bilgisayarı açın. Eğer fanlar sürekli dönmeye başlarsa arıza KESİN olarak Vcore fazlarındadır.",
+      "Multimetreyi diyot/kısa devre (bip) moduna alın; anakarttaki 8-pin soketin 12V pinleri ile GND pinleri arasındaki direnci ölçün (0 Ohm okuyorsanız kısa devre vardır).",
+      "İşlemciyi soketten çıkarın; kısa devre devam ediyorsa bobinlerin yanındaki MOSFET'leri tek tek ölçerek arızalı olanı bulun.",
+      "Sıcak hava istasyonu ile delinen MOSFET'i söküp aynı amper/voltaj değerine sahip muadili ile değiştirin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Multimetre Test Standardı",
+        "komut": "Normal 12V Vcore Direnci: > 500 Ohm | Kısa Devreli Faz Direnci: 0.1 - 2.0 Ohm (Bip sesi)",
+        "aciklama": "VRM faz kısa devre kontrol eşikleri."
+      }
+    ],
+    "temel_anlatim": "Bilgisayarın açma düğmesine basıldığında fanların yarım tur dönüp anında sistemin enerjiyi kesmesi; PSU'nun korumaya geçmesi.",
+    "derin_teknik_analiz": "İşlemci çevresindeki VRM (Voltage Regulator Module) güç katındaki High-Side veya Low-Side MOSFET'lerden biri delindiğinde (kısa devre), 12V EPS hattı doğrudan şaseye (GND) bağlanır. ATX güç kaynağı Short Circuit Protection (SCP) korumasıyla sistemi milisaniyeler içinde kapatır.",
+    "kenar_durumlar": [
+      {
+        "durum": "8-pin soket çıkarıldığında bile fanlar 1 saniyede duruyor",
+        "neden": "Kısa devre Vcore hattında değil, güney köprüsü (PCH), anakart 5V/3.3V standby hattında veya ekran kartı PCIe slotundadır.",
+        "cozum": "Ekran kartını ve tüm çevre birimlerini söküp sadece anakartı masada çıplak test edin."
+      }
+    ],
+    "etiketler": [
+      "donanim anakart vcore mosfet kisa-devre psu-koruma vrm"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mav_post_code_00_d0",
+    "kategori": "Mavi Ekran",
+    "alt_kategori": "Donanım Bip Kodları & Q-LED Hata Tablosu",
+    "baslik": "Post Code 00 / D0",
+    "hizli_adimlar": [
+      "Arıza belirtisini teyit edin: İşlemci hiç başlamadı (Anakart veya CPU ölümü).",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak çalıştırın.",
+      "Sistem parametrelerini ve donanım/ağ loglarını doğrulayın.",
+      "Önerilen komut veya yapılandırma adımını uygulayın.",
+      "Değişikliklerin devreye girmesi için servisi/bağlantıyı yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Minidump Bellek Dökümü Analizi",
+        "komut": "kd -z C:\\Windows\\Minidump\\latest.dmp",
+        "aciklama": "Crash dump dosyasını WinDbg motoruyla inceler."
+      }
+    ],
+    "temel_anlatim": "Post Code 00 / D0, bilişim altyapılarında i̇şlemci hiç başlamadı (anakart veya cpu ölümü). Bu durum sahada sık karşılaşılan kritik bir bakım ve onarım başlığıdır.",
+    "derin_teknik_analiz": "Post Code 00 / D0 mekanizması, işletim sistemi çekirdeği veya donanım kontrolcüsü düzeyinde çalışır. İşlemci hiç başlamadı (Anakart veya CPU ölümü). Hatanın kalıcı olarak çözülmesi için yapılandırma dosyaları ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komutlar sonuç vermiyor veya servis başlamıyor",
+        "neden": "Kayıt defteri yetkileri (ACL) bozulmuş veya kaynak başka bir işlem (PID) tarafından kilitlenmiş olabilir.",
+        "cozum": "Güvenli modda veya WinRE ortamında kilitli handle'ları serbest bırakın."
+      }
+    ],
+    "etiketler": [
+      "post code 00 d0 mavi ekran donanim bip kodlari q led hata tabl ariza onarım"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "bsod_0x124_whea_uncorrectable",
+    "kategori": "Mavi Ekran",
+    "alt_kategori": "Donanım & PCIe/WHEA",
+    "baslik": "WHEA_UNCORRECTABLE_ERROR (0x124)",
+    "hizli_adimlar": [
+      "Sorun belirtisini teyit edin: İşlemci veya PCIe veri yolunda donanım mimarisi tarafından düzeltilemeyen ölümcül hata.",
+      "İlgili yönetim konsolunu veya terminali Yönetici olarak açın.",
+      "Sistem parametrelerini ve olay loglarını denetleyin.",
+      "Uygulanacak komut: powershell -Command \"Get-WinEvent -FilterHashtable @{LogName='System';ProviderName='Microsoft-Windows-WHEA-Logger'}\"",
+      "Sonucu doğrulamak için servisi veya sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "WHEA_UNCORRECTABLE_ERROR (0x124)",
+        "komut": "powershell -Command \"Get-WinEvent -FilterHashtable @{LogName='System';ProviderName='Microsoft-Windows-WHEA-Logger'}\"",
+        "aciklama": "WHEA donanım günlüğü kayıtlarını çeker."
+      }
+    ],
+    "temel_anlatim": "WHEA_UNCORRECTABLE_ERROR (0x124), Mavi Ekran altyapısında i̇şlemci veya pcie veri yolunda donanım mimarisi tarafından düzeltilemeyen ölümcül hata.",
+    "derin_teknik_analiz": "WHEA_UNCORRECTABLE_ERROR (0x124) süreci, işletim sistemi çekirdeği ve ilgili donanım/ağ protokolü düzeyinde yürütülür. İşlemci veya PCIe veri yolunda donanım mimarisi tarafından düzeltilemeyen ölümcül hata. Kalıcı çözüm için sistem günlükleri ve I/O kuyrukları denetlenmelidir.",
+    "kenar_durumlar": [
+      {
+        "durum": "Standart komut sonuç vermiyor veya erişim reddedildi",
+        "neden": "Kullanıcı Yönetici yetkilerine sahip değildir veya dosya kilitlidir.",
+        "cozum": "Yönetici olarak çalıştırın veya Kurtarma Ortamında (WinRE) deneyin."
+      }
+    ],
+    "etiketler": [
+      "whea_uncorrectable_error (0x124) mavi ekran donanım & pcie/whea ariza onarim"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "dev_kod_1",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Aygıt Yöneticisi Kod 1: Aygıt Doğru Yapılandırılmamış (CM_PROB_NOT_CONFIGURED)",
+    "hizli_adimlar": [
+      "Aygıt Yöneticisi'ni (devmgmt.msc) açın.",
+      "Kod 1 uyarısı veren cihazı bulun.",
+      "Sürücüyü güncelleştirin veya donanım kimliğiyle üreticiden INF dosyasını manuel yükleyin.",
+      "Değişiklikleri doğrulamak için sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "devmgmt.msc -> Aygıta sağ tıkla -> Sürücüyü Güncelleştir -> Otomatik Ara.",
+        "aciklama": "Kod 1 onarımı için önerilen komut."
+      }
+    ],
+    "temel_anlatim": "Windows Donanım Yöneticisi Kod 1 arızası: Aygıt Doğru Yapılandırılmamış (CM_PROB_NOT_CONFIGURED)",
+    "derin_teknik_analiz": "Aygıta hiçbir sürücü atanmamış veya sürücü dosyası sistemde eksik.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sürücü güncellenmesine rağmen kod silinmiyor",
+        "neden": "Aygıtın donanımsal çipi yanıt vermemektedir.",
+        "cozum": "Fiziksel aygıtı farklı bir yuvaya takın veya aygıtı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "aygit-yoneticisi",
+      "kod-1",
+      "donanim",
+      "surucu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "dev_kod_3",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Aygıt Yöneticisi Kod 3: Aygıt Sürücüsü Bozulmuş (CM_PROB_OUT_OF_MEMORY)",
+    "hizli_adimlar": [
+      "Aygıt Yöneticisi'ni (devmgmt.msc) açın.",
+      "Kod 3 uyarısı veren cihazı bulun.",
+      "Sürücüyü kaldırıp yeniden başlatın; RAM kullanımını Görev Yöneticisinden inceleyin.",
+      "Değişiklikleri doğrulamak için sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "devmgmt.msc -> Cihazı Kaldır -> 'Bu cihazın sürücüsünü sil' -> Donanım değişikliklerini tara.",
+        "aciklama": "Kod 3 onarımı için önerilen komut."
+      }
+    ],
+    "temel_anlatim": "Windows Donanım Yöneticisi Kod 3 arızası: Aygıt Sürücüsü Bozulmuş (CM_PROB_OUT_OF_MEMORY)",
+    "derin_teknik_analiz": "Sistem belleği yetersiz veya sürücü ikili dosyası bozulmuş.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sürücü güncellenmesine rağmen kod silinmiyor",
+        "neden": "Aygıtın donanımsal çipi yanıt vermemektedir.",
+        "cozum": "Fiziksel aygıtı farklı bir yuvaya takın veya aygıtı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "aygit-yoneticisi",
+      "kod-3",
+      "donanim",
+      "surucu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "dev_kod_10",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Aygıt Yöneticisi Kod 10: Aygıt Başlatılamıyor (CM_PROB_FAILED_START)",
+    "hizli_adimlar": [
+      "Aygıt Yöneticisi'ni (devmgmt.msc) açın.",
+      "Kod 10 uyarısı veren cihazı bulun.",
+      "PCIe slotunu temizleyin, BIOS'u güncelleyin, aygıtın firmware güncellemesini yapın.",
+      "Değişiklikleri doğrulamak için sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "devmgmt.msc -> Aygıtı devre dışı bırak -> Tekrar etkinleştir. BIOS'ta PCIe Gen ayarını Gen3 sabitleyin.",
+        "aciklama": "Kod 10 onarımı için önerilen komut."
+      }
+    ],
+    "temel_anlatim": "Windows Donanım Yöneticisi Kod 10 arızası: Aygıt Başlatılamıyor (CM_PROB_FAILED_START)",
+    "derin_teknik_analiz": "Aygıt donanımsal iletişim kuramıyor veya sürücü protokolü başarısız oldu.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sürücü güncellenmesine rağmen kod silinmiyor",
+        "neden": "Aygıtın donanımsal çipi yanıt vermemektedir.",
+        "cozum": "Fiziksel aygıtı farklı bir yuvaya takın veya aygıtı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "aygit-yoneticisi",
+      "kod-10",
+      "donanim",
+      "surucu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "dev_kod_12",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Aygıt Yöneticisi Kod 12: Yeterli Boş Kaynak Yok (CM_PROB_NORMAL_CONFLICT)",
+    "hizli_adimlar": [
+      "Aygıt Yöneticisi'ni (devmgmt.msc) açın.",
+      "Kod 12 uyarısı veren cihazı bulun.",
+      "Çakışan diğer aygıtı devre dışı bırakın veya BIOS'ta I/O kaynak atamalarını sıfırlayın.",
+      "Değişiklikleri doğrulamak için sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "BIOS -> Reset Configuration Data (ESCD) -> Enabled yapıp kaydedin.",
+        "aciklama": "Kod 12 onarımı için önerilen komut."
+      }
+    ],
+    "temel_anlatim": "Windows Donanım Yöneticisi Kod 12 arızası: Yeterli Boş Kaynak Yok (CM_PROB_NORMAL_CONFLICT)",
+    "derin_teknik_analiz": "İki aygıt aynı I/O portunu, IRQ kesmesini veya DMA kanalını paylaşmaya çalışıyor.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sürücü güncellenmesine rağmen kod silinmiyor",
+        "neden": "Aygıtın donanımsal çipi yanıt vermemektedir.",
+        "cozum": "Fiziksel aygıtı farklı bir yuvaya takın veya aygıtı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "aygit-yoneticisi",
+      "kod-12",
+      "donanim",
+      "surucu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "dev_kod_14",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Aygıt Yöneticisi Kod 14: Bilgisayarın Yeniden Başlatılması Gerekiyor (CM_PROB_NEED_RESTART)",
+    "hizli_adimlar": [
+      "Aygıt Yöneticisi'ni (devmgmt.msc) açın.",
+      "Kod 14 uyarısı veren cihazı bulun.",
+      "Bilgisayarı normal şekilde yeniden başlatın.",
+      "Değişiklikleri doğrulamak için sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "shutdown /r /t 0",
+        "aciklama": "Kod 14 onarımı için önerilen komut."
+      }
+    ],
+    "temel_anlatim": "Windows Donanım Yöneticisi Kod 14 arızası: Bilgisayarın Yeniden Başlatılması Gerekiyor (CM_PROB_NEED_RESTART)",
+    "derin_teknik_analiz": "Sürücü kurulumunun tamamlanması için sistemin yeniden başlatılması şarttır.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sürücü güncellenmesine rağmen kod silinmiyor",
+        "neden": "Aygıtın donanımsal çipi yanıt vermemektedir.",
+        "cozum": "Fiziksel aygıtı farklı bir yuvaya takın veya aygıtı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "aygit-yoneticisi",
+      "kod-14",
+      "donanim",
+      "surucu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "dev_kod_19",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Aygıt Yöneticisi Kod 19: Kayıt Defteri Yapılandırması Bozuk (CM_PROB_REGISTRY_ERROR)",
+    "hizli_adimlar": [
+      "Aygıt Yöneticisi'ni (devmgmt.msc) açın.",
+      "Kod 19 uyarısı veren cihazı bulun.",
+      "Regedit üzerinden ilgili sınıf GUID altındaki UpperFilters ve LowerFilters değerlerini silin.",
+      "Değişiklikleri doğrulamak için sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "reg delete \"HKLM\\SYSTEM\\CurrentControlSet\\Control\\Class\\{GUID}\" /v UpperFilters /f",
+        "aciklama": "Kod 19 onarımı için önerilen komut."
+      }
+    ],
+    "temel_anlatim": "Windows Donanım Yöneticisi Kod 19 arızası: Kayıt Defteri Yapılandırması Bozuk (CM_PROB_REGISTRY_ERROR)",
+    "derin_teknik_analiz": "Sınıf filtresi (UpperFilters / LowerFilters) anahtarlarındaki bozuk referanslar.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sürücü güncellenmesine rağmen kod silinmiyor",
+        "neden": "Aygıtın donanımsal çipi yanıt vermemektedir.",
+        "cozum": "Fiziksel aygıtı farklı bir yuvaya takın veya aygıtı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "aygit-yoneticisi",
+      "kod-19",
+      "donanim",
+      "surucu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "dev_kod_21",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Aygıt Yöneticisi Kod 21: Windows Aygıtı Kaldırıyor (CM_PROB_WILL_BE_REMOVED)",
+    "hizli_adimlar": [
+      "Aygıt Yöneticisi'ni (devmgmt.msc) açın.",
+      "Kod 21 uyarısı veren cihazı bulun.",
+      "Sistemi yeniden başlatın.",
+      "Değişiklikleri doğrulamak için sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "shutdown /r /t 0",
+        "aciklama": "Kod 21 onarımı için önerilen komut."
+      }
+    ],
+    "temel_anlatim": "Windows Donanım Yöneticisi Kod 21 arızası: Windows Aygıtı Kaldırıyor (CM_PROB_WILL_BE_REMOVED)",
+    "derin_teknik_analiz": "Aygıt kaldırma işlemi arka planda takılı kalmış.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sürücü güncellenmesine rağmen kod silinmiyor",
+        "neden": "Aygıtın donanımsal çipi yanıt vermemektedir.",
+        "cozum": "Fiziksel aygıtı farklı bir yuvaya takın veya aygıtı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "aygit-yoneticisi",
+      "kod-21",
+      "donanim",
+      "surucu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "dev_kod_22",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Aygıt Yöneticisi Kod 22: Aygıt Devre Dışı Bırakılmış (CM_PROB_DISABLED)",
+    "hizli_adimlar": [
+      "Aygıt Yöneticisi'ni (devmgmt.msc) açın.",
+      "Kod 22 uyarısı veren cihazı bulun.",
+      "Aygıt Yöneticisi'nde sağ tıklayıp 'Cihazı Etkinleştir' seçeneğini seçin.",
+      "Değişiklikleri doğrulamak için sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "Enable-PnpDevice -InstanceId '<DeviceID>' -Confirm:$false",
+        "aciklama": "Kod 22 onarımı için önerilen komut."
+      }
+    ],
+    "temel_anlatim": "Windows Donanım Yöneticisi Kod 22 arızası: Aygıt Devre Dışı Bırakılmış (CM_PROB_DISABLED)",
+    "derin_teknik_analiz": "Aygıt kullanıcı veya sistem tarafından devre dışı bırakılmıştır.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sürücü güncellenmesine rağmen kod silinmiyor",
+        "neden": "Aygıtın donanımsal çipi yanıt vermemektedir.",
+        "cozum": "Fiziksel aygıtı farklı bir yuvaya takın veya aygıtı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "aygit-yoneticisi",
+      "kod-22",
+      "donanim",
+      "surucu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "dev_kod_24",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Aygıt Yöneticisi Kod 24: Aygıt Mevcut Değil / Donanım Arızası (CM_PROB_HARDWARE_DISABLED)",
+    "hizli_adimlar": [
+      "Aygıt Yöneticisi'ni (devmgmt.msc) açın.",
+      "Kod 24 uyarısı veren cihazı bulun.",
+      "Kablo bağlantılarını, lehim noktalarını ve güç soketini kontrol edin.",
+      "Değişiklikleri doğrulamak için sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "Fiziksel donanımı söküp farklı yuvaya takın.",
+        "aciklama": "Kod 24 onarımı için önerilen komut."
+      }
+    ],
+    "temel_anlatim": "Windows Donanım Yöneticisi Kod 24 arızası: Aygıt Mevcut Değil / Donanım Arızası (CM_PROB_HARDWARE_DISABLED)",
+    "derin_teknik_analiz": "Aygıt fiziksel olarak anakarta bağlı değil veya elektrik beslemesi kesik.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sürücü güncellenmesine rağmen kod silinmiyor",
+        "neden": "Aygıtın donanımsal çipi yanıt vermemektedir.",
+        "cozum": "Fiziksel aygıtı farklı bir yuvaya takın veya aygıtı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "aygit-yoneticisi",
+      "kod-24",
+      "donanim",
+      "surucu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "dev_kod_28",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Aygıt Yöneticisi Kod 28: Sürücüler Yüklenmemiş (CM_PROB_FAILED_INSTALL)",
+    "hizli_adimlar": [
+      "Aygıt Yöneticisi'ni (devmgmt.msc) açın.",
+      "Kod 28 uyarısı veren cihazı bulun.",
+      "Ayrıntılar sekmesinden Donanım Kimliği'ni (VEN_xxxx&DEV_xxxx) kopyalayıp üretici INF dosyasını kurun.",
+      "Değişiklikleri doğrulamak için sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "pnputil /add-driver surucu.inf /install",
+        "aciklama": "Kod 28 onarımı için önerilen komut."
+      }
+    ],
+    "temel_anlatim": "Windows Donanım Yöneticisi Kod 28 arızası: Sürücüler Yüklenmemiş (CM_PROB_FAILED_INSTALL)",
+    "derin_teknik_analiz": "Aygıt için işletim sisteminde uyumlu hiçbir sürücü paketi bulunamadı.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sürücü güncellenmesine rağmen kod silinmiyor",
+        "neden": "Aygıtın donanımsal çipi yanıt vermemektedir.",
+        "cozum": "Fiziksel aygıtı farklı bir yuvaya takın veya aygıtı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "aygit-yoneticisi",
+      "kod-28",
+      "donanim",
+      "surucu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "dev_kod_31",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Aygıt Yöneticisi Kod 31: Aygıt Düzgün Çalışmıyor (CM_PROB_FAILED_ADD)",
+    "hizli_adimlar": [
+      "Aygıt Yöneticisi'ni (devmgmt.msc) açın.",
+      "Kod 31 uyarısı veren cihazı bulun.",
+      "Sürücüyü tamamen kaldırıp en güncel WHQL paketini kurun.",
+      "Değişiklikleri doğrulamak için sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "devmgmt.msc -> Sürücüyü Kaldır -> Bilgisayarı yeniden başlat.",
+        "aciklama": "Kod 31 onarımı için önerilen komut."
+      }
+    ],
+    "temel_anlatim": "Windows Donanım Yöneticisi Kod 31 arızası: Aygıt Düzgün Çalışmıyor (CM_PROB_FAILED_ADD)",
+    "derin_teknik_analiz": "Windows aygıt için gerekli sürücüleri yükleyemedi (Bağımlı DLL eksik).",
+    "kenar_durumlar": [
+      {
+        "durum": "Sürücü güncellenmesine rağmen kod silinmiyor",
+        "neden": "Aygıtın donanımsal çipi yanıt vermemektedir.",
+        "cozum": "Fiziksel aygıtı farklı bir yuvaya takın veya aygıtı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "aygit-yoneticisi",
+      "kod-31",
+      "donanim",
+      "surucu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "dev_kod_32",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Aygıt Yöneticisi Kod 32: Sürücü Servisi Devre Dışı (CM_PROB_DISABLED_SERVICE)",
+    "hizli_adimlar": [
+      "Aygıt Yöneticisi'ni (devmgmt.msc) açın.",
+      "Kod 32 uyarısı veren cihazı bulun.",
+      "Kayıt defterinden veya services.msc altından ilgili servisin Start değerini 3 (Manuel) veya 2 (Otomatik) yapın.",
+      "Değişiklikleri doğrulamak için sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "sc config <ServiceName> start= auto",
+        "aciklama": "Kod 32 onarımı için önerilen komut."
+      }
+    ],
+    "temel_anlatim": "Windows Donanım Yöneticisi Kod 32 arızası: Sürücü Servisi Devre Dışı (CM_PROB_DISABLED_SERVICE)",
+    "derin_teknik_analiz": "Sürücünün bağlı olduğu Windows çekirdek servisinin başlangıç türü devre dışı bırakılmış.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sürücü güncellenmesine rağmen kod silinmiyor",
+        "neden": "Aygıtın donanımsal çipi yanıt vermemektedir.",
+        "cozum": "Fiziksel aygıtı farklı bir yuvaya takın veya aygıtı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "aygit-yoneticisi",
+      "kod-32",
+      "donanim",
+      "surucu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "dev_kod_37",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Aygıt Yöneticisi Kod 37: Sürücü Başlatma Rutini Başarısız (CM_PROB_FAILED_DRIVER_ENTRY)",
+    "hizli_adimlar": [
+      "Aygıt Yöneticisi'ni (devmgmt.msc) açın.",
+      "Kod 37 uyarısı veren cihazı bulun.",
+      "Sürücü 64-bit işletim sistemiyle uyumsuzdur; güncel 64-bit sürücüyü edinin.",
+      "Değişiklikleri doğrulamak için sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "Sürücüyü kaldırıp üretici yazılım paketini yönetici olarak kurun.",
+        "aciklama": "Kod 37 onarımı için önerilen komut."
+      }
+    ],
+    "temel_anlatim": "Windows Donanım Yöneticisi Kod 37 arızası: Sürücü Başlatma Rutini Başarısız (CM_PROB_FAILED_DRIVER_ENTRY)",
+    "derin_teknik_analiz": "Sürücünün DriverEntry giriş noktası kod yürütürken hata kodu döndürdü.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sürücü güncellenmesine rağmen kod silinmiyor",
+        "neden": "Aygıtın donanımsal çipi yanıt vermemektedir.",
+        "cozum": "Fiziksel aygıtı farklı bir yuvaya takın veya aygıtı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "aygit-yoneticisi",
+      "kod-37",
+      "donanim",
+      "surucu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "dev_kod_38",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Aygıt Yöneticisi Kod 38: Sürücü Zaten Bellekte Yüklü (CM_PROB_DRIVER_FAILED_PRIOR_UNLOAD)",
+    "hizli_adimlar": [
+      "Aygıt Yöneticisi'ni (devmgmt.msc) açın.",
+      "Kod 38 uyarısı veren cihazı bulun.",
+      "Bilgisayarı yeniden başlatın; düzelmezse Hızlı Başlatmayı kapatın.",
+      "Değişiklikleri doğrulamak için sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "shutdown /r /f /t 0",
+        "aciklama": "Kod 38 onarımı için önerilen komut."
+      }
+    ],
+    "temel_anlatim": "Windows Donanım Yöneticisi Kod 38 arızası: Sürücü Zaten Bellekte Yüklü (CM_PROB_DRIVER_FAILED_PRIOR_UNLOAD)",
+    "derin_teknik_analiz": "Önceki sürücü örneği bellekten temizlenemediği için yeni kopya başlatılamıyor.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sürücü güncellenmesine rağmen kod silinmiyor",
+        "neden": "Aygıtın donanımsal çipi yanıt vermemektedir.",
+        "cozum": "Fiziksel aygıtı farklı bir yuvaya takın veya aygıtı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "aygit-yoneticisi",
+      "kod-38",
+      "donanim",
+      "surucu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "dev_kod_39",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Aygıt Yöneticisi Kod 39: Sürücü İkili Dosyası Yüklenemiyor (CM_PROB_DRIVER_FAILED_LOAD)",
+    "hizli_adimlar": [
+      "Aygıt Yöneticisi'ni (devmgmt.msc) açın.",
+      "Kod 39 uyarısı veren cihazı bulun.",
+      "Windows Güvenliği -> Çekirdek Yalıtımı -> Bellek Bütünlüğü'nü geçici olarak kapatıp sürücüyü güncelleyin.",
+      "Değişiklikleri doğrulamak için sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "reg add HKLM\\SYSTEM\\CurrentControlSet\\Control\\DeviceGuard\\Scenarios\\HypervisorEnforcedCodeIntegrity /v Enabled /t REG_DWORD /d 0 /f",
+        "aciklama": "Kod 39 onarımı için önerilen komut."
+      }
+    ],
+    "temel_anlatim": "Windows Donanım Yöneticisi Kod 39 arızası: Sürücü İkili Dosyası Yüklenemiyor (CM_PROB_DRIVER_FAILED_LOAD)",
+    "derin_teknik_analiz": "Sürücü dosyası bozuk, imzasız veya Çekirdek İzolasyonu (HVCI) tarafından bloklandı.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sürücü güncellenmesine rağmen kod silinmiyor",
+        "neden": "Aygıtın donanımsal çipi yanıt vermemektedir.",
+        "cozum": "Fiziksel aygıtı farklı bir yuvaya takın veya aygıtı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "aygit-yoneticisi",
+      "kod-39",
+      "donanim",
+      "surucu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "dev_kod_43",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Aygıt Yöneticisi Kod 43: Aygıt Sorun Bildirdiğinden Durduruldu (CM_PROB_FAILED_POST_START)",
+    "hizli_adimlar": [
+      "Aygıt Yöneticisi'ni (devmgmt.msc) açın.",
+      "Kod 43 uyarısı veren cihazı bulun.",
+      "GPU'da Mats/Mods VRAM testi yapın; USB'de bilgisayarın fişini çekip 5 dakika statik elektriği boşaltın.",
+      "Değişiklikleri doğrulamak için sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "Aygıtı kaldır -> Fişi çek -> Güç tuşuna 30 sn basılı tut -> Aç.",
+        "aciklama": "Kod 43 onarımı için önerilen komut."
+      }
+    ],
+    "temel_anlatim": "Windows Donanım Yöneticisi Kod 43 arızası: Aygıt Sorun Bildirdiğinden Durduruldu (CM_PROB_FAILED_POST_START)",
+    "derin_teknik_analiz": "Grafik kartı VRAM çatlağı, USB aşırı akım veya firmware çökmesi.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sürücü güncellenmesine rağmen kod silinmiyor",
+        "neden": "Aygıtın donanımsal çipi yanıt vermemektedir.",
+        "cozum": "Fiziksel aygıtı farklı bir yuvaya takın veya aygıtı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "aygit-yoneticisi",
+      "kod-43",
+      "donanim",
+      "surucu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "dev_kod_45",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Aygıt Yöneticisi Kod 45: Aygıt Bilgisayara Bağlı Değil (CM_PROB_NOT_PRESENT)",
+    "hizli_adimlar": [
+      "Aygıt Yöneticisi'ni (devmgmt.msc) açın.",
+      "Kod 45 uyarısı veren cihazı bulun.",
+      "Kabloyu takın; takılıysa port arızalıdır veya temassızlık vardır.",
+      "Değişiklikleri doğrulamak için sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "set devmgr_show_nonpresent_devices=1 & devmgmt.msc",
+        "aciklama": "Kod 45 onarımı için önerilen komut."
+      }
+    ],
+    "temel_anlatim": "Windows Donanım Yöneticisi Kod 45 arızası: Aygıt Bilgisayara Bağlı Değil (CM_PROB_NOT_PRESENT)",
+    "derin_teknik_analiz": "Aygıt daha önce takılmış ancak şu an fiziksel bağlantısı kopmuş (Hayalet Aygıt).",
+    "kenar_durumlar": [
+      {
+        "durum": "Sürücü güncellenmesine rağmen kod silinmiyor",
+        "neden": "Aygıtın donanımsal çipi yanıt vermemektedir.",
+        "cozum": "Fiziksel aygıtı farklı bir yuvaya takın veya aygıtı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "aygit-yoneticisi",
+      "kod-45",
+      "donanim",
+      "surucu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "dev_kod_48",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Aygıt Yöneticisi Kod 48: Sürücü Engellendi (CM_PROB_BLOCKED_ON_SETUP)",
+    "hizli_adimlar": [
+      "Aygıt Yöneticisi'ni (devmgmt.msc) açın.",
+      "Kod 48 uyarısı veren cihazı bulun.",
+      "Üretici sitesinden bu Windows sürümü için optimize edilmiş yeni sürücüyü indirin.",
+      "Değişiklikleri doğrulamak için sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "BIOS güncelleyin ve güncel imzalı sürücüyü kurun.",
+        "aciklama": "Kod 48 onarımı için önerilen komut."
+      }
+    ],
+    "temel_anlatim": "Windows Donanım Yöneticisi Kod 48 arızası: Sürücü Engellendi (CM_PROB_BLOCKED_ON_SETUP)",
+    "derin_teknik_analiz": "Windows sürücünün kararsız olduğunu tespit ederek yüklenmesini kasten engelledi.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sürücü güncellenmesine rağmen kod silinmiyor",
+        "neden": "Aygıtın donanımsal çipi yanıt vermemektedir.",
+        "cozum": "Fiziksel aygıtı farklı bir yuvaya takın veya aygıtı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "aygit-yoneticisi",
+      "kod-48",
+      "donanim",
+      "surucu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "dev_kod_52",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Aygıt Yöneticisi Kod 52: Dijital İmza Doğrulanamıyor (CM_PROB_UNSIGNED_DRIVER)",
+    "hizli_adimlar": [
+      "Aygıt Yöneticisi'ni (devmgmt.msc) açın.",
+      "Kod 52 uyarısı veren cihazı bulun.",
+      "Gelişmiş Başlangıçtan 'Sürücü İmzası Zorlamasını Devre Dışı Bırak' seçin veya bcdedit testsigning açın.",
+      "Değişiklikleri doğrulamak için sistemi yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "bcdedit /set testsigning on",
+        "aciklama": "Kod 52 onarımı için önerilen komut."
+      }
+    ],
+    "temel_anlatim": "Windows Donanım Yöneticisi Kod 52 arızası: Dijital İmza Doğrulanamıyor (CM_PROB_UNSIGNED_DRIVER)",
+    "derin_teknik_analiz": "Sürücü Microsoft WHQL dijital imzasına sahip değil veya sertifikası iptal edilmiş.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sürücü güncellenmesine rağmen kod silinmiyor",
+        "neden": "Aygıtın donanımsal çipi yanıt vermemektedir.",
+        "cozum": "Fiziksel aygıtı farklı bir yuvaya takın veya aygıtı değiştirin."
+      }
+    ],
+    "etiketler": [
+      "aygit-yoneticisi",
+      "kod-52",
+      "donanim",
+      "surucu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hw_mat_7",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Laptop Anakartında 19V Ana Güç Hattı (VIN / B+) Kısa Devresi ve Açılmama",
+    "hizli_adimlar": [
+      "Anakartı kasadan söküp masaya alın; bataryayı ve adaptörü ayırın.",
+      "Multimetreyi diyot/buzzer kademesine alıp DC giriş soketi arkasındaki akım algılama direncinin (Current Sense Resistor) şasiye direncini ölçün (0 Ohm = kısa devre).",
+      "Ayarlı güç kaynağını 1.0V ve 1.5A akım sınırına ayarlayın.",
+      "Eksi probu şasiye, artı probu akım algılama direncine lehimleyin.",
+      "Anakart yüzeyine izopropil alkol sıkın veya termal kamera tutarak anında buharlaşan/ısınan arızalı SMD kapasitörü tespit edin.",
+      "Kısa devre olan kapasitörü sıcak hava istasyonuyla söküp aynı kapasitede yenisini lehimleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Voltaj Enjeksiyon Kuralı",
+        "komut": "Güç Kaynağı: 1.0V (Asla 19V vermeyin, işlemciyi yakarsınız), Akım: 2.0A",
+        "aciklama": "Yalnızca kısa devre olan parçanın ısınmasını sağlar, sağlam çipleri korur."
+      }
+    ],
+    "temel_anlatim": "Şarj aleti takıldığında adaptörün korumaya geçip ışığının sönmesi veya laptopun hiçbir tepki vermemesi.",
+    "derin_teknik_analiz": "Kök Neden: 19V hattı üzerindeki SMD seramik filtre kapasitörlerinden birinin delinerek (breakdown) şasiye kısa devre olması. Saha Onarım Adımları: Laboratuvar ayarlı güç kaynağı ile 1V / 1A voltaj enjeksiyonu yapıp termal kamera veya alkol ile ısınan kapasitörü bulun.",
+    "kenar_durumlar": [
+      {
+        "durum": "Isınan parça doğrudan CPU veya PCH köprüsü çıkıyor",
+        "neden": "Üst mosfet (High-side MOSFET) delinmiş ve 19V doğrudan çekirdeğe akmıştır.",
+        "cozum": "İşlemci yanmıştır; anakart değişimi gereklidir."
+      }
+    ],
+    "etiketler": [
+      "donanim",
+      "anakart-tamiri",
+      "19v-kisa-devre",
+      "voltaj-enjeksiyonu",
+      "smd-kapasitor",
+      "lehim"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hw_mat_8",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Laptop Kapak Hall Sensörü (Lid Switch) Arızası ve Ekranın Uyanmaması",
+    "hizli_adimlar": [
+      "Anakart şemasından LID_SW# veya HALL_OUT pinini bulun.",
+      "Kapak açıkken bu hatta 3.3V yüksek seviye (High) olmalıdır.",
+      "Eğer voltaj 0V (Low) seviyesinde kalıyorsa sensör mıknatıs algılamış gibi davranıyordur.",
+      "Sensörün bacaklarını alkolle temizleyin veya yeni hall switch entegresi lehimleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Hall Sensör Sinyal Ölçümü",
+        "komut": "Multimetre DC 20V: LID_SW# pini = 3.3V (Kapak Açık), 0V (Kapak Kapalı)",
+        "aciklama": "Ekran kapağının açık/kapalı algılama mantığını doğrular."
+      }
+    ],
+    "temel_anlatim": "Laptop çalışmasına ve fanların dönmesine rağmen ekrana görüntü gelmemesi veya uyku modundan çıkmaması.",
+    "derin_teknik_analiz": "Kök Neden: Ekran çerçevesindeki mıknatısı algılayan manyetik Hall Effect sensörünün takılı kalarak cihazı sürekli uykuda tutması. Saha Onarım Adımları: Anakart üzerindeki Hall sensörü (LID_SW#) sinyal hattını multimetre ile ölçün ve arızalı sensörü değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sensör sağlam ama voltaj 0V kalıyor",
+        "neden": "3.3V pull-up direnci açık devre olmuştur.",
+        "cozum": "Hatta bağlı 100K pull-up direncini yenileyin."
+      }
+    ],
+    "etiketler": [
+      "donanim",
+      "hall-sensor",
+      "ekran-uykusu",
+      "lid-switch",
+      "goruntu-yok",
+      "laptop-tamiri"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_90",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Multimetre ile Kısa Devre Tespiti: Buzzer ve Diyot Kademe Ölçüm Farkları",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: Multimetre: Diyot/Buzzer Kademesi",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "Multimetre: Diyot/Buzzer Kademesi",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Multimetre ile Kısa Devre Tespiti: Buzzer ve Diyot Kademe Ölçüm Farkları ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: Multimetre: Diyot/Buzzer Kademesi",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "donanım & mikro lehimleme",
+      "donanım",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_91",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "SMD Seramik Kapasitörün (MLCC) Mikroskobik Çatlak ve Isınma Testi",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: Termal Kamera / Dondurucu Gaz Spreyi",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "Termal Kamera / Dondurucu Gaz Spreyi",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "SMD Seramik Kapasitörün (MLCC) Mikroskobik Çatlak ve Isınma Testi ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: Termal Kamera / Dondurucu Gaz Spreyi",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "donanım & mikro lehimleme",
+      "donanım",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_92",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Anakart BIOS Çipi (SOP8 SPI Flash) CH341A Programlayıcı ile Harici Yazma",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: NeoProgrammer.exe / AsProgrammer",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "NeoProgrammer.exe / AsProgrammer",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Anakart BIOS Çipi (SOP8 SPI Flash) CH341A Programlayıcı ile Harici Yazma ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: NeoProgrammer.exe / AsProgrammer",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "donanım & mikro lehimleme",
+      "donanım",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_93",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Super I/O (EC - Embedded Controller) IT8586E / KB9012 Bellenim Programlama",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: SVOD3 Programmer",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "SVOD3 Programmer",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Super I/O (EC - Embedded Controller) IT8586E / KB9012 Bellenim Programlama ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: SVOD3 Programmer",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "donanım & mikro lehimleme",
+      "donanım",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_94",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "USB Type-C CC1/CC2 Pinlerinde 20V VBUS Kaçağı ve Şarj Entegresi Arızası",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: Type-C Tester / Multimetre",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "Type-C Tester / Multimetre",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "USB Type-C CC1/CC2 Pinlerinde 20V VBUS Kaçağı ve Şarj Entegresi Arızası ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: Type-C Tester / Multimetre",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "donanım & mikro lehimleme",
+      "donanım",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_95",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Laptop Ekran Flex Kablosunda Kırık Hat Tespiti ve Görüntü Titremesi",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: Multimetre Süreklilik Testi",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "Multimetre Süreklilik Testi",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Laptop Ekran Flex Kablosunda Kırık Hat Tespiti ve Görüntü Titremesi ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: Multimetre Süreklilik Testi",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "donanım & mikro lehimleme",
+      "donanım",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_96",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Anakart Bobinlerinde (Inductor) Vızıltı ve Bobin Ağlaması (Coil Whine) İzolasyonu",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: Elektronik RTV Silikon",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "Elektronik RTV Silikon",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Anakart Bobinlerinde (Inductor) Vızıltı ve Bobin Ağlaması (Coil Whine) İzolasyonu ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: Elektronik RTV Silikon",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "donanım & mikro lehimleme",
+      "donanım",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_97",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "CMOS Pilinin (CR2032) 2.5V Altına Düşmesi ve Tarih/Saat Sıfırlanma Döngüsü",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: Multimetre DC 20V: CR2032 > 3.0V",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "Multimetre DC 20V: CR2032 > 3.0V",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "CMOS Pilinin (CR2032) 2.5V Altına Düşmesi ve Tarih/Saat Sıfırlanma Döngüsü ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: Multimetre DC 20V: CR2032 > 3.0V",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "donanım & mikro lehimleme",
+      "donanım",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_98",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "BGA Çip Yeniden Toplama (Reballing) Lehim Topu Çapı ve Şablon Seçimi",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: 0.45mm Kurşunlu Lehim Topu + Isıya Dayanıklı Stencil",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "0.45mm Kurşunlu Lehim Topu + Isıya Dayanıklı Stencil",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "BGA Çip Yeniden Toplama (Reballing) Lehim Topu Çapı ve Şablon Seçimi ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: 0.45mm Kurşunlu Lehim Topu + Isıya Dayanıklı Stencil",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "donanım & mikro lehimleme",
+      "donanım",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "spec_99",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Osiloskop ile İşlemci Güç Katı (VCore) Dalgalanma (Ripple) Ölçümü",
+    "hizli_adimlar": [
+      "Sistem arıza kayıtlarını ve durum kodlarını inceleyin.",
+      "Hatanın tekrarlanma koşullarını izole edin.",
+      "Komut satırından çözüm prosedürünü yürütün: Osiloskop: AC Kuplaj 20mV/div",
+      "Doğrulama testini çalıştırarak hatanın temizlendiğini teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çözüm Komutu",
+        "komut": "Osiloskop: AC Kuplaj 20mV/div",
+        "aciklama": "Teknik servis müdahale komutu."
+      }
+    ],
+    "temel_anlatim": "Osiloskop ile İşlemci Güç Katı (VCore) Dalgalanma (Ripple) Ölçümü ile ilgili saha mühendisliği teşhisi ve çözümü.",
+    "derin_teknik_analiz": "Donanımsal, protokolsel veya yapılandırma kaynaklı sistem hatası. Çözüm: Yetkili teknik standartlara göre parametreleri düzenleyin: Osiloskop: AC Kuplaj 20mV/div",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kök bileşen arızalıdır.",
+        "cozum": "Üst seviye modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanım & güç",
+      "donanım & mikro lehimleme",
+      "donanım",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "rail_3VALW___5VALW",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Laptop Anakart Güç Hattı [+3VALW / +5VALW]: 3.3V ve 5V Daimi Bekleme Gerilimleri (Always-On Rails) Arıza Tespiti",
+    "hizli_adimlar": [
+      "Anakart şemasını (Schematic & Boardview) açarak +3VALW / +5VALW bobininin konumunu bulun.",
+      "Multimetreyi diyot moduna alıp hatta şasiye göre direnç (Ohm) testi yapın.",
+      "Kök neden analizini uygulayın: TPS51125 / RT8205 PWM entegresinin yanması veya çıkış seramik kapasitörlerinin kısa devre olması.",
+      "Saha onarım adımlarını yürütün: Multimetre ile bobinlerde (PL) 3.3V ve 5V olduğunu ölçün; kısa devre varsa 1.5V enjeksiyon yaparak ısınan parçayı değiştirin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Bobin Voltaj Kontrolü",
+        "komut": "Multimetre DC 20V: +3VALW / +5VALW test noktası voltajını ölçün",
+        "aciklama": "Güç hattının kararlı çıkış voltajını doğrular."
+      }
+    ],
+    "temel_anlatim": "Adaptör takıldığında laptopun bekleme LED'inin yanmaması ve güç tuşuna basıldığında hiç tepki vermemesi.",
+    "derin_teknik_analiz": "TPS51125 / RT8205 PWM entegresinin yanması veya çıkış seramik kapasitörlerinin kısa devre olması. Çözüm: Multimetre ile bobinlerde (PL) 3.3V ve 5V olduğunu ölçün; kısa devre varsa 1.5V enjeksiyon yaparak ısınan parçayı değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Voltaj var ama dalgalanıyor",
+        "neden": "Filtre katı elektrolitik/tantalyum kapasitörleri ESR değerini kaybetmiştir.",
+        "cozum": "Çıkış kapasitörlerini yenileyin."
+      }
+    ],
+    "etiketler": [
+      "donanim",
+      "anakart",
+      "+3valw / +5valw",
+      "voltaj-hatti",
+      "mikro-lehimleme",
+      "vcore"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "rail_1.05V_PCH",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Laptop Anakart Güç Hattı [+1.05V PCH]: Güney Köprüsü / PCH Çip Gerilimi Hatası Arıza Tespiti",
+    "hizli_adimlar": [
+      "Anakart şemasını (Schematic & Boardview) açarak +1.05V PCH bobininin konumunu bulun.",
+      "Multimetreyi diyot moduna alıp hatta şasiye göre direnç (Ohm) testi yapın.",
+      "Kök neden analizini uygulayın: PCH voltajını üreten lineer regülatörün (LDO) arızalanması veya köprünün çekirdek kısa devresi.",
+      "Saha onarım adımlarını yürütün: PCH bobinindeki direnci ölçün (Normal: 15-40 Ohm); 0 Ohm ise PCH köprüsünü değiştirin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Bobin Voltaj Kontrolü",
+        "komut": "Multimetre DC 20V: +1.05V PCH test noktası voltajını ölçün",
+        "aciklama": "Güç hattının kararlı çıkış voltajını doğrular."
+      }
+    ],
+    "temel_anlatim": "Laptopun açılıp fanın dönmesi ancak ekrana görüntü vermeden 5 saniye sonra kapanması.",
+    "derin_teknik_analiz": "PCH voltajını üreten lineer regülatörün (LDO) arızalanması veya köprünün çekirdek kısa devresi. Çözüm: PCH bobinindeki direnci ölçün (Normal: 15-40 Ohm); 0 Ohm ise PCH köprüsünü değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Voltaj var ama dalgalanıyor",
+        "neden": "Filtre katı elektrolitik/tantalyum kapasitörleri ESR değerini kaybetmiştir.",
+        "cozum": "Çıkış kapasitörlerini yenileyin."
+      }
+    ],
+    "etiketler": [
+      "donanim",
+      "anakart",
+      "+1.05v pch",
+      "voltaj-hatti",
+      "mikro-lehimleme",
+      "vcore"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "rail_1.8VALW",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Laptop Anakart Güç Hattı [+1.8VALW]: Yeni Nesil CPU / SoC Yardımcı Besleme Gerilimi Eksikliği Arıza Tespiti",
+    "hizli_adimlar": [
+      "Anakart şemasını (Schematic & Boardview) açarak +1.8VALW bobininin konumunu bulun.",
+      "Multimetreyi diyot moduna alıp hatta şasiye göre direnç (Ohm) testi yapın.",
+      "Kök neden analizini uygulayın: 1.8V küçük SOT-23 regülatör entegresinin giriş voltajının kesilmesi.",
+      "Saha onarım adımlarını yürütün: Anakart şemasından 1.8V bobinini bulup voltaj seviyesini osiloskop veya multimetre ile ölçün."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Bobin Voltaj Kontrolü",
+        "komut": "Multimetre DC 20V: +1.8VALW test noktası voltajını ölçün",
+        "aciklama": "Güç hattının kararlı çıkış voltajını doğrular."
+      }
+    ],
+    "temel_anlatim": "Intel 10-13. Nesil laptoplarda güç tuşunun ışığının yanıp sönmesi ama tetik almaması.",
+    "derin_teknik_analiz": "1.8V küçük SOT-23 regülatör entegresinin giriş voltajının kesilmesi. Çözüm: Anakart şemasından 1.8V bobinini bulup voltaj seviyesini osiloskop veya multimetre ile ölçün.",
+    "kenar_durumlar": [
+      {
+        "durum": "Voltaj var ama dalgalanıyor",
+        "neden": "Filtre katı elektrolitik/tantalyum kapasitörleri ESR değerini kaybetmiştir.",
+        "cozum": "Çıkış kapasitörlerini yenileyin."
+      }
+    ],
+    "etiketler": [
+      "donanim",
+      "anakart",
+      "+1.8valw",
+      "voltaj-hatti",
+      "mikro-lehimleme",
+      "vcore"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "rail_VCC_CORE",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Laptop Anakart Güç Hattı [+VCC_CORE]: İşlemci Çekirdek Voltajı (CPU VCore) Yokluğu Arıza Tespiti",
+    "hizli_adimlar": [
+      "Anakart şemasını (Schematic & Boardview) açarak +VCC_CORE bobininin konumunu bulun.",
+      "Multimetreyi diyot moduna alıp hatta şasiye göre direnç (Ohm) testi yapın.",
+      "Kök neden analizini uygulayın: VCore PWM kontrolörünün (ISL95855) Enable sinyali alamaması veya alt/üst mosfetlerin iletime geçmemesi.",
+      "Saha onarım adımlarını yürütün: PWM çipinin VDD ve EN pinlerindeki 5V/3.3V sinyallerini ölçün; arızalı mosfet çiftini yenileyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Bobin Voltaj Kontrolü",
+        "komut": "Multimetre DC 20V: +VCC_CORE test noktası voltajını ölçün",
+        "aciklama": "Güç hattının kararlı çıkış voltajını doğrular."
+      }
+    ],
+    "temel_anlatim": "Cihazın çalışması, ısınması ancak ekrana hiç görüntü gelmemesi ve CPU'nun buz gibi soğuk kalması.",
+    "derin_teknik_analiz": "VCore PWM kontrolörünün (ISL95855) Enable sinyali alamaması veya alt/üst mosfetlerin iletime geçmemesi. Çözüm: PWM çipinin VDD ve EN pinlerindeki 5V/3.3V sinyallerini ölçün; arızalı mosfet çiftini yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Voltaj var ama dalgalanıyor",
+        "neden": "Filtre katı elektrolitik/tantalyum kapasitörleri ESR değerini kaybetmiştir.",
+        "cozum": "Çıkış kapasitörlerini yenileyin."
+      }
+    ],
+    "etiketler": [
+      "donanim",
+      "anakart",
+      "+vcc_core",
+      "voltaj-hatti",
+      "mikro-lehimleme",
+      "vcore"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "rail_VCCGT",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Laptop Anakart Güç Hattı [+VCCGT]: İşlemci Dahili Grafik Çekirdeği (iGPU) Voltaj Kesintisi Arıza Tespiti",
+    "hizli_adimlar": [
+      "Anakart şemasını (Schematic & Boardview) açarak +VCCGT bobininin konumunu bulun.",
+      "Multimetreyi diyot moduna alıp hatta şasiye göre direnç (Ohm) testi yapın.",
+      "Kök neden analizini uygulayın: Dahili grafik sürücü PWM fazının tetiklenmemesi veya işlemci grafik çekirdeği lehim temassızlığı.",
+      "Saha onarım adımlarını yürütün: VCCGT fazı bobinindeki PWM anahtarlama dalga formunu osiloskop ile kontrol edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Bobin Voltaj Kontrolü",
+        "komut": "Multimetre DC 20V: +VCCGT test noktası voltajını ölçün",
+        "aciklama": "Güç hattının kararlı çıkış voltajını doğrular."
+      }
+    ],
+    "temel_anlatim": "BIOS açılışında VCore voltajı varken tam görüntü çıkış anında VCCGT bobininde 0V olması.",
+    "derin_teknik_analiz": "Dahili grafik sürücü PWM fazının tetiklenmemesi veya işlemci grafik çekirdeği lehim temassızlığı. Çözüm: VCCGT fazı bobinindeki PWM anahtarlama dalga formunu osiloskop ile kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Voltaj var ama dalgalanıyor",
+        "neden": "Filtre katı elektrolitik/tantalyum kapasitörleri ESR değerini kaybetmiştir.",
+        "cozum": "Çıkış kapasitörlerini yenileyin."
+      }
+    ],
+    "etiketler": [
+      "donanim",
+      "anakart",
+      "+vccgt",
+      "voltaj-hatti",
+      "mikro-lehimleme",
+      "vcore"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hw_surge_28",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "ASUS ROG Strix / TUF Gaming: Sıvı Metal (Liquid Metal) Termal Macun Sızıntısı ve Kısa Devre",
+    "hizli_adimlar": [
+      "ASUS ROG Strix / TUF Gaming cihazının kasasını açıp anakartı masaya alın.",
+      "Kök neden analizini uygulayın: Fabrikasyon uygulanan sıvı metalin soğutucu bloktan taşarak işlemci etrafındaki SMD kondansatörlere akması.",
+      "Saha mikro-lehimleme ve onarım adımlarını yürütün: Anakartı söküp mikroskop altında izopropil alkol ve pamukla sıvı metali temizleyin; kondansatörleri yalıtkan oje (Conformal Coating) ile kaplayın.",
+      "Cihazı test montajına alarak tüm fonksiyonları teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Donanım Ölçümü",
+        "komut": "Mikroskop Muayenesi",
+        "aciklama": "Multimetre / osiloskop kontrolü."
+      }
+    ],
+    "temel_anlatim": "Oyun oynarken laptopun aniden kapanıp bir daha hiç açılmaması.",
+    "derin_teknik_analiz": "Fabrikasyon uygulanan sıvı metalin soğutucu bloktan taşarak işlemci etrafındaki SMD kondansatörlere akması. Çözüm: Anakartı söküp mikroskop altında izopropil alkol ve pamukla sıvı metali temizleyin; kondansatörleri yalıtkan oje (Conformal Coating) ile kaplayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Onarım sonrası tetik almıyor",
+        "neden": "Kısa devre koruma mosfeti tıkalıdır.",
+        "cozum": "Giriş mosfetlerini ölçün."
+      }
+    ],
+    "etiketler": [
+      "donanim",
+      "laptop-tamiri",
+      "asus",
+      "anakart"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hw_surge_29",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "ASUS ROG Strix / TUF Gaming: MUX Switch Arızası ve Harici Ekrana Görüntü Gelmeme",
+    "hizli_adimlar": [
+      "ASUS ROG Strix / TUF Gaming cihazının kasasını açıp anakartı masaya alın.",
+      "Kök neden analizini uygulayın: Dahili grafik (iGPU) ile harici GPU (dGPU) arasındaki donanımsal geçiş anahtarının kilitlenmesi.",
+      "Saha mikro-lehimleme ve onarım adımlarını yürütün: Armoury Crate yazılımından GPU Modunu 'Ultimate' (dGPU) olarak sabitleyin veya BIOS'tan dGPU Only seçin.",
+      "Cihazı test montajına alarak tüm fonksiyonları teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Donanım Ölçümü",
+        "komut": "Armoury Crate -> GPU Mode",
+        "aciklama": "Multimetre / osiloskop kontrolü."
+      }
+    ],
+    "temel_anlatim": "Laptop ekranında görüntü varken HDMI veya Type-C üzerinden monitöre görüntü çıkmaması.",
+    "derin_teknik_analiz": "Dahili grafik (iGPU) ile harici GPU (dGPU) arasındaki donanımsal geçiş anahtarının kilitlenmesi. Çözüm: Armoury Crate yazılımından GPU Modunu 'Ultimate' (dGPU) olarak sabitleyin veya BIOS'tan dGPU Only seçin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Onarım sonrası tetik almıyor",
+        "neden": "Kısa devre koruma mosfeti tıkalıdır.",
+        "cozum": "Giriş mosfetlerini ölçün."
+      }
+    ],
+    "etiketler": [
+      "donanim",
+      "laptop-tamiri",
+      "asus",
+      "anakart"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hw_surge_30",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "ASUS ROG Strix / TUF Gaming: Klavye RGB Kontrol Entegresi (AURA IC) Yanması",
+    "hizli_adimlar": [
+      "ASUS ROG Strix / TUF Gaming cihazının kasasını açıp anakartı masaya alın.",
+      "Kök neden analizini uygulayın: Anakart üzerindeki ITE RGB LED sürücü mikrodenetleyicisinin aşırı akımdan yanması.",
+      "Saha mikro-lehimleme ve onarım adımlarını yürütün: Arızalı RGB kontrolör çipini sıcak havayla söküp yenisini lehimleyin.",
+      "Cihazı test montajına alarak tüm fonksiyonları teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Donanım Ölçümü",
+        "komut": "Multimetre Diyot Kademesi: LED Besleme Hattı",
+        "aciklama": "Multimetre / osiloskop kontrolü."
+      }
+    ],
+    "temel_anlatim": "Klavyenin çalışması ancak RGB arka aydınlatmasının tamamen sönmesi.",
+    "derin_teknik_analiz": "Anakart üzerindeki ITE RGB LED sürücü mikrodenetleyicisinin aşırı akımdan yanması. Çözüm: Arızalı RGB kontrolör çipini sıcak havayla söküp yenisini lehimleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Onarım sonrası tetik almıyor",
+        "neden": "Kısa devre koruma mosfeti tıkalıdır.",
+        "cozum": "Giriş mosfetlerini ölçün."
+      }
+    ],
+    "etiketler": [
+      "donanim",
+      "laptop-tamiri",
+      "asus",
+      "anakart"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hw_surge_31",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "ASUS ROG Strix / TUF Gaming: DC Jack Şarj Soketi Orta İğne (Center Pin) Kırılması",
+    "hizli_adimlar": [
+      "ASUS ROG Strix / TUF Gaming cihazının kasasını açıp anakartı masaya alın.",
+      "Kök neden analizini uygulayın: Soket içindeki ince algılama pininin plastiğinin kırılması ve temassızlık yapması.",
+      "Saha mikro-lehimleme ve onarım adımlarını yürütün: DC besleme soketini anakarttan söküp orijinal kablolu veya lehimli yeni soket takın.",
+      "Cihazı test montajına alarak tüm fonksiyonları teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Donanım Ölçümü",
+        "komut": "Multimetre DC 20V: Şarj Pini Gerilimi",
+        "aciklama": "Multimetre / osiloskop kontrolü."
+      }
+    ],
+    "temel_anlatim": "Adaptör takıldığında şarj simgesinin 2 saniyede bir gidip gelmesi.",
+    "derin_teknik_analiz": "Soket içindeki ince algılama pininin plastiğinin kırılması ve temassızlık yapması. Çözüm: DC besleme soketini anakarttan söküp orijinal kablolu veya lehimli yeni soket takın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Onarım sonrası tetik almıyor",
+        "neden": "Kısa devre koruma mosfeti tıkalıdır.",
+        "cozum": "Giriş mosfetlerini ölçün."
+      }
+    ],
+    "etiketler": [
+      "donanim",
+      "laptop-tamiri",
+      "asus",
+      "anakart"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hw_surge_32",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Dell Latitude 5420 / 7420: Pil Şişmesi (Battery Swelling) Nedeniyle Touchpad'in Tıklamaması",
+    "hizli_adimlar": [
+      "Dell Latitude 5420 / 7420 cihazının kasasını açıp anakartı masaya alın.",
+      "Kök neden analizini uygulayın: Lityum-Polimer batarya hücrelerinin gaz üreterek mekanik baskı yapması.",
+      "Saha mikro-lehimleme ve onarım adımlarını yürütün: Bataryayı derhal söküp güvenli pil atık kutusuna atın; orijinal Dell batarya montajı yapın.",
+      "Cihazı test montajına alarak tüm fonksiyonları teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Donanım Ölçümü",
+        "komut": "Dell Power Manager",
+        "aciklama": "Multimetre / osiloskop kontrolü."
+      }
+    ],
+    "temel_anlatim": "Touchpad'in kasadan yukarı doğru fırlaması ve sol/sağ tıkın basmaması.",
+    "derin_teknik_analiz": "Lityum-Polimer batarya hücrelerinin gaz üreterek mekanik baskı yapması. Çözüm: Bataryayı derhal söküp güvenli pil atık kutusuna atın; orijinal Dell batarya montajı yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Onarım sonrası tetik almıyor",
+        "neden": "Kısa devre koruma mosfeti tıkalıdır.",
+        "cozum": "Giriş mosfetlerini ölçün."
+      }
+    ],
+    "etiketler": [
+      "donanim",
+      "laptop-tamiri",
+      "dell",
+      "anakart"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hw_surge_33",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Dell Latitude 5420 / 7420: Açılışta 3 Kez Turuncu 5 Kez Beyaz LED Yanıp Sönmesi",
+    "hizli_adimlar": [
+      "Dell Latitude 5420 / 7420 cihazının kasasını açıp anakartı masaya alın.",
+      "Kök neden analizini uygulayın: Dell BIOS hata kodlarında (3 Amber, 5 White) Güç Rayı Arızası (Power Rail Failure).",
+      "Saha mikro-lehimleme ve onarım adımlarını yürütün: Anakarttaki 3.3V/5V bekleme entegresini (PU501) ve giriş mosfetlerini test edin.",
+      "Cihazı test montajına alarak tüm fonksiyonları teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Donanım Ölçümü",
+        "komut": "Dell Diagnostic LED Kodları",
+        "aciklama": "Multimetre / osiloskop kontrolü."
+      }
+    ],
+    "temel_anlatim": "Laptop açılırken güç ışığının arıza kodu yakıp ekrana görüntü vermemesi.",
+    "derin_teknik_analiz": "Dell BIOS hata kodlarında (3 Amber, 5 White) Güç Rayı Arızası (Power Rail Failure). Çözüm: Anakarttaki 3.3V/5V bekleme entegresini (PU501) ve giriş mosfetlerini test edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Onarım sonrası tetik almıyor",
+        "neden": "Kısa devre koruma mosfeti tıkalıdır.",
+        "cozum": "Giriş mosfetlerini ölçün."
+      }
+    ],
+    "etiketler": [
+      "donanim",
+      "laptop-tamiri",
+      "dell",
+      "anakart"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hw_surge_34",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Dell Latitude 5420 / 7420: Thunderbolt Dock İstasyonundan Ağ Bağlantısı Kopması",
+    "hizli_adimlar": [
+      "Dell Latitude 5420 / 7420 cihazının kasasını açıp anakartı masaya alın.",
+      "Kök neden analizini uygulayın: Realtek USB GbE Controller sürücüsünün enerji tasarrufuna geçmesi.",
+      "Saha mikro-lehimleme ve onarım adımlarını yürütün: Aygıt Yöneticisi'nden 'Energy Efficient Ethernet' ve 'Green Ethernet' ayarlarını Disabled yapın.",
+      "Cihazı test montajına alarak tüm fonksiyonları teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Donanım Ölçümü",
+        "komut": "devmgmt.msc",
+        "aciklama": "Multimetre / osiloskop kontrolü."
+      }
+    ],
+    "temel_anlatim": "Dell WD19TB dock üzerinden bağlıyken internetin 10 dakikada bir kopması.",
+    "derin_teknik_analiz": "Realtek USB GbE Controller sürücüsünün enerji tasarrufuna geçmesi. Çözüm: Aygıt Yöneticisi'nden 'Energy Efficient Ethernet' ve 'Green Ethernet' ayarlarını Disabled yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Onarım sonrası tetik almıyor",
+        "neden": "Kısa devre koruma mosfeti tıkalıdır.",
+        "cozum": "Giriş mosfetlerini ölçün."
+      }
+    ],
+    "etiketler": [
+      "donanim",
+      "laptop-tamiri",
+      "dell",
+      "anakart"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hw_surge_35",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Dell Latitude 5420 / 7420: Ekran Menteşe Yuvasının (Hinge Mount) Kırılması ve Kasa Ayrılması",
+    "hizli_adimlar": [
+      "Dell Latitude 5420 / 7420 cihazının kasasını açıp anakartı masaya alın.",
+      "Kök neden analizini uygulayın: Menteşeyi tutan pirinç vida yuvalarının plastik kasadan kopması.",
+      "Saha mikro-lehimleme ve onarım adımlarını yürütün: Kasa yuvalarını çift bileşenli epoksi yapıştırıcı ile güçlendirip menteşe sertlik somununu çeyrek tur gevşetin.",
+      "Cihazı test montajına alarak tüm fonksiyonları teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Donanım Ölçümü",
+        "komut": "Mekanik Onarım",
+        "aciklama": "Multimetre / osiloskop kontrolü."
+      }
+    ],
+    "temel_anlatim": "Kapak açılırken alt kasanın çatlayıp aralanması.",
+    "derin_teknik_analiz": "Menteşeyi tutan pirinç vida yuvalarının plastik kasadan kopması. Çözüm: Kasa yuvalarını çift bileşenli epoksi yapıştırıcı ile güçlendirip menteşe sertlik somununu çeyrek tur gevşetin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Onarım sonrası tetik almıyor",
+        "neden": "Kısa devre koruma mosfeti tıkalıdır.",
+        "cozum": "Giriş mosfetlerini ölçün."
+      }
+    ],
+    "etiketler": [
+      "donanim",
+      "laptop-tamiri",
+      "dell",
+      "anakart"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "fin_hw_5",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Laptop Anakartında 3.3V / 5V PWM Entegresi (TPS51125 / RT8205) Aşırı Isınması",
+    "hizli_adimlar": [
+      "Anakartı kasadan ayırıp ESD korumalı çalışma masasına alın.",
+      "Kök neden analizini uygulayın: Entegrenin dahili VREG3 (3.3V LDO) veya VREG5 lineer çıkış hattına bağlı bir SMD kapasitörün delinmesi.",
+      "Saha mikro-lehimleme prosedürünü yürütün: VREG3 (Pin 8) ve VREG5 (Pin 17) hatlarını şasiye göre ölçün; kısa devre olan kondansatörü değiştirin.",
+      "Voltaj ve empedans değerlerini teyit ederek cihazı toplayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Ölçüm Komutu",
+        "komut": "Multimetre Diyot Kademesi: Pin 8 Şasi Direnci",
+        "aciklama": "Donanım teşhis ve lehim kontrolü."
+      }
+    ],
+    "temel_anlatim": "Adaptör takıldığında şarj LED'inin yanmaması ve parmak değdirildiğinde PWM çipinin cildi yakacak kadar ısınması.",
+    "derin_teknik_analiz": "Entegrenin dahili VREG3 (3.3V LDO) veya VREG5 lineer çıkış hattına bağlı bir SMD kapasitörün delinmesi. Çözüm: VREG3 (Pin 8) ve VREG5 (Pin 17) hatlarını şasiye göre ölçün; kısa devre olan kondansatörü değiştirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Kısa devre kalkmadı",
+        "neden": "İşlemci içi dahili hat yanmıştır.",
+        "cozum": "Anakart değişimi gereklidir."
+      }
+    ],
+    "etiketler": [
+      "donanim",
+      "anakart",
+      "mikro-lehimleme",
+      "voltaj",
+      "elektronik"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "fin_hw_6",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Laptop Anakartında RAM Besleme Gerilimi (1.2V DDR4 / 1.1V DDR5) Yokluğu",
+    "hizli_adimlar": [
+      "Anakartı kasadan ayırıp ESD korumalı çalışma masasına alın.",
+      "Kök neden analizini uygulayın: DDR4 voltajını üreten RT8207 PWM kontrolörünün Enable sinyali alamaması veya alt mosfetin kısa devre olması.",
+      "Saha mikro-lehimleme prosedürünü yürütün: RAM bobinindeki (PL) voltajı ölçün; 0V ise kontrolör entegresini ve sürücü mosfetlerini yenileyin.",
+      "Voltaj ve empedans değerlerini teyit ederek cihazı toplayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Ölçüm Komutu",
+        "komut": "Multimetre DC 20V: RAM Bobini",
+        "aciklama": "Donanım teşhis ve lehim kontrolü."
+      }
+    ],
+    "temel_anlatim": "Cihazın tetik alması, fanın dönmesi ancak ekrana görüntü vermeden 10 saniye sonra reset atması.",
+    "derin_teknik_analiz": "DDR4 voltajını üreten RT8207 PWM kontrolörünün Enable sinyali alamaması veya alt mosfetin kısa devre olması. Çözüm: RAM bobinindeki (PL) voltajı ölçün; 0V ise kontrolör entegresini ve sürücü mosfetlerini yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Kısa devre kalkmadı",
+        "neden": "İşlemci içi dahili hat yanmıştır.",
+        "cozum": "Anakart değişimi gereklidir."
+      }
+    ],
+    "etiketler": [
+      "donanim",
+      "anakart",
+      "mikro-lehimleme",
+      "voltaj",
+      "elektronik"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "fin_hw_7",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Laptop Ekranında Arka Işık (Backlight) Yokluğu ve Fenerle Bakınca Görüntü Görünmesi",
+    "hizli_adimlar": [
+      "Anakartı kasadan ayırıp ESD korumalı çalışma masasına alın.",
+      "Kök neden analizini uygulayın: Anakart ekran soketindeki (EDP / LVDS) 19V VBL (Backlight Power) besleme sigortasının (SMD Fuse F1) atması.",
+      "Saha mikro-lehimleme prosedürünü yürütün: Anakart üzerindeki F1 / F2 SMD sigortasını ölçün; açık devre ise arızalı LED şeridi kontrol edip sigortayı yenileyin.",
+      "Voltaj ve empedans değerlerini teyit ederek cihazı toplayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Ölçüm Komutu",
+        "komut": "Multimetre Buzzer: F1 Sigorta Testi",
+        "aciklama": "Donanım teşhis ve lehim kontrolü."
+      }
+    ],
+    "temel_anlatim": "Ekrana ışık tutulduğunda Windows masaüstünün silik şekilde görünmesi ancak LED'lerin hiç yanmaması.",
+    "derin_teknik_analiz": "Anakart ekran soketindeki (EDP / LVDS) 19V VBL (Backlight Power) besleme sigortasının (SMD Fuse F1) atması. Çözüm: Anakart üzerindeki F1 / F2 SMD sigortasını ölçün; açık devre ise arızalı LED şeridi kontrol edip sigortayı yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Kısa devre kalkmadı",
+        "neden": "İşlemci içi dahili hat yanmıştır.",
+        "cozum": "Anakart değişimi gereklidir."
+      }
+    ],
+    "etiketler": [
+      "donanim",
+      "anakart",
+      "mikro-lehimleme",
+      "voltaj",
+      "elektronik"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "fin_hw_8",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Ekran Kartında PCI Express x16 Veri Hatlarında Kopukluk ve Aygıtın Tanınmaması",
+    "hizli_adimlar": [
+      "Anakartı kasadan ayırıp ESD korumalı çalışma masasına alın.",
+      "Kök neden analizini uygulayın: PCIe slotuna takılan altın parmaklardaki 0.1uF kuplaj seramik kondansatörlerinden birinin fiziksel ezilme ile kopması.",
+      "Saha mikro-lehimleme prosedürünü yürütün: PCIe şerit hattındaki 16 çift SMD kapasitörü mikroskop altında inceleyip eksik olanı yenisiyle lehimleyin.",
+      "Voltaj ve empedans değerlerini teyit ederek cihazı toplayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Ölçüm Komutu",
+        "komut": "Mikroskop İncelemesi: PCIe AC Kuplaj",
+        "aciklama": "Donanım teşhis ve lehim kontrolü."
+      }
+    ],
+    "temel_anlatim": "Ekran kartının fanlarının dönmesi ancak Aygıt Yöneticisi'nde hiçbir şekilde görünmemesi.",
+    "derin_teknik_analiz": "PCIe slotuna takılan altın parmaklardaki 0.1uF kuplaj seramik kondansatörlerinden birinin fiziksel ezilme ile kopması. Çözüm: PCIe şerit hattındaki 16 çift SMD kapasitörü mikroskop altında inceleyip eksik olanı yenisiyle lehimleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Kısa devre kalkmadı",
+        "neden": "İşlemci içi dahili hat yanmıştır.",
+        "cozum": "Anakart değişimi gereklidir."
+      }
+    ],
+    "etiketler": [
+      "donanim",
+      "anakart",
+      "mikro-lehimleme",
+      "voltaj",
+      "elektronik"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "fin_hw_9",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Anakartta Realtek ALC Ses Entegresi Yanması ve Sistemin Açılmaması",
+    "hizli_adimlar": [
+      "Anakartı kasadan ayırıp ESD korumalı çalışma masasına alın.",
+      "Kök neden analizini uygulayın: Kulaklık jakına statik elektrik atlaması sonucu ses codec çipinin (ALC3204 / ALC892) 3.3V hattını şasiye çekmesi.",
+      "Saha mikro-lehimleme prosedürünü yürütün: Ses çipini sıcak hava istasyonuyla sökün; anakart tetik alıp ekrana görüntü veriyorsa yeni ses çipi takın.",
+      "Voltaj ve empedans değerlerini teyit ederek cihazı toplayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Ölçüm Komutu",
+        "komut": "Sıcak Hava 350C: ALC Entegresi Sökümü",
+        "aciklama": "Donanım teşhis ve lehim kontrolü."
+      }
+    ],
+    "temel_anlatim": "Laptopun güç tuşuna basıldığında anlık ışık yakıp hemen kapanması.",
+    "derin_teknik_analiz": "Kulaklık jakına statik elektrik atlaması sonucu ses codec çipinin (ALC3204 / ALC892) 3.3V hattını şasiye çekmesi. Çözüm: Ses çipini sıcak hava istasyonuyla sökün; anakart tetik alıp ekrana görüntü veriyorsa yeni ses çipi takın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Kısa devre kalkmadı",
+        "neden": "İşlemci içi dahili hat yanmıştır.",
+        "cozum": "Anakart değişimi gereklidir."
+      }
+    ],
+    "etiketler": [
+      "donanim",
+      "anakart",
+      "mikro-lehimleme",
+      "voltaj",
+      "elektronik"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hw_diag_58",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Laptop Bataryası 'Takılı, Dolmuyor' (%0'da Kalma) Arızası",
+    "hizli_adimlar": [
+      "Aygıt Yöneticisi -> Piller altındaki 'Microsoft ACPI Uyumlu Denetim Yöntemi Pili' sürücüsünü kaldırın.",
+      "Laptopu kapatıp bataryayı sökün ve güç tuşuna 30 saniye basılı tutarak statik elektriği boşaltın.",
+      "Bataryayı takıp adaptörü bağlayın ve Windows'un sürücüyü yeniden yüklemesini sağlayın.",
+      "Batarya soketindeki SMBus Clock ve Data hatlarında 3.3V olduğunu multimetre ile ölçün."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Pil Sağlık Raporu",
+        "komut": "powercfg /batteryreport /output \"C:\\battery_report.html\"",
+        "aciklama": "Bataryanın tasarım kapasitesi ile mevcut tam şarj kapasitesini karşılaştırır."
+      }
+    ],
+    "temel_anlatim": "Şarj aleti takılıyken batarya simgesinin doluyor görünmesi ancak fiş çekilince laptopun anında kapanması.",
+    "derin_teknik_analiz": "Batarya BMS entegresinin (TI BQ serisi) derin deşarj korumasına geçip çıkış mosfetlerini kilitlemesi. Çözüm: Pil kalibrasyonu yapın; düzelmezse batarya hücre voltajlarını ölçüp BMS sigortasını kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun düzelmedi",
+        "neden": "İşlemci içi dahili termal diyot arızalıdır.",
+        "cozum": "Donanım değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanim",
+      "batarya",
+      "sarj-almama",
+      "powercfg",
+      "bms",
+      "laptop"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hw_diag_59",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Ekran Kartı VRAM Soğuk Lehim Çatlağı ve Ekranda Çizgilenme (Artifacting)",
+    "hizli_adimlar": [
+      "FreeDOS USB bellek ile 'MODS / MATS' GPU teşhis yazılımını başlatın.",
+      "'./mats -e 20' komutunu çalıştırarak VRAM okuma/yazma testi yapın.",
+      "Hata veren bellek kanalını (Örn: FBIOA1 - Çip A1) log dosyasından tespit edin.",
+      "İlgili VRAM çipini BGA istasyonuyla söküp kurşunlu lehim toplarıyla (0.45mm) reballing yapın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "VRAM Teşhis Komutu",
+        "komut": "./mats -e 10 | grep -i fail",
+        "aciklama": "Bozuk VRAM çipinin fiziksel konumunu raporlar."
+      }
+    ],
+    "temel_anlatim": "Oyun açıldığında veya GPU yüke girdiğinde ekranda kareler, pembe çizgiler çıkması ve sürücünün çökmesi.",
+    "derin_teknik_analiz": "VRAM BGA lehim toplarının termal genleşme döngüsü nedeniyle PCB'den mikro düzeyde kopması. Çözüm: Mats / Mods bellek teşhis yazılımıyla hatalı VRAM çipini bulun ve BGA reballing işlemi uygulayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun düzelmedi",
+        "neden": "İşlemci içi dahili termal diyot arızalıdır.",
+        "cozum": "Donanım değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanim",
+      "gpu",
+      "vram",
+      "artifact",
+      "reballing",
+      "ekran-karti"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "hw_diag_60",
+    "kategori": "Donanım & Güç",
+    "alt_kategori": "Donanım & Mikro Lehimleme",
+    "baslik": "Laptop Fanının Sürekli %100 Hızda Dönmesi ve Faz Değişim Termal Ped Çözümü",
+    "hizli_adimlar": [
+      "Soğutucu bakır bloğu çapraz vidalama sırasına (1-2-3-4) uyarak sökün.",
+      "Eski kurumuş macunu izopropil alkol ve pamuklu çubukla tamamen temizleyin.",
+      "Honeywell PTM7950 termal pedi işlemci ve GPU çekirdek boyutuna göre kesip yerleştirin.",
+      "Bloğu yerine takıp vidaları eşit torkla sıkın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Sıcaklık İzleme",
+        "komut": "OpenHardwareMonitor / HWiNFO64",
+        "aciklama": "CPU Core ve Hotspot sıcaklık farkını canlı gösterir."
+      }
+    ],
+    "temel_anlatim": "Laptop boşta dururken bile fanın maksimum devirde bağırması ve sıcaklığın 90 dereceden düşmemesi.",
+    "derin_teknik_analiz": "Standart termal macunun viskozitesini kaybedip dışarı taşması (Pump-out Effect) ve soğutucu bloğun hava yapması. Çözüm: Standart silikon macun yerine Honeywell PTM7950 faz değişim malzemesi uygulayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun düzelmedi",
+        "neden": "İşlemci içi dahili termal diyot arızalıdır.",
+        "cozum": "Donanım değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "donanim",
+      "fan-sesi",
+      "termal-macun",
+      "ptm7950",
+      "pump-out",
+      "asiri-isinma"
+    ],
+    "oncelik": 1
+  }
+]

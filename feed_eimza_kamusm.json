@@ -1,131 +1,1751 @@
-{
-  "versiyon": "2.5.0",
-  "toplam": 3,
-  "modul": "feed_eimza_kamusm.json",
-  "kayitlar": [
-    {
-      "id": "eimza_kamusm_akis_taninmama",
-      "kategori": "E-İmza & KamuSM",
-      "alt_kategori": "AKİS & Kart Okuyucu",
-      "baslik": "KamuSM AKİS Akıllı Kart Okuyucunun Windows 11'de Tanınmaması ve Sürücü Kurulumu",
-      "hizli_adimlar": [
-        "KamuSM resmi sitesinden (kamusm.bilgem.tubitak.gov.tr) güncel 'AKİS Kart İzleme Aracı' (64-bit) indirin.",
-        "Kart okuyucu donanım modelini (ACS ACR38/39, Omnikey, Gemalto vb.) dongle üzerindeki etiketten belirleyin ve CCID sürücüsünü kurun.",
-        "`services.msc` altından 'Smart Card' (Akıllı Kart) servisinin 'Çalışıyor' ve 'Otomatik' olduğunu doğrulayın.",
-        "AKİS Kart İzleme Aracı'nı açın; kart tipinin, sertifika sahibinin adının ve kalan PIN hakkının başarıyla listelendiğini görün."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Akıllı Kart Servisini Başlat (PowerShell)",
-          "komut": "Set-Service -Name SCardSvr -StartupType Automatic; Start-Service -Name SCardSvr",
-          "aciklama": "Windows Smart Card çekirdek servisini açar."
-        },
-        {
-          "etiket": "Takılı Kart Okuyucuları Listele",
-          "komut": "certutil -scinfo",
-          "aciklama": "Windows sertifika altyapısının kart okuyucuyu ve çipi görüp görmediğini tam teşhis eder."
-        }
-      ],
-      "temel_anlatim": "E-İmza USB dongle bilgisayara takıldığında aygıt yöneticisinde sarı ünlem çıkması, AKİS Kart İzleme Aracı'nın kartı görmemesi.",
-      "derin_teknik_analiz": "KamuSM e-imzaları TÜBİTAK UEKAE tarafından geliştirilen AKİS (Akıllı Kart İşletim Sistemi) tabanlıdır. Windows 11 sürücü imzalama zorunluluğu ve ACS/Omnikey kart okuyucu sürücülerinin CCID standartlarıyla çakışması kartın takıldığını sistem seviyesinde bildirmez.",
-      "kenar_durumlar": [
-        {
-          "durum": "Certutil 'Akıllı kart servisi yanıt vermiyor' hatası veriyor",
-          "neden": "Kayıt defterinde Smart Card Resource Manager servisi bozulmuştur.",
-          "cozum": "`sc config SCardSvr start= auto` çalıştırıp bilgisayarı yeniden başlatın."
-        }
-      ],
-      "etiketler": [
-        "e-imza",
-        "kamusm",
-        "akis",
-        "scardsvr",
-        "certutil",
-        "smart-card"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "eimza_uyap_java_conflict",
-      "kategori": "E-İmza & KamuSM",
-      "alt_kategori": "UYAP & Java Çakışmaları",
-      "baslik": "UYAP Editör ve Kamu Portallarında 'Kart Takılı Değil / Sertifika Bulunamadı' Hatası",
-      "hizli_adimlar": [
-        "UYAP Editör'ü tamamen kapatın.",
-        "C:\\Windows\\System32 ve C:\\Windows\\SysWOW64 klasörlerinde `akisp11.dll` dosyasının var olduğunu teyit edin.",
-        "UYAP Editör -> Araçlar -> Seçenekler -> 'İmza Kütüphanesi' bölümüne gelin.",
-        "Kart tipi olarak 'AKİS' seçin veya kütüphane yolu olarak manuel `C:\\Windows\\System32\\akisp11.dll` dosyasını gösterin.",
-        "İmzalama yaparken USB 2.0 portuna takılı olduğundan emin olun (Bazı USB 3.0/3.1 portları kartla kesintili haberleşir)."
-      ],
-      "komutlar": [
-        {
-          "etiket": "AKİS DLL Varlığını Doğrula",
-          "komut": "Test-Path C:\\Windows\\System32\\akisp11.dll",
-          "aciklama": "64-bit PKCS11 kütüphanesinin kurulu olduğunu teyit eder."
-        },
-        {
-          "etiket": "Java Sürümünü Kontrol Et",
-          "komut": "java -version",
-          "aciklama": "Sistem varsayılan Java çalışma zamanını döker."
-        }
-      ],
-      "temel_anlatim": "Adalet Bakanlığı UYAP Doküman Editörü, EBYS veya EKAP üzerinde evrak imzalarken akıllı kartın takılı olmasına rağmen bulunamaması.",
-      "derin_teknik_analiz": "UYAP editörü Java tabanlıdır. Bilgisayarda 32-bit ve 64-bit Java sürümlerinin aynı anda bulunması veya UYAP'ın sistemdeki PKCS#11 kütüphanesini (`akisp11.dll`) bulamaması imzalama modülünü kilitler.",
-      "kenar_durumlar": [
-        {
-          "durum": "PIN kodu doğru girilmesine rağmen 'PIN Hatalı' uyarısı verip kilitleniyor",
-          "neden": "Klavyede NumLock kapalıdır veya CapsLock açıkken Türkçe karakter farkı oluşmuştur.",
-          "cozum": "PIN'i önce Not Defteri'ne yazarak görünür şekilde kontrol edin."
-        }
-      ],
-      "etiketler": [
-        "e-imza",
-        "uyap",
-        "ebys",
-        "ekap",
-        "akisp11",
-        "java",
-        "pkcs11"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "eimza_puk_unblocking",
-      "kategori": "E-İmza & KamuSM",
-      "alt_kategori": "PIN & PUK Yönetimi",
-      "baslik": "E-İmza PIN Kodunun Bloke Olması ve PUK Kodu ile Yeni PIN Tanımlama",
-      "hizli_adimlar": [
-        "AKİS Kart İzleme Aracı programını yönetici olarak açın.",
-        "Soldaki menüden akıllı kartınızı seçin.",
-        "'PIN Kilidi Aç' (PUK) sekmesine tıklayın.",
-        "Zarf içinde veya e-posta ile gelen orijinal PUK kodunu girin.",
-        "Kendinize yeni bir 6 haneli numerik PIN belirleyin ve onaylayın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Kart Durumunu Sorgula",
-          "komut": "certutil -scinfo",
-          "aciklama": "Kartın kilitli olup olmadığını doğrular."
-        }
-      ],
-      "temel_anlatim": "E-İmza PIN kodunun 3 defa art arda yanlış girilmesi sonucu kartın kilitlenmesi ve imzalama yapamaz hale gelmesi.",
-      "derin_teknik_analiz": "ISO 7816 akıllı kart standartlarına göre PIN sayacı 3 denemeden sonra donanımsal olarak kilitlenir. Bu kilidi yalnızca kart sahibine KamuSM veya sağlayıcı (E-Tuğra, Türktrust vb.) tarafından verilen PUK (PIN Unblocking Key) kodu çözebilir.",
-      "kenar_durumlar": [
-        {
-          "durum": "PUK kodu da 3 defa yanlış girildi",
-          "neden": "PUK deneme hakkı tükenmiştir; kart donanımsal olarak geri dönülemez biçimde kilitlenir (Çöp/Dead Card).",
-          "cozum": "Sertifika sağlayıcısından ücretli kart yenileme (yeni çip) başvurusu yapılmalıdır."
-        }
-      ],
-      "etiketler": [
-        "e-imza",
-        "puk-kodu",
-        "pin-bloke",
-        "akis",
-        "kamusm",
-        "guvenlik"
-      ],
-      "oncelik": 2
-    }
-  ]
-}
+[
+  {
+    "id": "eimza_kamusm_akis_taninmama",
+    "kategori": "E-İmza & KamuSM",
+    "alt_kategori": "AKİS & Kart Okuyucu",
+    "baslik": "KamuSM AKİS Akıllı Kart Okuyucunun Windows 11'de Tanınmaması ve Sürücü Kurulumu",
+    "hizli_adimlar": [
+      "KamuSM resmi sitesinden (kamusm.bilgem.tubitak.gov.tr) güncel 'AKİS Kart İzleme Aracı' (64-bit) indirin.",
+      "Kart okuyucu donanım modelini (ACS ACR38/39, Omnikey, Gemalto vb.) dongle üzerindeki etiketten belirleyin ve CCID sürücüsünü kurun.",
+      "`services.msc` altından 'Smart Card' (Akıllı Kart) servisinin 'Çalışıyor' ve 'Otomatik' olduğunu doğrulayın.",
+      "AKİS Kart İzleme Aracı'nı açın; kart tipinin, sertifika sahibinin adının ve kalan PIN hakkının başarıyla listelendiğini görün."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Akıllı Kart Servisini Başlat (PowerShell)",
+        "komut": "Set-Service -Name SCardSvr -StartupType Automatic; Start-Service -Name SCardSvr",
+        "aciklama": "Windows Smart Card çekirdek servisini açar."
+      },
+      {
+        "etiket": "Takılı Kart Okuyucuları Listele",
+        "komut": "certutil -scinfo",
+        "aciklama": "Windows sertifika altyapısının kart okuyucuyu ve çipi görüp görmediğini tam teşhis eder."
+      }
+    ],
+    "temel_anlatim": "E-İmza USB dongle bilgisayara takıldığında aygıt yöneticisinde sarı ünlem çıkması, AKİS Kart İzleme Aracı'nın kartı görmemesi.",
+    "derin_teknik_analiz": "KamuSM e-imzaları TÜBİTAK UEKAE tarafından geliştirilen AKİS (Akıllı Kart İşletim Sistemi) tabanlıdır. Windows 11 sürücü imzalama zorunluluğu ve ACS/Omnikey kart okuyucu sürücülerinin CCID standartlarıyla çakışması kartın takıldığını sistem seviyesinde bildirmez.",
+    "kenar_durumlar": [
+      {
+        "durum": "Certutil 'Akıllı kart servisi yanıt vermiyor' hatası veriyor",
+        "neden": "Kayıt defterinde Smart Card Resource Manager servisi bozulmuştur.",
+        "cozum": "`sc config SCardSvr start= auto` çalıştırıp bilgisayarı yeniden başlatın."
+      }
+    ],
+    "etiketler": [
+      "e-imza kamusm akis scardsvr certutil smart-card"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "eimza_uyap_java_conflict",
+    "kategori": "E-İmza & KamuSM",
+    "alt_kategori": "UYAP & Java Çakışmaları",
+    "baslik": "UYAP Editör ve Kamu Portallarında 'Kart Takılı Değil / Sertifika Bulunamadı' Hatası",
+    "hizli_adimlar": [
+      "UYAP Editör'ü tamamen kapatın.",
+      "C:\\Windows\\System32 ve C:\\Windows\\SysWOW64 klasörlerinde `akisp11.dll` dosyasının var olduğunu teyit edin.",
+      "UYAP Editör -> Araçlar -> Seçenekler -> 'İmza Kütüphanesi' bölümüne gelin.",
+      "Kart tipi olarak 'AKİS' seçin veya kütüphane yolu olarak manuel `C:\\Windows\\System32\\akisp11.dll` dosyasını gösterin.",
+      "İmzalama yaparken USB 2.0 portuna takılı olduğundan emin olun (Bazı USB 3.0/3.1 portları kartla kesintili haberleşir)."
+    ],
+    "komutlar": [
+      {
+        "etiket": "AKİS DLL Varlığını Doğrula",
+        "komut": "Test-Path C:\\Windows\\System32\\akisp11.dll",
+        "aciklama": "64-bit PKCS11 kütüphanesinin kurulu olduğunu teyit eder."
+      },
+      {
+        "etiket": "Java Sürümünü Kontrol Et",
+        "komut": "java -version",
+        "aciklama": "Sistem varsayılan Java çalışma zamanını döker."
+      }
+    ],
+    "temel_anlatim": "Adalet Bakanlığı UYAP Doküman Editörü, EBYS veya EKAP üzerinde evrak imzalarken akıllı kartın takılı olmasına rağmen bulunamaması.",
+    "derin_teknik_analiz": "UYAP editörü Java tabanlıdır. Bilgisayarda 32-bit ve 64-bit Java sürümlerinin aynı anda bulunması veya UYAP'ın sistemdeki PKCS#11 kütüphanesini (`akisp11.dll`) bulamaması imzalama modülünü kilitler.",
+    "kenar_durumlar": [
+      {
+        "durum": "PIN kodu doğru girilmesine rağmen 'PIN Hatalı' uyarısı verip kilitleniyor",
+        "neden": "Klavyede NumLock kapalıdır veya CapsLock açıkken Türkçe karakter farkı oluşmuştur.",
+        "cozum": "PIN'i önce Not Defteri'ne yazarak görünür şekilde kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "e-imza uyap ebys ekap akisp11 java pkcs11"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "eimza_puk_unblocking",
+    "kategori": "E-İmza & KamuSM",
+    "alt_kategori": "PIN & PUK Yönetimi",
+    "baslik": "E-İmza PIN Kodunun Bloke Olması ve PUK Kodu ile Yeni PIN Tanımlama",
+    "hizli_adimlar": [
+      "AKİS Kart İzleme Aracı programını yönetici olarak açın.",
+      "Soldaki menüden akıllı kartınızı seçin.",
+      "'PIN Kilidi Aç' (PUK) sekmesine tıklayın.",
+      "Zarf içinde veya e-posta ile gelen orijinal PUK kodunu girin.",
+      "Kendinize yeni bir 6 haneli numerik PIN belirleyin ve onaylayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Kart Durumunu Sorgula",
+        "komut": "certutil -scinfo",
+        "aciklama": "Kartın kilitli olup olmadığını doğrular."
+      }
+    ],
+    "temel_anlatim": "E-İmza PIN kodunun 3 defa art arda yanlış girilmesi sonucu kartın kilitlenmesi ve imzalama yapamaz hale gelmesi.",
+    "derin_teknik_analiz": "ISO 7816 akıllı kart standartlarına göre PIN sayacı 3 denemeden sonra donanımsal olarak kilitlenir. Bu kilidi yalnızca kart sahibine KamuSM veya sağlayıcı (E-Tuğra, Türktrust vb.) tarafından verilen PUK (PIN Unblocking Key) kodu çözebilir.",
+    "kenar_durumlar": [
+      {
+        "durum": "PUK kodu da 3 defa yanlış girildi",
+        "neden": "PUK deneme hakkı tükenmiştir; kart donanımsal olarak geri dönülemez biçimde kilitlenir (Çöp/Dead Card).",
+        "cozum": "Sertifika sağlayıcısından ücretli kart yenileme (yeni çip) başvurusu yapılmalıdır."
+      }
+    ],
+    "etiketler": [
+      "e-imza puk-kodu pin-bloke akis kamusm guvenlik"
+    ],
+    "oncelik": 2
+  },
+  {
+    "id": "infra_906",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "Saha Teşhisi",
+    "baslik": "Chrome ve Edge Tarayıcılarda E-İmza Uygulamasının (ArkSigner/E-İmzam) Algılanmaması",
+    "hizli_adimlar": [
+      "Görev Yöneticisi'nden 'ArkSigner' veya 'E-İmzam' uygulamasının çalıştığını teyit edin.",
+      "Tarayıcıda `chrome://flags` altından 'Insecure origins treated as secure' ayarına `http://127.0.0.1` ekleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Localhost Port Dinleme Testi",
+        "komut": "netstat -ano | findstr 8080 8443 9005",
+        "aciklama": "İmzalama ajanının yerel portunu teyit eder."
+      }
+    ],
+    "temel_anlatim": "E-Devlet veya portalda 'E-İmza Uygulaması Başlatılamadı' uyarısı çıkması.",
+    "derin_teknik_analiz": "Yerel imzalama servisi localhost portu (WebSocket) üzerinden tarayıcıyla haberleşir; tarayıcı CORS veya karma içerik engeli koyar.",
+    "kenar_durumlar": [
+      {
+        "durum": "İlk adımda sonuç alınamadı",
+        "neden": "Ağ gecikmesi veya izin kısıtlaması vardır.",
+        "cozum": "Güvenlik duvarı ve izinleri kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "altyapi",
+      "saha",
+      "teknik-cozum"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "infra_907",
+    "kategori": "Ağ & İletişim",
+    "alt_kategori": "Saha Teşhisi",
+    "baslik": "Windows Smart Card (SCardSvr) Servisinin Çökmesi ve Kart Okuyucunun Bırakılması",
+    "hizli_adimlar": [
+      "services.msc konsolundan 'Smart Card' servisine sağ tıklayıp Yeniden Başlat deyin.",
+      "Aygıt Yöneticisi'nden Akıllı Kart Okuyucular altındaki ACS/Omnikey sürücüsünü güncelleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Smart Card Servisini Kurtar",
+        "komut": "net stop SCardSvr & net start SCardSvr",
+        "aciklama": "Kart servisini yeniden başlatır."
+      }
+    ],
+    "temel_anlatim": "Kart okuyucu takılıyken sistemin aniden kartı görmeyi kesmesi ve USB çıkarıp takmadan düzelmemesi.",
+    "derin_teknik_analiz": "Akıllı kart kaynak yöneticisi servisinin bellek sızıntısı sonucu yanıt vermeyi kesmesi.",
+    "kenar_durumlar": [
+      {
+        "durum": "İlk adımda sonuç alınamadı",
+        "neden": "Ağ gecikmesi veya izin kısıtlaması vardır.",
+        "cozum": "Güvenlik duvarı ve izinleri kontrol edin."
+      }
+    ],
+    "etiketler": [
+      "altyapi",
+      "saha",
+      "teknik-cozum"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "eimza_mat_16",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "AKİS Kart İzleme Aracında Kartın Görünmemesi ve SCardSvr Servis Çözümü",
+    "hizli_adimlar": [
+      "Yönetici olarak PowerShell açın.",
+      "'Get-Service SCardSvr' ile servisin çalışıp çalışmadığını kontrol edin.",
+      "'Set-Service SCardSvr -StartupType Automatic; Start-Service SCardSvr' komutunu verin.",
+      "Aygıt Yöneticisi'nde Akıllı Kart Okuyucular altındaki Microsoft Usbccid cihazını kaldırıp donanım değişikliklerini taratın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Akıllı Kart Servisini Başlat",
+        "komut": "net start SCardSvr",
+        "aciklama": "Windows Smart Card altyapı servisini anında ayağa kaldırır."
+      }
+    ],
+    "temel_anlatim": "E-İmza USB dongle takıldığında ışığının yanması ancak AKİS yazılımının 'Kart Takılı Değil' uyarısı vermesi.",
+    "derin_teknik_analiz": "Kök Neden: Windows Akıllı Kart (Smart Card) arka plan servisinin durması veya CCID sürücüsünün kilitlenmesi. Mühendislik Müdahalesi: PowerShell üzerinden SCardSvr servisini otomatik başlatmaya alın ve kart okuyucu sürücüsünü güncelleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "AKİS kartı görüyor ama Chrome UYAP'ta imzalama yapmıyor",
+        "neden": "Chrome yerel websocket portunu (127.0.0.1:8443) engellemektedir.",
+        "cozum": "Tarayıcı adres çubuğuna chrome://flags/#allow-insecure-localhost yazıp Enabled yapın."
+      }
+    ],
+    "etiketler": [
+      "e-imza",
+      "kamusm",
+      "akis",
+      "scardsvr",
+      "akilli-kart",
+      "uyap"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_352",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "KamuSM AKİS Akıllı Kart V3: Chrome WebSocket 127.0.0.1:8443 Güvenlik Engeli ve İmzalamama",
+    "hizli_adimlar": [
+      "KamuSM AKİS Akıllı Kart V3 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Chrome tarayıcısının yerel HTTPS websocket bağlantılarını güvensiz kabul etmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: chrome://flags/#allow-insecure-localhost ayarını Enabled yapıp tarayıcıyı yeniden başlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "curl -k https://127.0.0.1:8443/",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Web sayfasında İmzala butonuna basıldığında hiçbir tepki vermemesi.",
+    "derin_teknik_analiz": "Chrome tarayıcısının yerel HTTPS websocket bağlantılarını güvensiz kabul etmesi. Çözüm: chrome://flags/#allow-insecure-localhost ayarını Enabled yapıp tarayıcıyı yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "kamusm aki̇s akıllı kart v3",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_353",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "KamuSM AKİS Akıllı Kart V3: Windows Akıllı Kart Hizmeti (SCardSvr) Kilitlenmesi",
+    "hizli_adimlar": [
+      "KamuSM AKİS Akıllı Kart V3 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: SCardSvr servisinin askıda kalan bir RPC çağrısı nedeniyle durması.",
+      "Saha mühendisliği servis prosedürünü yürütün: PowerShell ile servisi zorla durdurup yeniden başlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Restart-Service -Name SCardSvr -Force",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kart okuyucu ışığının yanmaması ve AKİS'in kart algılamaması.",
+    "derin_teknik_analiz": "SCardSvr servisinin askıda kalan bir RPC çağrısı nedeniyle durması. Çözüm: PowerShell ile servisi zorla durdurup yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "kamusm aki̇s akıllı kart v3",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_354",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "KamuSM AKİS Akıllı Kart V3: libakisp11.dll PKCS#11 Kütüphanesi Kayıt Defteri Yol Hatası",
+    "hizli_adimlar": [
+      "KamuSM AKİS Akıllı Kart V3 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: 64-bit Windows üzerinde kütüphane yolunun System32 yerine SysWOW64'e yanlış yazılması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kayıt defterinde PKCS11 yolunu C:\\Windows\\System32\\libakisp11.dll olarak düzeltin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "reg query HKLM\\Software\\AKIS",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "UYAP veya e-Devlet uygulamasının e-imza modülünü bulamaması.",
+    "derin_teknik_analiz": "64-bit Windows üzerinde kütüphane yolunun System32 yerine SysWOW64'e yanlış yazılması. Çözüm: Kayıt defterinde PKCS11 yolunu C:\\Windows\\System32\\libakisp11.dll olarak düzeltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "kamusm aki̇s akıllı kart v3",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_355",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "KamuSM AKİS Akıllı Kart V3: Akıllı Kart Okuyucu USB CCID Sürücüsü (Kod 39) Hatası",
+    "hizli_adimlar": [
+      "KamuSM AKİS Akıllı Kart V3 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Windows Update tarafından hatalı bir USB CCID sınıf sürücüsünün yüklenmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Cihazı sağ tıklayıp Sürücüyü Güncelleştir -> Bilgisayarımdaki sürücülere göz at -> Microsoft Usbccid seçin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "devmgmt.msc",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Aygıt Yöneticisi'nde kart okuyucunun yanında sarı ünlem çıkması.",
+    "derin_teknik_analiz": "Windows Update tarafından hatalı bir USB CCID sınıf sürücüsünün yüklenmesi. Çözüm: Cihazı sağ tıklayıp Sürücüyü Güncelleştir -> Bilgisayarımdaki sürücülere göz at -> Microsoft Usbccid seçin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "kamusm aki̇s akıllı kart v3",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_356",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "TÜRKTRUST Elektronik Sertifika: Chrome WebSocket 127.0.0.1:8443 Güvenlik Engeli ve İmzalamama",
+    "hizli_adimlar": [
+      "TÜRKTRUST Elektronik Sertifika sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Chrome tarayıcısının yerel HTTPS websocket bağlantılarını güvensiz kabul etmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: chrome://flags/#allow-insecure-localhost ayarını Enabled yapıp tarayıcıyı yeniden başlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "curl -k https://127.0.0.1:8443/",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Web sayfasında İmzala butonuna basıldığında hiçbir tepki vermemesi.",
+    "derin_teknik_analiz": "Chrome tarayıcısının yerel HTTPS websocket bağlantılarını güvensiz kabul etmesi. Çözüm: chrome://flags/#allow-insecure-localhost ayarını Enabled yapıp tarayıcıyı yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "türktrust elektronik sertifika",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_357",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "TÜRKTRUST Elektronik Sertifika: Windows Akıllı Kart Hizmeti (SCardSvr) Kilitlenmesi",
+    "hizli_adimlar": [
+      "TÜRKTRUST Elektronik Sertifika sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: SCardSvr servisinin askıda kalan bir RPC çağrısı nedeniyle durması.",
+      "Saha mühendisliği servis prosedürünü yürütün: PowerShell ile servisi zorla durdurup yeniden başlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Restart-Service -Name SCardSvr -Force",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kart okuyucu ışığının yanmaması ve AKİS'in kart algılamaması.",
+    "derin_teknik_analiz": "SCardSvr servisinin askıda kalan bir RPC çağrısı nedeniyle durması. Çözüm: PowerShell ile servisi zorla durdurup yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "türktrust elektronik sertifika",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_358",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "TÜRKTRUST Elektronik Sertifika: libakisp11.dll PKCS#11 Kütüphanesi Kayıt Defteri Yol Hatası",
+    "hizli_adimlar": [
+      "TÜRKTRUST Elektronik Sertifika sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: 64-bit Windows üzerinde kütüphane yolunun System32 yerine SysWOW64'e yanlış yazılması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kayıt defterinde PKCS11 yolunu C:\\Windows\\System32\\libakisp11.dll olarak düzeltin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "reg query HKLM\\Software\\AKIS",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "UYAP veya e-Devlet uygulamasının e-imza modülünü bulamaması.",
+    "derin_teknik_analiz": "64-bit Windows üzerinde kütüphane yolunun System32 yerine SysWOW64'e yanlış yazılması. Çözüm: Kayıt defterinde PKCS11 yolunu C:\\Windows\\System32\\libakisp11.dll olarak düzeltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "türktrust elektronik sertifika",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_359",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "TÜRKTRUST Elektronik Sertifika: Akıllı Kart Okuyucu USB CCID Sürücüsü (Kod 39) Hatası",
+    "hizli_adimlar": [
+      "TÜRKTRUST Elektronik Sertifika sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Windows Update tarafından hatalı bir USB CCID sınıf sürücüsünün yüklenmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Cihazı sağ tıklayıp Sürücüyü Güncelleştir -> Bilgisayarımdaki sürücülere göz at -> Microsoft Usbccid seçin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "devmgmt.msc",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Aygıt Yöneticisi'nde kart okuyucunun yanında sarı ünlem çıkması.",
+    "derin_teknik_analiz": "Windows Update tarafından hatalı bir USB CCID sınıf sürücüsünün yüklenmesi. Çözüm: Cihazı sağ tıklayıp Sürücüyü Güncelleştir -> Bilgisayarımdaki sürücülere göz at -> Microsoft Usbccid seçin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "türktrust elektronik sertifika",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_360",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "E-Tuğra Nitelikli E-İmza Token: Chrome WebSocket 127.0.0.1:8443 Güvenlik Engeli ve İmzalamama",
+    "hizli_adimlar": [
+      "E-Tuğra Nitelikli E-İmza Token sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Chrome tarayıcısının yerel HTTPS websocket bağlantılarını güvensiz kabul etmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: chrome://flags/#allow-insecure-localhost ayarını Enabled yapıp tarayıcıyı yeniden başlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "curl -k https://127.0.0.1:8443/",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Web sayfasında İmzala butonuna basıldığında hiçbir tepki vermemesi.",
+    "derin_teknik_analiz": "Chrome tarayıcısının yerel HTTPS websocket bağlantılarını güvensiz kabul etmesi. Çözüm: chrome://flags/#allow-insecure-localhost ayarını Enabled yapıp tarayıcıyı yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "e-tuğra nitelikli e-i̇mza token",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_361",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "E-Tuğra Nitelikli E-İmza Token: Windows Akıllı Kart Hizmeti (SCardSvr) Kilitlenmesi",
+    "hizli_adimlar": [
+      "E-Tuğra Nitelikli E-İmza Token sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: SCardSvr servisinin askıda kalan bir RPC çağrısı nedeniyle durması.",
+      "Saha mühendisliği servis prosedürünü yürütün: PowerShell ile servisi zorla durdurup yeniden başlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Restart-Service -Name SCardSvr -Force",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kart okuyucu ışığının yanmaması ve AKİS'in kart algılamaması.",
+    "derin_teknik_analiz": "SCardSvr servisinin askıda kalan bir RPC çağrısı nedeniyle durması. Çözüm: PowerShell ile servisi zorla durdurup yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "e-tuğra nitelikli e-i̇mza token",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_362",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "E-Tuğra Nitelikli E-İmza Token: libakisp11.dll PKCS#11 Kütüphanesi Kayıt Defteri Yol Hatası",
+    "hizli_adimlar": [
+      "E-Tuğra Nitelikli E-İmza Token sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: 64-bit Windows üzerinde kütüphane yolunun System32 yerine SysWOW64'e yanlış yazılması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kayıt defterinde PKCS11 yolunu C:\\Windows\\System32\\libakisp11.dll olarak düzeltin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "reg query HKLM\\Software\\AKIS",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "UYAP veya e-Devlet uygulamasının e-imza modülünü bulamaması.",
+    "derin_teknik_analiz": "64-bit Windows üzerinde kütüphane yolunun System32 yerine SysWOW64'e yanlış yazılması. Çözüm: Kayıt defterinde PKCS11 yolunu C:\\Windows\\System32\\libakisp11.dll olarak düzeltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "e-tuğra nitelikli e-i̇mza token",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_363",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "E-Tuğra Nitelikli E-İmza Token: Akıllı Kart Okuyucu USB CCID Sürücüsü (Kod 39) Hatası",
+    "hizli_adimlar": [
+      "E-Tuğra Nitelikli E-İmza Token sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Windows Update tarafından hatalı bir USB CCID sınıf sürücüsünün yüklenmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Cihazı sağ tıklayıp Sürücüyü Güncelleştir -> Bilgisayarımdaki sürücülere göz at -> Microsoft Usbccid seçin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "devmgmt.msc",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Aygıt Yöneticisi'nde kart okuyucunun yanında sarı ünlem çıkması.",
+    "derin_teknik_analiz": "Windows Update tarafından hatalı bir USB CCID sınıf sürücüsünün yüklenmesi. Çözüm: Cihazı sağ tıklayıp Sürücüyü Güncelleştir -> Bilgisayarımdaki sürücülere göz at -> Microsoft Usbccid seçin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "e-tuğra nitelikli e-i̇mza token",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_364",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "e-GÜVEN Güvenli E-İmza: Chrome WebSocket 127.0.0.1:8443 Güvenlik Engeli ve İmzalamama",
+    "hizli_adimlar": [
+      "e-GÜVEN Güvenli E-İmza sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Chrome tarayıcısının yerel HTTPS websocket bağlantılarını güvensiz kabul etmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: chrome://flags/#allow-insecure-localhost ayarını Enabled yapıp tarayıcıyı yeniden başlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "curl -k https://127.0.0.1:8443/",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Web sayfasında İmzala butonuna basıldığında hiçbir tepki vermemesi.",
+    "derin_teknik_analiz": "Chrome tarayıcısının yerel HTTPS websocket bağlantılarını güvensiz kabul etmesi. Çözüm: chrome://flags/#allow-insecure-localhost ayarını Enabled yapıp tarayıcıyı yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "e-güven güvenli e-i̇mza",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_365",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "e-GÜVEN Güvenli E-İmza: Windows Akıllı Kart Hizmeti (SCardSvr) Kilitlenmesi",
+    "hizli_adimlar": [
+      "e-GÜVEN Güvenli E-İmza sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: SCardSvr servisinin askıda kalan bir RPC çağrısı nedeniyle durması.",
+      "Saha mühendisliği servis prosedürünü yürütün: PowerShell ile servisi zorla durdurup yeniden başlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Restart-Service -Name SCardSvr -Force",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kart okuyucu ışığının yanmaması ve AKİS'in kart algılamaması.",
+    "derin_teknik_analiz": "SCardSvr servisinin askıda kalan bir RPC çağrısı nedeniyle durması. Çözüm: PowerShell ile servisi zorla durdurup yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "e-güven güvenli e-i̇mza",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_366",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "e-GÜVEN Güvenli E-İmza: libakisp11.dll PKCS#11 Kütüphanesi Kayıt Defteri Yol Hatası",
+    "hizli_adimlar": [
+      "e-GÜVEN Güvenli E-İmza sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: 64-bit Windows üzerinde kütüphane yolunun System32 yerine SysWOW64'e yanlış yazılması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kayıt defterinde PKCS11 yolunu C:\\Windows\\System32\\libakisp11.dll olarak düzeltin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "reg query HKLM\\Software\\AKIS",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "UYAP veya e-Devlet uygulamasının e-imza modülünü bulamaması.",
+    "derin_teknik_analiz": "64-bit Windows üzerinde kütüphane yolunun System32 yerine SysWOW64'e yanlış yazılması. Çözüm: Kayıt defterinde PKCS11 yolunu C:\\Windows\\System32\\libakisp11.dll olarak düzeltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "e-güven güvenli e-i̇mza",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_367",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "e-GÜVEN Güvenli E-İmza: Akıllı Kart Okuyucu USB CCID Sürücüsü (Kod 39) Hatası",
+    "hizli_adimlar": [
+      "e-GÜVEN Güvenli E-İmza sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Windows Update tarafından hatalı bir USB CCID sınıf sürücüsünün yüklenmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Cihazı sağ tıklayıp Sürücüyü Güncelleştir -> Bilgisayarımdaki sürücülere göz at -> Microsoft Usbccid seçin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "devmgmt.msc",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Aygıt Yöneticisi'nde kart okuyucunun yanında sarı ünlem çıkması.",
+    "derin_teknik_analiz": "Windows Update tarafından hatalı bir USB CCID sınıf sürücüsünün yüklenmesi. Çözüm: Cihazı sağ tıklayıp Sürücüyü Güncelleştir -> Bilgisayarımdaki sürücülere göz at -> Microsoft Usbccid seçin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "e-güven güvenli e-i̇mza",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_368",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "Gemalto IDPrime MD 830: Chrome WebSocket 127.0.0.1:8443 Güvenlik Engeli ve İmzalamama",
+    "hizli_adimlar": [
+      "Gemalto IDPrime MD 830 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Chrome tarayıcısının yerel HTTPS websocket bağlantılarını güvensiz kabul etmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: chrome://flags/#allow-insecure-localhost ayarını Enabled yapıp tarayıcıyı yeniden başlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "curl -k https://127.0.0.1:8443/",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Web sayfasında İmzala butonuna basıldığında hiçbir tepki vermemesi.",
+    "derin_teknik_analiz": "Chrome tarayıcısının yerel HTTPS websocket bağlantılarını güvensiz kabul etmesi. Çözüm: chrome://flags/#allow-insecure-localhost ayarını Enabled yapıp tarayıcıyı yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "gemalto idprime md 830",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_369",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "Gemalto IDPrime MD 830: Windows Akıllı Kart Hizmeti (SCardSvr) Kilitlenmesi",
+    "hizli_adimlar": [
+      "Gemalto IDPrime MD 830 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: SCardSvr servisinin askıda kalan bir RPC çağrısı nedeniyle durması.",
+      "Saha mühendisliği servis prosedürünü yürütün: PowerShell ile servisi zorla durdurup yeniden başlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Restart-Service -Name SCardSvr -Force",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kart okuyucu ışığının yanmaması ve AKİS'in kart algılamaması.",
+    "derin_teknik_analiz": "SCardSvr servisinin askıda kalan bir RPC çağrısı nedeniyle durması. Çözüm: PowerShell ile servisi zorla durdurup yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "gemalto idprime md 830",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_370",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "Gemalto IDPrime MD 830: libakisp11.dll PKCS#11 Kütüphanesi Kayıt Defteri Yol Hatası",
+    "hizli_adimlar": [
+      "Gemalto IDPrime MD 830 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: 64-bit Windows üzerinde kütüphane yolunun System32 yerine SysWOW64'e yanlış yazılması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kayıt defterinde PKCS11 yolunu C:\\Windows\\System32\\libakisp11.dll olarak düzeltin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "reg query HKLM\\Software\\AKIS",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "UYAP veya e-Devlet uygulamasının e-imza modülünü bulamaması.",
+    "derin_teknik_analiz": "64-bit Windows üzerinde kütüphane yolunun System32 yerine SysWOW64'e yanlış yazılması. Çözüm: Kayıt defterinde PKCS11 yolunu C:\\Windows\\System32\\libakisp11.dll olarak düzeltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "gemalto idprime md 830",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_371",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "Gemalto IDPrime MD 830: Akıllı Kart Okuyucu USB CCID Sürücüsü (Kod 39) Hatası",
+    "hizli_adimlar": [
+      "Gemalto IDPrime MD 830 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Windows Update tarafından hatalı bir USB CCID sınıf sürücüsünün yüklenmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Cihazı sağ tıklayıp Sürücüyü Güncelleştir -> Bilgisayarımdaki sürücülere göz at -> Microsoft Usbccid seçin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "devmgmt.msc",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Aygıt Yöneticisi'nde kart okuyucunun yanında sarı ünlem çıkması.",
+    "derin_teknik_analiz": "Windows Update tarafından hatalı bir USB CCID sınıf sürücüsünün yüklenmesi. Çözüm: Cihazı sağ tıklayıp Sürücüyü Güncelleştir -> Bilgisayarımdaki sürücülere göz at -> Microsoft Usbccid seçin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "gemalto idprime md 830",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_372",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "SafeNet eToken 5110 FIPS: Chrome WebSocket 127.0.0.1:8443 Güvenlik Engeli ve İmzalamama",
+    "hizli_adimlar": [
+      "SafeNet eToken 5110 FIPS sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Chrome tarayıcısının yerel HTTPS websocket bağlantılarını güvensiz kabul etmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: chrome://flags/#allow-insecure-localhost ayarını Enabled yapıp tarayıcıyı yeniden başlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "curl -k https://127.0.0.1:8443/",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Web sayfasında İmzala butonuna basıldığında hiçbir tepki vermemesi.",
+    "derin_teknik_analiz": "Chrome tarayıcısının yerel HTTPS websocket bağlantılarını güvensiz kabul etmesi. Çözüm: chrome://flags/#allow-insecure-localhost ayarını Enabled yapıp tarayıcıyı yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "safenet etoken 5110 fips",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_373",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "SafeNet eToken 5110 FIPS: Windows Akıllı Kart Hizmeti (SCardSvr) Kilitlenmesi",
+    "hizli_adimlar": [
+      "SafeNet eToken 5110 FIPS sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: SCardSvr servisinin askıda kalan bir RPC çağrısı nedeniyle durması.",
+      "Saha mühendisliği servis prosedürünü yürütün: PowerShell ile servisi zorla durdurup yeniden başlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Restart-Service -Name SCardSvr -Force",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kart okuyucu ışığının yanmaması ve AKİS'in kart algılamaması.",
+    "derin_teknik_analiz": "SCardSvr servisinin askıda kalan bir RPC çağrısı nedeniyle durması. Çözüm: PowerShell ile servisi zorla durdurup yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "safenet etoken 5110 fips",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_374",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "SafeNet eToken 5110 FIPS: libakisp11.dll PKCS#11 Kütüphanesi Kayıt Defteri Yol Hatası",
+    "hizli_adimlar": [
+      "SafeNet eToken 5110 FIPS sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: 64-bit Windows üzerinde kütüphane yolunun System32 yerine SysWOW64'e yanlış yazılması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kayıt defterinde PKCS11 yolunu C:\\Windows\\System32\\libakisp11.dll olarak düzeltin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "reg query HKLM\\Software\\AKIS",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "UYAP veya e-Devlet uygulamasının e-imza modülünü bulamaması.",
+    "derin_teknik_analiz": "64-bit Windows üzerinde kütüphane yolunun System32 yerine SysWOW64'e yanlış yazılması. Çözüm: Kayıt defterinde PKCS11 yolunu C:\\Windows\\System32\\libakisp11.dll olarak düzeltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "safenet etoken 5110 fips",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_375",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "SafeNet eToken 5110 FIPS: Akıllı Kart Okuyucu USB CCID Sürücüsü (Kod 39) Hatası",
+    "hizli_adimlar": [
+      "SafeNet eToken 5110 FIPS sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Windows Update tarafından hatalı bir USB CCID sınıf sürücüsünün yüklenmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Cihazı sağ tıklayıp Sürücüyü Güncelleştir -> Bilgisayarımdaki sürücülere göz at -> Microsoft Usbccid seçin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "devmgmt.msc",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Aygıt Yöneticisi'nde kart okuyucunun yanında sarı ünlem çıkması.",
+    "derin_teknik_analiz": "Windows Update tarafından hatalı bir USB CCID sınıf sürücüsünün yüklenmesi. Çözüm: Cihazı sağ tıklayıp Sürücüyü Güncelleştir -> Bilgisayarımdaki sürücülere göz at -> Microsoft Usbccid seçin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "safenet etoken 5110 fips",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_376",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "ACS ACR38U Kart Okuyucu: Chrome WebSocket 127.0.0.1:8443 Güvenlik Engeli ve İmzalamama",
+    "hizli_adimlar": [
+      "ACS ACR38U Kart Okuyucu sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Chrome tarayıcısının yerel HTTPS websocket bağlantılarını güvensiz kabul etmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: chrome://flags/#allow-insecure-localhost ayarını Enabled yapıp tarayıcıyı yeniden başlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "curl -k https://127.0.0.1:8443/",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Web sayfasında İmzala butonuna basıldığında hiçbir tepki vermemesi.",
+    "derin_teknik_analiz": "Chrome tarayıcısının yerel HTTPS websocket bağlantılarını güvensiz kabul etmesi. Çözüm: chrome://flags/#allow-insecure-localhost ayarını Enabled yapıp tarayıcıyı yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "acs acr38u kart okuyucu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_377",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "ACS ACR38U Kart Okuyucu: Windows Akıllı Kart Hizmeti (SCardSvr) Kilitlenmesi",
+    "hizli_adimlar": [
+      "ACS ACR38U Kart Okuyucu sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: SCardSvr servisinin askıda kalan bir RPC çağrısı nedeniyle durması.",
+      "Saha mühendisliği servis prosedürünü yürütün: PowerShell ile servisi zorla durdurup yeniden başlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Restart-Service -Name SCardSvr -Force",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kart okuyucu ışığının yanmaması ve AKİS'in kart algılamaması.",
+    "derin_teknik_analiz": "SCardSvr servisinin askıda kalan bir RPC çağrısı nedeniyle durması. Çözüm: PowerShell ile servisi zorla durdurup yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "acs acr38u kart okuyucu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_378",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "ACS ACR38U Kart Okuyucu: libakisp11.dll PKCS#11 Kütüphanesi Kayıt Defteri Yol Hatası",
+    "hizli_adimlar": [
+      "ACS ACR38U Kart Okuyucu sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: 64-bit Windows üzerinde kütüphane yolunun System32 yerine SysWOW64'e yanlış yazılması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kayıt defterinde PKCS11 yolunu C:\\Windows\\System32\\libakisp11.dll olarak düzeltin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "reg query HKLM\\Software\\AKIS",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "UYAP veya e-Devlet uygulamasının e-imza modülünü bulamaması.",
+    "derin_teknik_analiz": "64-bit Windows üzerinde kütüphane yolunun System32 yerine SysWOW64'e yanlış yazılması. Çözüm: Kayıt defterinde PKCS11 yolunu C:\\Windows\\System32\\libakisp11.dll olarak düzeltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "acs acr38u kart okuyucu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_379",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "ACS ACR38U Kart Okuyucu: Akıllı Kart Okuyucu USB CCID Sürücüsü (Kod 39) Hatası",
+    "hizli_adimlar": [
+      "ACS ACR38U Kart Okuyucu sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Windows Update tarafından hatalı bir USB CCID sınıf sürücüsünün yüklenmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Cihazı sağ tıklayıp Sürücüyü Güncelleştir -> Bilgisayarımdaki sürücülere göz at -> Microsoft Usbccid seçin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "devmgmt.msc",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Aygıt Yöneticisi'nde kart okuyucunun yanında sarı ünlem çıkması.",
+    "derin_teknik_analiz": "Windows Update tarafından hatalı bir USB CCID sınıf sürücüsünün yüklenmesi. Çözüm: Cihazı sağ tıklayıp Sürücüyü Güncelleştir -> Bilgisayarımdaki sürücülere göz at -> Microsoft Usbccid seçin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "acs acr38u kart okuyucu",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_380",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "HID Omnikey 3121: Chrome WebSocket 127.0.0.1:8443 Güvenlik Engeli ve İmzalamama",
+    "hizli_adimlar": [
+      "HID Omnikey 3121 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Chrome tarayıcısının yerel HTTPS websocket bağlantılarını güvensiz kabul etmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: chrome://flags/#allow-insecure-localhost ayarını Enabled yapıp tarayıcıyı yeniden başlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "curl -k https://127.0.0.1:8443/",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Web sayfasında İmzala butonuna basıldığında hiçbir tepki vermemesi.",
+    "derin_teknik_analiz": "Chrome tarayıcısının yerel HTTPS websocket bağlantılarını güvensiz kabul etmesi. Çözüm: chrome://flags/#allow-insecure-localhost ayarını Enabled yapıp tarayıcıyı yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "hid omnikey 3121",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_381",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "HID Omnikey 3121: Windows Akıllı Kart Hizmeti (SCardSvr) Kilitlenmesi",
+    "hizli_adimlar": [
+      "HID Omnikey 3121 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: SCardSvr servisinin askıda kalan bir RPC çağrısı nedeniyle durması.",
+      "Saha mühendisliği servis prosedürünü yürütün: PowerShell ile servisi zorla durdurup yeniden başlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Restart-Service -Name SCardSvr -Force",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kart okuyucu ışığının yanmaması ve AKİS'in kart algılamaması.",
+    "derin_teknik_analiz": "SCardSvr servisinin askıda kalan bir RPC çağrısı nedeniyle durması. Çözüm: PowerShell ile servisi zorla durdurup yeniden başlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "hid omnikey 3121",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_382",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "HID Omnikey 3121: libakisp11.dll PKCS#11 Kütüphanesi Kayıt Defteri Yol Hatası",
+    "hizli_adimlar": [
+      "HID Omnikey 3121 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: 64-bit Windows üzerinde kütüphane yolunun System32 yerine SysWOW64'e yanlış yazılması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kayıt defterinde PKCS11 yolunu C:\\Windows\\System32\\libakisp11.dll olarak düzeltin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "reg query HKLM\\Software\\AKIS",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "UYAP veya e-Devlet uygulamasının e-imza modülünü bulamaması.",
+    "derin_teknik_analiz": "64-bit Windows üzerinde kütüphane yolunun System32 yerine SysWOW64'e yanlış yazılması. Çözüm: Kayıt defterinde PKCS11 yolunu C:\\Windows\\System32\\libakisp11.dll olarak düzeltin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "hid omnikey 3121",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_383",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "HID Omnikey 3121: Akıllı Kart Okuyucu USB CCID Sürücüsü (Kod 39) Hatası",
+    "hizli_adimlar": [
+      "HID Omnikey 3121 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Windows Update tarafından hatalı bir USB CCID sınıf sürücüsünün yüklenmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Cihazı sağ tıklayıp Sürücüyü Güncelleştir -> Bilgisayarımdaki sürücülere göz at -> Microsoft Usbccid seçin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "devmgmt.msc",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Aygıt Yöneticisi'nde kart okuyucunun yanında sarı ünlem çıkması.",
+    "derin_teknik_analiz": "Windows Update tarafından hatalı bir USB CCID sınıf sürücüsünün yüklenmesi. Çözüm: Cihazı sağ tıklayıp Sürücüyü Güncelleştir -> Bilgisayarımdaki sürücülere göz at -> Microsoft Usbccid seçin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "hid omnikey 3121",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2587",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "KamuSM AKİS Akıllı Kart: AKİS Kart Kilitlendi Hatası ve PUK Kodu ile Yeni PIN Belirleme",
+    "hizli_adimlar": [
+      "KamuSM AKİS Akıllı Kart cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kartın güvenlik mekanizması gereği kendisini kilitlemesi.",
+      "Saha servis prosedürünü yerine getirin: AKİS Kart İzleme Aracını açıp Kartı Seçin -> PUK Kodu ile PIN Değiştir butonuna basarak yeni 6 haneli şifre belirleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "KamuSM AKİS Akıllı Kart Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kullanıcının 3 kez yanlış PIN girmesi sonucu akıllı kartın bloke olması.",
+    "derin_teknik_analiz": "Kök Neden: Kartın güvenlik mekanizması gereği kendisini kilitlemesi. Saha Çözümü: AKİS Kart İzleme Aracını açıp Kartı Seçin -> PUK Kodu ile PIN Değiştir butonuna basarak yeni 6 haneli şifre belirleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "kamusm aki̇s akıllı kart",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2588",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "KamuSM AKİS Akıllı Kart: Java Sürüm Uyuşmazlığı Nedeniyle UYAP Editörün E-İmzayı Görmemesi",
+    "hizli_adimlar": [
+      "KamuSM AKİS Akıllı Kart cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: UYAP Editörün 64-bit Java ile açılmasına rağmen e-imza kütüphanesinin (libakisp11.dll) 32-bit olması.",
+      "Saha servis prosedürünü yerine getirin: UYAP masaüstü kısayolunun hedef satırına doğru 32-bit veya 64-bit javaw.exe yolunu parametre olarak tanımlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "KamuSM AKİS Akıllı Kart Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "UYAP üzerinde doküman imzalanırken \"Sertifika bulunamadı\" uyarısı çıkması.",
+    "derin_teknik_analiz": "Kök Neden: UYAP Editörün 64-bit Java ile açılmasına rağmen e-imza kütüphanesinin (libakisp11.dll) 32-bit olması. Saha Çözümü: UYAP masaüstü kısayolunun hedef satırına doğru 32-bit veya 64-bit javaw.exe yolunu parametre olarak tanımlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "kamusm aki̇s akıllı kart",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2589",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "KamuSM AKİS Akıllı Kart: Firefox Tarayıcısında PKCS#11 Güvenlik Modülü Tanımlama Eksikliği",
+    "hizli_adimlar": [
+      "KamuSM AKİS Akıllı Kart cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Firefox'un Windows Akıllı Kart sertifika deposu yerine kendi dahili NSS veritabanını kullanması.",
+      "Saha servis prosedürünü yerine getirin: Firefox Tercihler -> Gizlilik ve Güvenlik -> Güvenlik Aygıtları menüsünden C:\\Windows\\System32\\akisp11.dll dosyasını manuel ekleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "KamuSM AKİS Akıllı Kart Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Chrome üzerinde imzalanan sayfaların Firefox üzerinde kartı tanımaması.",
+    "derin_teknik_analiz": "Kök Neden: Firefox'un Windows Akıllı Kart sertifika deposu yerine kendi dahili NSS veritabanını kullanması. Saha Çözümü: Firefox Tercihler -> Gizlilik ve Güvenlik -> Güvenlik Aygıtları menüsünden C:\\Windows\\System32\\akisp11.dll dosyasını manuel ekleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "kamusm aki̇s akıllı kart",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2590",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "TÜRKTRUST Elektronik İmza: AKİS Kart Kilitlendi Hatası ve PUK Kodu ile Yeni PIN Belirleme",
+    "hizli_adimlar": [
+      "TÜRKTRUST Elektronik İmza cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kartın güvenlik mekanizması gereği kendisini kilitlemesi.",
+      "Saha servis prosedürünü yerine getirin: AKİS Kart İzleme Aracını açıp Kartı Seçin -> PUK Kodu ile PIN Değiştir butonuna basarak yeni 6 haneli şifre belirleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "TÜRKTRUST Elektronik İmza Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kullanıcının 3 kez yanlış PIN girmesi sonucu akıllı kartın bloke olması.",
+    "derin_teknik_analiz": "Kök Neden: Kartın güvenlik mekanizması gereği kendisini kilitlemesi. Saha Çözümü: AKİS Kart İzleme Aracını açıp Kartı Seçin -> PUK Kodu ile PIN Değiştir butonuna basarak yeni 6 haneli şifre belirleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "türktrust elektronik i̇mza",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2591",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "TÜRKTRUST Elektronik İmza: Java Sürüm Uyuşmazlığı Nedeniyle UYAP Editörün E-İmzayı Görmemesi",
+    "hizli_adimlar": [
+      "TÜRKTRUST Elektronik İmza cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: UYAP Editörün 64-bit Java ile açılmasına rağmen e-imza kütüphanesinin (libakisp11.dll) 32-bit olması.",
+      "Saha servis prosedürünü yerine getirin: UYAP masaüstü kısayolunun hedef satırına doğru 32-bit veya 64-bit javaw.exe yolunu parametre olarak tanımlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "TÜRKTRUST Elektronik İmza Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "UYAP üzerinde doküman imzalanırken \"Sertifika bulunamadı\" uyarısı çıkması.",
+    "derin_teknik_analiz": "Kök Neden: UYAP Editörün 64-bit Java ile açılmasına rağmen e-imza kütüphanesinin (libakisp11.dll) 32-bit olması. Saha Çözümü: UYAP masaüstü kısayolunun hedef satırına doğru 32-bit veya 64-bit javaw.exe yolunu parametre olarak tanımlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "türktrust elektronik i̇mza",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2592",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "TÜRKTRUST Elektronik İmza: Firefox Tarayıcısında PKCS#11 Güvenlik Modülü Tanımlama Eksikliği",
+    "hizli_adimlar": [
+      "TÜRKTRUST Elektronik İmza cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Firefox'un Windows Akıllı Kart sertifika deposu yerine kendi dahili NSS veritabanını kullanması.",
+      "Saha servis prosedürünü yerine getirin: Firefox Tercihler -> Gizlilik ve Güvenlik -> Güvenlik Aygıtları menüsünden C:\\Windows\\System32\\akisp11.dll dosyasını manuel ekleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "TÜRKTRUST Elektronik İmza Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Chrome üzerinde imzalanan sayfaların Firefox üzerinde kartı tanımaması.",
+    "derin_teknik_analiz": "Kök Neden: Firefox'un Windows Akıllı Kart sertifika deposu yerine kendi dahili NSS veritabanını kullanması. Saha Çözümü: Firefox Tercihler -> Gizlilik ve Güvenlik -> Güvenlik Aygıtları menüsünden C:\\Windows\\System32\\akisp11.dll dosyasını manuel ekleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "türktrust elektronik i̇mza",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2593",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "E-Tuğra Nitelikli Elektronik Sertifika: AKİS Kart Kilitlendi Hatası ve PUK Kodu ile Yeni PIN Belirleme",
+    "hizli_adimlar": [
+      "E-Tuğra Nitelikli Elektronik Sertifika cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kartın güvenlik mekanizması gereği kendisini kilitlemesi.",
+      "Saha servis prosedürünü yerine getirin: AKİS Kart İzleme Aracını açıp Kartı Seçin -> PUK Kodu ile PIN Değiştir butonuna basarak yeni 6 haneli şifre belirleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "E-Tuğra Nitelikli Elektronik Sertifika Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kullanıcının 3 kez yanlış PIN girmesi sonucu akıllı kartın bloke olması.",
+    "derin_teknik_analiz": "Kök Neden: Kartın güvenlik mekanizması gereği kendisini kilitlemesi. Saha Çözümü: AKİS Kart İzleme Aracını açıp Kartı Seçin -> PUK Kodu ile PIN Değiştir butonuna basarak yeni 6 haneli şifre belirleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "e-tuğra nitelikli elektronik sertifika",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2594",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "E-Tuğra Nitelikli Elektronik Sertifika: Java Sürüm Uyuşmazlığı Nedeniyle UYAP Editörün E-İmzayı Görmemesi",
+    "hizli_adimlar": [
+      "E-Tuğra Nitelikli Elektronik Sertifika cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: UYAP Editörün 64-bit Java ile açılmasına rağmen e-imza kütüphanesinin (libakisp11.dll) 32-bit olması.",
+      "Saha servis prosedürünü yerine getirin: UYAP masaüstü kısayolunun hedef satırına doğru 32-bit veya 64-bit javaw.exe yolunu parametre olarak tanımlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "E-Tuğra Nitelikli Elektronik Sertifika Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "UYAP üzerinde doküman imzalanırken \"Sertifika bulunamadı\" uyarısı çıkması.",
+    "derin_teknik_analiz": "Kök Neden: UYAP Editörün 64-bit Java ile açılmasına rağmen e-imza kütüphanesinin (libakisp11.dll) 32-bit olması. Saha Çözümü: UYAP masaüstü kısayolunun hedef satırına doğru 32-bit veya 64-bit javaw.exe yolunu parametre olarak tanımlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "e-tuğra nitelikli elektronik sertifika",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2595",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "E-Tuğra Nitelikli Elektronik Sertifika: Firefox Tarayıcısında PKCS#11 Güvenlik Modülü Tanımlama Eksikliği",
+    "hizli_adimlar": [
+      "E-Tuğra Nitelikli Elektronik Sertifika cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Firefox'un Windows Akıllı Kart sertifika deposu yerine kendi dahili NSS veritabanını kullanması.",
+      "Saha servis prosedürünü yerine getirin: Firefox Tercihler -> Gizlilik ve Güvenlik -> Güvenlik Aygıtları menüsünden C:\\Windows\\System32\\akisp11.dll dosyasını manuel ekleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "E-Tuğra Nitelikli Elektronik Sertifika Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Chrome üzerinde imzalanan sayfaların Firefox üzerinde kartı tanımaması.",
+    "derin_teknik_analiz": "Kök Neden: Firefox'un Windows Akıllı Kart sertifika deposu yerine kendi dahili NSS veritabanını kullanması. Saha Çözümü: Firefox Tercihler -> Gizlilik ve Güvenlik -> Güvenlik Aygıtları menüsünden C:\\Windows\\System32\\akisp11.dll dosyasını manuel ekleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "e-tuğra nitelikli elektronik sertifika",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2596",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "e-GÜVEN Güvenli E-İmza: AKİS Kart Kilitlendi Hatası ve PUK Kodu ile Yeni PIN Belirleme",
+    "hizli_adimlar": [
+      "e-GÜVEN Güvenli E-İmza cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Kartın güvenlik mekanizması gereği kendisini kilitlemesi.",
+      "Saha servis prosedürünü yerine getirin: AKİS Kart İzleme Aracını açıp Kartı Seçin -> PUK Kodu ile PIN Değiştir butonuna basarak yeni 6 haneli şifre belirleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "e-GÜVEN Güvenli E-İmza Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Kullanıcının 3 kez yanlış PIN girmesi sonucu akıllı kartın bloke olması.",
+    "derin_teknik_analiz": "Kök Neden: Kartın güvenlik mekanizması gereği kendisini kilitlemesi. Saha Çözümü: AKİS Kart İzleme Aracını açıp Kartı Seçin -> PUK Kodu ile PIN Değiştir butonuna basarak yeni 6 haneli şifre belirleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "e-güven güvenli e-i̇mza",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2597",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "e-GÜVEN Güvenli E-İmza: Java Sürüm Uyuşmazlığı Nedeniyle UYAP Editörün E-İmzayı Görmemesi",
+    "hizli_adimlar": [
+      "e-GÜVEN Güvenli E-İmza cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: UYAP Editörün 64-bit Java ile açılmasına rağmen e-imza kütüphanesinin (libakisp11.dll) 32-bit olması.",
+      "Saha servis prosedürünü yerine getirin: UYAP masaüstü kısayolunun hedef satırına doğru 32-bit veya 64-bit javaw.exe yolunu parametre olarak tanımlayın.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "e-GÜVEN Güvenli E-İmza Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "UYAP üzerinde doküman imzalanırken \"Sertifika bulunamadı\" uyarısı çıkması.",
+    "derin_teknik_analiz": "Kök Neden: UYAP Editörün 64-bit Java ile açılmasına rağmen e-imza kütüphanesinin (libakisp11.dll) 32-bit olması. Saha Çözümü: UYAP masaüstü kısayolunun hedef satırına doğru 32-bit veya 64-bit javaw.exe yolunu parametre olarak tanımlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "e-güven güvenli e-i̇mza",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "mat_gen_2598",
+    "kategori": "Sistem & Donanım",
+    "alt_kategori": "E-İmza & KamuSM AKİS",
+    "baslik": "e-GÜVEN Güvenli E-İmza: Firefox Tarayıcısında PKCS#11 Güvenlik Modülü Tanımlama Eksikliği",
+    "hizli_adimlar": [
+      "e-GÜVEN Güvenli E-İmza cihazının mevcut çalışma durumunu ve log kayıtlarını inceleyin.",
+      "Kök neden analizini uygulayın: Firefox'un Windows Akıllı Kart sertifika deposu yerine kendi dahili NSS veritabanını kullanması.",
+      "Saha servis prosedürünü yerine getirin: Firefox Tercihler -> Gizlilik ve Güvenlik -> Güvenlik Aygıtları menüsünden C:\\Windows\\System32\\akisp11.dll dosyasını manuel ekleyin.",
+      "Cihazı test modunda çalıştırarak sorunun giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Durum Kontrolü",
+        "komut": "e-GÜVEN Güvenli E-İmza Diagnostics / Test Mode",
+        "aciklama": "Üretici servis yönergelerine göre donanım teşhisi yürütür."
+      }
+    ],
+    "temel_anlatim": "Chrome üzerinde imzalanan sayfaların Firefox üzerinde kartı tanımaması.",
+    "derin_teknik_analiz": "Kök Neden: Firefox'un Windows Akıllı Kart sertifika deposu yerine kendi dahili NSS veritabanını kullanması. Saha Çözümü: Firefox Tercihler -> Gizlilik ve Güvenlik -> Güvenlik Aygıtları menüsünden C:\\Windows\\System32\\akisp11.dll dosyasını manuel ekleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart kontrol devresi veya iletişim veri yolu hasarlıdır.",
+        "cozum": "Üretici yetkili servis kart değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "sistem & donanım",
+      "e-i̇mza & kamusm aki̇s",
+      "e-güven güvenli e-i̇mza",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  }
+]

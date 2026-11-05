@@ -1,81 +1,1730 @@
-{
-  "versiyon": "2.5.0",
-  "toplam": 2,
-  "modul": "feed_yazici_brother.json",
-  "kayitlar": [
-    {
-      "id": "prn_brother_replace_drum_reset",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Brother HL / DCP / MFC",
-      "baslik": "Brother Lazer Yazıcılarda 'Replace Drum' (Tamburu Değiştirin) Sayacı Sıfırlama",
-      "hizli_adimlar": [
-        "Ön kapağı açın ve açık bırakın.",
-        "DCP modellerinde 'OK' tuşuna 2 saniye basılı tutun; 'Drum Değişti mi?' uyarısında 'Yukarı Ok' tuşuna basın.",
-        "HL modellerinde 'Go' tuşuna tüm ışıklar yanana kadar basılı tutun.",
-        "Ön kapağı kapatın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "DCP Sıfırlama",
-          "komut": "Kapak Açık -> OK 2 sn -> Yukarı Ok -> Kapağı Kapat",
-          "aciklama": "Drum sayaç sıfırlama."
-        }
-      ],
-      "temel_anlatim": "Yeni görüntüleme tamburu takılmasına rağmen 'Replace Drum' uyarısının ekrandan gitmemesi.",
-      "derin_teknik_analiz": "Brother yazıcılarda drum ömrü sayfa sayacı mantığıyla çalışır ve manuel sıfırlanmalıdır.",
-      "kenar_durumlar": [
-        {
-          "durum": "Çıktılarda dikey siyah lekeler var",
-          "neden": "Korona teli kirlenmiştir.",
-          "cozum": "Yeşil tırnağı sağa sola 3 kez kaydırın."
-        }
-      ],
-      "etiketler": [
-        "yazici",
-        "brother",
-        "replace-drum",
-        "tambur-reset",
-        "dcp"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "prn_brother_replace_toner_reset_gear",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Brother HL / DCP / MFC",
-      "baslik": "Brother TN-1040 / TN-2305 Muadil Toner Takılınca 'Replace Toner' Uyarısı ve Dişli Çözümü",
-      "hizli_adimlar": [
-        "Toneri drum ünitesinden ayırın.",
-        "Tonerin sol tarafındaki 2 adet yıldız vidayı söküp plastik yan kapağı çıkarın.",
-        "Hilal şeklindeki beyaz reset dişlisini yayını kurarak saat yönünün tersine en başa çevirin.",
-        "Kapağı kapatıp vidaları sıkın; toneri drum'a kilitleyip yazıcıya takın.",
-        "DCP ekranlı modellerde tuş takımı yöntemi: Menü -> Genel Ayarlar -> 'Toner Devam Modu' (Continue Mode) seçeneğini 'Açık' yapın."
-      ],
-      "komutlar": [
-        {
-          "etiket": "Yazılımsal Toner Reset Kombinasyonu (DCP-1511 / 1611)",
-          "komut": "Menü -> 1. Genel Kurulum -> Yukarı/Aşağı Ok ile 'Reset' -> Clear tuşuna bas",
-          "aciklama": "Yazıcı menüsünden toner sayacını manuel sıfırlar."
-        }
-      ],
-      "temel_anlatim": "Dolu yeni toner takılmasına rağmen yazıcının 'Toner Bitti / Replace Toner' diyerek yazdırmayı reddetmesi.",
-      "derin_teknik_analiz": "Brother tonerlerinde elektronik çip yoktur; yan tarafta mekanik bir sıfırlama bayrağı (Reset Flag Gear) bulunur. Dolum tonerlerde bu dişli başlangıç pozisyonuna kurulmazsa yazıcı içindeki optik anahtarı tetikleyemez.",
-      "kenar_durumlar": [
-        {
-          "durum": "Dişli kuruldu ama 5 sayfa sonra tekrar toner bitti dedi",
-          "neden": "Tonerin sağ tarafındaki şeffaf optik kontrol penceresi kirlenmiştir.",
-          "cozum": "Penceredeki toner tozunu kuru bezle silin veya elektrik bandı ile kapatın."
-        }
-      ],
-      "etiketler": [
-        "yazici",
-        "brother",
-        "replace-toner",
-        "tn1040",
-        "reset-gear",
-        "sifirlama-dislisi"
-      ],
-      "oncelik": 1
-    }
-  ]
-}
+[
+  {
+    "id": "prn_892",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı Hata Kodları",
+    "baslik": "Brother 'No Paper Fed' Hatası ve Besleme Pateni Aşınması",
+    "hizli_adimlar": [
+      "Alt kağıt kasetini tamamen dışarı çekin.",
+      "Yazıcının tavanındaki yarım ay şeklindeki kauçuk lastiği nemli bezle silin.",
+      "Lastik aşınmışsa plastik tırnaklarından söküp ters çevirin veya yenisini takın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Lastik Yüzey Temizliği",
+        "komut": "Kauçuk Yenileyici Sıvı (Rubber Rejuvenator) veya Alkol",
+        "aciklama": "Lastiğin sürtünme katsayısını geri kazandırır."
+      }
+    ],
+    "temel_anlatim": "Tepside kağıt dolu olmasına rağmen yazıcının kağıdı çekemeyip 'No Paper Fed' demesi.",
+    "derin_teknik_analiz": "Tepsi tabanındaki kağıt çekme lastiğinin (Pick-up roller) kauçuk özelliğini kaybetmesi ve kağıt üzerinde patinaj yapması.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata temizlenmesine rağmen tekrar ediyor",
+        "neden": "Mekanik parçada aşınma vardır.",
+        "cozum": "İlgili sensör veya mekanik modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazici",
+      "brother",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_893",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı Hata Kodları",
+    "baslik": "Brother 'Self-Diagnostic Will Restart in 15 Minutes' Fuser Hatası",
+    "hizli_adimlar": [
+      "Yazıcıyı kapatıp soğuması için 20 dakika bekleyin.",
+      "Maintenance Mode'a girin (`Menü` basılıyken fişi takın veya `* 2 8 6 4`).",
+      "`77` yazıp onaylayın; işlem bitince `99` tuşlayarak yeniden başlatın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Bakım Modu 77 ile Fuser Sıfırlama",
+        "komut": "Menü -> * 2 8 6 4 -> 77 tuşla -> Mono Başlat -> 99 (Çıkış)",
+        "aciklama": "Brother fuser arıza bayrağını temizler."
+      }
+    ],
+    "temel_anlatim": "Yazıcı ekranında 'Otomatik Teşhis 15 Dakika Sonra Yeniden Başlayacak' yazısında kilitlenmesi.",
+    "derin_teknik_analiz": "Fırın ünitesinin aşırı ısınması (Termal kaçak) sonucu güvenlik kilidine geçmesi.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata temizlenmesine rağmen tekrar ediyor",
+        "neden": "Mekanik parçada aşınma vardır.",
+        "cozum": "İlgili sensör veya mekanik modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazici",
+      "brother",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_br_41",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL & MFC",
+    "baslik": "Brother DCP-L2540DW / MFC-L2700DW: Kağıt Kıvrılması (Paper Curl) ve Zarf Yazdırırken Sıkışma",
+    "hizli_adimlar": [
+      "Yazıcının arka kapağını açın.",
+      "Fırının sağ ve sol tarafındaki mavi plastik mandalları aşağı doğru çekin.",
+      "Sürücü yazdırma tercihlerinden 'Kağıt Kıvrılmasını Azalt' (Reduce Paper Curl) seçeneğini işaretleyin.",
+      "İnce veya nemli kağıt kullanılıyorsa kağıt tipini 'Recycled Paper' veya 'Thin' olarak değiştirin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Brother Durum Raporu",
+        "komut": "Menü -> Rapor Yazdır -> Kullanıcı Ayarları -> Başlat",
+        "aciklama": "Cihazın mevcut fırın sıcaklık profilini ve sensör durumlarını basar."
+      }
+    ],
+    "temel_anlatim": "Çıkan sayfaların aşırı kıvrılıp boru gibi yuvarlanması veya zarfların buruşması.",
+    "derin_teknik_analiz": "Kök Neden: Fuser fırın sıcaklığının ortam nemine göre çok yüksek kalması ve fırın basınç kollarının standart konumda olması. Saha Adımları: Arka kapağı açıp iki mavi zarf mandalını (Envelope Levers) aşağı indirin ve sürücüden 'Reduce Paper Curl' açın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Mandallar indirilmesine rağmen kıvrılma sürüyor",
+        "neden": "Kağıt paketi nem almıştır.",
+        "cozum": "Yeni açılmış kuru 80gr kağıt yerleştirin."
+      }
+    ],
+    "etiketler": [
+      "brother",
+      "laser",
+      "dcp-l2540",
+      "kagit-kivrilmasi",
+      "fuser-mandal"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_br_42",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL & MFC",
+    "baslik": "Brother HL-L5100DN / HL-L6200DW: 'Toner Low' Erken Uyarısını Kapatma ve Kartuşu Sonuna Kadar Kullanma",
+    "hizli_adimlar": [
+      "Yazıcı ekranındaki Menü tuşuna basın.",
+      "Genel Kurulum (General Setup) -> Toner Değiştir (Replace Toner) seçeneğine gelin.",
+      "'Durdur' (Stop) yerine 'Devam Et' (Continue) seçeneğini işaretleyip OK'e basın.",
+      "Bu sayede toner tamamen silik basana kadar yazdırma işlemine devam edebilirsiniz."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Toner Sıfırlama Kodu",
+        "komut": "Ön kapağı aç -> Secure ve Cancel tuşlarına aynı anda bas -> Toner tipini seçip Sıfırla",
+        "aciklama": "Brother HL serisinde toner sayacını manuel %100'e çeker."
+      }
+    ],
+    "temel_anlatim": "Kartuşta hala toner tozu olmasına rağmen yazıcının erkenden durup 'Toner Değiştir' uyarısıyla kilitlenmesi.",
+    "derin_teknik_analiz": "Kök Neden: Optik toner sensörünün veya dişli sayacının önceden belirlenen sayfa eşiğine ulaşması. Saha Adımları: Yazıcı menüsünden 'Replace Toner' ayarını 'Stop' modundan 'Continue' moduna getirin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Baskı çok silik çıkıyor",
+        "neden": "Toner haznesi tamamen tükenmiştir.",
+        "cozum": "Yeni TN-3417 / TN-3467 kartuş takın."
+      }
+    ],
+    "etiketler": [
+      "brother",
+      "hl-l5100",
+      "toner-reset",
+      "continue-mode",
+      "kartus-omru"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_br_43",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL & MFC",
+    "baslik": "Brother DCP-1610W: Drum Sayacı Sıfırlama (Drum End Soon Hatası)",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "İlgili sensör veya mekanik tırnakları kontrol edin.",
+      "Menüden veya Maintenance modundan sıfırlayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Bakım Modu",
+        "komut": "Menu -> * -> 2 -> 8 -> 6 -> 4 (Maintenance Mode)",
+        "aciklama": "Brother servis bakım menüsünü açar."
+      }
+    ],
+    "temel_anlatim": "Ön kapağı açıp Güç tuşuna 4 kez basarak drum ömrünü sıfırlama.",
+    "derin_teknik_analiz": "Kök Neden: DR-1040 tambur ünitesinin 10.000 sayfa sınırına gelmesi. Saha Adımları: Brother servis prosedürüne göre bakım veya sayaç sıfırlaması yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu silinmiyor",
+        "neden": "Anakart EEPROM yazma hatası.",
+        "cozum": "Anakartı resetleyin."
+      }
+    ],
+    "etiketler": [
+      "brother",
+      "lazer",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_br_44",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL & MFC",
+    "baslik": "Brother MFC-L2700DW: Hata 0B: Corona Teli Kirliliği (Corona Wire Dirty)",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "İlgili sensör veya mekanik tırnakları kontrol edin.",
+      "Menüden veya Maintenance modundan sıfırlayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Bakım Modu",
+        "komut": "Menu -> * -> 2 -> 8 -> 6 -> 4 (Maintenance Mode)",
+        "aciklama": "Brother servis bakım menüsünü açar."
+      }
+    ],
+    "temel_anlatim": "Tambur üzerindeki yeşil sekmeyi (Green Tab) sağa sola kaydırarak teli temizleme.",
+    "derin_teknik_analiz": "Kök Neden: Korona telinde biriken toner tozunun yüksek gerilim atlaması yapması. Saha Adımları: Brother servis prosedürüne göre bakım veya sayaç sıfırlaması yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu silinmiyor",
+        "neden": "Anakart EEPROM yazma hatası.",
+        "cozum": "Anakartı resetleyin."
+      }
+    ],
+    "etiketler": [
+      "brother",
+      "lazer",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_br_45",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL & MFC",
+    "baslik": "Brother HL-L6200DW: Hata 74: Fuser Düşük Sıcaklık Uyarısı",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "İlgili sensör veya mekanik tırnakları kontrol edin.",
+      "Menüden veya Maintenance modundan sıfırlayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Bakım Modu",
+        "komut": "Menu -> * -> 2 -> 8 -> 6 -> 4 (Maintenance Mode)",
+        "aciklama": "Brother servis bakım menüsünü açar."
+      }
+    ],
+    "temel_anlatim": "Fırın rezistansının hedeflenen ısıya ulaşamaması.",
+    "derin_teknik_analiz": "Kök Neden: Fırın termistörünün teflon film tozundan yalıtılması. Saha Adımları: Brother servis prosedürüne göre bakım veya sayaç sıfırlaması yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu silinmiyor",
+        "neden": "Anakart EEPROM yazma hatası.",
+        "cozum": "Anakartı resetleyin."
+      }
+    ],
+    "etiketler": [
+      "brother",
+      "lazer",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_br_46",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL & MFC",
+    "baslik": "Brother MFC-T910DW: Mürekkep Kutusu Doluluk ve Hava Tahliye Kilidi",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "İlgili sensör veya mekanik tırnakları kontrol edin.",
+      "Menüden veya Maintenance modundan sıfırlayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Bakım Modu",
+        "komut": "Menu -> * -> 2 -> 8 -> 6 -> 4 (Maintenance Mode)",
+        "aciklama": "Brother servis bakım menüsünü açar."
+      }
+    ],
+    "temel_anlatim": "Mürekkep tankı dolu olmasına rağmen 'Mürekkebi Yeniden Doldur' uyarısı vermesi.",
+    "derin_teknik_analiz": "Kök Neden: Hortumlarda oluşan hava kabarcıklarının sensörü yanıltması. Saha Adımları: Brother servis prosedürüne göre bakım veya sayaç sıfırlaması yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu silinmiyor",
+        "neden": "Anakart EEPROM yazma hatası.",
+        "cozum": "Anakartı resetleyin."
+      }
+    ],
+    "etiketler": [
+      "brother",
+      "lazer",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_br_47",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL & MFC",
+    "baslik": "Brother DCP-L2540DW: Hata 48: Kağıt Tepsisi Çıkış Sensörü Takılması",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "İlgili sensör veya mekanik tırnakları kontrol edin.",
+      "Menüden veya Maintenance modundan sıfırlayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Bakım Modu",
+        "komut": "Menu -> * -> 2 -> 8 -> 6 -> 4 (Maintenance Mode)",
+        "aciklama": "Brother servis bakım menüsünü açar."
+      }
+    ],
+    "temel_anlatim": "Kağıt çıktığı halde ekranda 'Arka Kapakta Sıkışma' uyarısının kalması.",
+    "derin_teknik_analiz": "Kök Neden: Çıkış sensör bayrağının (Sensor Actuator) yayının yerinden çıkması. Saha Adımları: Brother servis prosedürüne göre bakım veya sayaç sıfırlaması yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu silinmiyor",
+        "neden": "Anakart EEPROM yazma hatası.",
+        "cozum": "Anakartı resetleyin."
+      }
+    ],
+    "etiketler": [
+      "brother",
+      "lazer",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_br_48",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL & MFC",
+    "baslik": "Brother HL-1211W: Wi-Fi Bağlantı Butonu (WPS) ile Modeme Eşleşmeme",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "İlgili sensör veya mekanik tırnakları kontrol edin.",
+      "Menüden veya Maintenance modundan sıfırlayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Bakım Modu",
+        "komut": "Menu -> * -> 2 -> 8 -> 6 -> 4 (Maintenance Mode)",
+        "aciklama": "Brother servis bakım menüsünü açar."
+      }
+    ],
+    "temel_anlatim": "Yazıcı üzerindeki Wi-Fi ışığının sürekli turuncu yanıp sönmesi.",
+    "derin_teknik_analiz": "Kök Neden: WPS zaman aşımı ve WPA3 şifreleme uyumsuzluğu. Saha Adımları: Brother servis prosedürüne göre bakım veya sayaç sıfırlaması yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu silinmiyor",
+        "neden": "Anakart EEPROM yazma hatası.",
+        "cozum": "Anakartı resetleyin."
+      }
+    ],
+    "etiketler": [
+      "brother",
+      "lazer",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_br_49",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL & MFC",
+    "baslik": "Brother MFC-L2740DW: Hata AF: Tarayıcı CIS Lambası Başlangıç Pozisyonu Hatası",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "İlgili sensör veya mekanik tırnakları kontrol edin.",
+      "Menüden veya Maintenance modundan sıfırlayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Bakım Modu",
+        "komut": "Menu -> * -> 2 -> 8 -> 6 -> 4 (Maintenance Mode)",
+        "aciklama": "Brother servis bakım menüsünü açar."
+      }
+    ],
+    "temel_anlatim": "Makine açılırken üst tarayıcıdan 'cırrrr' diye motor sürtünme sesi gelmesi.",
+    "derin_teknik_analiz": "Kök Neden: Tarayıcı kayışının gevşemesi veya beyaz referans bandının silinmesi. Saha Adımları: Brother servis prosedürüne göre bakım veya sayaç sıfırlaması yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu silinmiyor",
+        "neden": "Anakart EEPROM yazma hatası.",
+        "cozum": "Anakartı resetleyin."
+      }
+    ],
+    "etiketler": [
+      "brother",
+      "lazer",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_br_50",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL & MFC",
+    "baslik": "Brother HL-L5100DN: Ağ Kartı Donması ve Resetleme Prosedürü",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "İlgili sensör veya mekanik tırnakları kontrol edin.",
+      "Menüden veya Maintenance modundan sıfırlayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Bakım Modu",
+        "komut": "Menu -> * -> 2 -> 8 -> 6 -> 4 (Maintenance Mode)",
+        "aciklama": "Brother servis bakım menüsünü açar."
+      }
+    ],
+    "temel_anlatim": "Yazıcının web arayüzüne ulaşılamaması ve ping yanıtı vermemesi.",
+    "derin_teknik_analiz": "Kök Neden: Ön paneldeki GO tuşuna basılı tutarak cihazı açıp 10 saniye beklemek. Saha Adımları: Brother servis prosedürüne göre bakım veya sayaç sıfırlaması yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu silinmiyor",
+        "neden": "Anakart EEPROM yazma hatası.",
+        "cozum": "Anakartı resetleyin."
+      }
+    ],
+    "etiketler": [
+      "brother",
+      "lazer",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_br_51",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL & MFC",
+    "baslik": "Brother DCP-T510W: Kafa Temizleme Sonrası 'Hata 46: Emici Keçe Dolu'",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "İlgili sensör veya mekanik tırnakları kontrol edin.",
+      "Menüden veya Maintenance modundan sıfırlayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Bakım Modu",
+        "komut": "Menu -> * -> 2 -> 8 -> 6 -> 4 (Maintenance Mode)",
+        "aciklama": "Brother servis bakım menüsünü açar."
+      }
+    ],
+    "temel_anlatim": "Bakım Moduna (Maintenance 80) girerek atık ped sayacını sıfırlama.",
+    "derin_teknik_analiz": "Kök Neden: Tanklı yazıcı temizleme döngüsü sayaç sınırının aşılması. Saha Adımları: Brother servis prosedürüne göre bakım veya sayaç sıfırlaması yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu silinmiyor",
+        "neden": "Anakart EEPROM yazma hatası.",
+        "cozum": "Anakartı resetleyin."
+      }
+    ],
+    "etiketler": [
+      "brother",
+      "lazer",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_br_52",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL & MFC",
+    "baslik": "Brother MFC-L8690CDW: Renkli Çıktılarda Kayıt Hatası (Registration Error)",
+    "hizli_adimlar": [
+      "Cihazı kapatıp açın.",
+      "İlgili sensör veya mekanik tırnakları kontrol edin.",
+      "Menüden veya Maintenance modundan sıfırlayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Bakım Modu",
+        "komut": "Menu -> * -> 2 -> 8 -> 6 -> 4 (Maintenance Mode)",
+        "aciklama": "Brother servis bakım menüsünü açar."
+      }
+    ],
+    "temel_anlatim": "Baskı kalibrasyon menüsünden 'Auto Registration' çalıştırılması.",
+    "derin_teknik_analiz": "Kök Neden: Kayış ünitesi (Belt Unit) optik sensörlerinin tozlanması. Saha Adımları: Brother servis prosedürüne göre bakım veya sayaç sıfırlaması yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata kodu silinmiyor",
+        "neden": "Anakart EEPROM yazma hatası.",
+        "cozum": "Anakartı resetleyin."
+      }
+    ],
+    "etiketler": [
+      "brother",
+      "lazer",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "brother_exp_31",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother HL-1211W / DCP-1511: Toner Reset Çarkı Olmayan Doldurma Kartuşta 'Toner Yok' Hatası",
+    "hizli_adimlar": [
+      "Brother HL-1211W / DCP-1511 cihazının ön kapağını açın.",
+      "Kök neden analizini uygulayın: Kartuş üzerinde resetleme bayrak çarkının (Reset Gear) bulunmaması.",
+      "Brother servis prosedürünü yerine getirin: Yazıcı üzerindeki güç tuşuna belirli sırayla basarak optik toner sayacını manuel sıfırlayın.",
+      "Kullanıcı ayarları sayfası bastırarak sayacın sıfırlandığını teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Brother Bakım Kodu",
+        "komut": "Menu -> * -> 2864 -> Maintenance 80",
+        "aciklama": "Brother fabrika servis menüsünü açar."
+      }
+    ],
+    "temel_anlatim": "Doldurulan TN-1040 kartuşun yazıcı tarafından boş kabul edilmesi.",
+    "derin_teknik_analiz": "Kartuş üzerinde resetleme bayrak çarkının (Reset Gear) bulunmaması. Çözüm: Yazıcı üzerindeki güç tuşuna belirli sırayla basarak optik toner sayacını manuel sıfırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sayaç sıfırlanmıyor",
+        "neden": "Ön kapak sensörü basılı tutulmamıştır.",
+        "cozum": "Kapağı açık tutarak tuşlayın."
+      }
+    ],
+    "etiketler": [
+      "brother",
+      "lazer",
+      "brother hl-1211w   dcp-1511",
+      "toner-reset"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "brother_exp_32",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother DCP-B7535DW: 'Drum! Drum! Drum!' Hatası ve Korona Teli Kirliliği",
+    "hizli_adimlar": [
+      "Brother DCP-B7535DW cihazının ön kapağını açın.",
+      "Kök neden analizini uygulayın: Yüksek voltaj korona telinde biriken karbonlaşmış toner tozunun şasiye atlama yapması.",
+      "Brother servis prosedürünü yerine getirin: Tambur ünitesindeki yeşil plastik tırnağı en az 5 kez sağa sola kaydırıp başlangıç konumuna kilitleyin.",
+      "Kullanıcı ayarları sayfası bastırarak sayacın sıfırlandığını teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Brother Bakım Kodu",
+        "komut": "Menu -> * -> 2864 -> Maintenance 80",
+        "aciklama": "Brother fabrika servis menüsünü açar."
+      }
+    ],
+    "temel_anlatim": "Yazıcı ekranında üç kez ünlemle Drum uyarısı çıkması.",
+    "derin_teknik_analiz": "Yüksek voltaj korona telinde biriken karbonlaşmış toner tozunun şasiye atlama yapması. Çözüm: Tambur ünitesindeki yeşil plastik tırnağı en az 5 kez sağa sola kaydırıp başlangıç konumuna kilitleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sayaç sıfırlanmıyor",
+        "neden": "Ön kapak sensörü basılı tutulmamıştır.",
+        "cozum": "Kapağı açık tutarak tuşlayın."
+      }
+    ],
+    "etiketler": [
+      "brother",
+      "lazer",
+      "brother dcp-b7535dw",
+      "toner-reset"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "brother_exp_33",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother HL-L8260CDW Renkli Lazer: Kalibrasyon Başarısızlığı ve Renkli Çıktılarda Gölge Hatası",
+    "hizli_adimlar": [
+      "Brother HL-L8260CDW Renkli Lazer cihazının ön kapağını açın.",
+      "Kök neden analizini uygulayın: Kayış ünitesi (BU-330CL) üzerindeki yoğunluk sensörünün kirlenmesi.",
+      "Brother servis prosedürünü yerine getirin: Kayış ünitesini söküp altındaki optik sensör aynalarını temizleyin ve Auto Registration çalıştırın.",
+      "Kullanıcı ayarları sayfası bastırarak sayacın sıfırlandığını teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Brother Bakım Kodu",
+        "komut": "Menu -> * -> 2864 -> Maintenance 80",
+        "aciklama": "Brother fabrika servis menüsünü açar."
+      }
+    ],
+    "temel_anlatim": "Metinlerin etrafında 1 mm kaymış renkli gölgeler çıkması.",
+    "derin_teknik_analiz": "Kayış ünitesi (BU-330CL) üzerindeki yoğunluk sensörünün kirlenmesi. Çözüm: Kayış ünitesini söküp altındaki optik sensör aynalarını temizleyin ve Auto Registration çalıştırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sayaç sıfırlanmıyor",
+        "neden": "Ön kapak sensörü basılı tutulmamıştır.",
+        "cozum": "Kapağı açık tutarak tuşlayın."
+      }
+    ],
+    "etiketler": [
+      "brother",
+      "lazer",
+      "brother hl-l8260cdw renkli lazer",
+      "toner-reset"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "brother_exp_34",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother MFC-T4500DW A3 Tanklı: Hata 46: Atık Mürekkep Emici Pedi Doluluk Kilidi",
+    "hizli_adimlar": [
+      "Brother MFC-T4500DW A3 Tanklı cihazının ön kapağını açın.",
+      "Kök neden analizini uygulayın: Büyük format temizleme döngüsü sayaç sınırının aşılması.",
+      "Brother servis prosedürünü yerine getirin: Bakım Moduna girip Maintenance 80 altından purge sayacını sıfırlayın.",
+      "Kullanıcı ayarları sayfası bastırarak sayacın sıfırlandığını teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Brother Bakım Kodu",
+        "komut": "Menu -> * -> 2864 -> Maintenance 80",
+        "aciklama": "Brother fabrika servis menüsünü açar."
+      }
+    ],
+    "temel_anlatim": "Ekranda 'Unable to Print 46' yazıp tüm fonksiyonların durması.",
+    "derin_teknik_analiz": "Büyük format temizleme döngüsü sayaç sınırının aşılması. Çözüm: Bakım Moduna girip Maintenance 80 altından purge sayacını sıfırlayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sayaç sıfırlanmıyor",
+        "neden": "Ön kapak sensörü basılı tutulmamıştır.",
+        "cozum": "Kapağı açık tutarak tuşlayın."
+      }
+    ],
+    "etiketler": [
+      "brother",
+      "lazer",
+      "brother mfc-t4500dw a3 tanklı",
+      "toner-reset"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_96",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother HL-L2375DW: Baskıda Beyaz Zemin Üzerinde Hayalet Görüntü (Ghosting)",
+    "hizli_adimlar": [
+      "Brother HL-L2375DW cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Fırın üst ısıtıcı silindirinin sıcaklığının yetersiz kalması veya kirlenmesi.",
+      "Saha servis prosedürünü yürütün: Fuser sıcaklığını sürücü ayarlarından yükseltin veya fırını temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Menu -> General Setup -> Print Quality",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Sayfadaki bir yazının 7.5 cm aşağıda silik olarak tekrar basılması.",
+    "derin_teknik_analiz": "Fırın üst ısıtıcı silindirinin sıcaklığının yetersiz kalması veya kirlenmesi. Çözüm: Fuser sıcaklığını sürücü ayarlarından yükseltin veya fırını temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother hl-l2375dw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_97",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother HL-L2375DW: Kağıt Tepsisi Kaset Algılama Mikro-Anahtar Temassızlığı",
+    "hizli_adimlar": [
+      "Brother HL-L2375DW cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Kaset arkasındaki plastik algılayıcı tırnağın gevşemesi veya switchin oksitlenmesi.",
+      "Saha servis prosedürünü yürütün: Arka switch tırnaklarına kontak spreyi uygulayın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Maintenance 80 -> Sensor Check",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Tepsi takılı olduğu halde ekranda Tepsi Yok uyarısının kalması.",
+    "derin_teknik_analiz": "Kaset arkasındaki plastik algılayıcı tırnağın gevşemesi veya switchin oksitlenmesi. Çözüm: Arka switch tırnaklarına kontak spreyi uygulayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother hl-l2375dw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_98",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother HL-L2375DW: Toner Kartuşu Algılama Optik Sensör Penceresi Kirliliği",
+    "hizli_adimlar": [
+      "Brother HL-L2375DW cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Kartuşun sağındaki ve solundaki şeffaf ışık geçiş pencerelerinin tozlanması.",
+      "Saha servis prosedürünü yürütün: Optik pencereleri kuru pamuklu çubukla silin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Continuous Mode -> On",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yeni toner takıldığı halde ekranda Toner Boş uyarısının devam etmesi.",
+    "derin_teknik_analiz": "Kartuşun sağındaki ve solundaki şeffaf ışık geçiş pencerelerinin tozlanması. Çözüm: Optik pencereleri kuru pamuklu çubukla silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother hl-l2375dw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_99",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother HL-L2375DW: ADF Çoklu Belge Besleyici Pateni Aşınması ve Çift Sayfa Çekme",
+    "hizli_adimlar": [
+      "Brother HL-L2375DW cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: ADF ayırma lastiğinin pürüzlerini kaybetmesi.",
+      "Saha servis prosedürünü yürütün: ADF Pick-up Roller ve Separation Pad kitini yenileyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ADF Roller Counter Reset",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Tarama yaparken sayfaların üst üste binip yırtılması.",
+    "derin_teknik_analiz": "ADF ayırma lastiğinin pürüzlerini kaybetmesi. Çözüm: ADF Pick-up Roller ve Separation Pad kitini yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother hl-l2375dw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_100",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother MFC-L2750DW: Baskıda Beyaz Zemin Üzerinde Hayalet Görüntü (Ghosting)",
+    "hizli_adimlar": [
+      "Brother MFC-L2750DW cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Fırın üst ısıtıcı silindirinin sıcaklığının yetersiz kalması veya kirlenmesi.",
+      "Saha servis prosedürünü yürütün: Fuser sıcaklığını sürücü ayarlarından yükseltin veya fırını temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Menu -> General Setup -> Print Quality",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Sayfadaki bir yazının 7.5 cm aşağıda silik olarak tekrar basılması.",
+    "derin_teknik_analiz": "Fırın üst ısıtıcı silindirinin sıcaklığının yetersiz kalması veya kirlenmesi. Çözüm: Fuser sıcaklığını sürücü ayarlarından yükseltin veya fırını temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother mfc-l2750dw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_101",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother MFC-L2750DW: Kağıt Tepsisi Kaset Algılama Mikro-Anahtar Temassızlığı",
+    "hizli_adimlar": [
+      "Brother MFC-L2750DW cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Kaset arkasındaki plastik algılayıcı tırnağın gevşemesi veya switchin oksitlenmesi.",
+      "Saha servis prosedürünü yürütün: Arka switch tırnaklarına kontak spreyi uygulayın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Maintenance 80 -> Sensor Check",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Tepsi takılı olduğu halde ekranda Tepsi Yok uyarısının kalması.",
+    "derin_teknik_analiz": "Kaset arkasındaki plastik algılayıcı tırnağın gevşemesi veya switchin oksitlenmesi. Çözüm: Arka switch tırnaklarına kontak spreyi uygulayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother mfc-l2750dw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_102",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother MFC-L2750DW: Toner Kartuşu Algılama Optik Sensör Penceresi Kirliliği",
+    "hizli_adimlar": [
+      "Brother MFC-L2750DW cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Kartuşun sağındaki ve solundaki şeffaf ışık geçiş pencerelerinin tozlanması.",
+      "Saha servis prosedürünü yürütün: Optik pencereleri kuru pamuklu çubukla silin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Continuous Mode -> On",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yeni toner takıldığı halde ekranda Toner Boş uyarısının devam etmesi.",
+    "derin_teknik_analiz": "Kartuşun sağındaki ve solundaki şeffaf ışık geçiş pencerelerinin tozlanması. Çözüm: Optik pencereleri kuru pamuklu çubukla silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother mfc-l2750dw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_103",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother MFC-L2750DW: ADF Çoklu Belge Besleyici Pateni Aşınması ve Çift Sayfa Çekme",
+    "hizli_adimlar": [
+      "Brother MFC-L2750DW cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: ADF ayırma lastiğinin pürüzlerini kaybetmesi.",
+      "Saha servis prosedürünü yürütün: ADF Pick-up Roller ve Separation Pad kitini yenileyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ADF Roller Counter Reset",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Tarama yaparken sayfaların üst üste binip yırtılması.",
+    "derin_teknik_analiz": "ADF ayırma lastiğinin pürüzlerini kaybetmesi. Çözüm: ADF Pick-up Roller ve Separation Pad kitini yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother mfc-l2750dw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_104",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother DCP-L5500DN: Baskıda Beyaz Zemin Üzerinde Hayalet Görüntü (Ghosting)",
+    "hizli_adimlar": [
+      "Brother DCP-L5500DN cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Fırın üst ısıtıcı silindirinin sıcaklığının yetersiz kalması veya kirlenmesi.",
+      "Saha servis prosedürünü yürütün: Fuser sıcaklığını sürücü ayarlarından yükseltin veya fırını temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Menu -> General Setup -> Print Quality",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Sayfadaki bir yazının 7.5 cm aşağıda silik olarak tekrar basılması.",
+    "derin_teknik_analiz": "Fırın üst ısıtıcı silindirinin sıcaklığının yetersiz kalması veya kirlenmesi. Çözüm: Fuser sıcaklığını sürücü ayarlarından yükseltin veya fırını temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother dcp-l5500dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_105",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother DCP-L5500DN: Kağıt Tepsisi Kaset Algılama Mikro-Anahtar Temassızlığı",
+    "hizli_adimlar": [
+      "Brother DCP-L5500DN cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Kaset arkasındaki plastik algılayıcı tırnağın gevşemesi veya switchin oksitlenmesi.",
+      "Saha servis prosedürünü yürütün: Arka switch tırnaklarına kontak spreyi uygulayın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Maintenance 80 -> Sensor Check",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Tepsi takılı olduğu halde ekranda Tepsi Yok uyarısının kalması.",
+    "derin_teknik_analiz": "Kaset arkasındaki plastik algılayıcı tırnağın gevşemesi veya switchin oksitlenmesi. Çözüm: Arka switch tırnaklarına kontak spreyi uygulayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother dcp-l5500dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_106",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother DCP-L5500DN: Toner Kartuşu Algılama Optik Sensör Penceresi Kirliliği",
+    "hizli_adimlar": [
+      "Brother DCP-L5500DN cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Kartuşun sağındaki ve solundaki şeffaf ışık geçiş pencerelerinin tozlanması.",
+      "Saha servis prosedürünü yürütün: Optik pencereleri kuru pamuklu çubukla silin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Continuous Mode -> On",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yeni toner takıldığı halde ekranda Toner Boş uyarısının devam etmesi.",
+    "derin_teknik_analiz": "Kartuşun sağındaki ve solundaki şeffaf ışık geçiş pencerelerinin tozlanması. Çözüm: Optik pencereleri kuru pamuklu çubukla silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother dcp-l5500dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_107",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother DCP-L5500DN: ADF Çoklu Belge Besleyici Pateni Aşınması ve Çift Sayfa Çekme",
+    "hizli_adimlar": [
+      "Brother DCP-L5500DN cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: ADF ayırma lastiğinin pürüzlerini kaybetmesi.",
+      "Saha servis prosedürünü yürütün: ADF Pick-up Roller ve Separation Pad kitini yenileyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ADF Roller Counter Reset",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Tarama yaparken sayfaların üst üste binip yırtılması.",
+    "derin_teknik_analiz": "ADF ayırma lastiğinin pürüzlerini kaybetmesi. Çözüm: ADF Pick-up Roller ve Separation Pad kitini yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother dcp-l5500dn",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_108",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother HL-L6400DW: Baskıda Beyaz Zemin Üzerinde Hayalet Görüntü (Ghosting)",
+    "hizli_adimlar": [
+      "Brother HL-L6400DW cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Fırın üst ısıtıcı silindirinin sıcaklığının yetersiz kalması veya kirlenmesi.",
+      "Saha servis prosedürünü yürütün: Fuser sıcaklığını sürücü ayarlarından yükseltin veya fırını temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Menu -> General Setup -> Print Quality",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Sayfadaki bir yazının 7.5 cm aşağıda silik olarak tekrar basılması.",
+    "derin_teknik_analiz": "Fırın üst ısıtıcı silindirinin sıcaklığının yetersiz kalması veya kirlenmesi. Çözüm: Fuser sıcaklığını sürücü ayarlarından yükseltin veya fırını temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother hl-l6400dw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_109",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother HL-L6400DW: Kağıt Tepsisi Kaset Algılama Mikro-Anahtar Temassızlığı",
+    "hizli_adimlar": [
+      "Brother HL-L6400DW cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Kaset arkasındaki plastik algılayıcı tırnağın gevşemesi veya switchin oksitlenmesi.",
+      "Saha servis prosedürünü yürütün: Arka switch tırnaklarına kontak spreyi uygulayın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Maintenance 80 -> Sensor Check",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Tepsi takılı olduğu halde ekranda Tepsi Yok uyarısının kalması.",
+    "derin_teknik_analiz": "Kaset arkasındaki plastik algılayıcı tırnağın gevşemesi veya switchin oksitlenmesi. Çözüm: Arka switch tırnaklarına kontak spreyi uygulayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother hl-l6400dw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_110",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother HL-L6400DW: Toner Kartuşu Algılama Optik Sensör Penceresi Kirliliği",
+    "hizli_adimlar": [
+      "Brother HL-L6400DW cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Kartuşun sağındaki ve solundaki şeffaf ışık geçiş pencerelerinin tozlanması.",
+      "Saha servis prosedürünü yürütün: Optik pencereleri kuru pamuklu çubukla silin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Continuous Mode -> On",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yeni toner takıldığı halde ekranda Toner Boş uyarısının devam etmesi.",
+    "derin_teknik_analiz": "Kartuşun sağındaki ve solundaki şeffaf ışık geçiş pencerelerinin tozlanması. Çözüm: Optik pencereleri kuru pamuklu çubukla silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother hl-l6400dw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_111",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother HL-L6400DW: ADF Çoklu Belge Besleyici Pateni Aşınması ve Çift Sayfa Çekme",
+    "hizli_adimlar": [
+      "Brother HL-L6400DW cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: ADF ayırma lastiğinin pürüzlerini kaybetmesi.",
+      "Saha servis prosedürünü yürütün: ADF Pick-up Roller ve Separation Pad kitini yenileyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ADF Roller Counter Reset",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Tarama yaparken sayfaların üst üste binip yırtılması.",
+    "derin_teknik_analiz": "ADF ayırma lastiğinin pürüzlerini kaybetmesi. Çözüm: ADF Pick-up Roller ve Separation Pad kitini yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother hl-l6400dw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_112",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother MFC-T920DW Tanklı: Baskıda Beyaz Zemin Üzerinde Hayalet Görüntü (Ghosting)",
+    "hizli_adimlar": [
+      "Brother MFC-T920DW Tanklı cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Fırın üst ısıtıcı silindirinin sıcaklığının yetersiz kalması veya kirlenmesi.",
+      "Saha servis prosedürünü yürütün: Fuser sıcaklığını sürücü ayarlarından yükseltin veya fırını temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Menu -> General Setup -> Print Quality",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Sayfadaki bir yazının 7.5 cm aşağıda silik olarak tekrar basılması.",
+    "derin_teknik_analiz": "Fırın üst ısıtıcı silindirinin sıcaklığının yetersiz kalması veya kirlenmesi. Çözüm: Fuser sıcaklığını sürücü ayarlarından yükseltin veya fırını temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother mfc-t920dw tanklı",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_113",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother MFC-T920DW Tanklı: Kağıt Tepsisi Kaset Algılama Mikro-Anahtar Temassızlığı",
+    "hizli_adimlar": [
+      "Brother MFC-T920DW Tanklı cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Kaset arkasındaki plastik algılayıcı tırnağın gevşemesi veya switchin oksitlenmesi.",
+      "Saha servis prosedürünü yürütün: Arka switch tırnaklarına kontak spreyi uygulayın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Maintenance 80 -> Sensor Check",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Tepsi takılı olduğu halde ekranda Tepsi Yok uyarısının kalması.",
+    "derin_teknik_analiz": "Kaset arkasındaki plastik algılayıcı tırnağın gevşemesi veya switchin oksitlenmesi. Çözüm: Arka switch tırnaklarına kontak spreyi uygulayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother mfc-t920dw tanklı",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_114",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother MFC-T920DW Tanklı: Toner Kartuşu Algılama Optik Sensör Penceresi Kirliliği",
+    "hizli_adimlar": [
+      "Brother MFC-T920DW Tanklı cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Kartuşun sağındaki ve solundaki şeffaf ışık geçiş pencerelerinin tozlanması.",
+      "Saha servis prosedürünü yürütün: Optik pencereleri kuru pamuklu çubukla silin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Continuous Mode -> On",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yeni toner takıldığı halde ekranda Toner Boş uyarısının devam etmesi.",
+    "derin_teknik_analiz": "Kartuşun sağındaki ve solundaki şeffaf ışık geçiş pencerelerinin tozlanması. Çözüm: Optik pencereleri kuru pamuklu çubukla silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother mfc-t920dw tanklı",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_115",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother MFC-T920DW Tanklı: ADF Çoklu Belge Besleyici Pateni Aşınması ve Çift Sayfa Çekme",
+    "hizli_adimlar": [
+      "Brother MFC-T920DW Tanklı cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: ADF ayırma lastiğinin pürüzlerini kaybetmesi.",
+      "Saha servis prosedürünü yürütün: ADF Pick-up Roller ve Separation Pad kitini yenileyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ADF Roller Counter Reset",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Tarama yaparken sayfaların üst üste binip yırtılması.",
+    "derin_teknik_analiz": "ADF ayırma lastiğinin pürüzlerini kaybetmesi. Çözüm: ADF Pick-up Roller ve Separation Pad kitini yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother mfc-t920dw tanklı",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_116",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother DCP-T720DW: Baskıda Beyaz Zemin Üzerinde Hayalet Görüntü (Ghosting)",
+    "hizli_adimlar": [
+      "Brother DCP-T720DW cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Fırın üst ısıtıcı silindirinin sıcaklığının yetersiz kalması veya kirlenmesi.",
+      "Saha servis prosedürünü yürütün: Fuser sıcaklığını sürücü ayarlarından yükseltin veya fırını temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Menu -> General Setup -> Print Quality",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Sayfadaki bir yazının 7.5 cm aşağıda silik olarak tekrar basılması.",
+    "derin_teknik_analiz": "Fırın üst ısıtıcı silindirinin sıcaklığının yetersiz kalması veya kirlenmesi. Çözüm: Fuser sıcaklığını sürücü ayarlarından yükseltin veya fırını temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother dcp-t720dw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_117",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother DCP-T720DW: Kağıt Tepsisi Kaset Algılama Mikro-Anahtar Temassızlığı",
+    "hizli_adimlar": [
+      "Brother DCP-T720DW cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Kaset arkasındaki plastik algılayıcı tırnağın gevşemesi veya switchin oksitlenmesi.",
+      "Saha servis prosedürünü yürütün: Arka switch tırnaklarına kontak spreyi uygulayın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Maintenance 80 -> Sensor Check",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Tepsi takılı olduğu halde ekranda Tepsi Yok uyarısının kalması.",
+    "derin_teknik_analiz": "Kaset arkasındaki plastik algılayıcı tırnağın gevşemesi veya switchin oksitlenmesi. Çözüm: Arka switch tırnaklarına kontak spreyi uygulayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother dcp-t720dw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_118",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother DCP-T720DW: Toner Kartuşu Algılama Optik Sensör Penceresi Kirliliği",
+    "hizli_adimlar": [
+      "Brother DCP-T720DW cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Kartuşun sağındaki ve solundaki şeffaf ışık geçiş pencerelerinin tozlanması.",
+      "Saha servis prosedürünü yürütün: Optik pencereleri kuru pamuklu çubukla silin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Continuous Mode -> On",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yeni toner takıldığı halde ekranda Toner Boş uyarısının devam etmesi.",
+    "derin_teknik_analiz": "Kartuşun sağındaki ve solundaki şeffaf ışık geçiş pencerelerinin tozlanması. Çözüm: Optik pencereleri kuru pamuklu çubukla silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother dcp-t720dw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_119",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother DCP-T720DW: ADF Çoklu Belge Besleyici Pateni Aşınması ve Çift Sayfa Çekme",
+    "hizli_adimlar": [
+      "Brother DCP-T720DW cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: ADF ayırma lastiğinin pürüzlerini kaybetmesi.",
+      "Saha servis prosedürünü yürütün: ADF Pick-up Roller ve Separation Pad kitini yenileyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ADF Roller Counter Reset",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Tarama yaparken sayfaların üst üste binip yırtılması.",
+    "derin_teknik_analiz": "ADF ayırma lastiğinin pürüzlerini kaybetmesi. Çözüm: ADF Pick-up Roller ve Separation Pad kitini yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother dcp-t720dw",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_120",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother HL-L3270CDW LED Renkli: Baskıda Beyaz Zemin Üzerinde Hayalet Görüntü (Ghosting)",
+    "hizli_adimlar": [
+      "Brother HL-L3270CDW LED Renkli cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Fırın üst ısıtıcı silindirinin sıcaklığının yetersiz kalması veya kirlenmesi.",
+      "Saha servis prosedürünü yürütün: Fuser sıcaklığını sürücü ayarlarından yükseltin veya fırını temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Menu -> General Setup -> Print Quality",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Sayfadaki bir yazının 7.5 cm aşağıda silik olarak tekrar basılması.",
+    "derin_teknik_analiz": "Fırın üst ısıtıcı silindirinin sıcaklığının yetersiz kalması veya kirlenmesi. Çözüm: Fuser sıcaklığını sürücü ayarlarından yükseltin veya fırını temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother hl-l3270cdw led renkli",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_121",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother HL-L3270CDW LED Renkli: Kağıt Tepsisi Kaset Algılama Mikro-Anahtar Temassızlığı",
+    "hizli_adimlar": [
+      "Brother HL-L3270CDW LED Renkli cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Kaset arkasındaki plastik algılayıcı tırnağın gevşemesi veya switchin oksitlenmesi.",
+      "Saha servis prosedürünü yürütün: Arka switch tırnaklarına kontak spreyi uygulayın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Maintenance 80 -> Sensor Check",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Tepsi takılı olduğu halde ekranda Tepsi Yok uyarısının kalması.",
+    "derin_teknik_analiz": "Kaset arkasındaki plastik algılayıcı tırnağın gevşemesi veya switchin oksitlenmesi. Çözüm: Arka switch tırnaklarına kontak spreyi uygulayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother hl-l3270cdw led renkli",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_122",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother HL-L3270CDW LED Renkli: Toner Kartuşu Algılama Optik Sensör Penceresi Kirliliği",
+    "hizli_adimlar": [
+      "Brother HL-L3270CDW LED Renkli cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Kartuşun sağındaki ve solundaki şeffaf ışık geçiş pencerelerinin tozlanması.",
+      "Saha servis prosedürünü yürütün: Optik pencereleri kuru pamuklu çubukla silin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Continuous Mode -> On",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yeni toner takıldığı halde ekranda Toner Boş uyarısının devam etmesi.",
+    "derin_teknik_analiz": "Kartuşun sağındaki ve solundaki şeffaf ışık geçiş pencerelerinin tozlanması. Çözüm: Optik pencereleri kuru pamuklu çubukla silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother hl-l3270cdw led renkli",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_123",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother HL-L3270CDW LED Renkli: ADF Çoklu Belge Besleyici Pateni Aşınması ve Çift Sayfa Çekme",
+    "hizli_adimlar": [
+      "Brother HL-L3270CDW LED Renkli cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: ADF ayırma lastiğinin pürüzlerini kaybetmesi.",
+      "Saha servis prosedürünü yürütün: ADF Pick-up Roller ve Separation Pad kitini yenileyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ADF Roller Counter Reset",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Tarama yaparken sayfaların üst üste binip yırtılması.",
+    "derin_teknik_analiz": "ADF ayırma lastiğinin pürüzlerini kaybetmesi. Çözüm: ADF Pick-up Roller ve Separation Pad kitini yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother hl-l3270cdw led renkli",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_124",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother MFC-L8900CDW Enterprise: Baskıda Beyaz Zemin Üzerinde Hayalet Görüntü (Ghosting)",
+    "hizli_adimlar": [
+      "Brother MFC-L8900CDW Enterprise cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Fırın üst ısıtıcı silindirinin sıcaklığının yetersiz kalması veya kirlenmesi.",
+      "Saha servis prosedürünü yürütün: Fuser sıcaklığını sürücü ayarlarından yükseltin veya fırını temizleyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Menu -> General Setup -> Print Quality",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Sayfadaki bir yazının 7.5 cm aşağıda silik olarak tekrar basılması.",
+    "derin_teknik_analiz": "Fırın üst ısıtıcı silindirinin sıcaklığının yetersiz kalması veya kirlenmesi. Çözüm: Fuser sıcaklığını sürücü ayarlarından yükseltin veya fırını temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother mfc-l8900cdw enterprise",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_125",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother MFC-L8900CDW Enterprise: Kağıt Tepsisi Kaset Algılama Mikro-Anahtar Temassızlığı",
+    "hizli_adimlar": [
+      "Brother MFC-L8900CDW Enterprise cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Kaset arkasındaki plastik algılayıcı tırnağın gevşemesi veya switchin oksitlenmesi.",
+      "Saha servis prosedürünü yürütün: Arka switch tırnaklarına kontak spreyi uygulayın.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Maintenance 80 -> Sensor Check",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Tepsi takılı olduğu halde ekranda Tepsi Yok uyarısının kalması.",
+    "derin_teknik_analiz": "Kaset arkasındaki plastik algılayıcı tırnağın gevşemesi veya switchin oksitlenmesi. Çözüm: Arka switch tırnaklarına kontak spreyi uygulayın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother mfc-l8900cdw enterprise",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_126",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother MFC-L8900CDW Enterprise: Toner Kartuşu Algılama Optik Sensör Penceresi Kirliliği",
+    "hizli_adimlar": [
+      "Brother MFC-L8900CDW Enterprise cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: Kartuşun sağındaki ve solundaki şeffaf ışık geçiş pencerelerinin tozlanması.",
+      "Saha servis prosedürünü yürütün: Optik pencereleri kuru pamuklu çubukla silin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "Continuous Mode -> On",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Yeni toner takıldığı halde ekranda Toner Boş uyarısının devam etmesi.",
+    "derin_teknik_analiz": "Kartuşun sağındaki ve solundaki şeffaf ışık geçiş pencerelerinin tozlanması. Çözüm: Optik pencereleri kuru pamuklu çubukla silin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother mfc-l8900cdw enterprise",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_127",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Brother HL/MFC",
+    "baslik": "Brother MFC-L8900CDW Enterprise: ADF Çoklu Belge Besleyici Pateni Aşınması ve Çift Sayfa Çekme",
+    "hizli_adimlar": [
+      "Brother MFC-L8900CDW Enterprise cihazının mevcut durumunu ve arıza kodunu inceleyin.",
+      "Kök neden analizini uygulayın: ADF ayırma lastiğinin pürüzlerini kaybetmesi.",
+      "Saha servis prosedürünü yürütün: ADF Pick-up Roller ve Separation Pad kitini yenileyin.",
+      "Cihazı test modunda çalıştırarak hatanın giderildiğini doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis Komutu",
+        "komut": "ADF Roller Counter Reset",
+        "aciklama": "Model teşhis ve sıfırlama prosedürü."
+      }
+    ],
+    "temel_anlatim": "Tarama yaparken sayfaların üst üste binip yırtılması.",
+    "derin_teknik_analiz": "ADF ayırma lastiğinin pürüzlerini kaybetmesi. Çözüm: ADF Pick-up Roller ve Separation Pad kitini yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Anakart veya mekanik dişli takımı hasarlıdır.",
+        "cozum": "Modül değişimi yapın."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "brother hl/mfc",
+      "brother mfc-l8900cdw enterprise",
+      "saha-rehberi"
+    ],
+    "oncelik": 1
+  }
+]

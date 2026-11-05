@@ -1,83 +1,1694 @@
-{
-  "versiyon": "2.5.0",
-  "toplam": 2,
-  "modul": "feed_yazici_pos.json",
-  "kayitlar": [
-    {
-      "id": "prn_pos_cutter_jam_recovery",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Termal POS & Adisyon",
-      "baslik": "Epson TM-T20 / Bixolon Termal Fiş Yazıcısında Kesici Bıçak Sıkışması ve Kurtarma Vidası",
-      "hizli_adimlar": [
-        "Yazıcıyı kapatın.",
-        "Ön kesici kapağını düz tornavidayla açın.",
-        "Beyaz ayar vidasını bıçak tamamen geri çekilene kadar çevirin.",
-        "Kapak mandalına basıp kapağı açın.",
-        "Sıkışan parçaları temizleyin."
-      ],
-      "komutlar": [
-        {
-          "etiket": "ESC/POS Bıçak Kesme",
-          "komut": "CHR(29) + \"V\" + CHR(66) + CHR(0)",
-          "aciklama": "Kağıt kesme komutu."
-        }
-      ],
-      "temel_anlatim": "Adisyon basılırken kesici bıçağın yarıda takılması ve kapağın kilitlenmesi.",
-      "derin_teknik_analiz": "Kalın kağıt veya motor aşınması bıçağın açık kilitlenmesine neden olur.",
-      "kenar_durumlar": [
-        {
-          "durum": "Her kesmede tekrar sıkışıyor",
-          "neden": "Dişli kırılmıştır veya kağıt çok kalındır.",
-          "cozum": "55 gr rulo kullanın."
-        }
-      ],
-      "etiketler": [
-        "yazici",
-        "pos",
-        "termal-fis",
-        "epson-tm",
-        "bixolon",
-        "kesici-bicak"
-      ],
-      "oncelik": 1
-    },
-    {
-      "id": "prn_pos_turkish_characters_codepage",
-      "kategori": "Yazıcı",
-      "alt_kategori": "Termal POS & Adisyon",
-      "baslik": "Termal Fiş Yazıcılarında Türkçe Ş, Ğ, İ Karakterlerinin Bozulması ve Code Page 857 / 1254",
-      "hizli_adimlar": [
-        "Yazıcı kapalıyken 'FEED' tuşuna basılı tutarak açın (Self-Test / Yapılandırma Fişi).",
-        "Fiş üzerindeki 'Supported Code Pages' listesinden Türkçe tablosunun sayfa numarasını bulun (Genellikle 18 veya 67).",
-        "Adisyon yazılımında yazıcı ayarlarından 'Karakter Tablosu / Kod Sayfası' seçeneğini 'CP857' veya 'Windows-1254' yapın.",
-        "Doğrudan ESC/POS basılıyorsa her yazdırma işinin en başına `CHR(27) + \"t\" + CHR(18)` kodunu enjekte edin."
-      ],
-      "komutlar": [
-        {
-          "etiket": "ESC/POS Türkçe Kod Sayfası Seçimi",
-          "komut": "CHR(27) + CHR(116) + CHR(18)",
-          "aciklama": "Yazıcıyı Code Page 857 (Turkish) moduna geçirir."
-        }
-      ],
-      "temel_anlatim": "Lokanta adisyon fişinde veya market fişinde 'KÖFTE', 'ŞİŞ', 'İÇECEK' kelimelerinin garip simgelerle basılması.",
-      "derin_teknik_analiz": "Termal fiş yazıcılar metinleri dahili ROM karakter tablolarından çeker. ESC/POS dilinde varsayılan karakter tablosu Page 0 (PC437 USA)'dır. Türkçe karakterler için yazıcıya `ESC t 18` (Code Page 857 Turkish) veya `ESC t 67` (Windows-1254) komutu gönderilmelidir.",
-      "kenar_durumlar": [
-        {
-          "durum": "CP857 seçildiğinde büyük 'İ' harfi yerine farklı simge çıkıyor",
-          "neden": "CP857 tablosunda noktalı büyük İ harfi bazı eski modellerde tanımsızdır.",
-          "cozum": "Adisyon yazılımında metni göndermeden önce 'İ' harflerini 'I' ile değiştiren metin filtresi uygulayın veya Windows Yazıcı Sürücüsü (Graphics Mode) üzerinden yazdırın."
-        }
-      ],
-      "etiketler": [
-        "yazici",
-        "pos",
-        "esc-pos",
-        "turkce-karakter",
-        "cp857",
-        "adisyon",
-        "termal-fis"
-      ],
-      "oncelik": 1
-    }
-  ]
-}
+[
+  {
+    "id": "prn_898",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı Hata Kodları",
+    "baslik": "Termal Fiş Yazıcısında Sanal COM Port Çakışması",
+    "hizli_adimlar": [
+      "Aygıt Yöneticisi'ne girip sanal seri portun özelliklerini açın.",
+      "Gelişmiş ayarlarından COM numarasını boştaki düşük bir porta (örn: COM2) sabitleyin.",
+      "Adisyon programında da aynı portu ve Baud Rate değerini (9600 veya 115200) eşitleyin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "COM Port Numarasını Sabitle",
+        "komut": "devmgmt.msc -> Bağlantı Noktaları (COM & LPT) -> USB-Serial -> Özellikler -> Gelişmiş -> COM Port Numarası: COM1",
+        "aciklama": "Portu kalıcı COM1 yapar."
+      }
+    ],
+    "temel_anlatim": "USB ile bağlı fiş yazıcısının adisyon programında COM3 seçilmesine rağmen çıktı vermemesi.",
+    "derin_teknik_analiz": "Windows'un yazıcıya her takıp çıkarmada farklı bir sanal COM portu (COM4, COM7) ataması.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata temizlenmesine rağmen tekrar ediyor",
+        "neden": "Mekanik parçada aşınma vardır.",
+        "cozum": "İlgili sensör veya mekanik modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazici",
+      "pos",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_899",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "Yazıcı Hata Kodları",
+    "baslik": "Termal Fiş Yazıcısında Para Çekmecesinin Açılmaması",
+    "hizli_adimlar": [
+      "Yazıcı arkasındaki RJ11/RJ12 soketini kontrol edin (Telefon soketiyle karıştırılmamalıdır).",
+      "Yazıcı Özellikleri -> Aygıt Ayarları -> 'Cash Drawer #1' seçeneğini 'Before Printing' yapın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "ESC/POS Çekmece Tetik Komutu",
+        "komut": "CHR(27) + \"p\" + CHR(0) + CHR(25) + CHR(250)",
+        "aciklama": "Solenoide 50ms darbe göndererek çekmeceyi fırlatır."
+      }
+    ],
+    "temel_anlatim": "Fiş basıldığı halde yazar kasaya bağlı para çekmecesinin 'klik' sesi vermemesi ve kapalı kalması.",
+    "derin_teknik_analiz": "Çekmece RJ12 kablosunun ters takılması veya sürücüde 'Açılışta Çekmeceyi Aç' komutunun kapalı olması.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata temizlenmesine rağmen tekrar ediyor",
+        "neden": "Mekanik parçada aşınma vardır.",
+        "cozum": "İlgili sensör veya mekanik modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazici",
+      "pos",
+      "hata-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_pos_77",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Epson TM-T20II / TM-T88VI: Otomatik Kesici (Auto-Cutter) Bıçağının Sıkışması ve Kapağın Açılmaması",
+    "hizli_adimlar": [
+      "Yazıcının elektrik adaptörünü prizden çekin.",
+      "Ön paneldeki küçük kesici koruma kapağını tırnağınızla açın.",
+      "İçerideki beyaz plastik dişliyi düz tornavidayla ok yönünde çevirin.",
+      "Bıçağın tamamen yuvasına çekildiğini görünce üst kapak mandalını açıp sıkışan kağıdı tahliye edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "ESC/POS Kesme Komutu",
+        "komut": "GS V 66 0 (ASCII: GS V B 0)",
+        "aciklama": "Standart ESC/POS tam kesme komutudur."
+      }
+    ],
+    "temel_anlatim": "Fiş yazdırırken kesme anında 'tak' sesi gelmesi, bıçağın yarıda kalıp yazıcı kapağının kilitlenmesi.",
+    "derin_teknik_analiz": "Kök Neden: Kalın termal kağıt veya körelmiş bıçak nedeniyle kesici motorunun dönüşünü tamamlayamaması. Saha Adımları: Ön küçük kesici kapağını açıp acil durum dişlisini tornavidayla çevirerek bıçağı geri çekin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Dişli çevrildikten sonra ilk fişte tekrar sıkışıyor",
+        "neden": "Kesici yay mekanizması kırılmıştır veya bıçak rayı eğrilmiştir.",
+        "cozum": "Kesici ünitesini komple değiştirin."
+      }
+    ],
+    "etiketler": [
+      "pos",
+      "epson-tm",
+      "kesici-sikismasi",
+      "auto-cutter",
+      "fis-yazici"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_pos_78",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Bixolon SRP-330 / SRP-350: Yazar Kasa Para Çekmecesinin (Cash Drawer) Açılmaması",
+    "hizli_adimlar": [
+      "Yazıcının arkasındaki 6 pinli RJ11 çekmece kablosunun tam oturduğunu kontrol edin.",
+      "Denetim Masası -> Yazıcı Özellikleri -> Cihaz Ayarları -> Para Çekmecesi sekmesine gidin.",
+      "Çekmece 1 ayarını 'Belge Yazdırılmadan Önce Aç' olarak seçin.",
+      "Multimetre ile fiş çıkarken RJ11 soketinin 2. ve 5. pinleri arasında 24V puls sinyali oluştuğunu test edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Çekmece Açma Komutu",
+        "komut": "ESC p 0 25 250 (HEX: 1B 70 00 19 FA)",
+        "aciklama": "RJ11 soketine 24V elektrik darbesi göndererek çekmece solenoidini çektirir."
+      }
+    ],
+    "temel_anlatim": "Satış programından fiş basılmasına rağmen para çekmecesinin otomatik olarak fırlamaması.",
+    "derin_teknik_analiz": "Kök Neden: Yazıcının arkasındaki RJ11/RJ12 çekmece tetik soketine giden solenoid voltaj sinyalinin üretilememesi. Saha Adımları: Yazıcı sürücüsünden 'Peripherals -> Cash Drawer' ayarını 'Open Before/After Printing' yapın veya ESC/POS tetikleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Voltaj geliyor ama çekmece açılmıyor",
+        "neden": "Para çekmecesinin altındaki mekanik kilit 'Kilitli' pozisyonundadır veya ray sıkışmıştır.",
+        "cozum": "Çekmece anahtarını dik konuma getirin ve ray yayını yağlayın."
+      }
+    ],
+    "etiketler": [
+      "pos",
+      "bixolon",
+      "para-cekmecesi",
+      "cash-drawer",
+      "rj11-tetik"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_pos_79",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Epson TM-T20II: Fiş Yazısının Aşırı Silik Çıkması ve 24V Adaptör Gerilim Düşüklüğü",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişi çekin.",
+      "Kablo bağlantılarını ve adaptör voltajını ölçün.",
+      "Self-test alarak parametreleri doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Self Test",
+        "komut": "Feed basılı tut + Güç aç",
+        "aciklama": "Yazıcı donanım yapılandırma fişi basar."
+      }
+    ],
+    "temel_anlatim": "Isıtıcı elemanların yeterli akım çekememesi sonucu silik basması.",
+    "derin_teknik_analiz": "Kök Neden: 24V 2.5A adaptör kondansatörlerinin şişmesi ve voltajın 18V'a çökmesi. Saha Adımları: POS üretici bültenine göre dip switch veya sürücü ayarını yapılandırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata sürerse",
+        "neden": "Anakart lojik devresi arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "pos",
+      "fis-yazici",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_pos_80",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Bixolon SRP-350: Türkçe Karakterlerin (ş, ğ, ı, İ) Bozuk ve Anlamsız Basması",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişi çekin.",
+      "Kablo bağlantılarını ve adaptör voltajını ölçün.",
+      "Self-test alarak parametreleri doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Self Test",
+        "komut": "Feed basılı tut + Güç aç",
+        "aciklama": "Yazıcı donanım yapılandırma fişi basar."
+      }
+    ],
+    "temel_anlatim": "Fiş çıktısında Türkçe harfler yerine kare veya yabancı simgeler basması.",
+    "derin_teknik_analiz": "Kök Neden: Dip Switch veya yazılımdan Code Page 857 (Turkish) veya Windows-1254 seçilmemesi. Saha Adımları: POS üretici bültenine göre dip switch veya sürücü ayarını yapılandırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata sürerse",
+        "neden": "Anakart lojik devresi arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "pos",
+      "fis-yazici",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_pos_81",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Hugin POS / Posclass: Sanal COM Port (Virtual Serial Port) Sürücü Çakışması",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişi çekin.",
+      "Kablo bağlantılarını ve adaptör voltajını ölçün.",
+      "Self-test alarak parametreleri doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Self Test",
+        "komut": "Feed basılı tut + Güç aç",
+        "aciklama": "Yazıcı donanım yapılandırma fişi basar."
+      }
+    ],
+    "temel_anlatim": "USB'den bağlı POS yazıcının satış programında COM3 olarak algılanmaması.",
+    "derin_teknik_analiz": "Kök Neden: FTDI veya Prolific USB-to-UART sürücüsünün imzasız sürücü korumasına takılması. Saha Adımları: POS üretici bültenine göre dip switch veya sürücü ayarını yapılandırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata sürerse",
+        "neden": "Anakart lojik devresi arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "pos",
+      "fis-yazici",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_pos_82",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Epson TM-T88VI: Ağ Portu (Port 9100) Socket Hang ve Fiş Kuyruğunda Donma",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişi çekin.",
+      "Kablo bağlantılarını ve adaptör voltajını ölçün.",
+      "Self-test alarak parametreleri doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Self Test",
+        "komut": "Feed basılı tut + Güç aç",
+        "aciklama": "Yazıcı donanım yapılandırma fişi basar."
+      }
+    ],
+    "temel_anlatim": "Yoğun restoran sipariş anında yazıcının fişleri basmayı durdurması.",
+    "derin_teknik_analiz": "Kök Neden: Ağ kartının TCP Keep-Alive zaman aşımına uğrayıp soketi kilitli tutması. Saha Adımları: POS üretici bültenine göre dip switch veya sürücü ayarını yapılandırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata sürerse",
+        "neden": "Anakart lojik devresi arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "pos",
+      "fis-yazici",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_pos_83",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Bixolon SRP-330: Dip Switch ile Donanımsal Seri Baud Rate Ayarlama",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişi çekin.",
+      "Kablo bağlantılarını ve adaptör voltajını ölçün.",
+      "Self-test alarak parametreleri doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Self Test",
+        "komut": "Feed basılı tut + Güç aç",
+        "aciklama": "Yazıcı donanım yapılandırma fişi basar."
+      }
+    ],
+    "temel_anlatim": "Yazıcının altındaki metal kapağın altındaki dip anahtarlarla 9600 / 19200 / 115200 seçimi.",
+    "derin_teknik_analiz": "Kök Neden: RS-232 haberleşme hızının kasa terminaliyle uyuşmaması. Saha Adımları: POS üretici bültenine göre dip switch veya sürücü ayarını yapılandırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata sürerse",
+        "neden": "Anakart lojik devresi arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "pos",
+      "fis-yazici",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_pos_84",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Posclass Termal Fiş: Kağıt Bitiyor (Paper Near End) Sensörünün Yanıltıcı Uyarısı",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişi çekin.",
+      "Kablo bağlantılarını ve adaptör voltajını ölçün.",
+      "Self-test alarak parametreleri doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Self Test",
+        "komut": "Feed basılı tut + Güç aç",
+        "aciklama": "Yazıcı donanım yapılandırma fişi basar."
+      }
+    ],
+    "temel_anlatim": "Rulo kağıt yarıdayken bile yazıcının kırmızı ışık yakıp ötmesi.",
+    "derin_teknik_analiz": "Kök Neden: Optik yansıtıcı sensörün termal kağıt tozuyla körleşmesi. Saha Adımları: POS üretici bültenine göre dip switch veya sürücü ayarını yapılandırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata sürerse",
+        "neden": "Anakart lojik devresi arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "pos",
+      "fis-yazici",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_pos_85",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Epson TM-T20III: Kendi Kendine Test (Self-Test) Sayfası Bastırma Prosedürü",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişi çekin.",
+      "Kablo bağlantılarını ve adaptör voltajını ölçün.",
+      "Self-test alarak parametreleri doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Self Test",
+        "komut": "Feed basılı tut + Güç aç",
+        "aciklama": "Yazıcı donanım yapılandırma fişi basar."
+      }
+    ],
+    "temel_anlatim": "Feed butonuna basılı tutarak cihazı açıp baud rate, IP ve font durumunu dökme.",
+    "derin_teknik_analiz": "Kök Neden: Yazıcının donanımsal arızasını bilgisayardan bağımsız teşhis etme. Saha Adımları: POS üretici bültenine göre dip switch veya sürücü ayarını yapılandırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata sürerse",
+        "neden": "Anakart lojik devresi arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "pos",
+      "fis-yazici",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_pos_86",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Sam4s Ellix 40: Mutfak Zili / Buzzer Sesinin Çıkmaması",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişi çekin.",
+      "Kablo bağlantılarını ve adaptör voltajını ölçün.",
+      "Self-test alarak parametreleri doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Self Test",
+        "komut": "Feed basılı tut + Güç aç",
+        "aciklama": "Yazıcı donanım yapılandırma fişi basar."
+      }
+    ],
+    "temel_anlatim": "Sipariş geldiğinde personeli uyaran sesli alarmın çalmaması.",
+    "derin_teknik_analiz": "Kök Neden: Sürücü ayarlarından 'Internal Buzzer' seçeneğinin devre dışı kalması. Saha Adımları: POS üretici bültenine göre dip switch veya sürücü ayarını yapılandırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata sürerse",
+        "neden": "Anakart lojik devresi arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "pos",
+      "fis-yazici",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_pos_87",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Bixolon SRP-350plus: Ethernet IP Adresini Sıfırlama ve Varsayılan 192.168.192.168",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişi çekin.",
+      "Kablo bağlantılarını ve adaptör voltajını ölçün.",
+      "Self-test alarak parametreleri doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Self Test",
+        "komut": "Feed basılı tut + Güç aç",
+        "aciklama": "Yazıcı donanım yapılandırma fişi basar."
+      }
+    ],
+    "temel_anlatim": "Arka reset butonuna ataçla 5 saniye basarak ağ ayarlarını fabrika ayarlarına döndürme.",
+    "derin_teknik_analiz": "Kök Neden: Yanlış alt ağa tanımlanan yazıcının IP'sinin unutulması. Saha Adımları: POS üretici bültenine göre dip switch veya sürücü ayarını yapılandırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata sürerse",
+        "neden": "Anakart lojik devresi arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "pos",
+      "fis-yazici",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "prn_pos_88",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Epson TM-m30: Bluetooth Bağlantısının Tablet Pos ile Kopması",
+    "hizli_adimlar": [
+      "Cihazı kapatıp fişi çekin.",
+      "Kablo bağlantılarını ve adaptör voltajını ölçün.",
+      "Self-test alarak parametreleri doğrulayın."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Self Test",
+        "komut": "Feed basılı tut + Güç aç",
+        "aciklama": "Yazıcı donanım yapılandırma fişi basar."
+      }
+    ],
+    "temel_anlatim": "iPad veya Android pos cihazının uyku modundan çıkınca yazıcıyı kaybetmesi.",
+    "derin_teknik_analiz": "Kök Neden: Bluetooth Auto Re-Connect özelliğinin kapalı olması. Saha Adımları: POS üretici bültenine göre dip switch veya sürücü ayarını yapılandırın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Hata sürerse",
+        "neden": "Anakart lojik devresi arızalıdır.",
+        "cozum": "Anakartı test edin."
+      }
+    ],
+    "etiketler": [
+      "pos",
+      "fis-yazici",
+      "ariza-kodu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "pos_exp_41",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Epson TM-T70II / TM-m30II: Bluetooth Eşleşmesinde PIN Kodu Uyuşmazlığı ve Kopma",
+    "hizli_adimlar": [
+      "Epson TM-T70II / TM-m30II fiş yazıcısını elektrikten ayırın.",
+      "Kök neden analizini uygulayın: Varsayılan PIN kodunun (0000 veya 1234) yanlış girilmesi veya güvenlik modu.",
+      "POS servis prosedürünü yürütün: Yazıcı altındaki Bluetooth reset tuşuna basarak eşleşme tablosunu temizleyin.",
+      "Self-test fişi bastırarak donanımın sağlamlığını teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Self Test",
+        "komut": "Feed basılı tutarken güç aç",
+        "aciklama": "Donanım teşhis fişi döker."
+      }
+    ],
+    "temel_anlatim": "Tablet POS uygulamasının yazıcıyı görmemesi.",
+    "derin_teknik_analiz": "Varsayılan PIN kodunun (0000 veya 1234) yanlış girilmesi veya güvenlik modu. Çözüm: Yazıcı altındaki Bluetooth reset tuşuna basarak eşleşme tablosunu temizleyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Yazıcı açılmıyor",
+        "neden": "Adaptör 24V çıkış vermiyordur.",
+        "cozum": "Adaptörü multimetre ile ölçün."
+      }
+    ],
+    "etiketler": [
+      "pos",
+      "fis-yazici",
+      "epson tm-t70ii   tm-m30ii",
+      "termal-yazici"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "pos_exp_42",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Bixolon SRP-350III: Sıvı Teması Sonrası Anakart Kısa Devre Koruması",
+    "hizli_adimlar": [
+      "Bixolon SRP-350III fiş yazıcısını elektrikten ayırın.",
+      "Kök neden analizini uygulayın: Anakart girişindeki koruma diyodunun (TVS Diode) şasiye kısa devre olması.",
+      "POS servis prosedürünü yürütün: Anakartı izopropil alkol havuzunda temizleyin ve patlak TVS diyodunu yenileyin.",
+      "Self-test fişi bastırarak donanımın sağlamlığını teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Self Test",
+        "komut": "Feed basılı tutarken güç aç",
+        "aciklama": "Donanım teşhis fişi döker."
+      }
+    ],
+    "temel_anlatim": "Mutfak ortamında yazıcıya sos dökülmesi sonucu açılmaması.",
+    "derin_teknik_analiz": "Anakart girişindeki koruma diyodunun (TVS Diode) şasiye kısa devre olması. Çözüm: Anakartı izopropil alkol havuzunda temizleyin ve patlak TVS diyodunu yenileyin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Yazıcı açılmıyor",
+        "neden": "Adaptör 24V çıkış vermiyordur.",
+        "cozum": "Adaptörü multimetre ile ölçün."
+      }
+    ],
+    "etiketler": [
+      "pos",
+      "fis-yazici",
+      "bixolon srp-350iii",
+      "termal-yazici"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "pos_exp_43",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Citizen CT-S310II: USB Sanal Seri Portta Veri Akış Kontrolü (Handshake) Hatası",
+    "hizli_adimlar": [
+      "Citizen CT-S310II fiş yazıcısını elektrikten ayırın.",
+      "Kök neden analizini uygulayın: DTR/DSR donanımsal el sıkışma ayarının sürücüde kapalı olması.",
+      "POS servis prosedürünü yürütün: Aygıt Yöneticisi COM port ayarlarından Akış Denetimi'ni 'Donanım' (Hardware) yapın.",
+      "Self-test fişi bastırarak donanımın sağlamlığını teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Self Test",
+        "komut": "Feed basılı tutarken güç aç",
+        "aciklama": "Donanım teşhis fişi döker."
+      }
+    ],
+    "temel_anlatim": "Uzun fiş basılırken yazıcının yarıda durup fişi tamamlamaması.",
+    "derin_teknik_analiz": "DTR/DSR donanımsal el sıkışma ayarının sürücüde kapalı olması. Çözüm: Aygıt Yöneticisi COM port ayarlarından Akış Denetimi'ni 'Donanım' (Hardware) yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Yazıcı açılmıyor",
+        "neden": "Adaptör 24V çıkış vermiyordur.",
+        "cozum": "Adaptörü multimetre ile ölçün."
+      }
+    ],
+    "etiketler": [
+      "pos",
+      "fis-yazici",
+      "citizen ct-s310ii",
+      "termal-yazici"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_32_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Epson TM-T88VII Ultra Hızlı: Mutfak Fiş Yazıcısında Kağıt Nemi ve Kararma",
+    "hizli_adimlar": [
+      "Epson TM-T88VII Ultra Hızlı sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Termal kağıdın 60 derece üzeri buhara maruz kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcıyı ocak arkasından alıp koruma kılıfı takın ve kaliteli korumalı termal rulo kullanın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Feed Self Test",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sıcak ve buharlı mutfak ortamında fişin simsiyah çıkması.",
+    "derin_teknik_analiz": "Termal kağıdın 60 derece üzeri buhara maruz kalması. Çözüm: Yazıcıyı ocak arkasından alıp koruma kılıfı takın ve kaliteli korumalı termal rulo kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "epson tm-t88vii ultra hızlı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_33_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Epson TM-T88VII Ultra Hızlı: Ağ Bağlantılı Fiş Yazıcının Rastgele IP Değiştirmesi",
+    "hizli_adimlar": [
+      "Epson TM-T88VII Ultra Hızlı sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Yazıcının DHCP modunda kalması ve modemin yeni IP ataması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcı web paneline girip statik IP tanımlayın veya MAC adresine DHCP rezervasyonu yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "curl http://[POS_IP]/",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kasa yazılımının yazıcıyı bulamaması ve siparişlerin basılmaması.",
+    "derin_teknik_analiz": "Yazıcının DHCP modunda kalması ve modemin yeni IP ataması. Çözüm: Yazıcı web paneline girip statik IP tanımlayın veya MAC adresine DHCP rezervasyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "epson tm-t88vii ultra hızlı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_34_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Epson TM-T88VII Ultra Hızlı: Otomatik Kesici Bıçak Yağlanması ve Körelmesi",
+    "hizli_adimlar": [
+      "Epson TM-T88VII Ultra Hızlı sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kağıt tozu ve yapışkanlı etiket tutkalının bıçak rayında birikmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kesici bıçağı izopropil alkolle temizleyin ve ince makine yağı damlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ESC/POS GS V 0",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Fişin kenarlarının yırtık ve çapaklı kesilmesi.",
+    "derin_teknik_analiz": "Kağıt tozu ve yapışkanlı etiket tutkalının bıçak rayında birikmesi. Çözüm: Kesici bıçağı izopropil alkolle temizleyin ve ince makine yağı damlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "epson tm-t88vii ultra hızlı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_35_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Epson TM-T88VII Ultra Hızlı: Para Çekmecesi Solenoid Yanması ve Açılmama",
+    "hizli_adimlar": [
+      "Epson TM-T88VII Ultra Hızlı sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: 24V solenoid bobininin kısa devreye geçmesi veya çekmece yayının kopması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Solenoid direncini multimetre ile ölçün (Normal: 10-15 Ohm) ve yayı kontrol edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ESC p 0 25 250",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Fiş basılırken tık sesi gelmesi ama kasanın fırlamaması.",
+    "derin_teknik_analiz": "24V solenoid bobininin kısa devreye geçmesi veya çekmece yayının kopması. Çözüm: Solenoid direncini multimetre ile ölçün (Normal: 10-15 Ohm) ve yayı kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "epson tm-t88vii ultra hızlı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_36_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Bixolon SRP-S300 Yapışkanlı: Mutfak Fiş Yazıcısında Kağıt Nemi ve Kararma",
+    "hizli_adimlar": [
+      "Bixolon SRP-S300 Yapışkanlı sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Termal kağıdın 60 derece üzeri buhara maruz kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcıyı ocak arkasından alıp koruma kılıfı takın ve kaliteli korumalı termal rulo kullanın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Feed Self Test",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sıcak ve buharlı mutfak ortamında fişin simsiyah çıkması.",
+    "derin_teknik_analiz": "Termal kağıdın 60 derece üzeri buhara maruz kalması. Çözüm: Yazıcıyı ocak arkasından alıp koruma kılıfı takın ve kaliteli korumalı termal rulo kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "bixolon srp-s300 yapışkanlı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_37_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Bixolon SRP-S300 Yapışkanlı: Ağ Bağlantılı Fiş Yazıcının Rastgele IP Değiştirmesi",
+    "hizli_adimlar": [
+      "Bixolon SRP-S300 Yapışkanlı sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Yazıcının DHCP modunda kalması ve modemin yeni IP ataması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcı web paneline girip statik IP tanımlayın veya MAC adresine DHCP rezervasyonu yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "curl http://[POS_IP]/",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kasa yazılımının yazıcıyı bulamaması ve siparişlerin basılmaması.",
+    "derin_teknik_analiz": "Yazıcının DHCP modunda kalması ve modemin yeni IP ataması. Çözüm: Yazıcı web paneline girip statik IP tanımlayın veya MAC adresine DHCP rezervasyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "bixolon srp-s300 yapışkanlı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_38_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Bixolon SRP-S300 Yapışkanlı: Otomatik Kesici Bıçak Yağlanması ve Körelmesi",
+    "hizli_adimlar": [
+      "Bixolon SRP-S300 Yapışkanlı sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kağıt tozu ve yapışkanlı etiket tutkalının bıçak rayında birikmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kesici bıçağı izopropil alkolle temizleyin ve ince makine yağı damlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ESC/POS GS V 0",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Fişin kenarlarının yırtık ve çapaklı kesilmesi.",
+    "derin_teknik_analiz": "Kağıt tozu ve yapışkanlı etiket tutkalının bıçak rayında birikmesi. Çözüm: Kesici bıçağı izopropil alkolle temizleyin ve ince makine yağı damlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "bixolon srp-s300 yapışkanlı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_39_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Bixolon SRP-S300 Yapışkanlı: Para Çekmecesi Solenoid Yanması ve Açılmama",
+    "hizli_adimlar": [
+      "Bixolon SRP-S300 Yapışkanlı sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: 24V solenoid bobininin kısa devreye geçmesi veya çekmece yayının kopması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Solenoid direncini multimetre ile ölçün (Normal: 10-15 Ohm) ve yayı kontrol edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ESC p 0 25 250",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Fiş basılırken tık sesi gelmesi ama kasanın fırlamaması.",
+    "derin_teknik_analiz": "24V solenoid bobininin kısa devreye geçmesi veya çekmece yayının kopması. Çözüm: Solenoid direncini multimetre ile ölçün (Normal: 10-15 Ohm) ve yayı kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "bixolon srp-s300 yapışkanlı",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_40_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Star TSP143III LAN: Mutfak Fiş Yazıcısında Kağıt Nemi ve Kararma",
+    "hizli_adimlar": [
+      "Star TSP143III LAN sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Termal kağıdın 60 derece üzeri buhara maruz kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcıyı ocak arkasından alıp koruma kılıfı takın ve kaliteli korumalı termal rulo kullanın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Feed Self Test",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sıcak ve buharlı mutfak ortamında fişin simsiyah çıkması.",
+    "derin_teknik_analiz": "Termal kağıdın 60 derece üzeri buhara maruz kalması. Çözüm: Yazıcıyı ocak arkasından alıp koruma kılıfı takın ve kaliteli korumalı termal rulo kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "star tsp143iii lan",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_41_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Star TSP143III LAN: Ağ Bağlantılı Fiş Yazıcının Rastgele IP Değiştirmesi",
+    "hizli_adimlar": [
+      "Star TSP143III LAN sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Yazıcının DHCP modunda kalması ve modemin yeni IP ataması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcı web paneline girip statik IP tanımlayın veya MAC adresine DHCP rezervasyonu yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "curl http://[POS_IP]/",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kasa yazılımının yazıcıyı bulamaması ve siparişlerin basılmaması.",
+    "derin_teknik_analiz": "Yazıcının DHCP modunda kalması ve modemin yeni IP ataması. Çözüm: Yazıcı web paneline girip statik IP tanımlayın veya MAC adresine DHCP rezervasyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "star tsp143iii lan",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_42_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Star TSP143III LAN: Otomatik Kesici Bıçak Yağlanması ve Körelmesi",
+    "hizli_adimlar": [
+      "Star TSP143III LAN sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kağıt tozu ve yapışkanlı etiket tutkalının bıçak rayında birikmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kesici bıçağı izopropil alkolle temizleyin ve ince makine yağı damlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ESC/POS GS V 0",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Fişin kenarlarının yırtık ve çapaklı kesilmesi.",
+    "derin_teknik_analiz": "Kağıt tozu ve yapışkanlı etiket tutkalının bıçak rayında birikmesi. Çözüm: Kesici bıçağı izopropil alkolle temizleyin ve ince makine yağı damlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "star tsp143iii lan",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_43_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Star TSP143III LAN: Para Çekmecesi Solenoid Yanması ve Açılmama",
+    "hizli_adimlar": [
+      "Star TSP143III LAN sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: 24V solenoid bobininin kısa devreye geçmesi veya çekmece yayının kopması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Solenoid direncini multimetre ile ölçün (Normal: 10-15 Ohm) ve yayı kontrol edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ESC p 0 25 250",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Fiş basılırken tık sesi gelmesi ama kasanın fırlamaması.",
+    "derin_teknik_analiz": "24V solenoid bobininin kısa devreye geçmesi veya çekmece yayının kopması. Çözüm: Solenoid direncini multimetre ile ölçün (Normal: 10-15 Ohm) ve yayı kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "star tsp143iii lan",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_44_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Citizen CT-E351: Mutfak Fiş Yazıcısında Kağıt Nemi ve Kararma",
+    "hizli_adimlar": [
+      "Citizen CT-E351 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Termal kağıdın 60 derece üzeri buhara maruz kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcıyı ocak arkasından alıp koruma kılıfı takın ve kaliteli korumalı termal rulo kullanın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Feed Self Test",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sıcak ve buharlı mutfak ortamında fişin simsiyah çıkması.",
+    "derin_teknik_analiz": "Termal kağıdın 60 derece üzeri buhara maruz kalması. Çözüm: Yazıcıyı ocak arkasından alıp koruma kılıfı takın ve kaliteli korumalı termal rulo kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "citizen ct-e351",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_45_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Citizen CT-E351: Ağ Bağlantılı Fiş Yazıcının Rastgele IP Değiştirmesi",
+    "hizli_adimlar": [
+      "Citizen CT-E351 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Yazıcının DHCP modunda kalması ve modemin yeni IP ataması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcı web paneline girip statik IP tanımlayın veya MAC adresine DHCP rezervasyonu yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "curl http://[POS_IP]/",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kasa yazılımının yazıcıyı bulamaması ve siparişlerin basılmaması.",
+    "derin_teknik_analiz": "Yazıcının DHCP modunda kalması ve modemin yeni IP ataması. Çözüm: Yazıcı web paneline girip statik IP tanımlayın veya MAC adresine DHCP rezervasyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "citizen ct-e351",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_46_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Citizen CT-E351: Otomatik Kesici Bıçak Yağlanması ve Körelmesi",
+    "hizli_adimlar": [
+      "Citizen CT-E351 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kağıt tozu ve yapışkanlı etiket tutkalının bıçak rayında birikmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kesici bıçağı izopropil alkolle temizleyin ve ince makine yağı damlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ESC/POS GS V 0",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Fişin kenarlarının yırtık ve çapaklı kesilmesi.",
+    "derin_teknik_analiz": "Kağıt tozu ve yapışkanlı etiket tutkalının bıçak rayında birikmesi. Çözüm: Kesici bıçağı izopropil alkolle temizleyin ve ince makine yağı damlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "citizen ct-e351",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_47_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Citizen CT-E351: Para Çekmecesi Solenoid Yanması ve Açılmama",
+    "hizli_adimlar": [
+      "Citizen CT-E351 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: 24V solenoid bobininin kısa devreye geçmesi veya çekmece yayının kopması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Solenoid direncini multimetre ile ölçün (Normal: 10-15 Ohm) ve yayı kontrol edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ESC p 0 25 250",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Fiş basılırken tık sesi gelmesi ama kasanın fırlamaması.",
+    "derin_teknik_analiz": "24V solenoid bobininin kısa devreye geçmesi veya çekmece yayının kopması. Çözüm: Solenoid direncini multimetre ile ölçün (Normal: 10-15 Ohm) ve yayı kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "citizen ct-e351",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_48_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Posclass 80mm Mutfak: Mutfak Fiş Yazıcısında Kağıt Nemi ve Kararma",
+    "hizli_adimlar": [
+      "Posclass 80mm Mutfak sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Termal kağıdın 60 derece üzeri buhara maruz kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcıyı ocak arkasından alıp koruma kılıfı takın ve kaliteli korumalı termal rulo kullanın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Feed Self Test",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sıcak ve buharlı mutfak ortamında fişin simsiyah çıkması.",
+    "derin_teknik_analiz": "Termal kağıdın 60 derece üzeri buhara maruz kalması. Çözüm: Yazıcıyı ocak arkasından alıp koruma kılıfı takın ve kaliteli korumalı termal rulo kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "posclass 80mm mutfak",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_49_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Posclass 80mm Mutfak: Ağ Bağlantılı Fiş Yazıcının Rastgele IP Değiştirmesi",
+    "hizli_adimlar": [
+      "Posclass 80mm Mutfak sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Yazıcının DHCP modunda kalması ve modemin yeni IP ataması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcı web paneline girip statik IP tanımlayın veya MAC adresine DHCP rezervasyonu yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "curl http://[POS_IP]/",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kasa yazılımının yazıcıyı bulamaması ve siparişlerin basılmaması.",
+    "derin_teknik_analiz": "Yazıcının DHCP modunda kalması ve modemin yeni IP ataması. Çözüm: Yazıcı web paneline girip statik IP tanımlayın veya MAC adresine DHCP rezervasyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "posclass 80mm mutfak",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_50_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Posclass 80mm Mutfak: Otomatik Kesici Bıçak Yağlanması ve Körelmesi",
+    "hizli_adimlar": [
+      "Posclass 80mm Mutfak sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kağıt tozu ve yapışkanlı etiket tutkalının bıçak rayında birikmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kesici bıçağı izopropil alkolle temizleyin ve ince makine yağı damlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ESC/POS GS V 0",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Fişin kenarlarının yırtık ve çapaklı kesilmesi.",
+    "derin_teknik_analiz": "Kağıt tozu ve yapışkanlı etiket tutkalının bıçak rayında birikmesi. Çözüm: Kesici bıçağı izopropil alkolle temizleyin ve ince makine yağı damlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "posclass 80mm mutfak",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_51_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Posclass 80mm Mutfak: Para Çekmecesi Solenoid Yanması ve Açılmama",
+    "hizli_adimlar": [
+      "Posclass 80mm Mutfak sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: 24V solenoid bobininin kısa devreye geçmesi veya çekmece yayının kopması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Solenoid direncini multimetre ile ölçün (Normal: 10-15 Ohm) ve yayı kontrol edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ESC p 0 25 250",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Fiş basılırken tık sesi gelmesi ama kasanın fırlamaması.",
+    "derin_teknik_analiz": "24V solenoid bobininin kısa devreye geçmesi veya çekmece yayının kopması. Çözüm: Solenoid direncini multimetre ile ölçün (Normal: 10-15 Ohm) ve yayı kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "posclass 80mm mutfak",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_52_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Hugin Tiger Termal Kasa: Mutfak Fiş Yazıcısında Kağıt Nemi ve Kararma",
+    "hizli_adimlar": [
+      "Hugin Tiger Termal Kasa sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Termal kağıdın 60 derece üzeri buhara maruz kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcıyı ocak arkasından alıp koruma kılıfı takın ve kaliteli korumalı termal rulo kullanın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Feed Self Test",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sıcak ve buharlı mutfak ortamında fişin simsiyah çıkması.",
+    "derin_teknik_analiz": "Termal kağıdın 60 derece üzeri buhara maruz kalması. Çözüm: Yazıcıyı ocak arkasından alıp koruma kılıfı takın ve kaliteli korumalı termal rulo kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "hugin tiger termal kasa",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_53_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Hugin Tiger Termal Kasa: Ağ Bağlantılı Fiş Yazıcının Rastgele IP Değiştirmesi",
+    "hizli_adimlar": [
+      "Hugin Tiger Termal Kasa sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Yazıcının DHCP modunda kalması ve modemin yeni IP ataması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcı web paneline girip statik IP tanımlayın veya MAC adresine DHCP rezervasyonu yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "curl http://[POS_IP]/",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kasa yazılımının yazıcıyı bulamaması ve siparişlerin basılmaması.",
+    "derin_teknik_analiz": "Yazıcının DHCP modunda kalması ve modemin yeni IP ataması. Çözüm: Yazıcı web paneline girip statik IP tanımlayın veya MAC adresine DHCP rezervasyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "hugin tiger termal kasa",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_54_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Hugin Tiger Termal Kasa: Otomatik Kesici Bıçak Yağlanması ve Körelmesi",
+    "hizli_adimlar": [
+      "Hugin Tiger Termal Kasa sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kağıt tozu ve yapışkanlı etiket tutkalının bıçak rayında birikmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kesici bıçağı izopropil alkolle temizleyin ve ince makine yağı damlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ESC/POS GS V 0",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Fişin kenarlarının yırtık ve çapaklı kesilmesi.",
+    "derin_teknik_analiz": "Kağıt tozu ve yapışkanlı etiket tutkalının bıçak rayında birikmesi. Çözüm: Kesici bıçağı izopropil alkolle temizleyin ve ince makine yağı damlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "hugin tiger termal kasa",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_55_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Hugin Tiger Termal Kasa: Para Çekmecesi Solenoid Yanması ve Açılmama",
+    "hizli_adimlar": [
+      "Hugin Tiger Termal Kasa sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: 24V solenoid bobininin kısa devreye geçmesi veya çekmece yayının kopması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Solenoid direncini multimetre ile ölçün (Normal: 10-15 Ohm) ve yayı kontrol edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ESC p 0 25 250",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Fiş basılırken tık sesi gelmesi ama kasanın fırlamaması.",
+    "derin_teknik_analiz": "24V solenoid bobininin kısa devreye geçmesi veya çekmece yayının kopması. Çözüm: Solenoid direncini multimetre ile ölçün (Normal: 10-15 Ohm) ve yayı kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "hugin tiger termal kasa",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_56_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Sewoo SLK-TS400: Mutfak Fiş Yazıcısında Kağıt Nemi ve Kararma",
+    "hizli_adimlar": [
+      "Sewoo SLK-TS400 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Termal kağıdın 60 derece üzeri buhara maruz kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcıyı ocak arkasından alıp koruma kılıfı takın ve kaliteli korumalı termal rulo kullanın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Feed Self Test",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sıcak ve buharlı mutfak ortamında fişin simsiyah çıkması.",
+    "derin_teknik_analiz": "Termal kağıdın 60 derece üzeri buhara maruz kalması. Çözüm: Yazıcıyı ocak arkasından alıp koruma kılıfı takın ve kaliteli korumalı termal rulo kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "sewoo slk-ts400",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_57_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Sewoo SLK-TS400: Ağ Bağlantılı Fiş Yazıcının Rastgele IP Değiştirmesi",
+    "hizli_adimlar": [
+      "Sewoo SLK-TS400 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Yazıcının DHCP modunda kalması ve modemin yeni IP ataması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcı web paneline girip statik IP tanımlayın veya MAC adresine DHCP rezervasyonu yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "curl http://[POS_IP]/",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kasa yazılımının yazıcıyı bulamaması ve siparişlerin basılmaması.",
+    "derin_teknik_analiz": "Yazıcının DHCP modunda kalması ve modemin yeni IP ataması. Çözüm: Yazıcı web paneline girip statik IP tanımlayın veya MAC adresine DHCP rezervasyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "sewoo slk-ts400",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_58_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Sewoo SLK-TS400: Otomatik Kesici Bıçak Yağlanması ve Körelmesi",
+    "hizli_adimlar": [
+      "Sewoo SLK-TS400 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kağıt tozu ve yapışkanlı etiket tutkalının bıçak rayında birikmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kesici bıçağı izopropil alkolle temizleyin ve ince makine yağı damlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ESC/POS GS V 0",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Fişin kenarlarının yırtık ve çapaklı kesilmesi.",
+    "derin_teknik_analiz": "Kağıt tozu ve yapışkanlı etiket tutkalının bıçak rayında birikmesi. Çözüm: Kesici bıçağı izopropil alkolle temizleyin ve ince makine yağı damlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "sewoo slk-ts400",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_59_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Sewoo SLK-TS400: Para Çekmecesi Solenoid Yanması ve Açılmama",
+    "hizli_adimlar": [
+      "Sewoo SLK-TS400 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: 24V solenoid bobininin kısa devreye geçmesi veya çekmece yayının kopması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Solenoid direncini multimetre ile ölçün (Normal: 10-15 Ohm) ve yayı kontrol edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ESC p 0 25 250",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Fiş basılırken tık sesi gelmesi ama kasanın fırlamaması.",
+    "derin_teknik_analiz": "24V solenoid bobininin kısa devreye geçmesi veya çekmece yayının kopması. Çözüm: Solenoid direncini multimetre ile ölçün (Normal: 10-15 Ohm) ve yayı kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "sewoo slk-ts400",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_60_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Sam4s Giant-100: Mutfak Fiş Yazıcısında Kağıt Nemi ve Kararma",
+    "hizli_adimlar": [
+      "Sam4s Giant-100 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Termal kağıdın 60 derece üzeri buhara maruz kalması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcıyı ocak arkasından alıp koruma kılıfı takın ve kaliteli korumalı termal rulo kullanın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "Feed Self Test",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Sıcak ve buharlı mutfak ortamında fişin simsiyah çıkması.",
+    "derin_teknik_analiz": "Termal kağıdın 60 derece üzeri buhara maruz kalması. Çözüm: Yazıcıyı ocak arkasından alıp koruma kılıfı takın ve kaliteli korumalı termal rulo kullanın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "sam4s giant-100",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_61_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Sam4s Giant-100: Ağ Bağlantılı Fiş Yazıcının Rastgele IP Değiştirmesi",
+    "hizli_adimlar": [
+      "Sam4s Giant-100 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Yazıcının DHCP modunda kalması ve modemin yeni IP ataması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Yazıcı web paneline girip statik IP tanımlayın veya MAC adresine DHCP rezervasyonu yapın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "curl http://[POS_IP]/",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Kasa yazılımının yazıcıyı bulamaması ve siparişlerin basılmaması.",
+    "derin_teknik_analiz": "Yazıcının DHCP modunda kalması ve modemin yeni IP ataması. Çözüm: Yazıcı web paneline girip statik IP tanımlayın veya MAC adresine DHCP rezervasyonu yapın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "sam4s giant-100",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_62_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Sam4s Giant-100: Otomatik Kesici Bıçak Yağlanması ve Körelmesi",
+    "hizli_adimlar": [
+      "Sam4s Giant-100 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: Kağıt tozu ve yapışkanlı etiket tutkalının bıçak rayında birikmesi.",
+      "Saha mühendisliği servis prosedürünü yürütün: Kesici bıçağı izopropil alkolle temizleyin ve ince makine yağı damlatın.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ESC/POS GS V 0",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Fişin kenarlarının yırtık ve çapaklı kesilmesi.",
+    "derin_teknik_analiz": "Kağıt tozu ve yapışkanlı etiket tutkalının bıçak rayında birikmesi. Çözüm: Kesici bıçağı izopropil alkolle temizleyin ve ince makine yağı damlatın.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "sam4s giant-100",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  },
+  {
+    "id": "modmega_63_1",
+    "kategori": "Yazıcı & Çevre Birimleri",
+    "alt_kategori": "POS & Fiş Kasa",
+    "baslik": "Sam4s Giant-100: Para Çekmecesi Solenoid Yanması ve Açılmama",
+    "hizli_adimlar": [
+      "Sam4s Giant-100 sisteminin yönetim konsolunu veya günlüklerini inceleyin.",
+      "Kök neden analizini uygulayın: 24V solenoid bobininin kısa devreye geçmesi veya çekmece yayının kopması.",
+      "Saha mühendisliği servis prosedürünü yürütün: Solenoid direncini multimetre ile ölçün (Normal: 10-15 Ohm) ve yayı kontrol edin.",
+      "Sistem test komutuyla hatanın giderildiğini ve servisin normale döndüğünü teyit edin."
+    ],
+    "komutlar": [
+      {
+        "etiket": "Servis / Kontrol Komutu",
+        "komut": "ESC p 0 25 250",
+        "aciklama": "Saha durum kontrol komutu."
+      }
+    ],
+    "temel_anlatim": "Fiş basılırken tık sesi gelmesi ama kasanın fırlamaması.",
+    "derin_teknik_analiz": "24V solenoid bobininin kısa devreye geçmesi veya çekmece yayının kopması. Çözüm: Solenoid direncini multimetre ile ölçün (Normal: 10-15 Ohm) ve yayı kontrol edin.",
+    "kenar_durumlar": [
+      {
+        "durum": "Sorun devam ediyor",
+        "neden": "Kritik donanım veya altyapı arızası vardır.",
+        "cozum": "İlgili modülü değiştirin."
+      }
+    ],
+    "etiketler": [
+      "yazıcı & çevre birimleri",
+      "pos & fiş kasa",
+      "sam4s giant-100",
+      "saha-cozumu"
+    ],
+    "oncelik": 1
+  }
+]
